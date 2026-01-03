@@ -40,10 +40,10 @@ const toolSections = [
       { name: 'Video Script Generator', slug: 'video-script-generator', icon: Video },
       { name: 'Thumbnail Text Generator', slug: 'thumbnail-text-generator', icon: Type },
       { name: 'Quote Card Generator', slug: 'quote-card-generator', icon: Type },
-      { name: 'Podcast Show Notes Generator', slug: 'podcast-show-notes-generator', icon: Mic },
-      { name: 'Readability Checker', slug: 'readability-checker', icon: Eye },
       { name: 'Image Alt Text Generator', slug: 'image-alt-text-generator', icon: Image },
+      { name: 'Podcast Show Notes Generator', slug: 'podcast-show-notes-generator', icon: Mic },
       { name: 'Blog Outline Generator', slug: 'blog-outline-generator', icon: Lightbulb },
+      { name: 'Readability Checker', slug: 'readability-checker', icon: Eye },
       { name: 'Content Idea Generator', slug: 'content-idea-generator', icon: Lightbulb },
     ]
   },
