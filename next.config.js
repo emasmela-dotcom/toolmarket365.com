@@ -5,25 +5,17 @@ const nextConfig = {
     domains: [],
   },
   webpack: (config, { isServer }) => {
-    // Exclude .node binary files from webpack processing
+    // Explicitly ignore problematic packages
+    config.externals = config.externals || []
+    config.externals.push({
+      '@xenova/transformers': 'commonjs @xenova/transformers',
+      'onnxruntime-node': 'commonjs onnxruntime-node',
+    })
+
+    // Ignore .node binary files
     config.module.rules.push({
       test: /\.node$/,
       use: 'ignore-loader',
-    })
-
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        path: false,
-        crypto: false,
-      }
-    }
-
-    // Exclude problematic native modules
-    config.externals = config.externals || []
-    config.externals.push({
-      'onnxruntime-node': 'commonjs onnxruntime-node',
     })
 
     return config

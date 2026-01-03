@@ -103,7 +103,7 @@ export default function ImageAltTextGenerator() {
             </div>
           </div>
           <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">Image Alt Text Generator</h1>
-          <p className="text-xl text-mono-600 dark:text-mono-400">Generate SEO-friendly alt text for your images using AI</p>
+          <p className="text-xl text-mono-600 dark:text-mono-400">Generate SEO-friendly alt text for your images</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -223,12 +223,12 @@ export default function ImageAltTextGenerator() {
                 </p>
                 <div className="flex justify-center gap-6 text-sm text-mono-600 dark:text-mono-400">
                   <div className="flex items-center gap-2">
-                    <Sparkles size={18} className="text-accent-600" />
-                    <span>AI-powered</span>
+                    <Check size={18} className="text-accent-600" />
+                    <span>SEO-optimized</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check size={18} className="text-accent-600" />
-                    <span>SEO-optimized</span>
+                    <span>Pattern-based</span>
                   </div>
                 </div>
               </div>
