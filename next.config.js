@@ -6,7 +6,7 @@ const nextConfig = {
   images: {
     domains: [],
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config) => {
     // Use IgnorePlugin to completely ignore these packages
     config.plugins.push(
       new webpack.IgnorePlugin({
@@ -14,14 +14,11 @@ const nextConfig = {
       }),
       new webpack.IgnorePlugin({
         resourceRegExp: /^onnxruntime-node$/,
+      }),
+      new webpack.IgnorePlugin({
+        resourceRegExp: /\.node$/,
       })
     )
-
-    // Ignore .node files
-    config.module.rules.push({
-      test: /\.node$/,
-      use: 'ignore-loader',
-    })
 
     return config
   },
