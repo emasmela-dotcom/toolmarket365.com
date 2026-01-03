@@ -71,6 +71,7 @@ const toolSections = [
       { name: 'Hashtag Analyzer', slug: 'hashtag-analyzer', icon: Hash },
       { name: 'Hashtag Research', slug: 'hashtag-research', icon: Hash },
       { name: 'Competitor Analyzer', slug: 'competitor-analyzer', icon: BarChart3 },
+      { name: 'Trend Tracker', slug: 'trend-tracker', icon: TrendingUp },
     ]
   },
   {
