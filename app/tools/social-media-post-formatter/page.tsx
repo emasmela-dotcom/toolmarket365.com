@@ -82,7 +82,7 @@ export default function SocialMediaPostFormatter() {
 
   const handleAITags = () => {
     const words = input.match(/\b\w{4,}\b/g) || []
-    const tags = [...new Set(words.map(w => "#" + w.charAt(0).toUpperCase() + w.slice(1)))].slice(0, 10)
+    const tags = [...new Set(words.map((w: string) => "#" + w.charAt(0).toUpperCase() + w.slice(1)))].slice(0, 10)
     if (tags.length) {
       insertAtCursor(" " + tags.join(" "))
     }
@@ -117,7 +117,7 @@ export default function SocialMediaPostFormatter() {
         <div className="flex gap-3 my-4 flex-wrap items-center">
           <select
             value={platform}
-            onChange={(e) => setPlatform(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPlatform(e.target.value)}
             className="px-3 py-2 text-sm border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
           >
             <option value="twitter">Twitter / X</option>
