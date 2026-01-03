@@ -70,6 +70,7 @@ const toolSections = [
       { name: 'Engagement Calculator', slug: 'engagement-calculator', icon: TrendingUp },
       { name: 'Hashtag Analyzer', slug: 'hashtag-analyzer', icon: Hash },
       { name: 'Hashtag Research', slug: 'hashtag-research', icon: Hash },
+      { name: 'Competitor Analyzer', slug: 'competitor-analyzer', icon: BarChart3 },
     ]
   },
   {
