@@ -75,6 +75,7 @@ const toolSections = [
       { name: 'Content Gap Analyzer', slug: 'content-gap-analyzer', icon: Lightbulb },
       { name: 'Brand Mention Tracker', slug: 'brand-mention-tracker', icon: BarChart3 },
       { name: 'Sentiment Analyzer', slug: 'sentiment-analyzer', icon: BarChart3 },
+      { name: 'Follower Growth Tracker', slug: 'follower-growth-tracker', icon: TrendingUp },
     ]
   },
   {
