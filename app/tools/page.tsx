@@ -76,6 +76,7 @@ const toolSections = [
       { name: 'Brand Mention Tracker', slug: 'brand-mention-tracker', icon: BarChart3 },
       { name: 'Sentiment Analyzer', slug: 'sentiment-analyzer', icon: BarChart3 },
       { name: 'Follower Growth Tracker', slug: 'follower-growth-tracker', icon: TrendingUp },
+      { name: 'Cross-Platform Analytics', slug: 'cross-platform-analytics', icon: BarChart3 },
     ]
   },
   {
