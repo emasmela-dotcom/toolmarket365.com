@@ -1,71 +1,73 @@
 # Post Scheduler
 
 ## What It Does
-Schedule and manage social media posts across multiple platforms. Organize posts by status (upcoming, past, drafts), edit, duplicate, and track scheduled times.
+Calendar-based post scheduler with optimal posting time heat-map. Visualize best times to post, schedule content, and export to calendar format. Shows green cells for optimal posting times.
 
 ## How to Use
 
-1. **Schedule a new post:**
-   - Click "Schedule New Post" button
-   - Select platform (Instagram, Twitter, LinkedIn, YouTube, TikTok)
-   - Enter post content
-   - Add hashtags (optional)
-   - Set date and time
-   - Choose media type (Image or Video)
-   - Click "Schedule" or "Save as Draft"
+1. **View calendar:**
+   - Switch between Month and Week view
+   - Navigate months with arrow buttons
+   - Green cells = optimal posting times
+   - Gray cells = other times
 
-2. **Manage posts:**
-   - **Upcoming tab** - View scheduled posts with countdown
-   - **Past tab** - View published and past posts
-   - **Drafts tab** - View saved drafts
+2. **Schedule a post:**
+   - Click any cell to edit/add post
+   - Enter title and body (optional)
+   - Click "Save"
+   - Post appears on calendar cell
 
-3. **Post actions:**
-   - **Edit** - Modify post details
-   - **Duplicate** - Create copy of post
-   - **Mark as Published** - Update status (for upcoming posts)
-   - **Delete** - Remove post
+3. **Queue posts:**
+   - Click "Queue" button
+   - Enter title and body
+   - Click "Add"
+   - Automatically finds first available optimal time slot
 
-4. **View stats:**
-   - Total Posts count
-   - Upcoming count
-   - Published count
-   - Drafts count
+4. **Manage posts:**
+   - Click any cell with a post to edit
+   - Modify title/body or delete
+   - Empty title removes post
+
+5. **Export:**
+   - Click "Export .ics" to download calendar file
+   - Import into Google Calendar, Outlook, etc.
 
 ## Expected Outcome
 
-- **Organized posts** by status (upcoming, past, drafts)
-- **Platform-specific** scheduling for 5 platforms
-- **Time tracking** - Shows time until post goes live
-- **Status management** - Schedule, draft, or mark as published
-- **Post editing** - Modify any scheduled post
-- **Duplication** - Quickly create similar posts
-- **Visual cards** - Easy-to-scan post previews
+- **Visual calendar** - See all scheduled posts at a glance
+- **Optimal time heat-map** - Green cells show best posting times
+- **Post scheduling** - Schedule posts for specific dates/times
+- **Queue system** - Auto-schedule to next available optimal slot
+- **Calendar export** - Download .ics file for external calendars
+- **Local storage** - All posts saved in browser
 
-## Supported Platforms
+## Optimal Posting Times
 
-- **Instagram** - Pink badge
-- **Twitter** - Blue badge
-- **LinkedIn** - Indigo badge
-- **YouTube** - Red badge
-- **TikTok** - Purple badge
+The tool highlights these optimal times (UTC):
+- 09:00
+- 11:30
+- 13:00
+- 15:30
+- 19:00
+
+Green cells indicate these optimal times for maximum engagement.
 
 ## Features
 
-- **Local storage** - All posts saved in browser
-- **Time countdown** - Shows "in Xd Xh" or "Soon"
-- **Status badges** - Visual indicators for post status
-- **Platform icons** - Easy platform identification
-- **Media type tags** - Image or Video indicators
-- **Date/time picker** - Easy scheduling
-- **Draft system** - Save posts for later
+- **Month/Week view** - Switch between calendar views
+- **Heat-map visualization** - See optimal times at a glance
+- **Click to schedule** - Easy post creation
+- **Queue system** - Auto-find optimal slots
+- **Edit/Delete** - Full post management
+- **Export to .ics** - Calendar integration
+- **Local storage** - Persistent scheduling
 
 ## Tips
 
-- Use drafts to prepare posts in advance
-- Duplicate successful posts for similar content
-- Check upcoming tab regularly for scheduled posts
-- Mark posts as published after posting manually
-- Use hashtags field for easy hashtag management
-- Schedule multiple posts at once for content batching
-- Edit posts anytime before they go live
-
+- Use green cells (optimal times) for best engagement
+- Queue multiple posts to auto-schedule them
+- Export to calendar for reminders
+- Click cells to quickly add/edit posts
+- Use week view for detailed planning
+- Schedule in advance for consistent posting
+- Export .ics file to sync with other calendars
