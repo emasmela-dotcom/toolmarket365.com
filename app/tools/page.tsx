@@ -73,6 +73,7 @@ const toolSections = [
       { name: 'Competitor Analyzer', slug: 'competitor-analyzer', icon: BarChart3 },
       { name: 'Trend Tracker', slug: 'trend-tracker', icon: TrendingUp },
       { name: 'Content Gap Analyzer', slug: 'content-gap-analyzer', icon: Lightbulb },
+      { name: 'Brand Mention Tracker', slug: 'brand-mention-tracker', icon: BarChart3 },
     ]
   },
   {
