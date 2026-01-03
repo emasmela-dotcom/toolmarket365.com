@@ -42,6 +42,7 @@ const toolSections = [
     description: 'Tools for creating and optimizing content across formats',
     tools: [
       { name: 'Video Script Generator', slug: 'video-script-generator', icon: Video },
+      { name: 'Video Transcript Generator', slug: 'video-transcript-generator', icon: Video },
       { name: 'Thumbnail Text Generator', slug: 'thumbnail-text-generator', icon: Type },
       { name: 'Quote Card Generator', slug: 'quote-card-generator', icon: Type },
       { name: 'Image Alt Text Generator', slug: 'image-alt-text-generator', icon: Image },
