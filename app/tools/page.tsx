@@ -41,16 +41,7 @@ const toolSections = [
       { name: 'Thumbnail Text Generator', slug: 'thumbnail-text-generator', icon: Type },
       { name: 'Quote Card Generator', slug: 'quote-card-generator', icon: Type },
       { name: 'Podcast Show Notes Generator', slug: 'podcast-show-notes-generator', icon: Mic },
-      { name: 'Rate Calculator', slug: 'rate-calculator', icon: Calculator },
       { name: 'Readability Checker', slug: 'readability-checker', icon: Eye },
-      { name: 'Revenue Tracker', slug: 'revenue-tracker', icon: DollarSign },
-      { name: 'Link in Bio Manager', slug: 'link-in-bio-manager', icon: LinkIcon },
-    ]
-  },
-  {
-    title: 'Content Creation & Optimization',
-    description: 'Additional content creation and optimization tools',
-    tools: [
       { name: 'Image Alt Text Generator', slug: 'image-alt-text-generator', icon: Image },
       { name: 'Blog Outline Generator', slug: 'blog-outline-generator', icon: Lightbulb },
       { name: 'Content Idea Generator', slug: 'content-idea-generator', icon: Lightbulb },
