@@ -92,7 +92,12 @@ const toolSections = [
     title: 'Engagement & Growth',
     description: 'Tools to grow your audience and increase engagement',
     tools: [
+      { name: 'Poll / Question Generator', slug: 'poll-question-generator', icon: Lightbulb },
+      { name: 'Giveaway Manager', slug: 'giveaway-manager', icon: Calendar },
+      { name: 'Influencer Outreach Tool', slug: 'influencer-outreach-tool', icon: FileText },
+      { name: 'Collaboration Manager', slug: 'collaboration-manager', icon: Calendar },
       { name: 'Link in Bio Manager', slug: 'link-in-bio-manager', icon: LinkIcon },
+      { name: 'Link in Bio Optimizer', slug: 'link-in-bio-optimizer', icon: LinkIcon },
     ]
   },
   {
