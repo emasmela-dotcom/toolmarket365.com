@@ -5,17 +5,19 @@ const nextConfig = {
     domains: [],
   },
   webpack: (config, { isServer }) => {
-    // Explicitly ignore problematic packages
-    config.externals = config.externals || []
-    config.externals.push({
-      '@xenova/transformers': 'commonjs @xenova/transformers',
-      'onnxruntime-node': 'commonjs onnxruntime-node',
-    })
+    // Explicitly exclude problematic packages from bundling
+    if (!isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@xenova/transformers': false,
+        'onnxruntime-node': false,
+      }
+    }
 
-    // Ignore .node binary files
+    // Exclude .node files from processing
     config.module.rules.push({
       test: /\.node$/,
-      use: 'ignore-loader',
+      use: 'null-loader',
     })
 
     return config
