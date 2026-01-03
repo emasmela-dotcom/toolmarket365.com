@@ -40,26 +40,15 @@ export default function ImageAltTextGenerator() {
     setAltText('')
 
     try {
-      // Load transformers.js dynamically
-      const { pipeline } = await import('@xenova/transformers')
-      
-      // Initialize the image-to-text pipeline
-      const vision = await pipeline('image-to-text', 'Xenova/vit-gpt2-image-captioning')
-      
-      // Generate caption from image
-      const out = await vision(imageSrc)
-      const generated = out[0]?.generated_text || 'A descriptive image'
-      
-      // Limit to 125 characters for SEO-friendly alt text
-      const alt = generated.slice(0, 125)
-      
-      setAltText(alt)
+      // Use fallback alt text generation (AI feature disabled for build compatibility)
+      const fallbackAlt = generateFallbackAltText(imageSrc)
+      setAltText(fallbackAlt)
     } catch (err) {
       console.error('Alt text generation error:', err)
       // Fallback: Generate basic alt text from image analysis
       const fallbackAlt = generateFallbackAltText(imageSrc)
       setAltText(fallbackAlt)
-      setError('AI generation unavailable. Using fallback description.')
+      setError('Using fallback description.')
     } finally {
       setIsGenerating(false)
     }

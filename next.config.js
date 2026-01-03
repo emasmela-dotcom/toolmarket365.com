@@ -5,7 +5,12 @@ const nextConfig = {
     domains: [],
   },
   webpack: (config, { isServer }) => {
-    // Fix for @xenova/transformers
+    // Exclude .node binary files from webpack processing
+    config.module.rules.push({
+      test: /\.node$/,
+      use: 'ignore-loader',
+    })
+
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -14,12 +19,11 @@ const nextConfig = {
         crypto: false,
       }
     }
-    
-    // Ignore node modules that aren't needed
+
+    // Exclude problematic native modules
     config.externals = config.externals || []
     config.externals.push({
-      'sharp': 'commonjs sharp',
-      'canvas': 'commonjs canvas',
+      'onnxruntime-node': 'commonjs onnxruntime-node',
     })
 
     return config
