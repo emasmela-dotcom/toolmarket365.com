@@ -18,9 +18,7 @@ import {
   DollarSign, 
   Search, 
   Video, 
-  Download,
-  Eye,
-  Target
+  Eye
 } from 'lucide-react'
 
 const toolSections = [
