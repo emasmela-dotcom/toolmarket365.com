@@ -1,3 +1,5 @@
+const webpack = require('webpack')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -5,19 +7,20 @@ const nextConfig = {
     domains: [],
   },
   webpack: (config, { isServer }) => {
-    // Explicitly exclude problematic packages from bundling
-    if (!isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@xenova/transformers': false,
-        'onnxruntime-node': false,
-      }
-    }
+    // Use IgnorePlugin to completely ignore these packages
+    config.plugins.push(
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^@xenova\/transformers$/,
+      }),
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^onnxruntime-node$/,
+      })
+    )
 
-    // Exclude .node files from processing
+    // Ignore .node files
     config.module.rules.push({
       test: /\.node$/,
-      use: 'null-loader',
+      use: 'ignore-loader',
     })
 
     return config
