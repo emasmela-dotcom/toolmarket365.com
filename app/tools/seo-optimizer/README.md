@@ -1,97 +1,51 @@
 # SEO Optimizer
 
 ## What It Does
-Analyzes and optimizes your content for search engines. Provides detailed SEO scores, recommendations, and actionable improvements for titles, descriptions, content, URLs, keywords, and readability.
+Analyzes your content to find the most frequently used keywords. Helps identify which words appear most often in your text, useful for SEO optimization and keyword research.
 
 ## How to Use
 
-1. **Enter your content:**
-   - Page Title (50-60 characters optimal)
-   - Meta Description (150-160 characters optimal)
-   - URL Slug (optional)
-   - Target Keywords (comma-separated)
-   - Content Body (300+ words recommended)
+1. **Paste your content:**
+   - Copy and paste your article, blog post, or any text
+   - Can be any length of content
 
-2. **Click "Analyze SEO"**
+2. **Click "Analyze"**
 
-3. **Review results:**
-   - Overall SEO Score (0-100)
-   - Detailed analysis for each element
-   - Specific issues and suggestions
-   - Keyword density analysis
+3. **Review top keywords:**
+   - See top 10 keywords ranked by frequency
+   - View how many times each keyword appears
+   - Keywords are filtered (stop words removed)
 
 ## Expected Outcome
 
-- **Overall SEO Score** - 0-100 rating with Great/Good/Needs Work
-- **Detailed Analysis Cards:**
-  - Title Score
-  - Description Score
-  - Content Score
-  - URL Score
-  - Keywords Score
-  - Readability Score
-- **Specific Recommendations:**
-  - Issues (red) - Problems to fix
-  - Suggestions (gray) - Improvements to make
-  - Keyword density breakdown
-- **Actionable Tips** - Step-by-step optimization guidance
+- **Top 10 Keywords** - Most frequently used words
+- **Frequency count** - How many times each keyword appears
+- **Ranked list** - Keywords sorted by usage
+- **Keyword insights** - Summary statistics
 
-## SEO Guidelines Analyzed
+## How It Works
 
-### Title
-- **Optimal:** 50-60 characters
-- Too short: < 30 characters
-- Too long: > 70 characters (may truncate)
-- Suggestions for improvement
-
-### Meta Description
-- **Optimal:** 150-160 characters
-- Too short: < 120 characters
-- Too long: > 165 characters (may truncate)
-- Engagement tips (questions, CTAs)
-
-### Content
-- **Minimum:** 300 words
-- **Good:** 500+ words
-- **Excellent:** 1000+ words
-- Headings structure (H2, H3)
-- Paragraph breaks
-
-### URL
-- **Max length:** 75 characters
-- Lowercase only
-- Use hyphens (-) not underscores (_)
-- Include keywords
-
-### Keywords
-- **Optimal:** 3-5 keywords
-- Keyword density: 1-2% (avoid stuffing)
-- Keyword usage tracking
-- Distribution analysis
-
-### Readability
-- Sentence length: 15-20 words average
-- Complex word usage
-- Overall readability score
+- Removes common stop words (the, and, to, etc.)
+- Filters out words shorter than 3 characters
+- Counts word frequency
+- Ranks by most frequent
+- Shows top 10 keywords
 
 ## Features
 
-- **Comprehensive analysis** - 6 key SEO factors
-- **Real-time character/word counts** - See limits as you type
-- **Color-coded scores** - Green (good), Yellow (okay), Red (needs work)
-- **Keyword density calculator** - Track keyword usage
-- **Actionable recommendations** - Specific fixes to implement
-- **Overall score** - Quick performance assessment
+- **Keyword frequency analysis** - See which words you use most
+- **Stop word filtering** - Removes common words
+- **Ranked results** - Top keywords by frequency
+- **Frequency counts** - See exact usage numbers
+- **Quick analysis** - Instant results
 
 ## Tips
 
-- Aim for 50-60 character titles for best display
-- Write compelling descriptions with CTAs
-- Use 3-5 target keywords naturally
-- Keep keyword density at 1-2% (avoid stuffing)
-- Structure content with headings
-- Use short, readable sentences
-- Include keywords in URLs
-- Write 1000+ words for comprehensive content
-- Review all recommendations before publishing
-
+- Use longer content for better keyword analysis
+- Review top keywords to ensure they match your intent
+- Check if important keywords appear frequently enough
+- Use results to optimize keyword density
+- Identify overused or underused keywords
+- Compare keywords across different content pieces
+- Use for SEO keyword research
+- Ensure target keywords appear in top results
