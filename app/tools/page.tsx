@@ -18,7 +18,11 @@ import {
   DollarSign, 
   Search, 
   Video, 
-  Eye
+  Eye,
+  Palette,
+  FileCheck,
+  User,
+  Sparkles as SparklesIcon
 } from 'lucide-react'
 
 const toolSections = [
@@ -90,6 +94,18 @@ const toolSections = [
     tools: [
       { name: 'Content Library', slug: 'content-library', icon: FolderOpen },
       { name: 'Link in Bio Manager', slug: 'link-in-bio-manager', icon: LinkIcon },
+    ]
+  },
+  {
+    title: 'Brand & Design',
+    description: 'Create and manage your brand identity, colors, fonts, and style guides',
+    tools: [
+      { name: 'Brand Kit Manager', slug: 'brand-kit-manager', icon: Palette },
+      { name: 'Color Palette Extractor', slug: 'color-palette-extractor', icon: Image },
+      { name: 'Font Pairing Tool', slug: 'font-pairing-tool', icon: Type },
+      { name: 'Style Guide Creator', slug: 'style-guide-creator', icon: FileCheck },
+      { name: 'Profile Optimizer', slug: 'profile-optimizer', icon: User },
+      { name: 'Bio Generator', slug: 'bio-generator', icon: SparklesIcon },
     ]
   },
 ]
