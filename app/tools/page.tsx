@@ -52,13 +52,15 @@ const toolSections = [
     ]
   },
   {
-    title: 'Workflow & Productivity',
-    description: 'Tools to organize, plan, and manage your content workflow',
+    title: 'Brand & Design',
+    description: 'Create and manage your brand identity, colors, fonts, and style guides',
     tools: [
-      { name: 'Content Calendar', slug: 'content-calendar', icon: Calendar },
-      { name: 'Content Library', slug: 'content-library', icon: FolderOpen },
-      { name: 'Social Media Post Formatter', slug: 'social-media-post-formatter', icon: FileText },
-      { name: 'Best Time to Post', slug: 'best-time-to-post', icon: Clock },
+      { name: 'Brand Kit Manager', slug: 'brand-kit-manager', icon: Palette },
+      { name: 'Color Palette Extractor', slug: 'color-palette-extractor', icon: Image },
+      { name: 'Font Pairing Tool', slug: 'font-pairing-tool', icon: Type },
+      { name: 'Style Guide Creator', slug: 'style-guide-creator', icon: FileCheck },
+      { name: 'Profile Optimizer', slug: 'profile-optimizer', icon: User },
+      { name: 'Bio Generator', slug: 'bio-generator', icon: SparklesIcon },
     ]
   },
   {
@@ -68,6 +70,21 @@ const toolSections = [
       { name: 'Engagement Calculator', slug: 'engagement-calculator', icon: TrendingUp },
       { name: 'Hashtag Analyzer', slug: 'hashtag-analyzer', icon: Hash },
       { name: 'Hashtag Research', slug: 'hashtag-research', icon: Hash },
+    ]
+  },
+  {
+    title: 'Business & Monetization',
+    description: 'Track revenue and calculate rates for your work',
+    tools: [
+      { name: 'Rate Calculator', slug: 'rate-calculator', icon: Calculator },
+      { name: 'Revenue Tracker', slug: 'revenue-tracker', icon: DollarSign },
+    ]
+  },
+  {
+    title: 'Engagement & Growth',
+    description: 'Tools to grow your audience and increase engagement',
+    tools: [
+      { name: 'Link in Bio Manager', slug: 'link-in-bio-manager', icon: LinkIcon },
     ]
   },
   {
@@ -81,31 +98,13 @@ const toolSections = [
     ]
   },
   {
-    title: 'Business & Monetization',
-    description: 'Track revenue and calculate rates for your work',
+    title: 'Workflow & Productivity',
+    description: 'Tools to organize, plan, and manage your content workflow',
     tools: [
-      { name: 'Rate Calculator', slug: 'rate-calculator', icon: Calculator },
-      { name: 'Revenue Tracker', slug: 'revenue-tracker', icon: DollarSign },
-    ]
-  },
-  {
-    title: 'Organization & Management',
-    description: 'Organize and manage your content assets and links',
-    tools: [
+      { name: 'Content Calendar', slug: 'content-calendar', icon: Calendar },
       { name: 'Content Library', slug: 'content-library', icon: FolderOpen },
-      { name: 'Link in Bio Manager', slug: 'link-in-bio-manager', icon: LinkIcon },
-    ]
-  },
-  {
-    title: 'Brand & Design',
-    description: 'Create and manage your brand identity, colors, fonts, and style guides',
-    tools: [
-      { name: 'Brand Kit Manager', slug: 'brand-kit-manager', icon: Palette },
-      { name: 'Color Palette Extractor', slug: 'color-palette-extractor', icon: Image },
-      { name: 'Font Pairing Tool', slug: 'font-pairing-tool', icon: Type },
-      { name: 'Style Guide Creator', slug: 'style-guide-creator', icon: FileCheck },
-      { name: 'Profile Optimizer', slug: 'profile-optimizer', icon: User },
-      { name: 'Bio Generator', slug: 'bio-generator', icon: SparklesIcon },
+      { name: 'Social Media Post Formatter', slug: 'social-media-post-formatter', icon: FileText },
+      { name: 'Best Time to Post', slug: 'best-time-to-post', icon: Clock },
     ]
   },
 ]
