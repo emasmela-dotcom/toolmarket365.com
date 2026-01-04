@@ -19,21 +19,39 @@ export function CommentBoard() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    loadComments()
+    // Load comments with timeout to prevent page hanging
+    const timer = setTimeout(() => {
+      loadComments()
+    }, 100) // Small delay to let page render first
+    return () => clearTimeout(timer)
   }, [])
 
   const loadComments = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('/api/comments')
-      const data = await response.json()
-      if (response.ok) {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 2000) // 2 second timeout
+      
+      try {
+        const response = await fetch('/api/comments', {
+          signal: controller.signal
+        })
+        clearTimeout(timeoutId)
+        
+        if (!response.ok) {
+          throw new Error('API error')
+        }
+        
+        const data = await response.json()
         setComments(data.comments || [])
-      } else {
-        console.error('Failed to load comments:', data.error)
+      } catch (fetchError) {
+        clearTimeout(timeoutId)
+        // Silently fail - don't block the page
+        setComments([])
       }
     } catch (error) {
-      console.error('Error loading comments:', error)
+      // Silently fail - don't block the page
+      setComments([])
     } finally {
       setIsLoading(false)
     }
@@ -111,95 +129,82 @@ export function CommentBoard() {
   }
 
   return (
-    <section className="py-12 bg-mono-50 dark:bg-mono-900 border-t border-mono-200 dark:border-mono-700">
+    <section className="py-6 bg-mono-50 dark:bg-mono-900 border-t border-mono-200 dark:border-mono-700">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <div className="flex items-center gap-2 mb-6">
-            <MessageSquare className="h-6 w-6 text-accent-600 dark:text-accent-400" />
-            <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50">
+          <div className="flex items-center gap-2 mb-4">
+            <MessageSquare className="h-5 w-5 text-accent-600 dark:text-accent-400" />
+            <h2 className="text-lg font-bold text-mono-950 dark:text-mono-50">
               Community Board
             </h2>
           </div>
 
-          <form onSubmit={handleSubmit} className="mb-8 bg-white dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-1">
-                  Your Name
-                </label>
+          <form onSubmit={handleSubmit} className="mb-4 bg-white dark:bg-mono-800 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
+            <div className="space-y-3">
+              <div className="flex gap-3">
                 <input
                   type="text"
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter your name"
-                  className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-md bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
+                  placeholder="Your name"
+                  className="flex-1 px-3 py-2 text-sm border border-mono-300 dark:border-mono-700 rounded-md bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
                   maxLength={50}
                 />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-1">
-                  Message
-                </label>
                 <textarea
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Share your thoughts, feedback, or announcements..."
-                  rows={4}
-                  className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-md bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500 resize-y"
+                  placeholder="Share your thoughts..."
+                  rows={2}
+                  className="flex-1 px-3 py-2 text-sm border border-mono-300 dark:border-mono-700 rounded-md bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500 resize-none"
                   maxLength={500}
                 />
-                <p className="text-right text-xs text-mono-500 dark:text-mono-400 mt-1">
-                  {message.length}/500
-                </p>
+                <button
+                  type="submit"
+                  disabled={isSubmitting || !name.trim() || !message.trim()}
+                  className="px-4 py-2 bg-accent-600 text-white text-sm font-medium rounded-lg hover:bg-accent-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  <Send className="h-4 w-4" />
+                  {isSubmitting ? '...' : 'Post'}
+                </button>
               </div>
-              <button
-                type="submit"
-                disabled={isSubmitting || !name.trim() || !message.trim()}
-                className="w-full sm:w-auto px-6 py-2 bg-accent-600 text-white font-medium rounded-lg hover:bg-accent-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                <Send className="h-4 w-4" />
-                {isSubmitting ? 'Posting...' : 'Post Message'}
-              </button>
             </div>
           </form>
 
-          <div className="space-y-4">
+          <div className="space-y-2 max-h-64 overflow-y-auto">
             {isLoading ? (
-              <div className="text-center py-12 bg-white dark:bg-mono-800 rounded-lg border border-mono-200 dark:border-mono-700">
-                <p className="text-mono-600 dark:text-mono-400">Loading comments...</p>
+              <div className="text-center py-6 bg-white dark:bg-mono-800 rounded-lg border border-mono-200 dark:border-mono-700">
+                <p className="text-sm text-mono-600 dark:text-mono-400">Loading...</p>
               </div>
             ) : comments.length === 0 ? (
-              <div className="text-center py-12 bg-white dark:bg-mono-800 rounded-lg border border-mono-200 dark:border-mono-700">
-                <MessageSquare className="h-12 w-12 text-mono-400 dark:text-mono-600 mx-auto mb-3" />
-                <p className="text-mono-600 dark:text-mono-400">No messages yet. Be the first to post!</p>
+              <div className="text-center py-6 bg-white dark:bg-mono-800 rounded-lg border border-mono-200 dark:border-mono-700">
+                <p className="text-sm text-mono-600 dark:text-mono-400">No messages yet.</p>
               </div>
             ) : (
-              comments.map((comment) => (
+              comments.slice(0, 5).map((comment) => (
                 <div
                   key={comment.id}
-                  className="bg-white dark:bg-mono-800 rounded-lg p-5 border border-mono-200 dark:border-mono-700 hover:border-accent-300 dark:hover:border-accent-700 transition-colors"
+                  className="bg-white dark:bg-mono-800 rounded-lg p-3 border border-mono-200 dark:border-mono-700 text-sm"
                 >
-                  <div className="flex items-start justify-between mb-2">
+                  <div className="flex items-start justify-between mb-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-mono-950 dark:text-mono-50">
+                      <span className="font-semibold text-mono-950 dark:text-mono-50 text-xs">
                         {comment.name}
                       </span>
-                      <span className="text-xs text-mono-500 dark:text-mono-400 flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
+                      <span className="text-xs text-mono-500 dark:text-mono-400">
                         {formatDate(comment.created_at)}
                       </span>
                     </div>
                     <button
                       onClick={() => handleDelete(comment.id)}
                       className="p-1 text-mono-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
-                      title="Delete comment"
+                      title="Delete"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-3 w-3" />
                     </button>
                   </div>
-                  <p className="text-mono-700 dark:text-mono-300 whitespace-pre-wrap">
+                  <p className="text-xs text-mono-700 dark:text-mono-300 whitespace-pre-wrap line-clamp-2">
                     {comment.message}
                   </p>
                 </div>

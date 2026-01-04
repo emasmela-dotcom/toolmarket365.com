@@ -84,3 +84,4 @@ Generates detailed blog outlines with H2, H3 headings and bullet points. Works w
 4. Create a new secret key
 5. Copy and paste into the tool
 
+

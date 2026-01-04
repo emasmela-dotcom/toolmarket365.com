@@ -150,6 +150,39 @@ Generated with Podcast Show-Notes Generator
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-8 px-4">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Generates professional show notes for podcast episodes from transcripts. Creates summaries, chapter timestamps, key takeaways, and SEO keywords automatically.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter episode details (optional):</strong> Episode title, Guest name, Language (English, Español, Français)</li>
+                <li><strong>Add transcript:</strong> Drag & drop transcript file (.txt) or audio file, click drop zone to browse, paste transcript directly, or paste YouTube URL</li>
+                <li><strong>Click "Generate notes"</strong> to process your transcript</li>
+                <li><strong>Review generated show notes:</strong> Summary, Chapters with timestamps, Key takeaways, Guest information, SEO keywords</li>
+                <li><strong>Copy</strong> the formatted show notes</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Formatted show notes in Markdown format</li>
+                <li>Summary - Condensed episode overview (25% of transcript)</li>
+                <li>Chapters - Timestamped sections (auto-detected or generated)</li>
+                <li>Key takeaways - Top 3 main points</li>
+                <li>Guest info - Guest name if provided</li>
+                <li>SEO keywords - Top 5 relevant keywords extracted</li>
+                <li>Ready to publish - Copy directly to your podcast platform</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <header className="flex gap-4 flex-wrap items-center mb-6">
           <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50 m-0">Podcast Show-Notes Generator</h1>
           <input
@@ -246,4 +279,5 @@ Generated with Podcast Show-Notes Generator
     </div>
   )
 }
+
 

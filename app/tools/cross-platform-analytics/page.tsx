@@ -66,6 +66,36 @@ export default function CrossPlatformAnalytics() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-6xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Displays analytics data across multiple social media platforms in one unified view. Shows followers, posts, and engagement rates for Instagram, TikTok, Twitter, YouTube, and LinkedIn.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Click "Load mock data"</strong> to see example analytics</li>
+                <li><strong>View platform data:</strong> See followers, posts, and engagement rate for each platform</li>
+                <li><strong>Compare platforms:</strong> Easily compare performance across different social media platforms</li>
+                <li><strong>Analyze trends:</strong> Review engagement rates and follower counts to identify top-performing platforms</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Unified view of all platform analytics</li>
+                <li>Side-by-side comparison of platforms</li>
+                <li>Followers, posts, and engagement data for each platform</li>
+                <li>Easy-to-read table format</li>
+                <li>Quick overview of your social media presence</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Cross-Platform Analytics
         </h1>
@@ -225,4 +255,5 @@ export default function CrossPlatformAnalytics() {
     </div>
   )
 }
+
 

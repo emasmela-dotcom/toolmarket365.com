@@ -95,6 +95,35 @@ export default function VideoTranscriptGenerator() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Extract transcripts from YouTube videos automatically. Get the full text content of any YouTube video for use in content creation, accessibility, SEO, or content repurposing.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter YouTube URL:</strong> Paste a YouTube video URL (supports youtu.be, youtube.com/watch, or youtube.com/embed formats)</li>
+                <li><strong>Click "Get Transcript"</strong> button to extract the video ID and fetch the transcript</li>
+                <li><strong>Use Transcript:</strong> View the full transcript, click "Copy" to copy to clipboard, click "Download" to save as text file, see word count for reference</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Full transcript of the YouTube video</li>
+                <li>Clean, readable text format</li>
+                <li>Word count displayed</li>
+                <li>Easy copy and download functionality</li>
+                <li>Video ID extraction confirmation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Video Transcript Generator
         </h1>
@@ -192,4 +221,5 @@ export default function VideoTranscriptGenerator() {
     </div>
   )
 }
+
 

@@ -69,3 +69,4 @@ Monitor trending topics, keywords, and hashtags in your niche over time. Track w
 - Benchmark your content topics against trend data
 - Discover new content opportunities
 
+

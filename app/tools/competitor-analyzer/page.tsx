@@ -66,6 +66,36 @@ export default function CompetitorAnalyzer() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Compares your Instagram account with a competitor's account. Analyzes posts, followers, and engagement rate to help you understand how you stack up against competitors.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter competitor IG handle:</strong> Type the competitor's Instagram username (e.g., "rivalbrand")</li>
+                <li><strong>Enter your IG handle:</strong> Type your Instagram username (e.g., "mybrand")</li>
+                <li><strong>Click "Compare"</strong> to see side-by-side comparison</li>
+                <li><strong>Review results:</strong> See comparison of posts, followers, and engagement rate with visual indicators showing who performs better</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Side-by-side comparison of posts count</li>
+                <li>Follower count comparison</li>
+                <li>Engagement rate comparison</li>
+                <li>Visual indicators showing who performs better in each metric</li>
+                <li>Clear winner indicators for each category</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Competitor Analyzer
         </h1>
@@ -256,4 +286,5 @@ export default function CompetitorAnalyzer() {
     </div>
   )
 }
+
 

@@ -106,6 +106,36 @@ export default function BestTimeToPost() {
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 p-4 max-w-4xl mx-auto">
+      {/* Documentation Section */}
+      <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+        <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+        <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+            <p>Shows the best times to post on social media platforms using a heat-map visualization. Displays optimal posting times by day of week and hour of day to maximize engagement.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+            <ol className="list-decimal list-inside space-y-1 ml-2">
+              <li><strong>Select platform:</strong> Choose Instagram, TikTok, Twitter, LinkedIn, or Facebook</li>
+              <li><strong>View heat-map:</strong> See color-coded grid showing best posting times (darker colors = better times)</li>
+              <li><strong>Hover over cells:</strong> See specific day and time combinations</li>
+              <li><strong>Plan your posts:</strong> Schedule content during the optimal times shown in darker colors</li>
+            </ol>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+            <ul className="list-disc list-inside space-y-1 ml-2">
+              <li>Visual heat-map showing optimal posting times</li>
+              <li>Platform-specific recommendations</li>
+              <li>Day and hour combinations for best engagement</li>
+              <li>Color-coded visualization (darker = better times)</li>
+              <li>Easy-to-read grid format</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <header className="flex gap-4 flex-wrap items-center mb-4">
         <h1 className="text-2xl font-bold m-0">Best Time to Post – 2026 Heat-map</h1>
         <select
@@ -184,4 +214,5 @@ export default function BestTimeToPost() {
     </div>
   )
 }
+
 

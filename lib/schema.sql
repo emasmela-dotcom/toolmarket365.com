@@ -33,3 +33,4 @@ CREATE INDEX IF NOT EXISTS idx_analytics_timestamp ON analytics(timestamp DESC);
 CREATE INDEX IF NOT EXISTS idx_analytics_page ON analytics(page);
 CREATE INDEX IF NOT EXISTS idx_tool_usage_slug ON tool_usage(tool_slug);
 
+

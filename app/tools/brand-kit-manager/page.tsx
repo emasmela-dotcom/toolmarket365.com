@@ -48,6 +48,38 @@ export default function BrandKitManager() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-2xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Stores and manages your brand kit including brand name, primary and secondary colors, and brand tagline. Saves your brand identity for easy reference and consistency across your content.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter brand name:</strong> Type your brand or business name</li>
+                <li><strong>Select primary color:</strong> Choose your main brand color using the color picker</li>
+                <li><strong>Select secondary color:</strong> Choose your secondary brand color</li>
+                <li><strong>Enter tagline (optional):</strong> Add your brand tagline or slogan</li>
+                <li><strong>Click "Save Brand Kit"</strong> to store your brand identity</li>
+                <li><strong>View saved kit:</strong> Your brand kit is automatically loaded and displayed when you return</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Saved brand kit with name, colors, and tagline</li>
+                <li>Visual preview of your brand colors</li>
+                <li>Persistent storage - brand kit saved in browser</li>
+                <li>Easy reference for consistent brand usage</li>
+                <li>Color codes displayed in hex format</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Brand Kit Manager
         </h1>
@@ -152,4 +184,5 @@ export default function BrandKitManager() {
     </div>
   )
 }
+
 

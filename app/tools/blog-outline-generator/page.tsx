@@ -106,6 +106,35 @@ export default function BlogOutlineGenerator() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 py-8 px-4">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Generates detailed blog outlines with H2, H3 headings and bullet points. Works with OpenAI API for AI-powered outlines, or generates template outlines without an API key.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter blog title (required):</strong> Type your blog post title</li>
+                <li><strong>Select tone:</strong> Professional, Casual, Friendly, Academic, or Conversational</li>
+                <li><strong>Choose level:</strong> Beginner, Intermediate, or Advanced</li>
+                <li><strong>Add primary keyword (optional):</strong> For SEO focus</li>
+                <li><strong>Add OpenAI API key (optional):</strong> For AI-powered outlines</li>
+                <li><strong>Click "Generate Outline"</strong> to create your outline</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>With API Key: AI-generated outline tailored to your title, tone, and level with structured format (H2/H3 headings, bullet points), SEO-optimized if keyword provided, tone-appropriate content structure</li>
+                <li>Without API Key: Template outline with standard blog structure (Introduction, Understanding the Basics, Key Concepts, Advanced Techniques, Real-World Applications, Common Pitfalls, Best Practices, Conclusion), ready to customize</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-2">Blog Outline Generator</h1>
         <p className="text-mono-600 dark:text-mono-400 mb-6">
           Generate detailed blog outlines with H2, H3, and bullet points. Works with or without OpenAI API.
@@ -213,4 +242,5 @@ export default function BlogOutlineGenerator() {
     </div>
   )
 }
+
 

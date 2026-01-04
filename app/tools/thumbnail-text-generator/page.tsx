@@ -57,6 +57,38 @@ export default function ThumbnailTextGenerator() {
           <p className="text-xl text-mono-600 dark:text-mono-400">Generate formatted text for video thumbnails</p>
         </div>
 
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Generates formatted text for video thumbnails. Splits titles into multiple lines with customizable words per line, colors, fonts, and alignment. Perfect for YouTube, TikTok, and other video platforms.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter title:</strong> Type or paste your video title (e.g., "How to cook pasta in 10 minutes")</li>
+                <li><strong>Set words per line:</strong> Choose how many words appear on each line (default: 3 words per line)</li>
+                <li><strong>Customize appearance:</strong> Adjust Font Size (24-120px), Text Color, Background Color, and Text Alignment (left, center, right)</li>
+                <li><strong>Click "Generate"</strong> to create formatted text</li>
+                <li><strong>Review preview:</strong> See how text looks on colored background, adjust settings and regenerate</li>
+                <li><strong>Copy results:</strong> Copy Text (plain text format) or Copy HTML (HTML div format)</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Formatted lines - Title split into multiple lines</li>
+                <li>Visual preview - See how text looks on background</li>
+                <li>Customizable styling - Colors, size, alignment</li>
+                <li>Copy options - Text or HTML format</li>
+                <li>Ready to use - Paste into thumbnail editor</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Section */}
           <div className="space-y-6">
@@ -231,4 +263,5 @@ export default function ThumbnailTextGenerator() {
     </div>
   )
 }
+
 

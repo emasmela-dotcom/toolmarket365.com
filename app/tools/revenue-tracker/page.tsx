@@ -121,6 +121,38 @@ export default function RevenueTracker() {
           <p className="text-xl text-mono-600 dark:text-mono-400">Track your income and revenue streams</p>
         </div>
 
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Track and manage your revenue streams. Add income entries with dates, sources, and descriptions. View totals, monthly breakdowns, and export data for accounting.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Add revenue entry:</strong> Click "Add Revenue" button, enter amount ($), select date (defaults to today), enter source (e.g., "Sponsored Post", "Affiliate"), add description (optional), click "Add Entry"</li>
+                <li><strong>View revenue:</strong> See total revenue at top, view this month's revenue, see total number of entries, browse all entries in table</li>
+                <li><strong>Filter entries:</strong> All (view all revenue entries) or This Month (view only current month)</li>
+                <li><strong>Manage entries:</strong> Delete individual entries with trash icon, clear all entries (with confirmation)</li>
+                <li><strong>Export data:</strong> Click "Export CSV" to download spreadsheet (includes date, amount, source, description)</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Total Revenue - Sum of all entries</li>
+                <li>This Month - Current month's total</li>
+                <li>Total Entries - Number of revenue entries</li>
+                <li>Detailed table - All entries with date, amount, source, description</li>
+                <li>CSV export - Downloadable spreadsheet for accounting</li>
+                <li>Local storage - All data saved in browser</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="bg-mono-50 dark:bg-mono-900 rounded-xl shadow p-6 border border-mono-200 dark:border-mono-700">
@@ -311,4 +343,5 @@ export default function RevenueTracker() {
     </div>
   )
 }
+
 

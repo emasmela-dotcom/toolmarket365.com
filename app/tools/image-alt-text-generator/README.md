@@ -55,3 +55,4 @@ Generates SEO-friendly alt text for images using AI. Analyzes uploaded images an
 - Use for informational images, skip decorative ones
 - Test with screen readers to ensure clarity
 
+

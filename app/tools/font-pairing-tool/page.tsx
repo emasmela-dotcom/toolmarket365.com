@@ -33,6 +33,37 @@ export default function FontPairingTool() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Helps you find the perfect font combinations for headings and body text. Preview different font pairings in real-time to see how they look together before using them in your designs.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Select heading font:</strong> Choose a font from the dropdown for your headings/titles</li>
+                <li><strong>Select body font:</strong> Choose a font from the dropdown for your body text</li>
+                <li><strong>Preview the pairing:</strong> See how the fonts look together in the preview section</li>
+                <li><strong>Try different combinations:</strong> Experiment with different font pairs to find the best match</li>
+                <li><strong>Use in your designs:</strong> Apply the font pairings to your content, websites, or graphics</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Real-time preview of font pairings</li>
+                <li>Heading and body text examples showing the fonts together</li>
+                <li>Wide selection of fonts to choose from</li>
+                <li>Easy comparison of different font combinations</li>
+                <li>Professional font pairings ready to use</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Font Pairing Tool
         </h1>
@@ -108,4 +139,5 @@ export default function FontPairingTool() {
     </div>
   )
 }
+
 

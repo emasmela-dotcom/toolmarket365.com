@@ -36,3 +36,4 @@ Formats your social media content for different platforms with character limits,
 - AI hashtags extracts 4+ letter words and capitalizes them
 - Preview shows exactly what will be copied
 
+

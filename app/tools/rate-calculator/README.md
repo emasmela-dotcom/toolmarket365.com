@@ -58,3 +58,4 @@ The calculator uses industry-standard rates:
 - Consider exclusivity and usage rights
 - Use recommended rate as starting point for negotiations
 
+

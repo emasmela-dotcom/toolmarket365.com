@@ -56,6 +56,37 @@ export default function CollaborationManager() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Manages collaboration partnerships by tracking partner names, platforms, and deliverables. Keeps an organized list of all your collaborations for easy reference and management.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter partner name:</strong> Type the brand name or creator name you're collaborating with</li>
+                <li><strong>Select platform:</strong> Choose IG, TikTok, or YouTube</li>
+                <li><strong>Enter deliverable:</strong> Type what needs to be delivered (e.g., "1 reel + 3 stories")</li>
+                <li><strong>Click "Add Collab"</strong> to save the collaboration</li>
+                <li><strong>Manage collaborations:</strong> View all saved collaborations, delete individual collaborations, or clear all</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>List of all collaborations with partner name, platform, and deliverables</li>
+                <li>Easy-to-read format showing collaboration details</li>
+                <li>Delete button for each collaboration</li>
+                <li>Clear all button to remove all collaborations</li>
+                <li>Local storage - All collaborations saved in browser</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Collab Manager
         </h1>
@@ -180,4 +211,5 @@ export default function CollaborationManager() {
     </div>
   )
 }
+
 

@@ -94,3 +94,4 @@ Generates structured video scripts for YouTube, TikTok, Instagram Reels, and You
 - Keep CTAs natural and authentic
 - Review and edit before recording
 
+

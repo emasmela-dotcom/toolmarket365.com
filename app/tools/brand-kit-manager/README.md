@@ -46,3 +46,4 @@ Store and manage your brand identity elements including brand name, primary and 
 - Update your brand kit whenever your brand identity changes
 - The color pickers allow you to select any color for your brand palette
 
+

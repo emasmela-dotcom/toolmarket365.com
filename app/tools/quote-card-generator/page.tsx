@@ -153,6 +153,39 @@ export default function QuoteCardGenerator() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-8 px-4">
       <div className="max-w-6xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Creates visually appealing quote cards with customizable quotes, author names, themes, colors, sizes, and optional logos. Perfect for social media posts, blog graphics, or marketing materials.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter quote:</strong> Type or paste your quote text</li>
+                <li><strong>Enter author (optional):</strong> Add the quote author's name</li>
+                <li><strong>Select theme:</strong> Choose Minimal, Bold, Elegant, or Modern</li>
+                <li><strong>Customize colors:</strong> Choose text color and background color</li>
+                <li><strong>Select size:</strong> Choose 1080×1080 (Square), 1200×675 (Landscape), or 1080×1920 (Story)</li>
+                <li><strong>Upload logo (optional):</strong> Add your logo to the quote card</li>
+                <li><strong>Download:</strong> Click "Download" to save your quote card as PNG</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Visual quote card with your quote and author</li>
+                <li>Customizable theme and colors</li>
+                <li>Multiple size options for different platforms</li>
+                <li>Optional logo integration</li>
+                <li>Downloadable PNG image ready to use</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-6 text-center">
           Quote Card Generator
         </h1>
@@ -285,4 +318,5 @@ export default function QuoteCardGenerator() {
     </div>
   )
 }
+
 

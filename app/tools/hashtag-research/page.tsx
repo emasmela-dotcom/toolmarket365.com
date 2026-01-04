@@ -145,6 +145,38 @@ export default function HashtagResearchTool() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Discovers the best hashtags for your content based on topics and keywords. Shows volume, engagement potential, competition level, and trending status. Organizes hashtags into optimal mixes, trending tags, and niche opportunities.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter a topic or keyword:</strong> Type a topic (e.g., fitness, travel, food, fashion, tech)</li>
+                <li><strong>Select platform:</strong> Choose Instagram, TikTok, or Twitter</li>
+                <li><strong>Click "Search"</strong> to find relevant hashtags</li>
+                <li><strong>Review results:</strong> Stats overview (total found, trending count, average engagement), Optimal Mix (top 3 high-competition hashtags), Trending Now (currently trending hashtags), Niche Opportunities (lower competition hashtags), Full table (all related hashtags with details)</li>
+                <li><strong>Copy hashtags:</strong> Click "Copy All" on any section</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>10+ related hashtags for your topic</li>
+                <li>Volume data - Post count for each hashtag</li>
+                <li>Engagement ratings - High, Medium, or Low</li>
+                <li>Competition levels - High, Medium, or Low</li>
+                <li>Trending indicators - Which hashtags are hot right now</li>
+                <li>Organized categories: Optimal mix for maximum reach, Trending tags for current visibility, Niche opportunities for less competition</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-2">Hashtag Research Tool</h1>
           <p className="text-mono-600 dark:text-mono-400">Discover the best hashtags to boost your content reach</p>
@@ -351,4 +383,5 @@ export default function HashtagResearchTool() {
     </div>
   )
 }
+
 

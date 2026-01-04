@@ -50,6 +50,39 @@ ${voiceTone}
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Creates a professional brand style guide in Markdown format. Generates a document with your brand name, logo, colors, and voice & tone guidelines that you can use for your team or reference.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter brand name:</strong> Type your brand or business name</li>
+                <li><strong>Enter logo URL (optional):</strong> Add a URL to your logo image</li>
+                <li><strong>Select primary color:</strong> Choose your main brand color</li>
+                <li><strong>Select secondary color:</strong> Choose your secondary brand color</li>
+                <li><strong>Enter voice & tone:</strong> Describe your brand's voice and tone (e.g., "Friendly, concise, professional")</li>
+                <li><strong>Click "Build Style Guide"</strong> to generate the guide</li>
+                <li><strong>Copy or download:</strong> Copy to clipboard or download as Markdown file</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Professional style guide in Markdown format</li>
+                <li>Brand name, logo, colors, and voice & tone sections</li>
+                <li>Formatted document ready to share with your team</li>
+                <li>Copy to clipboard functionality</li>
+                <li>Download as .md file option</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Style Guide Creator
         </h1>
@@ -175,4 +208,5 @@ ${voiceTone}
     </div>
   )
 }
+
 

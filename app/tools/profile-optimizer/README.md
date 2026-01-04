@@ -59,3 +59,4 @@ The tool evaluates your bio based on:
 - **Call to Action:** Consider adding a clear call to action
 - **Update Regularly:** Refresh your bio periodically to keep it current
 
+

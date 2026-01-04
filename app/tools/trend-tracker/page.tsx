@@ -56,6 +56,35 @@ export default function TrendTracker() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Tracks trending status of keywords, topics, or hashtags over time. Shows weekly trend scores to help identify rising or falling topics in your niche.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter keyword:</strong> Type a keyword, topic, or hashtag to track (e.g., "content marketing")</li>
+                <li><strong>Click "Track"</strong> to analyze the trend</li>
+                <li><strong>Review results:</strong> See weekly trend scores (W1, W2, W3, W4) with visual progress bars and trend direction indicator (Rising, Falling, or Stable)</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Weekly trend scores (0-100) for 4 weeks</li>
+                <li>Trend direction indicator - Rising 📈, Falling 📉, or Stable ➡️</li>
+                <li>Visual progress bars showing trend strength</li>
+                <li>Color-coded scores (Green: 70+ High, Yellow: 50-69 Moderate, Red: Below 50 Low)</li>
+                <li>Score guide explaining trend levels</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Trend Tracker
         </h1>
@@ -172,4 +201,5 @@ export default function TrendTracker() {
     </div>
   )
 }
+
 

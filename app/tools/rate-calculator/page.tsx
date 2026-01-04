@@ -62,6 +62,36 @@ export default function RateCalculator() {
           <p className="text-xl text-mono-600 dark:text-mono-400">Calculate pricing for sponsored posts and collaborations</p>
         </div>
 
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Calculates pricing for sponsored posts, collaborations, and content creation work. Provides total rates based on hours and hourly rate, plus platform-specific recommendations based on follower count and engagement.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter basic info:</strong> Hours (time spent on project) and Rate per Hour (your hourly rate)</li>
+                <li><strong>Optional advanced info:</strong> Followers (your follower count), Platform (Instagram, Twitter, YouTube, LinkedIn, TikTok), Engagement Rate %</li>
+                <li><strong>Click "Calculate"</strong> to see results</li>
+                <li><strong>Review results:</strong> Total rate (hours × rate/hour), Rate per 1K followers, Estimated per post (if engagement rate provided), Recommended rate for platform</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Total Rate - Calculated total (hours × rate per hour)</li>
+                <li>Rate per 1K Followers - CPM-style calculation</li>
+                <li>Estimated per Post - Based on engagement rate</li>
+                <li>Recommended Rate - Platform-specific suggestion</li>
+                <li>Currency formatting - All amounts in USD</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Section */}
           <div className="space-y-6">
@@ -231,4 +261,5 @@ export default function RateCalculator() {
     </div>
   )
 }
+
 

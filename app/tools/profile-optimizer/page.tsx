@@ -89,6 +89,36 @@ export default function ProfileOptimizer() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Analyzes and optimizes your social media profile bio. Checks for keywords, emojis, length, and provides a score with actionable tips to improve your profile's discoverability and engagement.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter your bio:</strong> Paste or type your current social media bio</li>
+                <li><strong>Enter keywords (optional):</strong> Add relevant keywords separated by commas that you want to include</li>
+                <li><strong>Click "Optimize"</strong> to analyze your bio</li>
+                <li><strong>Review results:</strong> See your optimization score (out of 3), check which elements are present (keywords, emojis), view length score, and read optimization tips</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Optimization score showing how well your bio is optimized</li>
+                <li>Checklist showing which elements are present (keywords, emojis)</li>
+                <li>Length analysis with recommendations</li>
+                <li>Actionable tips to improve your bio</li>
+                <li>Bio length indicator</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Profile Optimizer
         </h1>
@@ -219,4 +249,5 @@ export default function ProfileOptimizer() {
     </div>
   )
 }
+
 

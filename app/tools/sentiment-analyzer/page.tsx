@@ -118,6 +118,36 @@ export default function SentimentAnalyzer() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Analyzes text to determine sentiment (Positive, Negative, or Neutral). Identifies positive and negative words, calculates a sentiment score, and shows which words contributed to the overall sentiment.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Paste text to analyze:</strong> Enter comments, reviews, social media posts, or any text</li>
+                <li><strong>Click "Analyze"</strong> to process the text</li>
+                <li><strong>Review results:</strong> See overall sentiment (Positive/Negative/Neutral), sentiment score, percentage of words contributing to sentiment, and lists of positive/negative words found</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Overall sentiment classification (Positive, Negative, or Neutral)</li>
+                <li>Sentiment score (positive words +1, negative words -1)</li>
+                <li>Percentage of words contributing to sentiment</li>
+                <li>List of positive words found in the text</li>
+                <li>List of negative words found in the text</li>
+                <li>Total word count analyzed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Sentiment Analyzer
         </h1>
@@ -241,4 +271,5 @@ export default function SentimentAnalyzer() {
     </div>
   )
 }
+
 

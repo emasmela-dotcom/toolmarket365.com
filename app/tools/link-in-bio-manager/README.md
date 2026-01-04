@@ -64,3 +64,4 @@ Creates and manages a single landing page that holds all your important links. P
 - Use for time-sensitive links (new posts, products)
 - Keep link count manageable (5-10 links ideal)
 
+

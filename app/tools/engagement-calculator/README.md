@@ -88,3 +88,4 @@ Calculates your social media engagement rate and compares it to platform benchma
 - Use projections to set engagement goals
 - Higher engagement rates indicate better content performance
 
+

@@ -75,6 +75,37 @@ export default function GiveawayManager() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Manages giveaways by storing prize information, rules, and entries. Randomly selects winners from entries and keeps track of multiple giveaways.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter prize:</strong> Type the giveaway prize description</li>
+                <li><strong>Enter rules:</strong> List giveaway rules/entry requirements (one per line) - these become the entry list</li>
+                <li><strong>Click "Save Giveaway"</strong> to store the giveaway</li>
+                <li><strong>Pick winner:</strong> Click "Pick Random Winner" on any saved giveaway to randomly select a winner from the entries</li>
+                <li><strong>Manage giveaways:</strong> Delete individual giveaways or view all saved giveaways</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Saved giveaway with prize and entry list</li>
+                <li>Randomly selected winner from entries</li>
+                <li>List of all saved giveaways</li>
+                <li>Winner announcement display</li>
+                <li>Local storage - All giveaways saved in browser</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Giveaway Manager
         </h1>
@@ -191,4 +222,5 @@ export default function GiveawayManager() {
     </div>
   )
 }
+
 

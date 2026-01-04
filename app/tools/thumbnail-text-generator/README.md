@@ -67,3 +67,4 @@ Generates formatted text for video thumbnails. Splits titles into multiple lines
 - Copy HTML for easy integration
 - Test on actual thumbnail dimensions
 
+

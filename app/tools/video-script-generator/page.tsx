@@ -120,6 +120,37 @@ export default function VideoScriptGenerator() {
           <p className="text-xl text-mono-600 dark:text-mono-400">Generate scripts for YouTube, TikTok, and Reels</p>
         </div>
 
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Generates structured video scripts for YouTube, TikTok, Instagram Reels, and YouTube Shorts. Creates scripts with hooks, introductions, main content points, and calls-to-action based on your topic.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter video topic:</strong> Type your video topic or title (e.g., "How to cook pasta")</li>
+                <li><strong>Select platform:</strong> Choose YouTube, TikTok, Instagram Reels, or YouTube Shorts. Script structure adapts to platform.</li>
+                <li><strong>Choose video length:</strong> Short (30-60s, 3 sections), Medium (2-5min, 5 sections), or Long (5+min, 8 sections)</li>
+                <li><strong>Click "Generate Script"</strong> to create your script</li>
+                <li><strong>Review generated script:</strong> Hook section, Introduction, Main content points, Call to action, Outro</li>
+                <li><strong>Copy or download:</strong> Copy formatted script, copy plain text, or download as .txt file</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Structured script with Hook (attention-grabbing opening), Introduction (welcome and topic overview), Main Points (content breakdown), Call to Action (engagement prompts), and Outro (closing)</li>
+                <li>Timing suggestions - Duration for each section</li>
+                <li>Platform-optimized - Tailored for selected platform</li>
+                <li>Ready to use - Copy and customize as needed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Section */}
           <div className="space-y-6">
@@ -251,4 +282,5 @@ export default function VideoScriptGenerator() {
     </div>
   )
 }
+
 

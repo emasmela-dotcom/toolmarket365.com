@@ -173,6 +173,38 @@ export default function HashtagAnalyzer() {
           <p className="text-xl text-mono-600 dark:text-mono-400">Analyze hashtag performance and get recommendations</p>
         </div>
 
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Analyzes your hashtag performance by tracking usage, engagement, reach, and trends. Provides recommendations on which hashtags to keep, test, or replace based on performance data.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter hashtags:</strong> Paste your hashtags (comma or space separated)</li>
+                <li><strong>Enter post count:</strong> Number of posts using these hashtags</li>
+                <li><strong>Enter total engagement:</strong> Total likes, comments, shares across those posts</li>
+                <li><strong>Click "Analyze"</strong> to process your hashtags</li>
+                <li><strong>Review results:</strong> See performance metrics, top performers, underperformers, charts, and recommendations</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Performance analysis for each hashtag</li>
+                <li>Top performing hashtags identified</li>
+                <li>Underperforming hashtags flagged</li>
+                <li>Visual charts showing performance trends</li>
+                <li>Recommendations (Keep, Test, or Replace) for each hashtag</li>
+                <li>Overall hashtag strategy score</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Section */}
           <div className="space-y-6">
@@ -452,4 +484,5 @@ export default function HashtagAnalyzer() {
     </div>
   )
 }
+
 

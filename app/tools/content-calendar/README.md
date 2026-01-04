@@ -43,3 +43,4 @@ A visual calendar for planning, scheduling, and managing your content posts. Sup
 - Export regularly to backup your calendar
 - Use status colors to quickly see what's ready to post
 
+

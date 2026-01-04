@@ -47,3 +47,4 @@ Extract the dominant color palette from any image. Perfect for identifying brand
 - Extract colors from competitor designs for reference
 - The tool analyzes pixel frequency, so larger areas of color will appear in the palette
 
+

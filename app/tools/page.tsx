@@ -1,3 +1,7 @@
+'use client'
+
+import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { 
   FileText, 
@@ -122,7 +126,27 @@ const toolSections = [
   },
 ]
 
-export default function ToolsPage() {
+function ToolsPageContent() {
+  const searchParams = useSearchParams()
+  const sectionParam = searchParams.get('section')
+
+  // Generate slug map
+  const sectionSlugMap: { [key: string]: string } = {
+    'high-priority-complete-the-workflow': 'High Priority - Complete the Workflow',
+    'content-creation-optimization': 'Content Creation & Optimization',
+    'brand-design': 'Brand & Design',
+    'analytics-insights': 'Analytics & Insights',
+    'business-monetization': 'Business & Monetization',
+    'engagement-growth': 'Engagement & Growth',
+    'seo-optimization': 'SEO & Optimization',
+    'workflow-productivity': 'Workflow & Productivity',
+  }
+
+  // Filter sections if section parameter is provided
+  const displaySections = sectionParam && sectionSlugMap[sectionParam]
+    ? toolSections.filter(section => section.title === sectionSlugMap[sectionParam])
+    : toolSections
+
   // Remove duplicates (some tools appear in multiple sections)
   const allTools = new Map()
   toolSections.forEach(section => {
@@ -138,55 +162,83 @@ export default function ToolsPage() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-            All Tools
+            {sectionParam ? sectionSlugMap[sectionParam] || 'All Tools' : 'All Tools'}
           </h1>
           <p className="text-xl text-mono-600 dark:text-mono-400">
-            {Array.from(allTools.values()).length} professional tools for content creators
+            {sectionParam 
+              ? `${displaySections[0]?.tools.length || 0} tools in this section`
+              : `${Array.from(allTools.values()).length} professional tools for content creators`
+            }
           </p>
+          {sectionParam && (
+            <Link
+              href="/tools"
+              className="inline-block mt-4 text-accent-600 dark:text-accent-400 hover:underline"
+            >
+              ← View All Sections
+            </Link>
+          )}
         </div>
 
-        <div className="space-y-16">
-          {toolSections.map((section, sectionIdx) => (
-            <div key={sectionIdx}>
-              <div className="mb-6">
-                <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {displaySections.map((section, sectionIdx) => {
+            // Generate slug to match homepage links
+            const reverseSlugMap: { [key: string]: string } = {
+              'High Priority - Complete the Workflow': 'high-priority-complete-the-workflow',
+              'Content Creation & Optimization': 'content-creation-optimization',
+              'Brand & Design': 'brand-design',
+              'Analytics & Insights': 'analytics-insights',
+              'Business & Monetization': 'business-monetization',
+              'Engagement & Growth': 'engagement-growth',
+              'SEO & Optimization': 'seo-optimization',
+              'Workflow & Productivity': 'workflow-productivity',
+            }
+            const sectionSlug = reverseSlugMap[section.title] || section.title.toLowerCase().replace(/\s+/g, '-')
+            return (
+            <div 
+              key={sectionIdx} 
+              id={sectionSlug}
+              className="border border-mono-200 dark:border-mono-700 rounded-lg p-6 scroll-mt-8"
+            >
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
                   {section.title}
                 </h2>
-                <p className="text-mono-600 dark:text-mono-400">
+                <p className="text-sm text-mono-600 dark:text-mono-400">
                   {section.description}
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {section.tools.map(tool => {
-                  const Icon = tool.icon
-                  return (
-                    <Link
-                      key={tool.slug}
-                      href={`/tools/${tool.slug}`}
-                      className="bg-mono-50 dark:bg-mono-900 border border-mono-200 dark:border-mono-700 rounded-lg p-6 hover:border-accent-500 hover:shadow-lg transition-all group"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-accent-100 dark:bg-accent-900/30 rounded-lg group-hover:bg-accent-200 dark:group-hover:bg-accent-900/50 transition-colors">
-                          <Icon className="text-accent-600 dark:text-accent-400" size={24} />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
-                            {tool.name}
-                          </h3>
-                          <p className="text-sm text-mono-600 dark:text-mono-400">
-                            Click to use →
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  )
-                })}
+              <div className="flex flex-col gap-2">
+                {section.tools.map(tool => (
+                  <Link
+                    key={tool.slug}
+                    href={`/tools/${tool.slug}`}
+                    className="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline transition-colors text-sm"
+                  >
+                    {tool.name}
+                  </Link>
+                ))}
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ToolsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-mono-600 dark:text-mono-400">Loading...</p>
+        </div>
+      </div>
+    }>
+      <ToolsPageContent />
+    </Suspense>
   )
 }
 

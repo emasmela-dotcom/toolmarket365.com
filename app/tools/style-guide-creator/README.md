@@ -51,3 +51,4 @@ Generate a professional style guide for your brand in Markdown format. Document 
 - The Markdown format works in GitHub, Notion, and most documentation platforms
 - You can expand the style guide manually after generation if needed
 
+

@@ -159,6 +159,36 @@ export default function ContentLibrary() {
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 p-4 max-w-6xl mx-auto">
+      {/* Documentation Section */}
+      <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+        <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+        <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+            <p>Stores and organizes all your content in one place. Create a searchable library of your posts, articles, videos, and other content with tags and categories for easy retrieval.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+            <ol className="list-decimal list-inside space-y-1 ml-2">
+              <li><strong>Add content:</strong> Click "Add Content" button, enter title, text/content, and tags</li>
+              <li><strong>Search content:</strong> Use the search box to find content by title, text, or tags</li>
+              <li><strong>View library:</strong> Browse all your saved content in the library view</li>
+              <li><strong>Manage content:</strong> Edit or delete content items as needed</li>
+            </ol>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+            <ul className="list-disc list-inside space-y-1 ml-2">
+              <li>Organized library of all your content</li>
+              <li>Searchable content database</li>
+              <li>Tagged content for easy categorization</li>
+              <li>Easy content retrieval and management</li>
+              <li>Local storage - All content saved in browser</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <header className="flex gap-4 flex-wrap items-center mb-4">
         <h1 className="text-2xl font-bold m-0">Content Library</h1>
         <input
@@ -294,4 +324,5 @@ export default function ContentLibrary() {
     </div>
   )
 }
+
 

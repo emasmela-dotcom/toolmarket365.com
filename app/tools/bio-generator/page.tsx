@@ -75,6 +75,37 @@ export default function BioGenerator() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Generates professional social media bios based on what you do, who you help, and optional emoji. Creates multiple bio variations using proven templates.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter "What you do":</strong> Describe your profession or service (e.g., "content creator", "marketing consultant")</li>
+                <li><strong>Enter "Who you help":</strong> Describe your target audience (e.g., "small businesses", "content creators")</li>
+                <li><strong>Add emoji (optional):</strong> Include an emoji to personalize your bio</li>
+                <li><strong>Click "Generate Bio"</strong> for a single bio or "Generate 3 Bios" for multiple variations</li>
+                <li><strong>Copy and use:</strong> Click any generated bio to copy it to clipboard</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Professional bio tailored to your profession and audience</li>
+                <li>Multiple bio variations using different templates</li>
+                <li>History of last 5 generated bios</li>
+                <li>One-click copy functionality</li>
+                <li>Ready-to-use bios for social media profiles</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Bio Generator
         </h1>
@@ -206,4 +237,5 @@ export default function BioGenerator() {
     </div>
   )
 }
+
 

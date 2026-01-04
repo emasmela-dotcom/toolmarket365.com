@@ -42,3 +42,4 @@ Generates 3 social media captions instantly based on your image/video descriptio
 - Long captions include additional context
 - All captions include relevant hashtags
 
+

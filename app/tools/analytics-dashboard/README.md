@@ -47,3 +47,4 @@ Tracks page views, unique visitors, top pages, referrers, and device split. Stor
 - Clear data to start fresh tracking
 - Works offline - no server required
 
+

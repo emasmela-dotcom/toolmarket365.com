@@ -172,6 +172,37 @@ export default function AICaptionGenerator() {
           Describe your image/video, pick a vibe & platform → get 3 captions in seconds.
         </p>
 
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Generates 3 social media captions instantly based on your image/video description, selected tone, platform, and length preference.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Describe your content:</strong> Paste image description or video script</li>
+                <li><strong>Select tone:</strong> Funny/Witty, Inspirational, Professional, Casual, or Informative</li>
+                <li><strong>Choose platform:</strong> Instagram, TikTok, LinkedIn, Twitter/X, or Facebook</li>
+                <li><strong>Pick length:</strong> Short (≤70 chars), Medium (70-220 chars), or Long (220+ chars)</li>
+                <li><strong>Click "Generate 3 captions"</strong> to create your captions</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>3 unique captions tailored to your tone and platform</li>
+                <li>Platform-optimized formatting and hashtags</li>
+                <li>Tone-appropriate language and style</li>
+                <li>Length-optimized for your selected preference</li>
+                <li>Ready to copy and use immediately</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div className="bg-mono-50 dark:bg-mono-900 border border-mono-300 dark:border-mono-700 rounded-lg p-6 mt-4">
           <label className="block mb-2 mt-4 text-sm font-semibold">
             1. Paste image description or video script
@@ -237,4 +268,5 @@ export default function AICaptionGenerator() {
     </div>
   )
 }
+
 

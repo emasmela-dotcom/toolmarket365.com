@@ -119,6 +119,34 @@ export default function ReadabilityChecker() {
           <p className="text-xl text-mono-600 dark:text-mono-400">Analyze text readability and reading level</p>
         </div>
 
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Analyzes text readability using Flesch Reading Ease and Flesch-Kincaid Grade Level formulas. Provides detailed statistics about word count, sentence structure, reading time, and reading level.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Paste your text:</strong> Copy and paste any text into the text area (articles, blog posts, social media content, etc.)</li>
+                <li><strong>Click "Check Readability"</strong> to analyze your text</li>
+                <li><strong>Review results:</strong> Readability Score (0-100), Grade Level, Text Statistics, Advanced Metrics</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Readability Score - Flesch Reading Ease (0-100, higher = easier to read)</li>
+                <li>Grade Level - Flesch-Kincaid Grade Level (shows approximate school grade level)</li>
+                <li>Text Statistics - Word count, sentence count, paragraph count, character count, reading time</li>
+                <li>Advanced Metrics - Average words per sentence, average syllables per word, total syllables</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Section */}
           <div className="space-y-6">
@@ -242,4 +270,5 @@ export default function ReadabilityChecker() {
     </div>
   )
 }
+
 

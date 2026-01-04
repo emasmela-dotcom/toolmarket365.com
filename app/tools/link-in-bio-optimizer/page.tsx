@@ -49,6 +49,38 @@ export default function LinkInBioOptimizer() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Analyzes and optimizes your social media bio (link in bio) to maximize engagement and conversions. Provides tips and suggestions to improve your bio's effectiveness.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter current bio:</strong> Paste your current social media bio text</li>
+                <li><strong>Click "Optimize"</strong> to analyze your bio</li>
+                <li><strong>Review tips:</strong> See optimization suggestions (use full 150 chars, add CTA link, add hashtags, etc.)</li>
+                <li><strong>Review optimized bio:</strong> See suggested improved version with optimization tips applied</li>
+                <li><strong>Copy optimized bio:</strong> Click "Copy Optimized" to copy the improved version</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>List of optimization tips specific to your bio</li>
+                <li>Optimized bio version with improvements</li>
+                <li>Character count guidance (optimal: 150 chars)</li>
+                <li>CTA link suggestions</li>
+                <li>Hashtag recommendations</li>
+                <li>Ready-to-copy optimized bio</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Link in Bio Optimizer
         </h1>
@@ -140,4 +172,5 @@ export default function LinkInBioOptimizer() {
     </div>
   )
 }
+
 

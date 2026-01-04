@@ -60,3 +60,4 @@ The generator uses various templates including:
 - **Test Different Emojis:** Try various emojis to see which works best for your brand
 - **Update Regularly:** Refresh your bio periodically to keep it current and relevant
 
+

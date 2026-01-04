@@ -154,6 +154,37 @@ header p{margin:0;font-size:.95rem;color:#444}
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-8 px-4">
       <div className="max-w-2xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Creates and manages a single landing page that holds all your important links. Perfect for Instagram, TikTok, and Twitter bios where you can only have one link. Organize multiple links, track clicks, and export as a static page.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Add links:</strong> Click "Add link" button, enter link title (e.g., "My Website"), enter URL, click "Save"</li>
+                <li><strong>Manage links:</strong> Click a link to open in new tab and track clicks, click edit icon to modify, delete to remove, drag & drop to reorder</li>
+                <li><strong>Track performance:</strong> View views count (page loads), view clicks count (link clicks), see which links perform best</li>
+                <li><strong>Export:</strong> Click "Export static page" to download HTML file, deploy to your hosting or use as-is</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Single bio link - One URL to use in all your social bios</li>
+                <li>Multiple links - Organize all your important links</li>
+                <li>Click tracking - See which links get the most clicks</li>
+                <li>View tracking - Track how many times page is viewed</li>
+                <li>Drag & drop ordering - Prioritize important links</li>
+                <li>Exportable - Download as static HTML page</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <header className="text-center mb-6">
           <img
             src={profile.avatar}
@@ -270,4 +301,5 @@ header p{margin:0;font-size:.95rem;color:#444}
     </div>
   )
 }
+
 

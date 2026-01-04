@@ -5,25 +5,27 @@ import { sql } from '@/lib/db'
 export async function GET() {
   try {
     if (!sql) {
-      return NextResponse.json(
-        { error: 'Database not configured' },
-        { status: 503 }
-      )
+      return NextResponse.json({ comments: [] }, { status: 200 })
     }
 
-    const comments = await sql`
+    // Add timeout to prevent hanging
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Timeout')), 2000)
+    )
+
+    const commentsPromise = sql`
       SELECT id, name, message, created_at, updated_at
       FROM comments
       ORDER BY created_at DESC
     `
 
-    return NextResponse.json({ comments })
+    const comments = await Promise.race([commentsPromise, timeoutPromise]) as any[]
+
+    return NextResponse.json({ comments: comments || [] })
   } catch (error) {
     console.error('Error fetching comments:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch comments' },
-      { status: 500 }
-    )
+    // Return empty array instead of error to prevent page hanging
+    return NextResponse.json({ comments: [] }, { status: 200 })
   }
 }
 

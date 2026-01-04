@@ -81,3 +81,4 @@ Creates beautiful quote cards for social media. Customize quotes, colors, themes
 - Use line breaks to format longer quotes
 - Download and review before posting
 
+

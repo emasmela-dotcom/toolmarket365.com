@@ -79,3 +79,4 @@ To implement real brand mention tracking, consider:
 - **Alerts:** Set up Google Alerts for brand mentions
 - **Social Listening Tools:** Use specialized social listening platforms
 
+

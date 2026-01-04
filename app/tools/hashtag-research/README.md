@@ -72,3 +72,4 @@ Discovers the best hashtags for your content based on topics and keywords. Shows
 - Copy entire sets for consistent hashtag strategy
 - Research multiple topics to build hashtag library
 
+

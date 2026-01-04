@@ -54,6 +54,34 @@ export default function SEOOptimizer() {
           <p className="text-xl text-mono-600 dark:text-mono-400">Analyze keywords in your content</p>
         </div>
 
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Analyzes your content to find the most frequently used keywords. Helps identify which words appear most often in your text, useful for SEO optimization and keyword research.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Paste your content:</strong> Copy and paste your article, blog post, or any text (can be any length)</li>
+                <li><strong>Click "Analyze"</strong> to process your content</li>
+                <li><strong>Review top keywords:</strong> See top 10 keywords ranked by frequency, view how many times each keyword appears. Keywords are filtered (stop words removed)</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Top 10 Keywords - Most frequently used words</li>
+                <li>Frequency count - How many times each keyword appears</li>
+                <li>Ranked list - Keywords sorted by usage</li>
+                <li>Keyword insights - Summary statistics</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Section */}
           <div className="space-y-6">

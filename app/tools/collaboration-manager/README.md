@@ -79,3 +79,4 @@ Track and manage brand collaborations and partnerships. Organize all your collab
 - **Follow Through:** Complete deliverables as agreed
 - **Relationship Building:** Focus on long-term partnerships
 
+

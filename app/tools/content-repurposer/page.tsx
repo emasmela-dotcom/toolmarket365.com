@@ -180,6 +180,36 @@ ${car}
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 p-4 max-w-4xl mx-auto">
+      {/* Documentation Section */}
+      <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+        <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+        <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+            <p>Takes one piece of content (blog post, article, video transcript, etc.) and automatically repurposes it into multiple formats for different platforms: LinkedIn posts, Twitter threads, Instagram captions, TikTok scripts, email blurbs, and carousel outlines.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+            <ol className="list-decimal list-inside space-y-1 ml-2">
+              <li><strong>Add your content:</strong> Drag & drop text files/PDFs/audio, click drop zone to browse, paste text directly, or paste YouTube URL</li>
+              <li><strong>Click "Repurpose"</strong> button to process your content</li>
+              <li><strong>Get repurposed content</strong> for LinkedIn (5 posts), Twitter (5 posts), Instagram (3 captions), TikTok (60s script), Email blurb, and Carousel outline</li>
+              <li><strong>Export options:</strong> Copy All or Download ZIP as markdown file</li>
+            </ol>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+            <ul className="list-disc list-inside space-y-1 ml-2">
+              <li>6 different content formats from one source</li>
+              <li>Platform-optimized content for each platform</li>
+              <li>Ready-to-use posts, captions, and scripts</li>
+              <li>Structured output organized by platform</li>
+              <li>Exportable for easy copying or saving</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <header className="flex gap-4 flex-wrap items-center mb-4">
         <h1 className="text-2xl font-bold m-0">Content Repurposer</h1>
       </header>
@@ -253,4 +283,5 @@ ${car}
     </div>
   )
 }
+
 

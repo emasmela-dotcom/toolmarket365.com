@@ -50,6 +50,37 @@ export default function InfluencerOutreachTool() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Generates professional outreach email templates for contacting influencers. Creates personalized emails based on influencer handle and follower count for collaboration opportunities.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter handle:</strong> Type the influencer's handle (e.g., "@creator")</li>
+                <li><strong>Enter followers (optional):</strong> Type their follower count</li>
+                <li><strong>Add custom message (optional):</strong> Add a personal note that will be included in the email</li>
+                <li><strong>Click "Generate Email"</strong> to create the outreach email</li>
+                <li><strong>Copy email:</strong> Click "Copy Email" to copy the generated email to clipboard</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Professional outreach email template</li>
+                <li>Personalized with influencer handle</li>
+                <li>Includes follower count reference (if provided)</li>
+                <li>Custom message included (if provided)</li>
+                <li>Ready to copy and send</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Influencer Outreach Tool
         </h1>
@@ -149,4 +180,5 @@ export default function InfluencerOutreachTool() {
     </div>
   )
 }
+
 

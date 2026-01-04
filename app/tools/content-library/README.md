@@ -58,3 +58,4 @@ Organize and store all your content assets in one place. Upload images, videos, 
 - Use text notes for ideas and reminders
 - Search works across titles, bodies, and tags
 
+

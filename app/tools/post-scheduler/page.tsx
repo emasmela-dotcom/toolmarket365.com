@@ -155,6 +155,38 @@ export default function PostScheduler() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-8 px-4">
       <div className="max-w-5xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+              <p>Calendar-based post scheduler with optimal posting time heat-map. Visualize best times to post, schedule content, and export to calendar format. Shows green cells for optimal posting times.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>View calendar:</strong> Switch between Month and Week view. Navigate months with arrow buttons. Green cells = optimal posting times, Gray cells = other times.</li>
+                <li><strong>Schedule a post:</strong> Click any cell to edit/add post. Enter title and body (optional), then click "Save". Post appears on calendar cell.</li>
+                <li><strong>Queue posts:</strong> Click "Queue" button, enter title and body, then click "Add". Automatically finds first available optimal time slot.</li>
+                <li><strong>Manage posts:</strong> Click any cell with a post to edit. Modify title/body or delete. Empty title removes post.</li>
+                <li><strong>Export:</strong> Click "Export .ics" to download calendar file. Import into Google Calendar, Outlook, etc.</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Visual calendar showing all scheduled posts at a glance</li>
+                <li>Optimal time heat-map with green cells showing best posting times</li>
+                <li>Post scheduling for specific dates/times</li>
+                <li>Queue system that auto-schedules to next available optimal slot</li>
+                <li>Calendar export (.ics file) for external calendars</li>
+                <li>All posts saved in browser local storage</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <header className="flex gap-4 flex-wrap items-center mb-6">
           <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50 m-0">Post Scheduler</h1>
           <button

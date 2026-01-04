@@ -112,6 +112,35 @@ export default function ContentIdeaGenerator() {
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 p-4 max-w-5xl mx-auto">
+      {/* Documentation Section */}
+      <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+        <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+        <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+            <p>Generates content ideas based on your niche or topic. Provides creative content suggestions to help you overcome writer's block and plan your content strategy.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+            <ol className="list-decimal list-inside space-y-1 ml-2">
+              <li><strong>Enter your niche:</strong> Type your content niche or topic (e.g., "fitness", "cooking", "marketing")</li>
+              <li><strong>Click "Generate Ideas"</strong> to get content suggestions</li>
+              <li><strong>Review ideas:</strong> See a list of content ideas tailored to your niche</li>
+              <li><strong>Use the ideas:</strong> Copy ideas you like and use them for your content planning</li>
+            </ol>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+            <ul className="list-disc list-inside space-y-1 ml-2">
+              <li>List of content ideas relevant to your niche</li>
+              <li>Creative suggestions to inspire your content</li>
+              <li>Ideas you can use immediately for posts, videos, or articles</li>
+              <li>Help overcoming content creator's block</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <header className="flex gap-4 flex-wrap items-center mb-4">
         <h1 className="text-2xl font-bold m-0">Content Idea Generator</h1>
         <input
@@ -178,4 +207,5 @@ export default function ContentIdeaGenerator() {
     </div>
   )
 }
+
 

@@ -75,3 +75,4 @@ Analyzes the performance of hashtags you've used in your posts. Shows engagement
 - Avoid using too many hashtags (10-15 max)
 - Track trends to catch declining hashtags early
 
+

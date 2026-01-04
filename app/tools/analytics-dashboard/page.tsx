@@ -126,6 +126,36 @@ export default function AnalyticsDashboard() {
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 p-4">
+      {/* Documentation Section */}
+      <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
+        <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+        <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
+            <p>Tracks page views, unique visitors, top pages, referrers, and device split. Stores data locally and exports to CSV or JSON.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+            <ol className="list-decimal list-inside space-y-1 ml-2">
+              <li><strong>Automatic tracking:</strong> The dashboard automatically tracks visits when loaded</li>
+              <li><strong>View metrics:</strong> Page Views (total visits), Unique Visitors (distinct users), Top Pages (most visited pages), Referrers (traffic sources), Device Split (mobile vs desktop)</li>
+              <li><strong>Export data:</strong> Click "Export CSV" for spreadsheet format or "Export JSON" for raw data</li>
+              <li><strong>Clear data:</strong> Click "Clear data" to reset all analytics</li>
+            </ol>
+          </div>
+          <div>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+            <ul className="list-disc list-inside space-y-1 ml-2">
+              <li>Real-time metrics updated every 3 seconds</li>
+              <li>Visual charts showing device distribution</li>
+              <li>Top pages table with view counts</li>
+              <li>Referrer tracking showing where traffic comes from</li>
+              <li>Exportable data in CSV or JSON format</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <header className="flex gap-4 items-center flex-wrap mb-4">
         <h1 className="text-2xl font-bold m-0">Mini Analytics Dashboard</h1>
         <button
@@ -207,4 +237,5 @@ export default function AnalyticsDashboard() {
     </div>
   )
 }
+
 

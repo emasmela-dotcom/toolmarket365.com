@@ -57,6 +57,37 @@ export default function FollowerGrowthTracker() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-4xl mx-auto">
+        {/* Documentation Section */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Tool</h2>
+          <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What It Does</h3>
+              <p>Calculates how many new followers you need to reach your 30-day goal. Provides daily and weekly targets, growth rate, and progress visualization to help you plan your follower growth strategy.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li><strong>Enter current followers:</strong> Type your current follower count</li>
+                <li><strong>Enter 30-day goal:</strong> Type your target follower count for the next 30 days</li>
+                <li><strong>Click "Track"</strong> to calculate your growth plan</li>
+                <li><strong>Review results:</strong> See total needed, daily/weekly targets, growth rate, and progress bar</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Expected Outcome</h3>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>Total followers needed to reach your goal</li>
+                <li>Daily follower target (how many new followers per day)</li>
+                <li>Weekly follower target (how many new followers per week)</li>
+                <li>Growth rate percentage (percentage increase needed)</li>
+                <li>Progress bar showing current progress toward goal</li>
+                <li>Percentage to goal calculation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Follower Growth Tracker
         </h1>
@@ -234,4 +265,5 @@ export default function FollowerGrowthTracker() {
     </div>
   )
 }
+
 
