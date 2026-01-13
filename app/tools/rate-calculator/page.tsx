@@ -211,7 +211,7 @@ export default function RateCalculator() {
                       {result.total.toLocaleString('en', { style: 'currency', currency: 'USD' })}
                     </div>
                     <p className="text-mono-600 dark:text-mono-400">
-                      {hours} hours × {ratePerHour.toLocaleString('en', { style: 'currency', currency: 'USD' })}/hour
+                      {hours} hours × {(parseFloat(ratePerHour) || 0).toLocaleString('en', { style: 'currency', currency: 'USD' })}/hour
                     </p>
                   </div>
                 </div>
