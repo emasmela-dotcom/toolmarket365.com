@@ -73,6 +73,7 @@ const toolSections = [
     description: 'Track performance and gain insights into your content',
     tools: [
       { name: 'Engagement Calculator', slug: 'engagement-calculator', icon: TrendingUp },
+      { name: 'Social Media Report Generator', slug: 'social-media-report-generator', icon: FileText },
       { name: 'Hashtag Analyzer', slug: 'hashtag-analyzer', icon: Hash },
       { name: 'Hashtag Research', slug: 'hashtag-research', icon: Hash },
       { name: 'Competitor Analyzer', slug: 'competitor-analyzer', icon: BarChart3 },

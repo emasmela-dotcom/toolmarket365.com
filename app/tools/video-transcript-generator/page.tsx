@@ -7,6 +7,7 @@ export default function VideoTranscriptGenerator() {
   const [transcript, setTranscript] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [videoId, setVideoId] = useState<string | null>(null)
 
   const extractVideoId = (url: string): string | null => {
     const patterns = [
@@ -41,30 +42,21 @@ export default function VideoTranscriptGenerator() {
     setIsLoading(true)
     setError(null)
     setTranscript('')
+    setVideoId(id)
 
     try {
-      // Note: This requires a CORS proxy or backend service
-      // For production, you would need to implement a backend endpoint
-      // that fetches the transcript from YouTube's API or a transcript service
-      
-      // Example using a transcript service (requires backend implementation)
-      const response = await fetch(`/api/transcript?id=${id}`)
+      const response = await fetch(`/api/transcript?id=${encodeURIComponent(id)}&lang=en`)
       
       if (!response.ok) {
-        throw new Error('Failed to fetch transcript')
+        const maybe = await response.json().catch(() => null)
+        const msg = maybe?.error || 'Failed to fetch transcript'
+        throw new Error(msg)
       }
 
       const data = await response.json()
       setTranscript(data.transcript || 'Transcript not available for this video')
     } catch (e) {
-      // Fallback: Show instructions for manual transcript
-      setError(
-        'Transcript fetching requires a backend service. For now, you can:\n\n' +
-        '1. Use YouTube\'s built-in transcript feature (click the "..." menu on a video)\n' +
-        '2. Use a service like YouTube Transcript API\n' +
-        '3. Implement a backend endpoint that fetches transcripts\n\n' +
-        'Video ID extracted: ' + id
-      )
+      setError((e as Error)?.message || 'Failed to fetch transcript')
       setTranscript('')
     } finally {
       setIsLoading(false)
@@ -81,14 +73,14 @@ export default function VideoTranscriptGenerator() {
   const downloadTranscript = () => {
     if (transcript) {
       const blob = new Blob([transcript], { type: 'text/plain' })
-      const url = URL.createObjectURL(blob)
+      const downloadUrl = URL.createObjectURL(blob)
       const a = document.createElement('a')
-      a.href = url
-      a.download = `transcript-${extractVideoId(url) || 'video'}.txt`
+      a.href = downloadUrl
+      a.download = `transcript-${videoId || extractVideoId(url) || 'video'}.txt`
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
-      URL.revokeObjectURL(url)
+      URL.revokeObjectURL(downloadUrl)
     }
   }
 
@@ -211,9 +203,7 @@ export default function VideoTranscriptGenerator() {
               <li>Copy or download the transcript for your use</li>
             </ul>
             <p className="mt-4 text-sm text-blue-800 dark:text-blue-200">
-              <strong>Note:</strong> This tool requires a backend service to fetch transcripts from
-              YouTube. For production use, implement an API endpoint that uses YouTube's transcript
-              API or a third-party service.
+              <strong>Note:</strong> Some videos do not provide transcripts, and YouTube may rate-limit requests.
             </p>
           </div>
         )}
