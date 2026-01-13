@@ -45,7 +45,7 @@ export default function VideoTranscriptGenerator() {
     setVideoId(id)
 
     try {
-      const response = await fetch(`/api/transcript?id=${encodeURIComponent(id)}&lang=en`)
+      const response = await fetch(`/api/transcript?id=${encodeURIComponent(id)}`)
       
       if (!response.ok) {
         const maybe = await response.json().catch(() => null)
@@ -54,7 +54,7 @@ export default function VideoTranscriptGenerator() {
       }
 
       const data = await response.json()
-      setTranscript(data.transcript || 'Transcript not available for this video')
+      setTranscript(data.transcript)
     } catch (e) {
       setError((e as Error)?.message || 'Failed to fetch transcript')
       setTranscript('')
