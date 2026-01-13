@@ -122,6 +122,7 @@ const toolSections = [
       { name: 'Content Calendar', slug: 'content-calendar', icon: Calendar },
       { name: 'Content Library', slug: 'content-library', icon: FolderOpen },
       { name: 'Social Media Post Formatter', slug: 'social-media-post-formatter', icon: FileText },
+      { name: 'Social Scheduler', slug: 'social-scheduler', icon: Calendar },
       { name: 'Best Time to Post', slug: 'best-time-to-post', icon: Clock },
     ]
   },
