@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import { createHash, randomUUID } from 'node:crypto'
 
 export const SESSION_COOKIE_NAME = 'msm_session'
 export const SESSION_TTL_DAYS = 30
@@ -27,11 +28,11 @@ export async function verifyPassword(password: string, passwordHash: string): Pr
 
 export function randomToken(): string {
   // URL-safe token
-  return Buffer.from(crypto.randomUUID() + crypto.randomUUID()).toString('base64url')
+  return Buffer.from(randomUUID() + randomUUID()).toString('base64url')
 }
 
 export function sha256Hex(input: string): string {
-  return crypto.createHash('sha256').update(input).digest('hex')
+  return createHash('sha256').update(input).digest('hex')
 }
 
 export function nowPlusDays(days: number): Date {
