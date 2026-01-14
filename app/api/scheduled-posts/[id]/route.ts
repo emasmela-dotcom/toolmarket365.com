@@ -7,6 +7,41 @@ function isStatus(v: unknown): v is Status {
   return v === 'draft' || v === 'scheduled' || v === 'published' || v === 'canceled'
 }
 
+let cachedCols: Set<string> | null = null
+type ContentCol = 'body' | 'content'
+type ScheduledCol = 'scheduled_for' | 'scheduled_at' | 'scheduled_time' | null
+
+async function getCols(): Promise<Set<string>> {
+  if (!sql) return new Set()
+  if (cachedCols) return cachedCols
+  try {
+    const rows = await sql`
+      SELECT column_name
+      FROM information_schema.columns
+      WHERE table_schema = 'public'
+        AND table_name = 'scheduled_posts'
+    `
+    cachedCols = new Set(rows.map((r: any) => String(r.column_name)))
+    return cachedCols
+  } catch {
+    cachedCols = new Set()
+    return cachedCols
+  }
+}
+
+async function getContentCol(): Promise<ContentCol> {
+  const cols = await getCols()
+  return cols.has('body') ? 'body' : 'content'
+}
+
+async function getScheduledCol(): Promise<ScheduledCol> {
+  const cols = await getCols()
+  if (cols.has('scheduled_for')) return 'scheduled_for'
+  if (cols.has('scheduled_at')) return 'scheduled_at'
+  if (cols.has('scheduled_time')) return 'scheduled_time'
+  return null
+}
+
 function isSafeId(v: string): boolean {
   // Support both UUIDs and legacy short IDs (e.g. nanoid).
   if (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v)) return true
@@ -32,12 +67,73 @@ export async function GET(_req: NextRequest, ctx: { params: { id: string } }) {
   }
 
   try {
-    const rows = await sql`
-      SELECT id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
-      FROM scheduled_posts
-      WHERE id = ${id}
-      LIMIT 1
-    `
+    const contentCol = await getContentCol()
+    const scheduledCol = await getScheduledCol()
+
+    const rows = await (async () => {
+      if (contentCol === 'body' && scheduledCol === 'scheduled_for') {
+        return sql`
+          SELECT id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
+          FROM scheduled_posts
+          WHERE id = ${id}
+          LIMIT 1
+        `
+      }
+      if (contentCol === 'content' && scheduledCol === 'scheduled_for') {
+        return sql`
+          SELECT id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+          FROM scheduled_posts
+          WHERE id = ${id}
+          LIMIT 1
+        `
+      }
+      if (contentCol === 'body' && scheduledCol === 'scheduled_at') {
+        return sql`
+          SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
+          FROM scheduled_posts
+          WHERE id = ${id}
+          LIMIT 1
+        `
+      }
+      if (contentCol === 'content' && scheduledCol === 'scheduled_at') {
+        return sql`
+          SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+          FROM scheduled_posts
+          WHERE id = ${id}
+          LIMIT 1
+        `
+      }
+      if (contentCol === 'body' && scheduledCol === 'scheduled_time') {
+        return sql`
+          SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
+          FROM scheduled_posts
+          WHERE id = ${id}
+          LIMIT 1
+        `
+      }
+      if (contentCol === 'content' && scheduledCol === 'scheduled_time') {
+        return sql`
+          SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+          FROM scheduled_posts
+          WHERE id = ${id}
+          LIMIT 1
+        `
+      }
+      return contentCol === 'content'
+        ? sql`
+            SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
+            FROM scheduled_posts
+            WHERE id = ${id}
+            LIMIT 1
+          `
+        : sql`
+            SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
+            FROM scheduled_posts
+            WHERE id = ${id}
+            LIMIT 1
+          `
+    })()
+
     if (!rows[0]) return NextResponse.json({ error: 'Not found' }, { status: 404 })
     return NextResponse.json({ post: rows[0] })
   } catch (err: unknown) {
@@ -75,7 +171,8 @@ export async function PATCH(req: NextRequest, ctx: { params: { id: string } }) {
 
   const platform = typeof body.platform === 'string' && body.platform.trim() ? body.platform.trim() : undefined
   const title = typeof body.title === 'string' ? body.title.trim().slice(0, 200) : undefined
-  const postBody = typeof body.body === 'string' ? body.body.trim() : undefined
+  const postBody =
+    typeof body.body === 'string' ? body.body.trim() : typeof body.content === 'string' ? body.content.trim() : undefined
   const status: Status | undefined = isStatus(body.status) ? body.status : undefined
   const scheduledFor = body.scheduled_for !== undefined || body.scheduledFor !== undefined ? toIsoOrNull(body.scheduled_for ?? body.scheduledFor) : undefined
 
@@ -101,22 +198,135 @@ export async function PATCH(req: NextRequest, ctx: { params: { id: string } }) {
 
   // Update via COALESCE to keep existing values when undefined
   try {
-    const rows = await sql`
-      UPDATE scheduled_posts
-      SET
-        updated_at = NOW(),
-        platform = COALESCE(${platform ?? null}, platform),
-        title = COALESCE(${title ?? null}, title),
-        body = COALESCE(${postBody ?? null}, body),
-        status = COALESCE(${status ?? null}, status),
-        scheduled_for = COALESCE(${scheduledFor ?? null}, scheduled_for),
-        media_urls = COALESCE(${mediaUrls as any}, media_urls)
-      WHERE id = ${id}
-      RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
-    `
+    const contentCol = await getContentCol()
+    const scheduledCol = await getScheduledCol()
+
+    const rows = await (async () => {
+      const setContent =
+        contentCol === 'content'
+          ? sql`
+              UPDATE scheduled_posts
+              SET
+                updated_at = NOW(),
+                platform = COALESCE(${platform ?? null}, platform),
+                title = COALESCE(${title ?? null}, title),
+                content = COALESCE(${postBody ?? null}, content),
+                status = COALESCE(${status ?? null}, status),
+                media_urls = COALESCE(${mediaUrls as any}, media_urls)
+              WHERE id = ${id}
+              RETURNING id, created_at, updated_at, status, platform, title, content AS body, media_urls
+            `
+          : sql`
+              UPDATE scheduled_posts
+              SET
+                updated_at = NOW(),
+                platform = COALESCE(${platform ?? null}, platform),
+                title = COALESCE(${title ?? null}, title),
+                body = COALESCE(${postBody ?? null}, body),
+                status = COALESCE(${status ?? null}, status),
+                media_urls = COALESCE(${mediaUrls as any}, media_urls)
+              WHERE id = ${id}
+              RETURNING id, created_at, updated_at, status, platform, title, body, media_urls
+            `
+
+      // If we have a schedule column, update it too and return it as scheduled_for.
+      if (scheduledCol === 'scheduled_for') {
+        return contentCol === 'content'
+          ? sql`
+              UPDATE scheduled_posts
+              SET
+                updated_at = NOW(),
+                platform = COALESCE(${platform ?? null}, platform),
+                title = COALESCE(${title ?? null}, title),
+                content = COALESCE(${postBody ?? null}, content),
+                status = COALESCE(${status ?? null}, status),
+                scheduled_for = COALESCE(${scheduledFor ?? null}, scheduled_for),
+                media_urls = COALESCE(${mediaUrls as any}, media_urls)
+              WHERE id = ${id}
+              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
+              UPDATE scheduled_posts
+              SET
+                updated_at = NOW(),
+                platform = COALESCE(${platform ?? null}, platform),
+                title = COALESCE(${title ?? null}, title),
+                body = COALESCE(${postBody ?? null}, body),
+                status = COALESCE(${status ?? null}, status),
+                scheduled_for = COALESCE(${scheduledFor ?? null}, scheduled_for),
+                media_urls = COALESCE(${mediaUrls as any}, media_urls)
+              WHERE id = ${id}
+              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
+            `
+      }
+      if (scheduledCol === 'scheduled_at') {
+        return contentCol === 'content'
+          ? sql`
+              UPDATE scheduled_posts
+              SET
+                updated_at = NOW(),
+                platform = COALESCE(${platform ?? null}, platform),
+                title = COALESCE(${title ?? null}, title),
+                content = COALESCE(${postBody ?? null}, content),
+                status = COALESCE(${status ?? null}, status),
+                scheduled_at = COALESCE(${scheduledFor ?? null}, scheduled_at),
+                media_urls = COALESCE(${mediaUrls as any}, media_urls)
+              WHERE id = ${id}
+              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
+              UPDATE scheduled_posts
+              SET
+                updated_at = NOW(),
+                platform = COALESCE(${platform ?? null}, platform),
+                title = COALESCE(${title ?? null}, title),
+                body = COALESCE(${postBody ?? null}, body),
+                status = COALESCE(${status ?? null}, status),
+                scheduled_at = COALESCE(${scheduledFor ?? null}, scheduled_at),
+                media_urls = COALESCE(${mediaUrls as any}, media_urls)
+              WHERE id = ${id}
+              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
+            `
+      }
+      if (scheduledCol === 'scheduled_time') {
+        return contentCol === 'content'
+          ? sql`
+              UPDATE scheduled_posts
+              SET
+                updated_at = NOW(),
+                platform = COALESCE(${platform ?? null}, platform),
+                title = COALESCE(${title ?? null}, title),
+                content = COALESCE(${postBody ?? null}, content),
+                status = COALESCE(${status ?? null}, status),
+                scheduled_time = COALESCE(${scheduledFor ?? null}, scheduled_time),
+                media_urls = COALESCE(${mediaUrls as any}, media_urls)
+              WHERE id = ${id}
+              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
+              UPDATE scheduled_posts
+              SET
+                updated_at = NOW(),
+                platform = COALESCE(${platform ?? null}, platform),
+                title = COALESCE(${title ?? null}, title),
+                body = COALESCE(${postBody ?? null}, body),
+                status = COALESCE(${status ?? null}, status),
+                scheduled_time = COALESCE(${scheduledFor ?? null}, scheduled_time),
+                media_urls = COALESCE(${mediaUrls as any}, media_urls)
+              WHERE id = ${id}
+              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
+            `
+      }
+
+      // No schedule column; just update content/body
+      return setContent
+    })()
 
     if (!rows[0]) return NextResponse.json({ error: 'Not found' }, { status: 404 })
-    return NextResponse.json({ post: rows[0] })
+    // Ensure scheduled_for is always present for the UI
+    const out = rows[0] as any
+    if (out.scheduled_for === undefined) out.scheduled_for = null
+    return NextResponse.json({ post: out })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'
     if (/column .* does not exist/i.test(message)) {

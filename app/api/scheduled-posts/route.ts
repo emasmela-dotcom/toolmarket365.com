@@ -28,6 +28,49 @@ function newId(): string {
 
 type UserIdKind = 'none' | 'uuid' | 'text'
 let cachedUserIdKind: UserIdKind | null = null
+let cachedScheduledPostsCols: Set<string> | null = null
+
+type ContentCol = 'body' | 'content'
+type ScheduledCol = 'scheduled_for' | 'scheduled_at' | 'scheduled_time' | null
+
+async function getScheduledPostsCols(): Promise<Set<string>> {
+  if (!sql) return new Set()
+  if (cachedScheduledPostsCols) return cachedScheduledPostsCols
+
+  try {
+    const rows = await sql`
+      SELECT column_name
+      FROM information_schema.columns
+      WHERE table_schema = 'public'
+        AND table_name = 'scheduled_posts'
+    `
+    cachedScheduledPostsCols = new Set(rows.map((r: any) => String(r.column_name)))
+    return cachedScheduledPostsCols
+  } catch {
+    cachedScheduledPostsCols = new Set()
+    return cachedScheduledPostsCols
+  }
+}
+
+async function getShape(): Promise<{
+  contentCol: ContentCol
+  scheduledCol: ScheduledCol
+  hasUserId: boolean
+  userIdKind: UserIdKind
+}> {
+  const cols = await getScheduledPostsCols()
+  const contentCol: ContentCol = cols.has('body') ? 'body' : 'content'
+  const scheduledCol: ScheduledCol = cols.has('scheduled_for')
+    ? 'scheduled_for'
+    : cols.has('scheduled_at')
+      ? 'scheduled_at'
+      : cols.has('scheduled_time')
+        ? 'scheduled_time'
+        : null
+  const userIdKind = await getUserIdKind()
+  const hasUserId = cols.has('user_id') && userIdKind !== 'none'
+  return { contentCol, scheduledCol, hasUserId, userIdKind }
+}
 
 async function getUserIdKind(): Promise<UserIdKind> {
   if (!sql) return 'none'
@@ -71,21 +114,141 @@ export async function GET(req: NextRequest) {
   const limit = Math.min(Math.max(Number(limitParam || 100) || 100, 1), 200)
 
   try {
-    const rows =
-      statusParam && isStatus(statusParam)
-        ? await sql`
-            SELECT id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
-            FROM scheduled_posts
-            WHERE status = ${statusParam}
-            ORDER BY COALESCE(scheduled_for, created_at) DESC
-            LIMIT ${limit}
-          `
-        : await sql`
-            SELECT id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
-            FROM scheduled_posts
-            ORDER BY COALESCE(scheduled_for, created_at) DESC
-            LIMIT ${limit}
-          `
+    const shape = await getShape()
+    const filter = statusParam && isStatus(statusParam) ? (statusParam as Status) : null
+
+    const rows = await (async () => {
+      // 2 x 4 shape variants: content(body/content) x scheduled(scheduled_for/scheduled_at/scheduled_time/null)
+      if (shape.contentCol === 'body' && shape.scheduledCol === 'scheduled_for') {
+        return filter
+          ? sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
+              FROM scheduled_posts
+              WHERE status = ${filter}
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+          : sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
+              FROM scheduled_posts
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+      }
+      if (shape.contentCol === 'content' && shape.scheduledCol === 'scheduled_for') {
+        return filter
+          ? sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+              FROM scheduled_posts
+              WHERE status = ${filter}
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+          : sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+              FROM scheduled_posts
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+      }
+
+      if (shape.contentCol === 'body' && shape.scheduledCol === 'scheduled_at') {
+        return filter
+          ? sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
+              FROM scheduled_posts
+              WHERE status = ${filter}
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+          : sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
+              FROM scheduled_posts
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+      }
+      if (shape.contentCol === 'content' && shape.scheduledCol === 'scheduled_at') {
+        return filter
+          ? sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+              FROM scheduled_posts
+              WHERE status = ${filter}
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+          : sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+              FROM scheduled_posts
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+      }
+
+      if (shape.contentCol === 'body' && shape.scheduledCol === 'scheduled_time') {
+        return filter
+          ? sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
+              FROM scheduled_posts
+              WHERE status = ${filter}
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+          : sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
+              FROM scheduled_posts
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+      }
+      if (shape.contentCol === 'content' && shape.scheduledCol === 'scheduled_time') {
+        return filter
+          ? sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+              FROM scheduled_posts
+              WHERE status = ${filter}
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+          : sql`
+              SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+              FROM scheduled_posts
+              ORDER BY COALESCE(scheduled_for, created_at) DESC
+              LIMIT ${limit}
+            `
+      }
+
+      // No schedule column present; return NULL scheduled_for
+      return filter
+        ? (shape.contentCol === 'content'
+            ? sql`
+                SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
+                FROM scheduled_posts
+                WHERE status = ${filter}
+                ORDER BY created_at DESC
+                LIMIT ${limit}
+              `
+            : sql`
+                SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
+                FROM scheduled_posts
+                WHERE status = ${filter}
+                ORDER BY created_at DESC
+                LIMIT ${limit}
+              `)
+        : shape.contentCol === 'content'
+          ? sql`
+              SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
+              FROM scheduled_posts
+              ORDER BY created_at DESC
+              LIMIT ${limit}
+            `
+          : sql`
+              SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
+              FROM scheduled_posts
+              ORDER BY created_at DESC
+              LIMIT ${limit}
+            `
+    })()
 
     return NextResponse.json({ posts: rows })
   } catch (err: unknown) {
@@ -118,7 +281,12 @@ export async function POST(req: NextRequest) {
 
   const platform = typeof body.platform === 'string' && body.platform.trim() ? body.platform.trim() : 'Other'
   const title = typeof body.title === 'string' && body.title.trim() ? body.title.trim().slice(0, 200) : null
-  const postBody = typeof body.body === 'string' ? body.body.trim() : ''
+  const postBody =
+    typeof body.body === 'string'
+      ? body.body.trim()
+      : typeof body.content === 'string'
+        ? body.content.trim()
+        : ''
   const status: Status = isStatus(body.status) ? body.status : 'draft'
   const scheduledFor = toIsoOrNull(body.scheduled_for ?? body.scheduledFor)
 
@@ -134,30 +302,126 @@ export async function POST(req: NextRequest) {
 
   try {
     const id = newId()
-    const userIdKind = await getUserIdKind()
+    const shape = await getShape()
 
     const headerUserId = (req.headers.get('x-user-id') || '').trim()
     const bodyUserId = typeof body.user_id === 'string' ? body.user_id.trim() : ''
     const userIdText = bodyUserId || headerUserId || 'local'
 
-    const rows =
-      userIdKind === 'uuid'
-        ? await sql`
-            INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, body, media_urls)
-            VALUES (${id}, ${newId()}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-            RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
-          `
-        : userIdKind === 'text'
-          ? await sql`
+    const userValue = shape.userIdKind === 'uuid' ? newId() : userIdText
+
+    const rows = await (async () => {
+      const contentInsert = shape.contentCol === 'content' ? 'content' : 'body'
+
+      if (shape.hasUserId && shape.scheduledCol === 'scheduled_for') {
+        return contentInsert === 'content'
+          ? sql`
+              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, content, media_urls)
+              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
               INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, body, media_urls)
-              VALUES (${id}, ${userIdText}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
               RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
             `
-          : await sql`
+      }
+
+      if (shape.hasUserId && shape.scheduledCol === 'scheduled_at') {
+        return contentInsert === 'content'
+          ? sql`
+              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, content, media_urls)
+              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
+              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, body, media_urls)
+              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
+            `
+      }
+
+      if (shape.hasUserId && shape.scheduledCol === 'scheduled_time') {
+        return contentInsert === 'content'
+          ? sql`
+              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, content, media_urls)
+              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
+              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, body, media_urls)
+              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
+            `
+      }
+
+      if (shape.hasUserId && shape.scheduledCol === null) {
+        return contentInsert === 'content'
+          ? sql`
+              INSERT INTO scheduled_posts (id, user_id, status, platform, title, content, media_urls)
+              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
+              INSERT INTO scheduled_posts (id, user_id, status, platform, title, body, media_urls)
+              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
+            `
+      }
+
+      // No user_id column
+      if (!shape.hasUserId && shape.scheduledCol === 'scheduled_for') {
+        return contentInsert === 'content'
+          ? sql`
+              INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, content, media_urls)
+              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
               INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, body, media_urls)
               VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
               RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
             `
+      }
+      if (!shape.hasUserId && shape.scheduledCol === 'scheduled_at') {
+        return contentInsert === 'content'
+          ? sql`
+              INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, content, media_urls)
+              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
+              INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, body, media_urls)
+              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
+            `
+      }
+      if (!shape.hasUserId && shape.scheduledCol === 'scheduled_time') {
+        return contentInsert === 'content'
+          ? sql`
+              INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, content, media_urls)
+              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+            `
+          : sql`
+              INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, body, media_urls)
+              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
+            `
+      }
+
+      return contentInsert === 'content'
+        ? sql`
+            INSERT INTO scheduled_posts (id, status, platform, title, content, media_urls)
+            VALUES (${id}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
+          `
+        : sql`
+            INSERT INTO scheduled_posts (id, status, platform, title, body, media_urls)
+            VALUES (${id}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
+          `
+    })()
 
     return NextResponse.json({ post: rows[0] }, { status: 201 })
   } catch (err: unknown) {
