@@ -77,6 +77,32 @@ async function getShape(): Promise<{
   return { contentCol, scheduledCol, hasUserId, userIdKind }
 }
 
+let cachedScheduledNullable: Record<string, boolean> | null = null
+
+async function isScheduledNullable(col: Exclude<ScheduledCol, null>): Promise<boolean> {
+  if (!sql) return true
+  cachedScheduledNullable ||= {}
+  if (cachedScheduledNullable[col] !== undefined) return cachedScheduledNullable[col]
+
+  try {
+    const rows = await sql`
+      SELECT is_nullable
+      FROM information_schema.columns
+      WHERE table_schema = 'public'
+        AND table_name = 'scheduled_posts'
+        AND column_name = ${col}
+      LIMIT 1
+    `
+    const v = String((rows[0] as any)?.is_nullable || '').toUpperCase()
+    const ok = v !== 'NO'
+    cachedScheduledNullable[col] = ok
+    return ok
+  } catch {
+    cachedScheduledNullable[col] = true
+    return true
+  }
+}
+
 async function getUserIdKind(): Promise<UserIdKind> {
   if (!sql) return 'none'
   if (cachedUserIdKind) return cachedUserIdKind
@@ -335,6 +361,11 @@ export async function POST(req: NextRequest) {
     const userValue =
       shape.userIdKind === 'uuid' ? (isUuid(userIdText) ? userIdText : newId()) : userIdText
 
+    const scheduledValue =
+      shape.scheduledCol && !(await isScheduledNullable(shape.scheduledCol))
+        ? scheduledFor || new Date().toISOString()
+        : scheduledFor
+
     const rows = await (async () => {
       const hasContent = cols.has('content')
       const hasBody = cols.has('body')
@@ -343,20 +374,20 @@ export async function POST(req: NextRequest) {
         if (hasContent && hasBody) {
           return sql`
             INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, content, body, media_urls)
-            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
           `
         }
         if (hasContent) {
           return sql`
             INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, content, media_urls)
-            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
           `
         }
         return sql`
           INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, body, media_urls)
-          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
           RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
         `
       }
@@ -365,20 +396,20 @@ export async function POST(req: NextRequest) {
         if (hasContent && hasBody) {
           return sql`
             INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, content, body, media_urls)
-            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
           `
         }
         if (hasContent) {
           return sql`
             INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, content, media_urls)
-            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
           `
         }
         return sql`
           INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, body, media_urls)
-          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
           RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
         `
       }
@@ -387,20 +418,20 @@ export async function POST(req: NextRequest) {
         if (hasContent && hasBody) {
           return sql`
             INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, content, body, media_urls)
-            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
           `
         }
         if (hasContent) {
           return sql`
             INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, content, media_urls)
-            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
           `
         }
         return sql`
           INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, body, media_urls)
-          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
           RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
         `
       }
@@ -432,20 +463,20 @@ export async function POST(req: NextRequest) {
         if (hasContent && hasBody) {
           return sql`
             INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, content, body, media_urls)
-            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
           `
         }
         if (hasContent) {
           return sql`
             INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, content, media_urls)
-            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
           `
         }
         return sql`
           INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, body, media_urls)
-          VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          VALUES (${id}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
           RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
         `
       }
@@ -453,20 +484,20 @@ export async function POST(req: NextRequest) {
         if (hasContent && hasBody) {
           return sql`
             INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, content, body, media_urls)
-            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
           `
         }
         if (hasContent) {
           return sql`
             INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, content, media_urls)
-            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
           `
         }
         return sql`
           INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, body, media_urls)
-          VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          VALUES (${id}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
           RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
         `
       }
@@ -474,20 +505,20 @@ export async function POST(req: NextRequest) {
         if (hasContent && hasBody) {
           return sql`
             INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, content, body, media_urls)
-            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
           `
         }
         if (hasContent) {
           return sql`
             INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, content, media_urls)
-            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            VALUES (${id}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
             RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
           `
         }
         return sql`
           INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, body, media_urls)
-          VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          VALUES (${id}, ${status}, ${platform}, ${scheduledValue}, ${title}, ${postBody}, ${mediaUrls})
           RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
         `
       }
