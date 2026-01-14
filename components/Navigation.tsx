@@ -29,9 +29,14 @@ export function Navigation() {
             <button className="p-2 text-mono-600 hover:text-mono-900 transition-colors">
               <Search className="h-5 w-5" />
             </button>
-            <button className="p-2 text-mono-600 hover:text-mono-900 transition-colors">
+            <Link
+              href="/account"
+              className="p-2 text-mono-600 hover:text-mono-900 transition-colors"
+              aria-label="Account"
+              title="Account"
+            >
               <User className="h-5 w-5" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

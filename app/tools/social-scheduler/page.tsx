@@ -5,6 +5,8 @@ import { CalendarClock, RefreshCw, Trash2, Save, PlusCircle } from 'lucide-react
 
 type Status = 'draft' | 'scheduled' | 'published' | 'canceled'
 
+type AccountUser = { id: string; email: string } | null
+
 type ScheduledPost = {
   id: string
   created_at: string
@@ -39,6 +41,7 @@ export default function SocialScheduler() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
+  const [accountUser, setAccountUser] = useState<AccountUser>(null)
 
   const [filterStatus, setFilterStatus] = useState<Status | 'all'>('all')
 
@@ -54,6 +57,7 @@ export default function SocialScheduler() {
   const selected = useMemo(() => posts.find((p) => p.id === selectedId) || null, [posts, selectedId])
 
   const load = async () => {
+    if (!userId) return
     setLoading(true)
     setError(null)
     try {
@@ -61,7 +65,7 @@ export default function SocialScheduler() {
       if (filterStatus !== 'all') qs.set('status', filterStatus)
       qs.set('limit', '200')
       const res = await fetch(`/api/scheduled-posts?${qs.toString()}`, {
-        headers: userId ? { 'x-user-id': userId } : undefined,
+        headers: { 'x-user-id': userId },
       })
       const data = await res.json().catch(() => null)
       if (!res.ok) throw new Error(data?.error || 'Failed to load scheduled posts')
@@ -74,23 +78,43 @@ export default function SocialScheduler() {
   }
 
   useEffect(() => {
-    // Minimal “account”: persistent user id stored in localStorage.
-    try {
-      const key = 'msm_user_id'
-      const existing = localStorage.getItem(key)
-      if (existing && existing.trim()) {
-        setUserId(existing.trim())
-      } else {
-        const id = crypto.randomUUID()
-        localStorage.setItem(key, id)
-        setUserId(id)
+    // Prefer signed-in user from /api/me; fall back to persistent local browser id.
+    const init = async () => {
+      try {
+        const res = await fetch('/api/me')
+        const data = await res.json().catch(() => null)
+        const u = (data?.user as AccountUser) || null
+        if (u?.id) {
+          setAccountUser(u)
+          setUserId(u.id)
+          return
+        }
+      } catch {
+        // ignore
       }
-    } catch {
-      // ignore
+
+      try {
+        const key = 'msm_user_id'
+        const existing = localStorage.getItem(key)
+        if (existing && existing.trim()) {
+          setUserId(existing.trim())
+        } else {
+          const id = crypto.randomUUID()
+          localStorage.setItem(key, id)
+          setUserId(id)
+        }
+      } catch {
+        // ignore
+      }
     }
+
+    void init()
+  }, [])
+
+  useEffect(() => {
     void load()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterStatus])
+  }, [filterStatus, userId])
 
   const resetForm = () => {
     setSelectedId(null)
@@ -214,6 +238,10 @@ export default function SocialScheduler() {
                 <code className="px-1 py-0.5 bg-mono-200 dark:bg-mono-800 rounded">.env.local</code> and you’ve run{' '}
                 <code className="px-1 py-0.5 bg-mono-200 dark:bg-mono-800 rounded">lib/schema.sql</code> in Neon (it now includes{' '}
                 <code className="px-1 py-0.5 bg-mono-200 dark:bg-mono-800 rounded">scheduled_posts</code>).
+              </p>
+              <p className="mt-2">
+                If you sign in at <code className="px-1 py-0.5 bg-mono-200 dark:bg-mono-800 rounded">/account</code>, your posts are
+                scoped to your account. Otherwise, they’re scoped to a local “Creator ID” stored in this browser.
               </p>
             </div>
           </div>
@@ -422,7 +450,9 @@ export default function SocialScheduler() {
         )}
         {userId && (
           <p className="mt-2 text-xs text-mono-500">
-            Creator ID: <span className="font-mono">{userId.slice(0, 8)}</span> (stored in this browser)
+            {accountUser
+              ? `Signed in as ${accountUser.email} • User ID: ${accountUser.id.slice(0, 8)}`
+              : `Creator ID: ${userId.slice(0, 8)} (stored in this browser)`}
           </p>
         )}
       </div>
