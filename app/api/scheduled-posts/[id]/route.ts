@@ -31,7 +31,8 @@ async function getCols(): Promise<Set<string>> {
 
 async function getContentCol(): Promise<ContentCol> {
   const cols = await getCols()
-  return cols.has('body') ? 'body' : 'content'
+  // Prefer legacy `content` if present (often NOT NULL). Fall back to `body`.
+  return cols.has('content') ? 'content' : 'body'
 }
 
 async function getScheduledCol(): Promise<ScheduledCol> {

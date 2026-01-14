@@ -63,7 +63,8 @@ async function getShape(): Promise<{
   userIdKind: UserIdKind
 }> {
   const cols = await getScheduledPostsCols()
-  const contentCol: ContentCol = cols.has('body') ? 'body' : 'content'
+  // Prefer legacy `content` if present (often NOT NULL). Fall back to `body`.
+  const contentCol: ContentCol = cols.has('content') ? 'content' : 'body'
   const scheduledCol: ScheduledCol = cols.has('scheduled_for')
     ? 'scheduled_for'
     : cols.has('scheduled_at')
