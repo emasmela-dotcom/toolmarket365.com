@@ -38,6 +38,7 @@ export default function SocialScheduler() {
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
 
   const [filterStatus, setFilterStatus] = useState<Status | 'all'>('all')
 
@@ -59,7 +60,9 @@ export default function SocialScheduler() {
       const qs = new URLSearchParams()
       if (filterStatus !== 'all') qs.set('status', filterStatus)
       qs.set('limit', '200')
-      const res = await fetch(`/api/scheduled-posts?${qs.toString()}`)
+      const res = await fetch(`/api/scheduled-posts?${qs.toString()}`, {
+        headers: userId ? { 'x-user-id': userId } : undefined,
+      })
       const data = await res.json().catch(() => null)
       if (!res.ok) throw new Error(data?.error || 'Failed to load scheduled posts')
       setPosts((data?.posts as ScheduledPost[]) || [])
@@ -71,6 +74,20 @@ export default function SocialScheduler() {
   }
 
   useEffect(() => {
+    // Minimal “account”: persistent user id stored in localStorage.
+    try {
+      const key = 'msm_user_id'
+      const existing = localStorage.getItem(key)
+      if (existing && existing.trim()) {
+        setUserId(existing.trim())
+      } else {
+        const id = crypto.randomUUID()
+        localStorage.setItem(key, id)
+        setUserId(id)
+      }
+    } catch {
+      // ignore
+    }
     void load()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterStatus])
@@ -117,15 +134,20 @@ export default function SocialScheduler() {
 
       if (!payload.body) throw new Error('Body is required')
 
+      const headers = {
+        'Content-Type': 'application/json',
+        ...(userId ? { 'x-user-id': userId } : {}),
+      }
+
       const res = selectedId
         ? await fetch(`/api/scheduled-posts/${selectedId}`, {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
+            headers,
             body: JSON.stringify(payload),
           })
         : await fetch('/api/scheduled-posts', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers,
             body: JSON.stringify(payload),
           })
 
@@ -149,7 +171,10 @@ export default function SocialScheduler() {
     setSaving(true)
     setError(null)
     try {
-      const res = await fetch(`/api/scheduled-posts/${selectedId}`, { method: 'DELETE' })
+      const res = await fetch(`/api/scheduled-posts/${selectedId}`, {
+        method: 'DELETE',
+        headers: userId ? { 'x-user-id': userId } : undefined,
+      })
       const data = await res.json().catch(() => null)
       if (!res.ok) throw new Error(data?.error || 'Failed to delete')
       resetForm()
@@ -393,6 +418,11 @@ export default function SocialScheduler() {
           <p className="mt-6 text-xs text-mono-500">
             Selected: <span className="font-mono">{selected.id}</span>
             {selected.updated_at ? ` • updated ${new Date(selected.updated_at).toLocaleString()}` : ''}
+          </p>
+        )}
+        {userId && (
+          <p className="mt-2 text-xs text-mono-500">
+            Creator ID: <span className="font-mono">{userId.slice(0, 8)}</span> (stored in this browser)
           </p>
         )}
       </div>

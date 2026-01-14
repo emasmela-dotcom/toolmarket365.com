@@ -26,6 +26,10 @@ function newId(): string {
   }
 }
 
+function isUuid(v: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v)
+}
+
 type UserIdKind = 'none' | 'uuid' | 'text'
 let cachedUserIdKind: UserIdKind | null = null
 let cachedScheduledPostsCols: Set<string> | null = null
@@ -112,10 +116,12 @@ export async function GET(req: NextRequest) {
   const statusParam = (searchParams.get('status') || '').trim()
   const limitParam = searchParams.get('limit')
   const limit = Math.min(Math.max(Number(limitParam || 100) || 100, 1), 200)
+  const headerUserId = (req.headers.get('x-user-id') || '').trim()
 
   try {
     const shape = await getShape()
     const filter = statusParam && isStatus(statusParam) ? (statusParam as Status) : null
+    const useUserFilter = shape.hasUserId && !!headerUserId
 
     const rows = await (async () => {
       // 2 x 4 shape variants: content(body/content) x scheduled(scheduled_for/scheduled_at/scheduled_time/null)
@@ -125,12 +131,14 @@ export async function GET(req: NextRequest) {
               SELECT id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
               FROM scheduled_posts
               WHERE status = ${filter}
+                AND (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
           : sql`
               SELECT id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
               FROM scheduled_posts
+              WHERE (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
@@ -141,12 +149,14 @@ export async function GET(req: NextRequest) {
               SELECT id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
               FROM scheduled_posts
               WHERE status = ${filter}
+                AND (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
           : sql`
               SELECT id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
               FROM scheduled_posts
+              WHERE (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
@@ -158,12 +168,14 @@ export async function GET(req: NextRequest) {
               SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
               FROM scheduled_posts
               WHERE status = ${filter}
+                AND (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
           : sql`
               SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
               FROM scheduled_posts
+              WHERE (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
@@ -174,12 +186,14 @@ export async function GET(req: NextRequest) {
               SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
               FROM scheduled_posts
               WHERE status = ${filter}
+                AND (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
           : sql`
               SELECT id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
               FROM scheduled_posts
+              WHERE (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
@@ -191,12 +205,14 @@ export async function GET(req: NextRequest) {
               SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
               FROM scheduled_posts
               WHERE status = ${filter}
+                AND (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
           : sql`
               SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
               FROM scheduled_posts
+              WHERE (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
@@ -207,12 +223,14 @@ export async function GET(req: NextRequest) {
               SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
               FROM scheduled_posts
               WHERE status = ${filter}
+                AND (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
           : sql`
               SELECT id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
               FROM scheduled_posts
+              WHERE (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY COALESCE(scheduled_for, created_at) DESC
               LIMIT ${limit}
             `
@@ -225,6 +243,7 @@ export async function GET(req: NextRequest) {
                 SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
                 FROM scheduled_posts
                 WHERE status = ${filter}
+                  AND (${useUserFilter} = false OR user_id = ${headerUserId})
                 ORDER BY created_at DESC
                 LIMIT ${limit}
               `
@@ -232,6 +251,7 @@ export async function GET(req: NextRequest) {
                 SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
                 FROM scheduled_posts
                 WHERE status = ${filter}
+                  AND (${useUserFilter} = false OR user_id = ${headerUserId})
                 ORDER BY created_at DESC
                 LIMIT ${limit}
               `)
@@ -239,12 +259,14 @@ export async function GET(req: NextRequest) {
           ? sql`
               SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
               FROM scheduled_posts
+              WHERE (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY created_at DESC
               LIMIT ${limit}
             `
           : sql`
               SELECT id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
               FROM scheduled_posts
+              WHERE (${useUserFilter} = false OR user_id = ${headerUserId})
               ORDER BY created_at DESC
               LIMIT ${limit}
             `
@@ -308,7 +330,8 @@ export async function POST(req: NextRequest) {
     const bodyUserId = typeof body.user_id === 'string' ? body.user_id.trim() : ''
     const userIdText = bodyUserId || headerUserId || 'local'
 
-    const userValue = shape.userIdKind === 'uuid' ? newId() : userIdText
+    const userValue =
+      shape.userIdKind === 'uuid' ? (isUuid(userIdText) ? userIdText : newId()) : userIdText
 
     const rows = await (async () => {
       const contentInsert = shape.contentCol === 'content' ? 'content' : 'body'
