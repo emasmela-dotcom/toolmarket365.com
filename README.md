@@ -20,6 +20,18 @@ Professional toolkit marketplace for content creators. Comprehensive tools for c
 
 ## Getting Started
 
+### Database setup (Neon)
+
+If you want the Neon-backed features (comments, analytics, scheduled posts, and **accounts/sessions/password reset**):
+
+1. Create a Neon Postgres database and copy its connection string.
+2. Set `DATABASE_URL` in `.env.local`.
+3. Apply the schema:
+
+```bash
+npm run db:init
+```
+
 ```bash
 # Install dependencies
 npm install
