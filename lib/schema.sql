@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS tool_usage (
 -- Scheduled posts (Social Scheduler)
 CREATE TABLE IF NOT EXISTS scheduled_posts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL DEFAULT 'local',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE,
   status VARCHAR(20) NOT NULL DEFAULT 'draft' CHECK (status IN ('draft', 'scheduled', 'published', 'canceled')),
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS scheduled_posts (
 );
 
 -- If the table already exists from an older version, ensure new columns exist
+ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS user_id TEXT NOT NULL DEFAULT 'local';
 ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
 ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE;
 ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS status VARCHAR(20) NOT NULL DEFAULT 'draft';
@@ -58,5 +60,6 @@ CREATE INDEX IF NOT EXISTS idx_tool_usage_slug ON tool_usage(tool_slug);
 CREATE INDEX IF NOT EXISTS idx_scheduled_posts_scheduled_for ON scheduled_posts(scheduled_for DESC);
 CREATE INDEX IF NOT EXISTS idx_scheduled_posts_status ON scheduled_posts(status);
 CREATE INDEX IF NOT EXISTS idx_scheduled_posts_created_at ON scheduled_posts(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_scheduled_posts_user_id ON scheduled_posts(user_id);
 
 

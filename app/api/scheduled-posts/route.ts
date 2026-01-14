@@ -26,6 +26,40 @@ function newId(): string {
   }
 }
 
+type UserIdKind = 'none' | 'uuid' | 'text'
+let cachedUserIdKind: UserIdKind | null = null
+
+async function getUserIdKind(): Promise<UserIdKind> {
+  if (!sql) return 'none'
+  if (cachedUserIdKind) return cachedUserIdKind
+
+  try {
+    const rows = await sql`
+      SELECT udt_name, data_type
+      FROM information_schema.columns
+      WHERE table_schema = 'public'
+        AND table_name = 'scheduled_posts'
+        AND column_name = 'user_id'
+      LIMIT 1
+    `
+
+    if (!rows[0]) {
+      cachedUserIdKind = 'none'
+      return cachedUserIdKind
+    }
+
+    const udt = String((rows[0] as any).udt_name || '').toLowerCase()
+    const dt = String((rows[0] as any).data_type || '').toLowerCase()
+
+    cachedUserIdKind = udt === 'uuid' || dt === 'uuid' ? 'uuid' : 'text'
+    return cachedUserIdKind
+  } catch {
+    // If introspection fails, assume no user_id and fall back to insert without it.
+    cachedUserIdKind = 'none'
+    return cachedUserIdKind
+  }
+}
+
 export async function GET(req: NextRequest) {
   if (!sql) {
     return NextResponse.json({ error: 'DATABASE_URL is not set' }, { status: 503 })
@@ -100,11 +134,31 @@ export async function POST(req: NextRequest) {
 
   try {
     const id = newId()
-    const rows = await sql`
-      INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, body, media_urls)
-      VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-      RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
-    `
+    const userIdKind = await getUserIdKind()
+
+    const headerUserId = (req.headers.get('x-user-id') || '').trim()
+    const bodyUserId = typeof body.user_id === 'string' ? body.user_id.trim() : ''
+    const userIdText = bodyUserId || headerUserId || 'local'
+
+    const rows =
+      userIdKind === 'uuid'
+        ? await sql`
+            INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, body, media_urls)
+            VALUES (${id}, ${newId()}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
+          `
+        : userIdKind === 'text'
+          ? await sql`
+              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, body, media_urls)
+              VALUES (${id}, ${userIdText}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
+            `
+          : await sql`
+              INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, body, media_urls)
+              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
+            `
+
     return NextResponse.json({ post: rows[0] }, { status: 201 })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'
@@ -113,6 +167,16 @@ export async function POST(req: NextRequest) {
         {
           error:
             'Your Neon `scheduled_posts` table is missing required columns (schema is out of date). Run the latest scheduled_posts migration SQL in Neon (ALTER TABLE … ADD COLUMN IF NOT EXISTS …) and retry.',
+          detail: message,
+        },
+        { status: 500 }
+      )
+    }
+    if (/null value in column \"user_id\"/i.test(message)) {
+      return NextResponse.json(
+        {
+          error:
+            'Your Neon `scheduled_posts` table requires user_id. Update the API (git pull) or add a default for user_id in Neon, then retry.',
           detail: message,
         },
         { status: 500 }
