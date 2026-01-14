@@ -7,8 +7,10 @@ function isStatus(v: unknown): v is Status {
   return v === 'draft' || v === 'scheduled' || v === 'published' || v === 'canceled'
 }
 
-function isUuid(v: string): boolean {
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v)
+function isSafeId(v: string): boolean {
+  // Support both UUIDs and legacy short IDs (e.g. nanoid).
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v)) return true
+  return /^[a-zA-Z0-9_-]{6,80}$/.test(v)
 }
 
 function toIsoOrNull(v: unknown): string | null {
@@ -25,7 +27,7 @@ export async function GET(_req: NextRequest, ctx: { params: { id: string } }) {
   }
 
   const id = ctx.params.id
-  if (!isUuid(id)) {
+  if (!isSafeId(id)) {
     return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
   }
 
@@ -60,7 +62,7 @@ export async function PATCH(req: NextRequest, ctx: { params: { id: string } }) {
   }
 
   const id = ctx.params.id
-  if (!isUuid(id)) {
+  if (!isSafeId(id)) {
     return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
   }
 
@@ -137,7 +139,7 @@ export async function DELETE(_req: NextRequest, ctx: { params: { id: string } })
   }
 
   const id = ctx.params.id
-  if (!isUuid(id)) {
+  if (!isSafeId(id)) {
     return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
   }
 

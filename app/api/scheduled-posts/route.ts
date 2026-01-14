@@ -15,6 +15,17 @@ function toIsoOrNull(v: unknown): string | null {
   return d.toISOString()
 }
 
+function newId(): string {
+  // Works for both UUID and legacy TEXT ids.
+  // Node 18+ provides crypto.randomUUID().
+  try {
+    // eslint-disable-next-line no-undef
+    return crypto.randomUUID()
+  } catch {
+    return `${Date.now()}-${Math.random()}`
+  }
+}
+
 export async function GET(req: NextRequest) {
   if (!sql) {
     return NextResponse.json({ error: 'DATABASE_URL is not set' }, { status: 503 })
@@ -88,9 +99,10 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    const id = newId()
     const rows = await sql`
-      INSERT INTO scheduled_posts (status, platform, scheduled_for, title, body, media_urls)
-      VALUES (${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+      INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, body, media_urls)
+      VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
       RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
     `
     return NextResponse.json({ post: rows[0] }, { status: 201 })
