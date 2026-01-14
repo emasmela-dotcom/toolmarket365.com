@@ -3,6 +3,43 @@ import path from 'node:path'
 import process from 'node:process'
 import { neon } from '@neondatabase/serverless'
 
+function parseDotEnv(contents) {
+  const out = {}
+  for (const rawLine of contents.split('\n')) {
+    const line = rawLine.trim()
+    if (!line || line.startsWith('#')) continue
+    const eq = line.indexOf('=')
+    if (eq === -1) continue
+    const key = line.slice(0, eq).trim()
+    let val = line.slice(eq + 1).trim()
+    if (
+      (val.startsWith('"') && val.endsWith('"')) ||
+      (val.startsWith("'") && val.endsWith("'"))
+    ) {
+      val = val.slice(1, -1)
+    }
+    if (key) out[key] = val
+  }
+  return out
+}
+
+function loadEnvFiles() {
+  // Make db:init work out-of-the-box with .env.local (like Next.js dev does).
+  const candidates = ['.env.local', '.env']
+  for (const filename of candidates) {
+    const p = path.join(process.cwd(), filename)
+    if (!fs.existsSync(p)) continue
+    try {
+      const env = parseDotEnv(fs.readFileSync(p, 'utf8'))
+      for (const [k, v] of Object.entries(env)) {
+        if (process.env[k] == null || process.env[k] === '') process.env[k] = v
+      }
+    } catch {
+      // ignore
+    }
+  }
+}
+
 function stripSqlComments(sqlText) {
   // Remove -- line comments (good enough for our schema.sql).
   return sqlText
@@ -23,9 +60,10 @@ function splitStatements(sqlText) {
 }
 
 async function main() {
+  loadEnvFiles()
   const connectionString = process.env.DATABASE_URL
   if (!connectionString) {
-    console.error('DATABASE_URL is not set. Aborting.')
+    console.error('DATABASE_URL is not set. Put it in .env.local or export it, then retry.')
     process.exit(1)
   }
 
