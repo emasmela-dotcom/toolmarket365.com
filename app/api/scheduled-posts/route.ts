@@ -45,6 +45,16 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ posts: rows })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'
+    if (/column .* does not exist/i.test(message)) {
+      return NextResponse.json(
+        {
+          error:
+            'Your Neon `scheduled_posts` table is missing required columns (schema is out of date). Run the latest scheduled_posts migration SQL in Neon (ALTER TABLE … ADD COLUMN IF NOT EXISTS …) and retry.',
+          detail: message,
+        },
+        { status: 500 }
+      )
+    }
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }
@@ -86,6 +96,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ post: rows[0] }, { status: 201 })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'
+    if (/column .* does not exist/i.test(message)) {
+      return NextResponse.json(
+        {
+          error:
+            'Your Neon `scheduled_posts` table is missing required columns (schema is out of date). Run the latest scheduled_posts migration SQL in Neon (ALTER TABLE … ADD COLUMN IF NOT EXISTS …) and retry.',
+          detail: message,
+        },
+        { status: 500 }
+      )
+    }
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

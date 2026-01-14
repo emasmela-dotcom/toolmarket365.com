@@ -40,6 +40,16 @@ CREATE TABLE IF NOT EXISTS scheduled_posts (
   media_urls TEXT[]
 );
 
+-- If the table already exists from an older version, ensure new columns exist
+ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE;
+ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS status VARCHAR(20) NOT NULL DEFAULT 'draft';
+ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS platform VARCHAR(50) NOT NULL DEFAULT 'Other';
+ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS scheduled_for TIMESTAMP WITH TIME ZONE;
+ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS title VARCHAR(200);
+ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS body TEXT;
+ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS media_urls TEXT[];
+
 -- Indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_comments_created_at ON comments(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_analytics_timestamp ON analytics(timestamp DESC);
