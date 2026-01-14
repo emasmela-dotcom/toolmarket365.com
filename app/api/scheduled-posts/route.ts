@@ -326,6 +326,7 @@ export async function POST(req: NextRequest) {
   try {
     const id = newId()
     const shape = await getShape()
+    const cols = await getScheduledPostsCols()
 
     const headerUserId = (req.headers.get('x-user-id') || '').trim()
     const bodyUserId = typeof body.user_id === 'string' ? body.user_id.trim() : ''
@@ -335,116 +336,181 @@ export async function POST(req: NextRequest) {
       shape.userIdKind === 'uuid' ? (isUuid(userIdText) ? userIdText : newId()) : userIdText
 
     const rows = await (async () => {
-      const contentInsert = shape.contentCol === 'content' ? 'content' : 'body'
+      const hasContent = cols.has('content')
+      const hasBody = cols.has('body')
 
       if (shape.hasUserId && shape.scheduledCol === 'scheduled_for') {
-        return contentInsert === 'content'
-          ? sql`
-              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, content, media_urls)
-              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
-            `
-          : sql`
-              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, body, media_urls)
-              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
-            `
+        if (hasContent && hasBody) {
+          return sql`
+            INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, content, body, media_urls)
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+          `
+        }
+        if (hasContent) {
+          return sql`
+            INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, content, media_urls)
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+          `
+        }
+        return sql`
+          INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_for, title, body, media_urls)
+          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
+        `
       }
 
       if (shape.hasUserId && shape.scheduledCol === 'scheduled_at') {
-        return contentInsert === 'content'
-          ? sql`
-              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, content, media_urls)
-              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
-            `
-          : sql`
-              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, body, media_urls)
-              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
-            `
+        if (hasContent && hasBody) {
+          return sql`
+            INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, content, body, media_urls)
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        if (hasContent) {
+          return sql`
+            INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, content, media_urls)
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        return sql`
+          INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_at, title, body, media_urls)
+          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
+        `
       }
 
       if (shape.hasUserId && shape.scheduledCol === 'scheduled_time') {
-        return contentInsert === 'content'
-          ? sql`
-              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, content, media_urls)
-              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
-            `
-          : sql`
-              INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, body, media_urls)
-              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
-            `
+        if (hasContent && hasBody) {
+          return sql`
+            INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, content, body, media_urls)
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        if (hasContent) {
+          return sql`
+            INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, content, media_urls)
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        return sql`
+          INSERT INTO scheduled_posts (id, user_id, status, platform, scheduled_time, title, body, media_urls)
+          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
+        `
       }
 
       if (shape.hasUserId && shape.scheduledCol === null) {
-        return contentInsert === 'content'
-          ? sql`
-              INSERT INTO scheduled_posts (id, user_id, status, platform, title, content, media_urls)
-              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
-            `
-          : sql`
-              INSERT INTO scheduled_posts (id, user_id, status, platform, title, body, media_urls)
-              VALUES (${id}, ${userValue}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
-            `
+        if (hasContent && hasBody) {
+          return sql`
+            INSERT INTO scheduled_posts (id, user_id, status, platform, title, content, body, media_urls)
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        if (hasContent) {
+          return sql`
+            INSERT INTO scheduled_posts (id, user_id, status, platform, title, content, media_urls)
+            VALUES (${id}, ${userValue}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        return sql`
+          INSERT INTO scheduled_posts (id, user_id, status, platform, title, body, media_urls)
+          VALUES (${id}, ${userValue}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
+          RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
+        `
       }
 
       // No user_id column
       if (!shape.hasUserId && shape.scheduledCol === 'scheduled_for') {
-        return contentInsert === 'content'
-          ? sql`
-              INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, content, media_urls)
-              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
-            `
-          : sql`
-              INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, body, media_urls)
-              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
-            `
+        if (hasContent && hasBody) {
+          return sql`
+            INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, content, body, media_urls)
+            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+          `
+        }
+        if (hasContent) {
+          return sql`
+            INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, content, media_urls)
+            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, content AS body, media_urls
+          `
+        }
+        return sql`
+          INSERT INTO scheduled_posts (id, status, platform, scheduled_for, title, body, media_urls)
+          VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          RETURNING id, created_at, updated_at, status, platform, scheduled_for, title, body, media_urls
+        `
       }
       if (!shape.hasUserId && shape.scheduledCol === 'scheduled_at') {
-        return contentInsert === 'content'
-          ? sql`
-              INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, content, media_urls)
-              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
-            `
-          : sql`
-              INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, body, media_urls)
-              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
-            `
+        if (hasContent && hasBody) {
+          return sql`
+            INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, content, body, media_urls)
+            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        if (hasContent) {
+          return sql`
+            INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, content, media_urls)
+            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        return sql`
+          INSERT INTO scheduled_posts (id, status, platform, scheduled_at, title, body, media_urls)
+          VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          RETURNING id, created_at, updated_at, status, platform, scheduled_at AS scheduled_for, title, body, media_urls
+        `
       }
       if (!shape.hasUserId && shape.scheduledCol === 'scheduled_time') {
-        return contentInsert === 'content'
-          ? sql`
-              INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, content, media_urls)
-              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
-            `
-          : sql`
-              INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, body, media_urls)
-              VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
-              RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
-            `
+        if (hasContent && hasBody) {
+          return sql`
+            INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, content, body, media_urls)
+            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        if (hasContent) {
+          return sql`
+            INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, content, media_urls)
+            VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+            RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, content AS body, media_urls
+          `
+        }
+        return sql`
+          INSERT INTO scheduled_posts (id, status, platform, scheduled_time, title, body, media_urls)
+          VALUES (${id}, ${status}, ${platform}, ${scheduledFor}, ${title}, ${postBody}, ${mediaUrls})
+          RETURNING id, created_at, updated_at, status, platform, scheduled_time AS scheduled_for, title, body, media_urls
+        `
       }
 
-      return contentInsert === 'content'
-        ? sql`
-            INSERT INTO scheduled_posts (id, status, platform, title, content, media_urls)
-            VALUES (${id}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
-            RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
-          `
-        : sql`
-            INSERT INTO scheduled_posts (id, status, platform, title, body, media_urls)
-            VALUES (${id}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
-            RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
-          `
+      if (hasContent && hasBody) {
+        return sql`
+          INSERT INTO scheduled_posts (id, status, platform, title, content, body, media_urls)
+          VALUES (${id}, ${status}, ${platform}, ${title}, ${postBody}, ${postBody}, ${mediaUrls})
+          RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
+        `
+      }
+      if (hasContent) {
+        return sql`
+          INSERT INTO scheduled_posts (id, status, platform, title, content, media_urls)
+          VALUES (${id}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
+          RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, content AS body, media_urls
+        `
+      }
+      return sql`
+        INSERT INTO scheduled_posts (id, status, platform, title, body, media_urls)
+        VALUES (${id}, ${status}, ${platform}, ${title}, ${postBody}, ${mediaUrls})
+        RETURNING id, created_at, updated_at, status, platform, NULL::timestamptz AS scheduled_for, title, body, media_urls
+      `
     })()
 
     return NextResponse.json({ post: rows[0] }, { status: 201 })
