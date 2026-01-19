@@ -118,201 +118,66 @@ export async function PUT(
     // For now, use anonymous user (auth will be added later)
     const user_id = 'anonymous'
 
-    // Build update object - only include fields that are provided
-    const updates: any = {
-      updated_at: new Date().toISOString()
-    }
+    // Get existing content first
+    const existing = await sql`
+      SELECT * FROM content_library
+      WHERE id = ${id} AND user_id = ${user_id}
+    `
 
-    if (body.title !== undefined) updates.title = body.title
-    if (body.description !== undefined) updates.description = body.description
-    if (body.content_type !== undefined) updates.content_type = body.content_type
-    if (body.content_data !== undefined) updates.content_data = JSON.stringify(body.content_data)
-    if (body.tags !== undefined) updates.tags = body.tags
-    if (body.status !== undefined) {
-      updates.status = body.status
-      if (body.status === 'published' && !body.published_at) {
-        updates.published_at = new Date().toISOString()
-      }
-    }
-    if (body.collection_id !== undefined) updates.collection_id = body.collection_id
-    if (body.is_favorite !== undefined) updates.is_favorite = body.is_favorite
-    if (body.metadata !== undefined) updates.metadata = JSON.stringify(body.metadata)
-
-    // Build the update query using Neon template syntax
-    // For dynamic updates, we'll use a simpler approach
-    const updateFields: string[] = []
-    const updateValues: any[] = []
-    let paramIndex = 1
-
-    if (updates.title !== undefined) {
-      updateFields.push(`title = $${paramIndex}`)
-      updateValues.push(updates.title)
-      paramIndex++
-    }
-    if (updates.description !== undefined) {
-      updateFields.push(`description = $${paramIndex}`)
-      updateValues.push(updates.description)
-      paramIndex++
-    }
-    if (updates.content_type !== undefined) {
-      updateFields.push(`content_type = $${paramIndex}`)
-      updateValues.push(updates.content_type)
-      paramIndex++
-    }
-    if (updates.content_data !== undefined) {
-      updateFields.push(`content_data = $${paramIndex}::jsonb`)
-      updateValues.push(updates.content_data)
-      paramIndex++
-    }
-    if (updates.tags !== undefined) {
-      updateFields.push(`tags = $${paramIndex}::text[]`)
-      updateValues.push(updates.tags)
-      paramIndex++
-    }
-    if (updates.status !== undefined) {
-      updateFields.push(`status = $${paramIndex}`)
-      updateValues.push(updates.status)
-      paramIndex++
-    }
-    if (updates.published_at !== undefined) {
-      updateFields.push(`published_at = $${paramIndex}`)
-      updateValues.push(updates.published_at)
-      paramIndex++
-    }
-    if (updates.collection_id !== undefined) {
-      updateFields.push(`collection_id = $${paramIndex}`)
-      updateValues.push(updates.collection_id)
-      paramIndex++
-    }
-    if (updates.is_favorite !== undefined) {
-      updateFields.push(`is_favorite = $${paramIndex}`)
-      updateValues.push(updates.is_favorite)
-      paramIndex++
-    }
-    if (updates.metadata !== undefined) {
-      updateFields.push(`metadata = $${paramIndex}::jsonb`)
-      updateValues.push(updates.metadata)
-      paramIndex++
-    }
-
-    // Always update updated_at
-    updateFields.push(`updated_at = $${paramIndex}`)
-    updateValues.push(updates.updated_at)
-    paramIndex++
-
-    // Add id and user_id for WHERE clause
-    updateValues.push(id, user_id)
-
-    if (updateFields.length === 1) { // Only updated_at
+    if (existing.length === 0) {
       return NextResponse.json(
-        { success: false, error: 'No fields to update' },
-        { status: 400 }
+        { success: false, error: 'Content item not found or unauthorized' },
+        { status: 404 }
       )
     }
 
-    // Use Neon template literal with dynamic parts
-    // For complex dynamic updates, we'll use a simpler approach with sql.unsafe for the SET clause
-    const setClause = updateFields.join(', ')
-    const query = `UPDATE content_library SET ${setClause} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`
-    
-    // Execute with Neon - we need to use a different approach
-    // Let's build it step by step with template literals
+    const current = existing[0]
+    const now = new Date().toISOString()
+
+    // Build update - merge with existing values
+    const updateData = {
+      title: body.title !== undefined ? body.title : current.title,
+      description: body.description !== undefined ? body.description : current.description,
+      content_type: body.content_type !== undefined ? body.content_type : current.content_type,
+      content_data: body.content_data !== undefined ? body.content_data : current.content_data,
+      tags: body.tags !== undefined ? body.tags : current.tags,
+      status: body.status !== undefined ? body.status : current.status,
+      collection_id: body.collection_id !== undefined ? body.collection_id : current.collection_id,
+      is_favorite: body.is_favorite !== undefined ? body.is_favorite : current.is_favorite,
+      metadata: body.metadata !== undefined ? body.metadata : current.metadata,
+      updated_at: now,
+      published_at: body.status === 'published' && current.status !== 'published' 
+        ? now 
+        : body.status === 'published' 
+          ? (current.published_at || now)
+          : current.published_at
+    }
+
+    // Update the content item
     const result = await sql`
       UPDATE content_library
       SET 
-        ${updates.title !== undefined ? sql`title = ${updates.title}` : sql``},
-        ${updates.description !== undefined ? sql`description = ${updates.description}` : sql``},
-        ${updates.content_type !== undefined ? sql`content_type = ${updates.content_type}` : sql``},
-        ${updates.content_data !== undefined ? sql`content_data = ${updates.content_data}::jsonb` : sql``},
-        ${updates.tags !== undefined ? sql`tags = ${updates.tags}::text[]` : sql``},
-        ${updates.status !== undefined ? sql`status = ${updates.status}` : sql``},
-        ${updates.published_at !== undefined ? sql`published_at = ${updates.published_at}` : sql``},
-        ${updates.collection_id !== undefined ? sql`collection_id = ${updates.collection_id}` : sql``},
-        ${updates.is_favorite !== undefined ? sql`is_favorite = ${updates.is_favorite}` : sql``},
-        ${updates.metadata !== undefined ? sql`metadata = ${updates.metadata}::jsonb` : sql``},
-        updated_at = ${updates.updated_at}
+        title = ${updateData.title},
+        description = ${updateData.description},
+        content_type = ${updateData.content_type},
+        content_data = ${JSON.stringify(updateData.content_data)}::jsonb,
+        tags = ${updateData.tags}::text[],
+        status = ${updateData.status},
+        collection_id = ${updateData.collection_id},
+        is_favorite = ${updateData.is_favorite},
+        metadata = ${JSON.stringify(updateData.metadata)}::jsonb,
+        updated_at = ${updateData.updated_at},
+        published_at = ${updateData.published_at}
       WHERE id = ${id} AND user_id = ${user_id}
       RETURNING *
     `
 
-    // Actually, the above won't work well with conditional fields. Let's use a simpler approach
-    // Build the update query manually for the fields that exist
-    const updateParts: string[] = []
-    const finalValues: any[] = []
-    let idx = 1
-
-    if (updates.title !== undefined) {
-      updateParts.push(`title = $${idx}`)
-      finalValues.push(updates.title)
-      idx++
-    }
-    if (updates.description !== undefined) {
-      updateParts.push(`description = $${idx}`)
-      finalValues.push(updates.description === null ? null : updates.description)
-      idx++
-    }
-    if (updates.content_type !== undefined) {
-      updateParts.push(`content_type = $${idx}`)
-      finalValues.push(updates.content_type)
-      idx++
-    }
-    if (updates.content_data !== undefined) {
-      updateParts.push(`content_data = $${idx}::jsonb`)
-      finalValues.push(updates.content_data)
-      idx++
-    }
-    if (updates.tags !== undefined) {
-      updateParts.push(`tags = $${idx}::text[]`)
-      finalValues.push(updates.tags)
-      idx++
-    }
-    if (updates.status !== undefined) {
-      updateParts.push(`status = $${idx}`)
-      finalValues.push(updates.status)
-      idx++
-    }
-    if (updates.published_at !== undefined) {
-      updateParts.push(`published_at = $${idx}`)
-      finalValues.push(updates.published_at)
-      idx++
-    }
-    if (updates.collection_id !== undefined) {
-      updateParts.push(`collection_id = $${idx}`)
-      finalValues.push(updates.collection_id === null ? null : updates.collection_id)
-      idx++
-    }
-    if (updates.is_favorite !== undefined) {
-      updateParts.push(`is_favorite = $${idx}`)
-      finalValues.push(updates.is_favorite)
-      idx++
-    }
-    if (updates.metadata !== undefined) {
-      updateParts.push(`metadata = $${idx}::jsonb`)
-      finalValues.push(updates.metadata)
-      idx++
-    }
-
-    updateParts.push(`updated_at = $${idx}`)
-    finalValues.push(updates.updated_at)
-    idx++
-
-    finalValues.push(id, user_id)
-
-    if (updateParts.length === 1) {
-      return NextResponse.json(
-        { success: false, error: 'No fields to update' },
-        { status: 400 }
-      )
-    }
-
-    // Use sql.unsafe for dynamic query building
-    const updateQuery = `UPDATE content_library SET ${updateParts.join(', ')} WHERE id = $${idx} AND user_id = $${idx + 1} RETURNING *`
-    const updateResult = await sql(updateQuery, finalValues)
+    const updateResult = result
 
     if (updateResult.length === 0) {
       return NextResponse.json(
-        { success: false, error: 'Content item not found or unauthorized' },
-        { status: 404 }
+        { success: false, error: 'Failed to update content item' },
+        { status: 500 }
       )
     }
 
