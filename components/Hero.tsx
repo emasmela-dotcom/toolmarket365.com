@@ -7,11 +7,13 @@ export function Hero() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">
-            Build, Optimize, and{' '}
-            <span className="text-accent-600 dark:text-accent-400">Monetize Your Content</span>
+            CreatorFlow<span className="text-accent-600 dark:text-accent-400">365</span>
           </h1>
+          <p className="text-base sm:text-lg text-mono-600 dark:text-mono-400 mb-2 max-w-xl mx-auto font-medium">
+            The Micro-SaaS Marketplace for Content Creators
+          </p>
           <p className="text-sm sm:text-base text-mono-600 dark:text-mono-400 mb-6 max-w-xl mx-auto">
-            43 professional tools for content creators—all in one place.
+            Build, optimize, and monetize your content with 43+ professional tools—all in one place.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link

@@ -4,8 +4,8 @@ import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Micro-SaaS Marketplace | Essential Tools for Content Creators',
-  description: 'Professional toolkit marketplace for content creators. Comprehensive tools for content planning, SEO, analytics, social media, and revenue optimization.',
+  title: 'CreatorFlow365 — The Micro-SaaS Marketplace for Content Creators',
+  description: 'The Micro-SaaS Marketplace for Content Creators. Professional toolkit with 43+ tools for content planning, SEO, analytics, social media, viral content prediction, and revenue optimization.',
 }
 
 export default function RootLayout({

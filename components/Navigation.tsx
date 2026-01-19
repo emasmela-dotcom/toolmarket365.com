@@ -9,8 +9,8 @@ export function Navigation() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-mono-950">Micro-SaaS</span>
-            <span className="text-xl font-normal text-mono-600">Marketplace</span>
+            <span className="text-xl font-bold text-mono-950">CreatorFlow</span>
+            <span className="text-xl font-bold text-accent-600">365</span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
