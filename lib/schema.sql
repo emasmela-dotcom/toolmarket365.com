@@ -175,4 +175,103 @@ CREATE INDEX IF NOT EXISTS idx_ab_tests_start_date ON ab_tests(start_date DESC);
 CREATE INDEX IF NOT EXISTS idx_user_performance_metrics_user_id ON user_performance_metrics(user_id);
 CREATE INDEX IF NOT EXISTS idx_user_performance_metrics_date ON user_performance_metrics(date DESC);
 
+-- Enhanced Content Library tables
+CREATE TABLE IF NOT EXISTS content_library (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL DEFAULT 'anonymous',
+  title TEXT NOT NULL,
+  description TEXT,
+  content_type TEXT NOT NULL CHECK (content_type IN ('text', 'image', 'video', 'audio', 'document', 'url', 'post', 'template', 'collection')),
+  content_data JSONB NOT NULL,
+  tags TEXT[] DEFAULT ARRAY[]::TEXT[],
+  category TEXT,
+  collection_id UUID,
+  template_id UUID,
+  metadata JSONB,
+  performance_data JSONB,
+  viral_prediction_id UUID REFERENCES viral_predictions(id),
+  status TEXT DEFAULT 'draft' CHECK (status IN ('draft', 'published', 'archived', 'scheduled')),
+  is_favorite BOOLEAN DEFAULT FALSE,
+  is_template BOOLEAN DEFAULT FALSE,
+  version INTEGER DEFAULT 1,
+  parent_id UUID REFERENCES content_library(id),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  published_at TIMESTAMP WITH TIME ZONE,
+  scheduled_for TIMESTAMP WITH TIME ZONE
+);
+
+-- Content collections (folders/organization)
+CREATE TABLE IF NOT EXISTS content_collections (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL DEFAULT 'anonymous',
+  name TEXT NOT NULL,
+  description TEXT,
+  color TEXT,
+  icon TEXT,
+  is_public BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Content templates
+CREATE TABLE IF NOT EXISTS content_templates (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL DEFAULT 'anonymous',
+  name TEXT NOT NULL,
+  description TEXT,
+  template_data JSONB NOT NULL,
+  category TEXT,
+  tags TEXT[] DEFAULT ARRAY[]::TEXT[],
+  is_public BOOLEAN DEFAULT FALSE,
+  usage_count INTEGER DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Content versions (version history)
+CREATE TABLE IF NOT EXISTS content_versions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_id UUID NOT NULL REFERENCES content_library(id) ON DELETE CASCADE,
+  version_number INTEGER NOT NULL,
+  content_data JSONB NOT NULL,
+  change_summary TEXT,
+  created_by TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Content relationships (for repurposing, linking)
+CREATE TABLE IF NOT EXISTS content_relationships (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  source_content_id UUID NOT NULL REFERENCES content_library(id) ON DELETE CASCADE,
+  target_content_id UUID NOT NULL REFERENCES content_library(id) ON DELETE CASCADE,
+  relationship_type TEXT NOT NULL CHECK (relationship_type IN ('repurposed_from', 'variant_of', 'related_to', 'part_of', 'inspired_by')),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(source_content_id, target_content_id, relationship_type)
+);
+
+-- Indexes for content library
+CREATE INDEX IF NOT EXISTS idx_content_library_user_id ON content_library(user_id);
+CREATE INDEX IF NOT EXISTS idx_content_library_content_type ON content_library(content_type);
+CREATE INDEX IF NOT EXISTS idx_content_library_status ON content_library(status);
+CREATE INDEX IF NOT EXISTS idx_content_library_created_at ON content_library(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_content_library_collection_id ON content_library(collection_id);
+CREATE INDEX IF NOT EXISTS idx_content_library_tags ON content_library USING GIN(tags);
+CREATE INDEX IF NOT EXISTS idx_content_library_search ON content_library USING GIN(to_tsvector('english', title || ' ' || COALESCE(description, '')));
+
+-- Indexes for collections
+CREATE INDEX IF NOT EXISTS idx_content_collections_user_id ON content_collections(user_id);
+
+-- Indexes for templates
+CREATE INDEX IF NOT EXISTS idx_content_templates_user_id ON content_templates(user_id);
+CREATE INDEX IF NOT EXISTS idx_content_templates_is_public ON content_templates(is_public);
+
+-- Indexes for versions
+CREATE INDEX IF NOT EXISTS idx_content_versions_content_id ON content_versions(content_id);
+CREATE INDEX IF NOT EXISTS idx_content_versions_created_at ON content_versions(created_at DESC);
+
+-- Indexes for relationships
+CREATE INDEX IF NOT EXISTS idx_content_relationships_source ON content_relationships(source_content_id);
+CREATE INDEX IF NOT EXISTS idx_content_relationships_target ON content_relationships(target_content_id);
+
 
