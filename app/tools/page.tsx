@@ -72,6 +72,7 @@ const toolSections = [
     title: 'Analytics & Insights',
     description: 'Track performance and gain insights into your content',
     tools: [
+      { name: 'Viral Content Predictor', slug: 'viral-content-predictor', icon: Sparkles },
       { name: 'Engagement Calculator', slug: 'engagement-calculator', icon: TrendingUp },
       { name: 'Social Media Report Generator', slug: 'social-media-report-generator', icon: FileText },
       { name: 'Hashtag Analyzer', slug: 'hashtag-analyzer', icon: Hash },

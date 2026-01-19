@@ -80,6 +80,18 @@ ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS title VARCHAR(200);
 ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS body TEXT;
 ALTER TABLE scheduled_posts ADD COLUMN IF NOT EXISTS media_urls TEXT[];
 
+-- Viral predictions table
+CREATE TABLE IF NOT EXISTS viral_predictions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL DEFAULT 'anonymous',
+  content JSONB NOT NULL,
+  analysis JSONB NOT NULL,
+  prediction JSONB NOT NULL,
+  performance JSONB,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  scheduled_for TIMESTAMP WITH TIME ZONE
+);
+
 -- Indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_comments_created_at ON comments(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_analytics_timestamp ON analytics(timestamp DESC);
@@ -93,5 +105,7 @@ CREATE INDEX IF NOT EXISTS idx_sessions_user_id ON sessions(user_id);
 CREATE INDEX IF NOT EXISTS idx_sessions_expires_at ON sessions(expires_at);
 CREATE INDEX IF NOT EXISTS idx_password_resets_user_id ON password_resets(user_id);
 CREATE INDEX IF NOT EXISTS idx_password_resets_expires_at ON password_resets(expires_at);
+CREATE INDEX IF NOT EXISTS idx_viral_predictions_user_id ON viral_predictions(user_id);
+CREATE INDEX IF NOT EXISTS idx_viral_predictions_created_at ON viral_predictions(created_at DESC);
 
 
