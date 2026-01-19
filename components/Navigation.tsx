@@ -17,6 +17,9 @@ export function Navigation() {
             <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Tools
             </Link>
+            <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+              Dashboard
+            </Link>
             <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Categories
             </Link>

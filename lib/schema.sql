@@ -108,4 +108,71 @@ CREATE INDEX IF NOT EXISTS idx_password_resets_expires_at ON password_resets(exp
 CREATE INDEX IF NOT EXISTS idx_viral_predictions_user_id ON viral_predictions(user_id);
 CREATE INDEX IF NOT EXISTS idx_viral_predictions_created_at ON viral_predictions(created_at DESC);
 
+-- Content performance tracking table
+CREATE TABLE IF NOT EXISTS content_performance (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL DEFAULT 'anonymous',
+  prediction_id TEXT,
+  content JSONB NOT NULL,
+  prediction JSONB NOT NULL,
+  actual JSONB,
+  accuracy JSONB,
+  ab_test JSONB,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- A/B tests table
+CREATE TABLE IF NOT EXISTS ab_tests (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL DEFAULT 'anonymous',
+  name TEXT NOT NULL,
+  hypothesis TEXT,
+  content_id TEXT,
+  variants JSONB NOT NULL,
+  status TEXT NOT NULL DEFAULT 'running' CHECK (status IN ('running', 'completed', 'paused')),
+  start_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  end_date TIMESTAMP WITH TIME ZONE,
+  winner TEXT,
+  confidence NUMERIC(5,2),
+  traffic_split INTEGER DEFAULT 50,
+  minimum_sample_size INTEGER DEFAULT 1000,
+  success_metric TEXT DEFAULT 'engagement',
+  results JSONB,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- User performance metrics table
+CREATE TABLE IF NOT EXISTS user_performance_metrics (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL,
+  period TEXT NOT NULL,
+  date DATE NOT NULL,
+  total_predictions INTEGER DEFAULT 0,
+  accurate_predictions INTEGER DEFAULT 0,
+  average_accuracy NUMERIC(5,2),
+  best_performing_content JSONB,
+  worst_performing_content JSONB,
+  content_patterns JSONB,
+  roi NUMERIC(10,2),
+  engagement_growth NUMERIC(5,2),
+  viral_content_count INTEGER DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(user_id, period, date)
+);
+
+-- Indexes for content performance
+CREATE INDEX IF NOT EXISTS idx_content_performance_user_id ON content_performance(user_id);
+CREATE INDEX IF NOT EXISTS idx_content_performance_created_at ON content_performance(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_content_performance_prediction_id ON content_performance(prediction_id);
+
+-- Indexes for A/B tests
+CREATE INDEX IF NOT EXISTS idx_ab_tests_user_id ON ab_tests(user_id);
+CREATE INDEX IF NOT EXISTS idx_ab_tests_status ON ab_tests(status);
+CREATE INDEX IF NOT EXISTS idx_ab_tests_start_date ON ab_tests(start_date DESC);
+
+-- Indexes for user performance metrics
+CREATE INDEX IF NOT EXISTS idx_user_performance_metrics_user_id ON user_performance_metrics(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_performance_metrics_date ON user_performance_metrics(date DESC);
+
 
