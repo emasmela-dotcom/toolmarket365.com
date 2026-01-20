@@ -34,6 +34,27 @@ export function Footer() {
           </div>
           
           <div>
+            <h4 className="text-sm font-semibold text-mono-950 mb-4">Account</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/login" className="text-mono-600 hover:text-accent-600 transition-colors">
+                  Sign In
+                </Link>
+              </li>
+              <li>
+                <Link href="/signup" className="text-mono-600 hover:text-accent-600 transition-colors">
+                  Sign Up
+                </Link>
+              </li>
+              <li>
+                <Link href="/forgot-password" className="text-mono-600 hover:text-accent-600 transition-colors">
+                  Forgot Password
+                </Link>
+              </li>
+            </ul>
+          </div>
+          
+          <div>
             <h4 className="text-sm font-semibold text-mono-950 mb-4">Company</h4>
             <ul className="space-y-2 text-sm">
               <li>

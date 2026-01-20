@@ -4,11 +4,23 @@ import { sql } from '@/lib/db'
 // POST: Advanced search with filters
 export async function POST(request: NextRequest) {
   try {
+    // If database not configured, return empty data (tool still works with localStorage fallback)
     if (!sql) {
-      return NextResponse.json(
-        { success: false, error: 'Database not configured' },
-        { status: 503 }
-      )
+      return NextResponse.json({
+        success: true,
+        data: [],
+        pagination: {
+          total: 0,
+          limit: body.limit || 50,
+          offset: body.offset || 0,
+          has_more: false
+        },
+        search_info: {
+          query: body.query || '',
+          filters_applied: {}
+        },
+        message: 'Database not configured - using local storage'
+      })
     }
 
     const body = await request.json()

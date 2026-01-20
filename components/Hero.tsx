@@ -13,7 +13,7 @@ export function Hero() {
             The Micro-SaaS Marketplace for Content Creators
           </p>
           <p className="text-sm sm:text-base text-mono-600 dark:text-mono-400 mb-6 max-w-xl mx-auto">
-            Build, optimize, and monetize your content with 43+ professional tools—all in one place.
+            Build, optimize, and monetize your content with 43+ professional tools—all in one place. Store, organize, and manage all your content in your personal cloud library.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
@@ -28,6 +28,12 @@ export function Hero() {
               className="inline-flex items-center justify-center px-6 py-2.5 bg-white dark:bg-mono-800 text-mono-950 dark:text-mono-50 font-medium rounded-lg hover:bg-mono-100 dark:hover:bg-mono-700 transition-colors border border-mono-200 dark:border-mono-700 text-sm"
             >
               View Categories
+            </Link>
+            <Link
+              href="/signup"
+              className="inline-flex items-center justify-center px-6 py-2.5 bg-mono-900 dark:bg-mono-100 text-white dark:text-mono-950 font-medium rounded-lg hover:bg-mono-800 dark:hover:bg-mono-200 transition-colors text-sm"
+            >
+              Get Started Free
             </Link>
           </div>
         </div>

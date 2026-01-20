@@ -3,7 +3,13 @@ import { sql } from '@/lib/db'
 import { RESET_TTL_MINUTES, isValidEmail, normalizeEmail, nowPlusMinutes, randomToken, sha256Hex } from '@/lib/auth'
 
 export async function POST(req: NextRequest) {
-  if (!sql) return NextResponse.json({ error: 'DATABASE_URL is not set' }, { status: 503 })
+  // If database not configured, return helpful message (auth is optional)
+  if (!sql) {
+    return NextResponse.json({ 
+      error: 'Password reset requires database setup. Please configure DATABASE_URL in .env.local',
+      requiresSetup: true
+    }, { status: 503 })
+  }
 
   let body: any
   try {

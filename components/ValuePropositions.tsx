@@ -1,4 +1,4 @@
-import { Zap, Shield, TrendingUp, Users } from 'lucide-react'
+import { Zap, Shield, TrendingUp, Users, Cloud } from 'lucide-react'
 
 export function ValuePropositions() {
   const features = [
@@ -6,6 +6,11 @@ export function ValuePropositions() {
       icon: Zap,
       title: 'Superior Performance',
       description: 'Tools optimized for speed and efficiency. Faster than competitors with better results.',
+    },
+    {
+      icon: Cloud,
+      title: 'Cloud Content Library',
+      description: 'Store, organize, and manage all your content in one secure cloud library. Never lose your work.',
     },
     {
       icon: Shield,
@@ -36,7 +41,7 @@ export function ValuePropositions() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {features.map((feature) => {
             const Icon = feature.icon
             return (

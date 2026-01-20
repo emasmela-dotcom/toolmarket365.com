@@ -12,7 +12,13 @@ import {
 } from '@/lib/auth'
 
 export async function POST(req: NextRequest) {
-  if (!sql) return NextResponse.json({ error: 'DATABASE_URL is not set' }, { status: 503 })
+  // If database not configured, return helpful message (auth is optional)
+  if (!sql) {
+    return NextResponse.json({ 
+      error: 'Authentication requires database setup. Please configure DATABASE_URL in .env.local',
+      requiresSetup: true
+    }, { status: 503 })
+  }
 
   let body: any
   try {

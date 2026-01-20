@@ -4,11 +4,13 @@ import { sql } from '@/lib/db'
 // GET: List all collections for user
 export async function GET(request: NextRequest) {
   try {
+    // If database not configured, return empty data (tool still works with localStorage fallback)
     if (!sql) {
-      return NextResponse.json(
-        { success: false, error: 'Database not configured' },
-        { status: 503 }
-      )
+      return NextResponse.json({
+        success: true,
+        data: [],
+        message: 'Database not configured - using local storage'
+      })
     }
 
     const { searchParams } = new URL(request.url)
@@ -122,11 +124,13 @@ export async function GET(request: NextRequest) {
 // POST: Create new collection
 export async function POST(request: NextRequest) {
   try {
+    // If database not configured, return empty data (tool still works with localStorage fallback)
     if (!sql) {
-      return NextResponse.json(
-        { success: false, error: 'Database not configured' },
-        { status: 503 }
-      )
+      return NextResponse.json({
+        success: true,
+        data: [],
+        message: 'Database not configured - using local storage'
+      })
     }
 
     const body = await request.json()

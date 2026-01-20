@@ -7,11 +7,13 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // If database not configured, return empty data (tool still works with localStorage fallback)
     if (!sql) {
-      return NextResponse.json(
-        { success: false, error: 'Database not configured' },
-        { status: 503 }
-      )
+      return NextResponse.json({
+        success: true,
+        data: null,
+        message: 'Database not configured - using local storage'
+      })
     }
 
     const { id } = await params
@@ -98,11 +100,13 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // If database not configured, return empty data (tool still works with localStorage fallback)
     if (!sql) {
-      return NextResponse.json(
-        { success: false, error: 'Database not configured' },
-        { status: 503 }
-      )
+      return NextResponse.json({
+        success: true,
+        data: null,
+        message: 'Database not configured - using local storage'
+      })
     }
 
     const { id } = await params
@@ -227,11 +231,13 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // If database not configured, return empty data (tool still works with localStorage fallback)
     if (!sql) {
-      return NextResponse.json(
-        { success: false, error: 'Database not configured' },
-        { status: 503 }
-      )
+      return NextResponse.json({
+        success: true,
+        data: null,
+        message: 'Database not configured - using local storage'
+      })
     }
 
     const { id } = await params

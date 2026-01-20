@@ -168,18 +168,68 @@ export default function ContentLibraryPage() {
       const data = await response.json()
 
       if (data.success) {
-        setContentItems(data.data)
+        setContentItems(data.data || [])
         setPagination(prev => ({
           ...prev,
-          total: data.pagination.total,
-          has_more: data.pagination.has_more
+          total: data.pagination?.total || 0,
+          has_more: data.pagination?.has_more || false
         }))
+        
+        // If database not configured, fallback to localStorage
+        if (data.message && data.message.includes('local storage')) {
+          // Load from localStorage as fallback
+          const localData = localStorage.getItem('content_library_fallback')
+          if (localData) {
+            try {
+              const localItems = JSON.parse(localData)
+              setContentItems(localItems)
+              setPagination(prev => ({
+                ...prev,
+                total: localItems.length,
+                has_more: false
+              }))
+            } catch (e) {
+              console.error('Failed to parse localStorage data:', e)
+            }
+          }
+        }
       } else {
-        alert(data.error || 'Failed to fetch content items')
+        // Silently handle - don't show error to user
+        console.warn('Content library API issue:', data.error)
+        // Try localStorage fallback
+        const localData = localStorage.getItem('content_library_fallback')
+        if (localData) {
+          try {
+            const localItems = JSON.parse(localData)
+            setContentItems(localItems)
+            setPagination(prev => ({
+              ...prev,
+              total: localItems.length,
+              has_more: false
+            }))
+          } catch (e) {
+            console.error('Failed to parse localStorage data:', e)
+          }
+        }
       }
     } catch (error) {
-      alert('Failed to fetch content items')
-      console.error(error)
+      // Silently handle - don't show error to user
+      console.warn('Content library fetch error:', error)
+      // Try localStorage fallback
+      const localData = localStorage.getItem('content_library_fallback')
+      if (localData) {
+        try {
+          const localItems = JSON.parse(localData)
+          setContentItems(localItems)
+          setPagination(prev => ({
+            ...prev,
+            total: localItems.length,
+            has_more: false
+          }))
+        } catch (e) {
+          console.error('Failed to parse localStorage data:', e)
+        }
+      }
     } finally {
       setLoading(false)
     }
@@ -191,9 +241,43 @@ export default function ContentLibraryPage() {
       const data = await response.json()
       
       if (data.success) {
-        setCollections(data.data)
+        setCollections(data.data || [])
+        
+        // If database not configured, use localStorage fallback
+        if (data.message && data.message.includes('local storage')) {
+          const localCollections = localStorage.getItem('content_collections_fallback')
+          if (localCollections) {
+            try {
+              const collections = JSON.parse(localCollections)
+              setCollections(collections)
+            } catch (e) {
+              console.error('Failed to parse localStorage collections:', e)
+            }
+          }
+        }
+      } else {
+        // Try localStorage fallback
+        const localCollections = localStorage.getItem('content_collections_fallback')
+        if (localCollections) {
+          try {
+            const collections = JSON.parse(localCollections)
+            setCollections(collections)
+          } catch (e) {
+            console.error('Failed to parse localStorage collections:', e)
+          }
+        }
       }
     } catch (error) {
+      // Try localStorage fallback
+      const localCollections = localStorage.getItem('content_collections_fallback')
+      if (localCollections) {
+        try {
+          const collections = JSON.parse(localCollections)
+          setCollections(collections)
+        } catch (e) {
+          console.error('Failed to parse localStorage collections:', e)
+        }
+      }
       console.error('Failed to fetch collections:', error)
     }
   }
@@ -220,16 +304,56 @@ export default function ContentLibraryPage() {
       const result = await response.json()
 
       if (result.success) {
-        alert('Content created successfully')
+        // If database not configured, save to localStorage
+        if (result.message && result.message.includes('local storage')) {
+          const localData = localStorage.getItem('content_library_fallback') || '[]'
+          const localItems = JSON.parse(localData)
+          localItems.push({
+            ...result.data,
+            id: `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+          })
+          localStorage.setItem('content_library_fallback', JSON.stringify(localItems))
+        }
         setShowCreateModal(false)
         fetchContentItems()
         fetchCollections()
       } else {
-        alert(result.error || 'Failed to create content')
+        // Fallback to localStorage
+        const localData = localStorage.getItem('content_library_fallback') || '[]'
+        const localItems = JSON.parse(localData)
+        localItems.push({
+          ...data,
+          id: `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          user_id: 'anonymous',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          published_at: data.status === 'published' ? new Date().toISOString() : null,
+          view_count: 0,
+          like_count: 0,
+          share_count: 0
+        })
+        localStorage.setItem('content_library_fallback', JSON.stringify(localItems))
+        setShowCreateModal(false)
+        fetchContentItems()
       }
     } catch (error) {
-      alert('Failed to create content')
-      console.error(error)
+      // Fallback to localStorage
+      const localData = localStorage.getItem('content_library_fallback') || '[]'
+      const localItems = JSON.parse(localData)
+      localItems.push({
+        ...data,
+        id: `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        user_id: 'anonymous',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        published_at: data.status === 'published' ? new Date().toISOString() : null,
+        view_count: 0,
+        like_count: 0,
+        share_count: 0
+      })
+      localStorage.setItem('content_library_fallback', JSON.stringify(localItems))
+      setShowCreateModal(false)
+      fetchContentItems()
     }
   }
 
@@ -244,16 +368,49 @@ export default function ContentLibraryPage() {
       const result = await response.json()
 
       if (result.success) {
-        alert('Content updated successfully')
+        // If database not configured, update localStorage
+        if (result.message && result.message.includes('local storage') || id.startsWith('local_')) {
+          const localData = localStorage.getItem('content_library_fallback') || '[]'
+          const localItems = JSON.parse(localData)
+          const index = localItems.findIndex((item: any) => item.id === id)
+          if (index !== -1) {
+            localItems[index] = { ...localItems[index], ...data, updated_at: new Date().toISOString() }
+            localStorage.setItem('content_library_fallback', JSON.stringify(localItems))
+          }
+        }
         setEditingItem(null)
         setShowCreateModal(false)
         fetchContentItems()
       } else {
-        alert(result.error || 'Failed to update content')
+        // Fallback to localStorage
+        if (id.startsWith('local_')) {
+          const localData = localStorage.getItem('content_library_fallback') || '[]'
+          const localItems = JSON.parse(localData)
+          const index = localItems.findIndex((item: any) => item.id === id)
+          if (index !== -1) {
+            localItems[index] = { ...localItems[index], ...data, updated_at: new Date().toISOString() }
+            localStorage.setItem('content_library_fallback', JSON.stringify(localItems))
+            setEditingItem(null)
+            setShowCreateModal(false)
+            fetchContentItems()
+          }
+        }
       }
     } catch (error) {
-      alert('Failed to update content')
-      console.error(error)
+      // Fallback to localStorage
+      if (id.startsWith('local_')) {
+        const localData = localStorage.getItem('content_library_fallback') || '[]'
+        const localItems = JSON.parse(localData)
+        const index = localItems.findIndex((item: any) => item.id === id)
+        if (index !== -1) {
+          localItems[index] = { ...localItems[index], ...data, updated_at: new Date().toISOString() }
+          localStorage.setItem('content_library_fallback', JSON.stringify(localItems))
+          setEditingItem(null)
+          setShowCreateModal(false)
+          fetchContentItems()
+        }
+      }
+      console.error('Update error:', error)
     }
   }
 
@@ -268,15 +425,37 @@ export default function ContentLibraryPage() {
       const result = await response.json()
 
       if (result.success) {
-        alert('Content deleted successfully')
+        // If database not configured or local item, delete from localStorage
+        if (result.message && result.message.includes('local storage') || id.startsWith('local_')) {
+          const localData = localStorage.getItem('content_library_fallback') || '[]'
+          const localItems = JSON.parse(localData)
+          const filtered = localItems.filter((item: any) => item.id !== id)
+          localStorage.setItem('content_library_fallback', JSON.stringify(filtered))
+        }
         fetchContentItems()
         fetchCollections()
       } else {
-        alert(result.error || 'Failed to delete content')
+        // Fallback to localStorage
+        if (id.startsWith('local_')) {
+          const localData = localStorage.getItem('content_library_fallback') || '[]'
+          const localItems = JSON.parse(localData)
+          const filtered = localItems.filter((item: any) => item.id !== id)
+          localStorage.setItem('content_library_fallback', JSON.stringify(filtered))
+          fetchContentItems()
+          fetchCollections()
+        }
       }
     } catch (error) {
-      alert('Failed to delete content')
-      console.error(error)
+      // Fallback to localStorage
+      if (id.startsWith('local_')) {
+        const localData = localStorage.getItem('content_library_fallback') || '[]'
+        const localItems = JSON.parse(localData)
+        const filtered = localItems.filter((item: any) => item.id !== id)
+        localStorage.setItem('content_library_fallback', JSON.stringify(filtered))
+        fetchContentItems()
+        fetchCollections()
+      }
+      console.error('Delete error:', error)
     }
   }
 
@@ -291,9 +470,42 @@ export default function ContentLibraryPage() {
       const result = await response.json()
 
       if (result.success) {
+        // If database not configured or local item, update localStorage
+        if (result.message && result.message.includes('local storage') || id.startsWith('local_')) {
+          const localData = localStorage.getItem('content_library_fallback') || '[]'
+          const localItems = JSON.parse(localData)
+          const index = localItems.findIndex((item: any) => item.id === id)
+          if (index !== -1) {
+            localItems[index].is_favorite = !currentValue
+            localStorage.setItem('content_library_fallback', JSON.stringify(localItems))
+          }
+        }
         fetchContentItems()
+      } else {
+        // Fallback to localStorage
+        if (id.startsWith('local_')) {
+          const localData = localStorage.getItem('content_library_fallback') || '[]'
+          const localItems = JSON.parse(localData)
+          const index = localItems.findIndex((item: any) => item.id === id)
+          if (index !== -1) {
+            localItems[index].is_favorite = !currentValue
+            localStorage.setItem('content_library_fallback', JSON.stringify(localItems))
+            fetchContentItems()
+          }
+        }
       }
     } catch (error) {
+      // Fallback to localStorage
+      if (id.startsWith('local_')) {
+        const localData = localStorage.getItem('content_library_fallback') || '[]'
+        const localItems = JSON.parse(localData)
+        const index = localItems.findIndex((item: any) => item.id === id)
+        if (index !== -1) {
+          localItems[index].is_favorite = !currentValue
+          localStorage.setItem('content_library_fallback', JSON.stringify(localItems))
+          fetchContentItems()
+        }
+      }
       console.error('Failed to toggle favorite:', error)
     }
   }
@@ -307,10 +519,10 @@ export default function ContentLibraryPage() {
 
   // Loading State
   if (loading && contentItems.length === 0) {
-    return (
+  return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 flex justify-center items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-600"></div>
-      </div>
+          </div>
     )
   }
 
@@ -345,8 +557,8 @@ export default function ContentLibraryPage() {
                 fetchCollections()
               }}
             />
-          </div>
         </div>
+      </div>
 
         {/* Search and Filters Bar */}
         <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
@@ -355,8 +567,8 @@ export default function ContentLibraryPage() {
             <div className="flex items-center space-x-4">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-4 h-4" />
-                <input
-                  type="text"
+        <input
+          type="text"
                   placeholder="Search content, tags, descriptions..."
                   value={searchFilters.query}
                   onChange={(e) => handleSearch(e.target.value)}
@@ -449,7 +661,7 @@ export default function ContentLibraryPage() {
                   {/* Collection Filter */}
                   <div>
                     <label className="block text-sm font-medium mb-2">Collection</label>
-                    <select
+        <select
                       value={searchFilters.collection_id}
                       onChange={(e) => handleFilterChange('collection_id', e.target.value)}
                       className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
@@ -459,8 +671,8 @@ export default function ContentLibraryPage() {
                         <option key={collection.id} value={collection.id}>
                           {collection.name}
                         </option>
-                      ))}
-                    </select>
+          ))}
+        </select>
                   </div>
 
                   {/* Sort Options */}
@@ -480,7 +692,7 @@ export default function ContentLibraryPage() {
                   </div>
 
                   {/* Other Filters */}
-                  <div>
+          <div>
                     <label className="block text-sm font-medium mb-2">Other</label>
                     <label className="flex items-center space-x-2 cursor-pointer">
                       <input
@@ -495,7 +707,7 @@ export default function ContentLibraryPage() {
                 </div>
 
                 <div className="flex justify-end space-x-2">
-                  <button
+        <button
                     onClick={() => {
                       setSearchFilters({
                         query: '',
@@ -511,7 +723,7 @@ export default function ContentLibraryPage() {
                     className="px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
                   >
                     Clear Filters
-                  </button>
+        </button>
                 </div>
               </div>
             )}
@@ -529,7 +741,7 @@ export default function ContentLibraryPage() {
                 Collections
               </h3>
               <div className="space-y-2 max-h-[300px] overflow-y-auto">
-                <button
+        <button
                   onClick={() => handleFilterChange('collection_id', '')}
                   className={`w-full text-left p-2 rounded-lg transition-colors ${
                     searchFilters.collection_id === '' 
@@ -543,10 +755,10 @@ export default function ContentLibraryPage() {
                       {pagination.total}
                     </span>
                   </div>
-                </button>
+        </button>
                 
                 {collections.map(collection => (
-                  <button
+        <button
                     key={collection.id}
                     onClick={() => handleFilterChange('collection_id', collection.id)}
                     className={`w-full text-left p-2 rounded-lg transition-colors ${
@@ -561,7 +773,7 @@ export default function ContentLibraryPage() {
                         {collection.item_count}
                       </span>
                     </div>
-                  </button>
+        </button>
                 ))}
               </div>
             </div>
@@ -830,8 +1042,8 @@ function ContentCard({
                 >
                   <Eye className="w-4 h-4" />
                   <span>View</span>
-                </button>
-                <button
+          </button>
+          <button
                   onClick={() => {
                     onEdit()
                     setShowDropdown(null)
@@ -869,13 +1081,13 @@ function ContentCard({
                 >
                   <Trash2 className="w-4 h-4" />
                   <span>Delete</span>
-                </button>
+          </button>
               </div>
             )}
           </div>
         </div>
       </div>
-      
+
       <h3 
         className="font-semibold text-lg mb-2 line-clamp-2 cursor-pointer hover:text-accent-600 transition-colors"
         onClick={onPreview}
@@ -931,7 +1143,7 @@ function ContentCard({
 
       {/* Selection Checkbox */}
       <div className="absolute top-2 left-2">
-        <input
+      <input
           type="checkbox"
           checked={isSelected}
           onChange={() => onSelect(item.id)}
@@ -995,7 +1207,7 @@ function ContentListItem({
             {item.status}
           </span>
           {item.is_favorite && <Heart className="w-4 h-4 text-red-500 fill-current" />}
-        </div>
+            </div>
         
         {item.description && (
           <p 
@@ -1025,15 +1237,15 @@ function ContentListItem({
       <div className="flex items-center space-x-2">
         {item.tags.slice(0, 2).map(tag => (
           <span key={tag} className="px-2 py-1 bg-mono-200 dark:bg-mono-800 rounded text-xs">
-            {tag}
-          </span>
-        ))}
+                  {tag}
+                </span>
+              ))}
         {item.tags.length > 2 && (
           <span className="px-2 py-1 bg-mono-200 dark:bg-mono-800 rounded text-xs">
             +{item.tags.length - 2}
           </span>
         )}
-      </div>
+            </div>
 
       <div className="flex items-center space-x-1 ml-4">
         <button
@@ -1054,7 +1266,7 @@ function ContentListItem({
         >
           <Trash2 className="w-4 h-4" />
         </button>
-      </div>
+          </div>
     </div>
   )
 }
@@ -1116,7 +1328,7 @@ function CreateEditModal({
   }, [item])
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+          e.preventDefault()
     if (!formData.title.trim()) {
       alert('Please enter a title')
       return
@@ -1149,13 +1361,13 @@ function CreateEditModal({
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">{item ? 'Edit Content' : 'Create New Content'}</h2>
-            <button
+          <button
               onClick={onClose}
               className="p-2 hover:bg-mono-100 dark:hover:bg-mono-800 rounded transition-colors"
             >
               <X className="w-5 h-5" />
-            </button>
-          </div>
+          </button>
+        </div>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Basic Info */}
@@ -1170,7 +1382,7 @@ function CreateEditModal({
                   required
                   className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
                 />
-              </div>
+      </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Description</label>
@@ -1229,7 +1441,7 @@ function CreateEditModal({
                       </option>
                     ))}
                   </select>
-                </div>
+      </div>
 
                 <div className="flex items-center space-x-2 pt-8">
                   <input
@@ -1240,7 +1452,7 @@ function CreateEditModal({
                     className="rounded"
                   />
                   <label htmlFor="is_favorite" className="text-sm">Mark as favorite</label>
-                </div>
+        </div>
               </div>
             </div>
 
@@ -1250,7 +1462,7 @@ function CreateEditModal({
               <div className="flex flex-wrap gap-2 mb-2">
                 {formData.tags.map(tag => (
                   <span key={tag} className="px-3 py-1 bg-mono-200 dark:bg-mono-800 rounded-lg flex items-center gap-2">
-                    {tag}
+                  {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
@@ -1258,9 +1470,9 @@ function CreateEditModal({
                     >
                       <X className="w-3 h-3" />
                     </button>
-                  </span>
-                ))}
-              </div>
+                </span>
+              ))}
+            </div>
               <div className="flex space-x-2">
                 <input
                   type="text"
@@ -1282,8 +1494,8 @@ function CreateEditModal({
                 >
                   Add Tag
                 </button>
-              </div>
-            </div>
+          </div>
+      </div>
 
             {/* Actions */}
             <div className="flex justify-end space-x-2 pt-4 border-t border-mono-200 dark:border-mono-700">

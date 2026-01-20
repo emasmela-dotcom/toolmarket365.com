@@ -3,8 +3,9 @@ import { sql } from '@/lib/db'
 import { SESSION_COOKIE_NAME, sha256Hex } from '@/lib/auth'
 
 export async function GET(req: NextRequest) {
+  // If database not configured, return null user (auth is optional)
   if (!sql) {
-    return NextResponse.json({ error: 'DATABASE_URL is not set' }, { status: 503 })
+    return NextResponse.json({ user: null })
   }
 
   const token = req.cookies.get(SESSION_COOKIE_NAME)?.value || ''
