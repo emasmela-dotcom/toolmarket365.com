@@ -41,6 +41,9 @@ export function Navigation() {
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
+            <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+              Home
+            </Link>
             <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Tools
             </Link>
