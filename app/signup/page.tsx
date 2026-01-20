@@ -1,0 +1,225 @@
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { Navigation } from '@/components/Navigation'
+import { Footer } from '@/components/Footer'
+import { Mail, Lock, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react'
+
+export default function SignupPage() {
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  const passwordStrength = password.length >= 8 ? 'strong' : password.length >= 4 ? 'medium' : 'weak'
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match')
+      return
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters')
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        // Success - redirect to home
+        router.push('/')
+        router.refresh()
+      } else {
+        if (data.requiresSetup) {
+          setError('Database not configured. Registration requires database setup. You can still use all tools without signing up.')
+        } else {
+          setError(data.error || 'Registration failed. Please try again.')
+        }
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again.')
+      console.error('Signup error:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
+      <Navigation />
+      
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-md mx-auto">
+          <div className="bg-white dark:bg-mono-900 rounded-lg p-8 border border-mono-200 dark:border-mono-700 shadow-lg">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+                Create Account
+              </h1>
+              <p className="text-mono-600 dark:text-mono-400">
+                Join CreatorFlow365 and unlock all features
+              </p>
+            </div>
+
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start space-x-3">
+                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-mono-950 dark:text-mono-50 mb-2">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-5 h-5" />
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full pl-10 pr-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-mono-950 dark:text-mono-50 mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-5 h-5" />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="w-full pl-10 pr-10 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
+                    placeholder="At least 8 characters"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-mono-400 hover:text-mono-600 dark:hover:text-mono-300"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
+                {password && (
+                  <div className="mt-2">
+                    <div className="flex items-center space-x-2 text-xs">
+                      {password.length >= 8 ? (
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                      ) : (
+                        <AlertCircle className="w-4 h-4 text-yellow-600" />
+                      )}
+                      <span className={`${
+                        password.length >= 8 ? 'text-green-600' : 'text-yellow-600'
+                      }`}>
+                        {password.length >= 8 ? 'Strong password' : `At least ${8 - password.length} more characters needed`}
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-mono-950 dark:text-mono-50 mb-2">
+                  Confirm Password
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-5 h-5" />
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    className="w-full pl-10 pr-10 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
+                    placeholder="Confirm your password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-mono-400 hover:text-mono-600 dark:hover:text-mono-300"
+                  >
+                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
+                {confirmPassword && password !== confirmPassword && (
+                  <p className="mt-2 text-xs text-red-600">Passwords do not match</p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading || password !== confirmPassword || password.length < 8}
+                className="w-full px-6 py-3 bg-accent-600 text-white font-medium rounded-lg hover:bg-accent-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              >
+                {isLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    <span>Creating account...</span>
+                  </>
+                ) : (
+                  <span>Create Account</span>
+                )}
+              </button>
+            </form>
+
+            <div className="mt-6 text-center space-y-2">
+              <p className="text-sm text-mono-600 dark:text-mono-400">
+                Already have an account?{' '}
+                <Link
+                  href="/login"
+                  className="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium"
+                >
+                  Sign in
+                </Link>
+              </p>
+              <p className="text-sm text-mono-600 dark:text-mono-400">
+                <Link
+                  href="/forgot-password"
+                  className="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300"
+                >
+                  Forgot your password?
+                </Link>
+              </p>
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-mono-200 dark:border-mono-700">
+              <p className="text-xs text-center text-mono-500 dark:text-mono-500">
+                By creating an account, you agree to our Terms of Service and Privacy Policy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  )
+}
