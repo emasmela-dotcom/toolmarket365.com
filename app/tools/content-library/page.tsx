@@ -32,7 +32,8 @@ import {
   Copy,
   EyeOff,
   X,
-  Check
+  Check,
+  Sparkles
 } from 'lucide-react'
 
 // Types
@@ -117,6 +118,7 @@ export default function ContentLibraryPage() {
   const [editingItem, setEditingItem] = useState<ContentItem | null>(null)
   const [previewItem, setPreviewItem] = useState<ContentItem | null>(null)
   const [showDropdown, setShowDropdown] = useState<string | null>(null)
+  const [usingLocalStorage, setUsingLocalStorage] = useState(false)
 
   // Content Type Icons
   const contentTypeIcons = {
@@ -517,6 +519,25 @@ export default function ContentLibraryPage() {
     fetchCollections()
   }, [fetchContentItems])
 
+  // Check if using localStorage fallback
+  useEffect(() => {
+    // Check if we're using localStorage by checking if API returned the message
+    const checkStorageMode = async () => {
+      try {
+        const response = await fetch('/api/content-library?limit=1')
+        const data = await response.json()
+        if (data.message && data.message.includes('local storage')) {
+          setUsingLocalStorage(true)
+        } else {
+          setUsingLocalStorage(false)
+        }
+      } catch {
+        setUsingLocalStorage(true)
+      }
+    }
+    checkStorageMode()
+  }, [])
+
   // Loading State
   if (loading && contentItems.length === 0) {
   return (
@@ -529,6 +550,40 @@ export default function ContentLibraryPage() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
+        {/* localStorage Notice */}
+        {usingLocalStorage && (
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+            <div className="flex items-start space-x-3">
+              <div className="flex-shrink-0">
+                <svg className="w-5 h-5 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold text-yellow-800 dark:text-yellow-200 mb-1">
+                  Data Stored Locally in Your Browser
+                </h3>
+                <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-3">
+                  <strong>Good news:</strong> All tools work instantly with local storage—no setup required! <strong>However:</strong> Your content is currently stored in your browser's local storage, which means your data is only on this device, won't sync across devices, and may be lost if you clear browser data. <strong>For full benefits and full functionality</strong> (cloud sync, cross-device access, data backup), set up a database connection. <strong>One database setup works for all tools</strong>—configure it once and enjoy cloud storage across your entire CreatorFlow365 toolkit.
+                </p>
+                <div className="mt-3">
+                  <a
+                    href="https://neon.tech"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-lg transition-colors"
+                  >
+                    Set up Neon Database (Free)
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
@@ -1094,6 +1149,15 @@ function ContentCard({
       >
         {item.title}
       </h3>
+      {/* Tool Name Badge */}
+      {item.metadata?.tool && (
+        <div className="mb-2">
+          <span className="inline-flex items-center px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-xs font-medium">
+            <Sparkles className="w-3 h-3 mr-1" />
+            {item.metadata.tool.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+          </span>
+        </div>
+      )}
       {item.description && (
         <p 
           className="text-sm text-mono-600 dark:text-mono-400 mb-3 line-clamp-3 cursor-pointer hover:text-accent-600 transition-colors"
@@ -1207,6 +1271,12 @@ function ContentListItem({
             {item.status}
           </span>
           {item.is_favorite && <Heart className="w-4 h-4 text-red-500 fill-current" />}
+          {item.metadata?.tool && (
+            <span className="inline-flex items-center px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-xs font-medium">
+              <Sparkles className="w-3 h-3 mr-1" />
+              {item.metadata.tool.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            </span>
+          )}
             </div>
         
         {item.description && (

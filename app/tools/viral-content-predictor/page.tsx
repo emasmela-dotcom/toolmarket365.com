@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   TrendingUp, 
   Eye, 
@@ -11,8 +11,12 @@ import {
   Hash,
   Zap,
   AlertCircle,
-  CheckCircle2
+  CheckCircle2,
+  Save,
+  Check,
+  X
 } from 'lucide-react'
+import { isSaveToLibraryEnabled } from '@/lib/preferences'
 
 interface PredictionResult {
   viralScore: number
@@ -34,6 +38,15 @@ export default function ViralContentPredictor() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [prediction, setPrediction] = useState<PredictionResult | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [saveToLibraryEnabled, setSaveToLibraryEnabled] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveSuccess, setSaveSuccess] = useState(false)
+  const [savedItemId, setSavedItemId] = useState<string | null>(null)
+  const [showUndo, setShowUndo] = useState(false)
+
+  useEffect(() => {
+    setSaveToLibraryEnabled(isSaveToLibraryEnabled())
+  }, [])
 
   const handlePredict = async () => {
     if (!content.trim()) {
@@ -87,8 +100,130 @@ export default function ViralContentPredictor() {
     return 'bg-red-100 dark:bg-red-900/30'
   }
 
+  const handleUndoSave = async () => {
+    if (!savedItemId) return
+
+    try {
+      const response = await fetch(`/api/content-library/${savedItemId}`, {
+        method: 'DELETE'
+      })
+
+      const result = await response.json()
+
+      if (result.success || savedItemId.startsWith('local_')) {
+        // Also remove from localStorage if it was a local save
+        if (savedItemId.startsWith('local_')) {
+          const localData = localStorage.getItem('content_library_fallback') || '[]'
+          const localItems = JSON.parse(localData)
+          const filtered = localItems.filter((item: any) => item.id !== savedItemId)
+          localStorage.setItem('content_library_fallback', JSON.stringify(filtered))
+        }
+        setShowUndo(false)
+        setSaveSuccess(false)
+        setSavedItemId(null)
+      }
+    } catch (error) {
+      console.error('Error undoing save:', error)
+      // Still hide the notification
+      setShowUndo(false)
+      setSaveSuccess(false)
+    }
+  }
+
+  const handleSaveToLibrary = async () => {
+    if (!prediction) return
+
+    setIsSaving(true)
+    setSaveSuccess(false)
+    setShowUndo(false)
+
+    try {
+      const contentData = {
+        title: `Viral Prediction - ${platform} ${mediaType}`,
+        description: `Viral Score: ${Math.round(prediction.viralScore)}/100 | Platform: ${platform} | Type: ${mediaType}`,
+        content_type: 'text' as const,
+        content_data: {
+          originalContent: content,
+          platform,
+          mediaType,
+          prediction: {
+            viralScore: prediction.viralScore,
+            confidence: prediction.confidence,
+            viralProbability: prediction.prediction?.viralProbability,
+            expectedEngagement: prediction.prediction?.expectedEngagement,
+            optimalPostingTime: prediction.prediction?.optimalPostingTime,
+            recommendedHashtags: prediction.prediction?.recommendedHashtags,
+            emotionalAnalysis: prediction.emotionalAnalysis,
+            visualAnalysis: prediction.visualAnalysis,
+            timingAnalysis: prediction.timingAnalysis,
+            riskFactors: prediction.analysis?.riskFactors,
+            opportunities: prediction.analysis?.opportunities
+          }
+        },
+        tags: ['viral-predictor', platform, mediaType, `score-${Math.round(prediction.viralScore)}`],
+        status: 'draft' as const,
+        metadata: {
+          tool: 'viral-content-predictor',
+          toolVersion: '1.0',
+          createdAt: new Date().toISOString()
+        }
+      }
+
+      const response = await fetch('/api/content-library', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contentData)
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSaveSuccess(true)
+        setSavedItemId(result.data?.id || null)
+        setShowUndo(true)
+        // Hide undo notification after 5 seconds
+        setTimeout(() => {
+          setShowUndo(false)
+          setSaveSuccess(false)
+        }, 5000)
+      } else {
+        throw new Error(result.error || 'Failed to save')
+      }
+    } catch (error) {
+      console.error('Error saving to library:', error)
+      setError('Failed to save to library')
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
+      {/* Undo Notification */}
+      {showUndo && (
+        <div className="fixed bottom-4 right-4 bg-green-600 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-4 z-50 animate-in slide-in-from-bottom-5">
+          <div className="flex items-center space-x-2">
+            <Check className="w-5 h-5" />
+            <span className="font-medium">Saved to Library ✓</span>
+          </div>
+          <button
+            onClick={handleUndoSave}
+            className="px-3 py-1 bg-white/20 hover:bg-white/30 rounded text-sm font-medium transition-colors"
+          >
+            Undo
+          </button>
+          <button
+            onClick={() => {
+              setShowUndo(false)
+              setSaveSuccess(false)
+            }}
+            className="text-white/80 hover:text-white"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+      
       <div className="max-w-6xl mx-auto">
         {/* Documentation Section */}
         <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
@@ -212,7 +347,37 @@ export default function ViralContentPredictor() {
           {/* Viral Score Display */}
           {prediction && (
             <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-              <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Viral Potential Score</h2>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Viral Potential Score</h2>
+                {saveToLibraryEnabled && (
+                  <button
+                    onClick={handleSaveToLibrary}
+                    disabled={isSaving || saveSuccess}
+                    className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      saveSuccess
+                        ? 'bg-green-600 text-white'
+                        : 'bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed'
+                    }`}
+                  >
+                    {isSaving ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Saving...
+                      </>
+                    ) : saveSuccess ? (
+                      <>
+                        <Check className="w-4 h-4 mr-2" />
+                        Saved!
+                      </>
+                    ) : (
+                      <>
+                        <Save className="w-4 h-4 mr-2" />
+                        Save to Library
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
               <div className="text-center space-y-4">
                 <div className="relative">
                   <div className={`text-6xl font-bold ${getScoreColor(prediction.viralScore)}`}>

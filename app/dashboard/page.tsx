@@ -20,6 +20,7 @@ import {
   Hash,
   Eye
 } from 'lucide-react'
+import { getPreferences, toggleSaveToLibrary, isSaveToLibraryEnabled } from '@/lib/preferences'
 
 interface DashboardStats {
   totalToolsUsed: number
@@ -51,6 +52,15 @@ interface ToolUsage {
   icon: string
 }
 
+interface Favorite {
+  id: string
+  tool_name: string
+  tool_category: string
+  tool_description?: string
+  favorited_at: string
+  notes?: string
+}
+
 const LOCAL_STORAGE_KEY = 'user_dashboard_data'
 const FAVORITES_KEY = 'user_favorite_tools'
 const ACTIVITY_KEY = 'user_activity_log'
@@ -60,12 +70,40 @@ export default function DashboardPage() {
   const [user, setUser] = useState<{ id: string; email: string } | null>(null)
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [favorites, setFavorites] = useState<string[]>([])
+  const [favorites, setFavorites] = useState<Favorite[]>([])
+  const [usingLocalStorage, setUsingLocalStorage] = useState(false)
+  const [saveToLibraryEnabled, setSaveToLibraryEnabled] = useState(true)
 
   useEffect(() => {
     loadUser()
     loadDashboardData()
-  }, [])
+    loadFavorites()
+    
+    // Load preferences
+    const prefs = getPreferences()
+    setSaveToLibraryEnabled(prefs.saveToLibraryEnabled ?? true)
+    
+    // Check if using localStorage
+    const checkStorageMode = async () => {
+      try {
+        const response = await fetch('/api/dashboard/stats')
+        const data = await response.json()
+        if (data.message && data.message.includes('local storage')) {
+          setUsingLocalStorage(true)
+        } else {
+          setUsingLocalStorage(false)
+        }
+      } catch {
+        setUsingLocalStorage(true)
+      }
+    }
+    checkStorageMode()
+  }, [user])
+  
+  const handleToggleSaveToLibrary = (enabled: boolean) => {
+    toggleSaveToLibrary(enabled)
+    setSaveToLibraryEnabled(enabled)
+  }
 
   const loadUser = async () => {
     try {
@@ -86,7 +124,6 @@ export default function DashboardPage() {
 
       if (data.success && data.data) {
         setStats(data.data)
-        setFavorites(data.data.favoriteTools || [])
       } else {
         // Fallback to localStorage
         loadFromLocalStorage()
@@ -99,10 +136,64 @@ export default function DashboardPage() {
     }
   }
 
+  const loadFavorites = async () => {
+    try {
+      // Try to fetch favorites from API
+      const headers: HeadersInit = {}
+      if (user?.id) {
+        headers['x-user-id'] = user.id
+      }
+      
+      const response = await fetch('/api/dashboard/favorites', {
+        headers
+      })
+      const data = await response.json()
+
+      if (data.success && Array.isArray(data.data)) {
+        setFavorites(data.data)
+        // Save to localStorage as fallback
+        try {
+          localStorage.setItem(FAVORITES_KEY, JSON.stringify(data.data))
+        } catch {}
+      } else {
+        // Fallback to localStorage
+        loadFavoritesFromLocalStorage()
+      }
+    } catch (error) {
+      // Fallback to localStorage
+      loadFavoritesFromLocalStorage()
+    }
+  }
+
+  const loadFavoritesFromLocalStorage = () => {
+    try {
+      const storedFavorites = localStorage.getItem(FAVORITES_KEY)
+      if (storedFavorites) {
+        const parsed = JSON.parse(storedFavorites)
+        // Handle both old format (string[]) and new format (Favorite[])
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          if (typeof parsed[0] === 'string') {
+            // Old format: convert to Favorite[] format
+            setFavorites(parsed.map((slug: string) => ({
+              id: slug,
+              tool_name: slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+              tool_category: 'unknown',
+              favorited_at: new Date().toISOString()
+            })))
+          } else {
+            // New format: already Favorite[]
+            setFavorites(parsed)
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error loading favorites from localStorage:', error)
+    }
+  }
+
   const loadFromLocalStorage = () => {
     try {
       const storedStats = localStorage.getItem(LOCAL_STORAGE_KEY)
-      const storedFavorites = localStorage.getItem(FAVORITES_KEY)
       const storedActivity = localStorage.getItem(ACTIVITY_KEY)
 
       if (storedStats) {
@@ -122,10 +213,6 @@ export default function DashboardPage() {
           }
         }
         setStats(defaultStats)
-      }
-
-      if (storedFavorites) {
-        setFavorites(JSON.parse(storedFavorites))
       }
     } catch (error) {
       console.error('Error loading from localStorage:', error)
@@ -164,6 +251,40 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-7xl mx-auto">
+          {/* localStorage Notice */}
+          {usingLocalStorage && (
+            <div className="mb-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0">
+                  <svg className="w-5 h-5 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-yellow-800 dark:text-yellow-200 mb-1">
+                    Data Stored Locally in Your Browser
+                  </h3>
+                  <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-3">
+                    <strong>Good news:</strong> All tools work instantly with local storage—no setup required! <strong>However:</strong> Your dashboard data (favorites, tool usage, activity) is currently stored in your browser's local storage, which means your data is only on this device, won't sync across devices, and may be lost if you clear browser data. <strong>For full benefits and full functionality</strong> (cloud sync, cross-device access, data backup), set up a database connection. <strong>One database setup works for all tools</strong>—configure it once and enjoy cloud storage across your entire CreatorFlow365 toolkit.
+                  </p>
+                  <div className="mt-3">
+                    <a
+                      href="https://neon.tech"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-lg transition-colors"
+                    >
+                      Set up Neon Database (Free)
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2">
@@ -193,7 +314,7 @@ export default function DashboardPage() {
                 <Star className="w-5 h-5 text-yellow-500" />
               </div>
               <p className="text-3xl font-bold text-mono-950 dark:text-mono-50">
-                {favorites.length || stats?.favoriteTools || 0}
+                {favorites.length || 0}
               </p>
               <p className="text-xs text-mono-500 mt-1">Saved tools</p>
             </div>
@@ -239,18 +360,26 @@ export default function DashboardPage() {
               </div>
               {favorites.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {favorites.slice(0, 6).map((slug) => {
+                  {favorites.slice(0, 6).map((fav) => {
+                    const slug = fav.tool_name.toLowerCase().replace(/\s+/g, '-')
                     const Icon = getToolIcon(slug)
                     return (
                       <Link
-                        key={slug}
+                        key={fav.id}
                         href={`/tools/${slug}`}
                         className="flex items-center space-x-3 p-3 rounded-lg border border-mono-200 dark:border-mono-700 hover:border-accent-500 dark:hover:border-accent-500 transition-colors"
                       >
                         <Icon className="w-5 h-5 text-accent-600" />
-                        <span className="text-sm font-medium text-mono-950 dark:text-mono-50">
-                          {getToolName(slug)}
-                        </span>
+                        <div className="flex-1 min-w-0">
+                          <span className="text-sm font-medium text-mono-950 dark:text-mono-50 block">
+                            {fav.tool_name}
+                          </span>
+                          {fav.tool_category && (
+                            <span className="text-xs text-mono-500 dark:text-mono-400 block">
+                              {fav.tool_category}
+                            </span>
+                          )}
+                        </div>
                       </Link>
                     )
                   })}
@@ -303,6 +432,35 @@ export default function DashboardPage() {
                   <Settings className="w-4 h-4 mr-2" />
                   Account Settings
                 </Link>
+              </div>
+            </div>
+            
+            {/* Preferences/Settings */}
+            <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
+              <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-6 flex items-center">
+                <Settings className="w-5 h-5 mr-2 text-blue-500" />
+                Preferences
+              </h2>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <h3 className="text-sm font-medium text-mono-950 dark:text-mono-50 mb-1">
+                      Enable Save to Library Feature
+                    </h3>
+                    <p className="text-xs text-mono-600 dark:text-mono-400">
+                      When enabled, "Save to Library" buttons will appear on tool output pages
+                    </p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer ml-4">
+                    <input
+                      type="checkbox"
+                      checked={saveToLibraryEnabled}
+                      onChange={(e) => handleToggleSaveToLibrary(e.target.checked)}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-mono-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent-300 dark:peer-focus:ring-accent-800 rounded-full peer dark:bg-mono-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-mono-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-mono-600 peer-checked:bg-accent-600"></div>
+                  </label>
+                </div>
               </div>
             </div>
           </div>

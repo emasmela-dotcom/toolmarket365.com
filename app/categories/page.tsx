@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
 import { 
   Calendar, 
   Sparkles, 
@@ -161,8 +159,6 @@ const categories = [
 export default function CategoriesPage() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
-      <Navigation />
-      
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
@@ -278,8 +274,6 @@ export default function CategoriesPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }

@@ -1,8 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
 import { Mail, MessageSquare, Send, CheckCircle } from 'lucide-react'
 
 export default function ContactPage() {
@@ -39,8 +37,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
-      <Navigation />
-      
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
@@ -197,8 +193,6 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }

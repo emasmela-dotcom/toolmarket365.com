@@ -2,8 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
 import { Mail, AlertCircle, CheckCircle, ArrowLeft } from 'lucide-react'
 
 export default function ForgotPasswordPage() {
@@ -53,8 +51,6 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
-      <Navigation />
-      
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-md mx-auto">
           <div className="bg-white dark:bg-mono-900 rounded-lg p-8 border border-mono-200 dark:border-mono-700 shadow-lg">
@@ -172,8 +168,6 @@ export default function ForgotPasswordPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }

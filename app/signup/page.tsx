@@ -63,8 +63,6 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
-      <Navigation />
-      
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-md mx-auto">
           <div className="bg-white dark:bg-mono-900 rounded-lg p-8 border border-mono-200 dark:border-mono-700 shadow-lg">
@@ -72,9 +70,6 @@ export default function SignupPage() {
               <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2">
                 Create Account
               </h1>
-              <p className="text-mono-600 dark:text-mono-400">
-                Join CreatorFlow365 and unlock all features
-              </p>
             </div>
 
             {error && (
@@ -216,8 +211,6 @@ export default function SignupPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }
