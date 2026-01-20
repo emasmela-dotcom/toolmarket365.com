@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
 import { 
   User, 
   Settings, 
@@ -154,20 +152,16 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
-        <Navigation />
-        <div className="flex items-center justify-center h-96">
+      <div className="min-h-screen bg-mono-50 dark:bg-mono-950 flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-600"></div>
         </div>
-        <Footer />
       </div>
     )
   }
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
-      <Navigation />
-      
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
@@ -393,8 +387,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }
