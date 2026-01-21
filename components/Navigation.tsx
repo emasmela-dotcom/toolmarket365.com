@@ -56,6 +56,9 @@ export function Navigation() {
             <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Categories
             </Link>
+            <Link href="/compare" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+              Compare
+            </Link>
             <Link href="/pricing" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Pricing
             </Link>

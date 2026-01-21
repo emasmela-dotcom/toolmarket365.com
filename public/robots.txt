@@ -1,0 +1,15 @@
+# robots.txt for CreatorFlow365
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /account/
+Disallow: /dashboard/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://creatorflow365.com/sitemap.xml
+
+# Crawl-delay (optional, adjust as needed)
+Crawl-delay: 1
