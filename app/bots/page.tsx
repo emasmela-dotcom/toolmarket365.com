@@ -441,6 +441,14 @@ export default function BotsPage() {
                       <span>Open Dashboard</span>
                       <ArrowRight className="w-4 h-4" />
                     </Link>
+                  ) : bot.id === 'engagement-tracker-bot' ? (
+                    <Link
+                      href="/dashboard/engagement-tracker"
+                      className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                    >
+                      <span>Open Dashboard</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
                   ) : (
                     <button className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2">
                       <span>Purchase Bot</span>
