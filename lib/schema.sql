@@ -878,4 +878,162 @@ CREATE TRIGGER update_bot_competitors_updated_at BEFORE UPDATE ON bot_competitor
 CREATE TRIGGER update_bot_competitor_reports_updated_at BEFORE UPDATE ON bot_competitor_reports
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+-- ============================================
+-- ENGAGEMENT TRACKER BOT TABLES
+-- Template-based engagement tracking (zero external API usage)
+-- ============================================
+
+-- Social media accounts table
+CREATE TABLE IF NOT EXISTS bot_social_accounts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    platform VARCHAR(20) NOT NULL CHECK (platform IN ('instagram', 'twitter', 'facebook', 'linkedin', 'tiktok', 'youtube')),
+    account_name VARCHAR(255) NOT NULL,
+    account_handle VARCHAR(100) NOT NULL,
+    access_token TEXT,
+    refresh_token TEXT,
+    expires_at TIMESTAMP WITH TIME ZONE,
+    is_active BOOLEAN DEFAULT true,
+    avatar_url TEXT,
+    follower_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    CONSTRAINT unique_user_platform_handle UNIQUE(user_id, platform, account_handle)
+);
+
+-- Engagement metrics table
+CREATE TABLE IF NOT EXISTS bot_engagement_metrics (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    account_id UUID NOT NULL REFERENCES bot_social_accounts(id) ON DELETE CASCADE,
+    platform VARCHAR(20) NOT NULL,
+    metric_date DATE NOT NULL,
+    impressions INTEGER DEFAULT 0,
+    reach INTEGER DEFAULT 0,
+    engagement_rate DECIMAL(5,2) DEFAULT 0,
+    likes INTEGER DEFAULT 0,
+    comments INTEGER DEFAULT 0,
+    shares INTEGER DEFAULT 0,
+    saves INTEGER DEFAULT 0,
+    clicks INTEGER DEFAULT 0,
+    profile_visits INTEGER DEFAULT 0,
+    story_views INTEGER DEFAULT 0,
+    story_reach INTEGER DEFAULT 0,
+    video_views INTEGER DEFAULT 0,
+    video_completion_rate DECIMAL(5,2) DEFAULT 0,
+    click_through_rate DECIMAL(5,2) DEFAULT 0,
+    follower_change INTEGER DEFAULT 0,
+    engagement_change DECIMAL(5,2) DEFAULT 0,
+    posts_count INTEGER DEFAULT 0,
+    stories_count INTEGER DEFAULT 0,
+    reels_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    CONSTRAINT unique_account_date UNIQUE(account_id, metric_date)
+);
+
+-- Engagement alerts table
+CREATE TABLE IF NOT EXISTS bot_engagement_alerts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    account_id UUID NOT NULL REFERENCES bot_social_accounts(id) ON DELETE CASCADE,
+    alert_type VARCHAR(50) NOT NULL CHECK (alert_type IN ('engagement_drop', 'engagement_spike', 'follower_loss', 'follower_gain', 'no_activity', 'viral_content')),
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    severity VARCHAR(20) DEFAULT 'medium' CHECK (severity IN ('low', 'medium', 'high', 'critical')),
+    threshold_value DECIMAL(10,2),
+    actual_value DECIMAL(10,2),
+    comparison_period VARCHAR(20),
+    is_read BOOLEAN DEFAULT false,
+    is_actioned BOOLEAN DEFAULT false,
+    metadata JSONB DEFAULT '{}'::jsonb,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    read_at TIMESTAMP WITH TIME ZONE,
+    actioned_at TIMESTAMP WITH TIME ZONE
+);
+
+-- Alert rules configuration table
+CREATE TABLE IF NOT EXISTS bot_alert_rules (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    account_id UUID REFERENCES bot_social_accounts(id) ON DELETE CASCADE,
+    rule_name VARCHAR(255) NOT NULL,
+    alert_type VARCHAR(50) NOT NULL,
+    metric_name VARCHAR(50) NOT NULL,
+    operator VARCHAR(10) NOT NULL CHECK (operator IN ('>', '<', '>=', '<=', '==', '!=')),
+    threshold_value DECIMAL(10,2) NOT NULL,
+    comparison_period VARCHAR(20) DEFAULT 'daily',
+    is_active BOOLEAN DEFAULT true,
+    notification_method VARCHAR(20) DEFAULT 'dashboard' CHECK (notification_method IN ('dashboard', 'email', 'sms', 'all')),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Daily engagement summary table
+CREATE TABLE IF NOT EXISTS bot_daily_engagement_summary (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    summary_date DATE NOT NULL,
+    total_accounts INTEGER DEFAULT 0,
+    total_impressions INTEGER DEFAULT 0,
+    total_reach INTEGER DEFAULT 0,
+    total_engagement DECIMAL(10,2) DEFAULT 0,
+    average_engagement_rate DECIMAL(5,2) DEFAULT 0,
+    platform_stats JSONB DEFAULT '{}'::jsonb,
+    top_posts JSONB DEFAULT '[]'::jsonb,
+    follower_growth INTEGER DEFAULT 0,
+    engagement_growth DECIMAL(5,2) DEFAULT 0,
+    alerts_count INTEGER DEFAULT 0,
+    critical_alerts INTEGER DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    CONSTRAINT unique_user_date UNIQUE(user_id, summary_date)
+);
+
+-- Engagement reports table
+CREATE TABLE IF NOT EXISTS bot_engagement_reports (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    report_type VARCHAR(20) NOT NULL CHECK (report_type IN ('weekly', 'monthly', 'custom')),
+    period_start DATE NOT NULL,
+    period_end DATE NOT NULL,
+    accounts_analyzed INTEGER DEFAULT 0,
+    total_metrics INTEGER DEFAULT 0,
+    performance_summary JSONB DEFAULT '{}'::jsonb,
+    growth_analysis JSONB DEFAULT '{}'::jsonb,
+    recommendations JSONB DEFAULT '[]'::jsonb,
+    file_url TEXT,
+    file_size INTEGER,
+    file_format VARCHAR(10) DEFAULT 'pdf',
+    status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'generating', 'completed', 'failed')),
+    error_message TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    generated_at TIMESTAMP WITH TIME ZONE
+);
+
+-- Indexes for engagement tracker bot
+CREATE INDEX IF NOT EXISTS idx_bot_social_accounts_user_id ON bot_social_accounts(user_id);
+CREATE INDEX IF NOT EXISTS idx_bot_social_accounts_platform ON bot_social_accounts(platform);
+CREATE INDEX IF NOT EXISTS idx_bot_social_accounts_active ON bot_social_accounts(is_active);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_metrics_user_id ON bot_engagement_metrics(user_id);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_metrics_account_id ON bot_engagement_metrics(account_id);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_metrics_platform ON bot_engagement_metrics(platform);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_metrics_date ON bot_engagement_metrics(metric_date DESC);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_alerts_user_id ON bot_engagement_alerts(user_id);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_alerts_account_id ON bot_engagement_alerts(account_id);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_alerts_type ON bot_engagement_alerts(alert_type);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_alerts_created ON bot_engagement_alerts(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_alerts_unread ON bot_engagement_alerts(user_id, is_read);
+CREATE INDEX IF NOT EXISTS idx_bot_alert_rules_user_id ON bot_alert_rules(user_id);
+CREATE INDEX IF NOT EXISTS idx_bot_alert_rules_active ON bot_alert_rules(is_active);
+CREATE INDEX IF NOT EXISTS idx_bot_daily_summary_user_id ON bot_daily_engagement_summary(user_id);
+CREATE INDEX IF NOT EXISTS idx_bot_daily_summary_date ON bot_daily_engagement_summary(summary_date);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_reports_user_id ON bot_engagement_reports(user_id);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_reports_type ON bot_engagement_reports(report_type);
+CREATE INDEX IF NOT EXISTS idx_bot_engagement_reports_period ON bot_engagement_reports(period_start, period_end);
+
+-- Updated at triggers
+CREATE TRIGGER update_bot_social_accounts_updated_at BEFORE UPDATE ON bot_social_accounts
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_bot_alert_rules_updated_at BEFORE UPDATE ON bot_alert_rules
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
 
