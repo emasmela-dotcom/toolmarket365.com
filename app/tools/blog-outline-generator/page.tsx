@@ -8,12 +8,11 @@ function BlogOutlineGeneratorContent() {
   const [tone, setTone] = useState('professional')
   const [level, setLevel] = useState('intermediate')
   const [keyword, setKeyword] = useState('')
-  const [apiKey, setApiKey] = useState('')
   const [output, setOutput] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState('')
 
-  const generateOutline = async () => {
+  const generateOutline = () => {
     if (!title.trim()) {
       setError('Please enter a blog title')
       return
@@ -23,47 +22,12 @@ function BlogOutlineGeneratorContent() {
     setError('')
     setOutput('')
 
-    // If no API key, generate a template outline
-    if (!apiKey.trim()) {
-      setTimeout(() => {
-        const template = generateTemplateOutline(title, tone, level, keyword)
-        setOutput(template)
-        setIsGenerating(false)
-      }, 1000)
-      return
-    }
-
-    try {
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [{
-            role: 'user',
-            content: `Write a detailed blog outline (H2+H3+bullets) for "${title}". Tone=${tone}. Level=${level}. Keyword="${keyword || 'N/A'}"`
-          }]
-        })
-      })
-
-      if (!res.ok) {
-        throw new Error('API request failed. Check your API key.')
-      }
-
-      const data = await res.json()
-      const outline = data.choices[0]?.message?.content || 'No outline generated'
-      setOutput(outline)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to generate outline')
-      // Fallback to template
+    // Generate template outline (no external API calls)
+    setTimeout(() => {
       const template = generateTemplateOutline(title, tone, level, keyword)
       setOutput(template)
-    } finally {
       setIsGenerating(false)
-    }
+    }, 500)
   }
 
   const generateTemplateOutline = (title: string, tone: string, level: string, kw: string): string => {
@@ -113,7 +77,7 @@ function BlogOutlineGeneratorContent() {
           <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
             <div>
               <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
-              <p>Generates detailed blog outlines with H2, H3 headings and bullet points. Works with OpenAI API for AI-powered outlines, or generates template outlines without an API key.</p>
+              <p>Generates detailed blog outlines with H2, H3 headings and bullet points. Creates structured, customizable outlines based on your title, tone, and target audience level.</p>
             </div>
             <div>
               <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
@@ -122,15 +86,16 @@ function BlogOutlineGeneratorContent() {
                 <li><strong>Select tone:</strong> Professional, Casual, Friendly, Academic, or Conversational</li>
                 <li><strong>Choose level:</strong> Beginner, Intermediate, or Advanced</li>
                 <li><strong>Add primary keyword (optional):</strong> For SEO focus</li>
-                <li><strong>Add OpenAI API key (optional):</strong> For AI-powered outlines</li>
                 <li><strong>Click "Generate Outline"</strong> to create your outline</li>
               </ol>
             </div>
             <div>
               <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>With API Key: AI-generated outline tailored to your title, tone, and level with structured format (H2/H3 headings, bullet points), SEO-optimized if keyword provided, tone-appropriate content structure</li>
-                <li>Without API Key: Template outline with standard blog structure (Introduction, Understanding the Basics, Key Concepts, Advanced Techniques, Real-World Applications, Common Pitfalls, Best Practices, Conclusion), ready to customize</li>
+                <li>Structured outline with H2/H3 headings and bullet points tailored to your title, tone, and level</li>
+                <li>Standard blog structure (Introduction, Understanding the Basics, Key Concepts, Advanced Techniques, Real-World Applications, Common Pitfalls, Best Practices, Conclusion)</li>
+                <li>SEO-optimized structure if keyword provided</li>
+                <li>Tone-appropriate content structure ready to customize</li>
               </ul>
             </div>
           </div>
@@ -191,20 +156,6 @@ function BlogOutlineGeneratorContent() {
             placeholder="e.g., SaaS development"
             className="w-full p-3 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
           />
-
-          <label className="block mb-2 mt-4 text-sm font-semibold">
-            OpenAI API Key (optional - leave blank for template)
-          </label>
-          <input
-            type="password"
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-            placeholder="sk-..."
-            className="w-full p-3 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
-          />
-          <p className="text-xs text-mono-500 mt-1">
-            Without an API key, a template outline will be generated. Add your key for AI-powered outlines.
-          </p>
 
           <button
             onClick={generateOutline}
