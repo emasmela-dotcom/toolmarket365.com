@@ -50,8 +50,11 @@ export function Navigation() {
             <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Content Library
             </Link>
-            <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/dashboard" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Dashboard
+            </Link>
+            <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+              Performance Dashboard
             </Link>
             <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Categories
@@ -72,12 +75,6 @@ export function Navigation() {
               <>
                 {user ? (
                   <div className="flex items-center space-x-3">
-                    <Link
-                      href="/dashboard"
-                      className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
-                    >
-                      Dashboard
-                    </Link>
                     <Link
                       href="/account"
                       className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"

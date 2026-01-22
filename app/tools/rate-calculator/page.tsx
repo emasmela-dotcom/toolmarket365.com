@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import { Calculator, DollarSign, Clock, TrendingUp, Users, Instagram, Twitter, Youtube, Linkedin } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function RateCalculator() {
+function RateCalculatorContent() {
   const [hours, setHours] = useState('')
   const [ratePerHour, setRatePerHour] = useState('')
   const [followers, setFollowers] = useState('')
@@ -245,6 +246,22 @@ export default function RateCalculator() {
                     </div>
                   </>
                 )}
+                
+                {/* Stripe Link */}
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mt-6">
+                  <p className="text-sm text-blue-900 dark:text-blue-200 text-center">
+                    <strong>Ready to accept payments?</strong> Set up{' '}
+                    <a 
+                      href="https://stripe.com/payments" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-700 dark:text-blue-300 underline hover:text-blue-800 dark:hover:text-blue-200 font-semibold"
+                    >
+                      Stripe
+                    </a>
+                    {' '}to start getting paid for your work.
+                  </p>
+                </div>
               </>
             ) : (
               <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-12 text-center h-full flex flex-col justify-center border border-mono-200 dark:border-mono-700">
@@ -259,6 +276,32 @@ export default function RateCalculator() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function RateCalculator() {
+  const toolDescription = "Calculate your content creation rates based on hours worked, hourly rate, follower count, platform, and engagement rate. Determine fair pricing for your services."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Enter hours:</strong> Input the number of hours spent on the project</li>
+      <li><strong>Set rate per hour:</strong> Enter your hourly rate</li>
+      <li><strong>Add follower count (optional):</strong> Include your follower count for platform-based calculations</li>
+      <li><strong>Select platform:</strong> Choose Instagram, Twitter, YouTube, or LinkedIn</li>
+      <li><strong>Add engagement rate (optional):</strong> Include your engagement rate percentage</li>
+      <li><strong>View results:</strong> See total rate, rate per post, and rate per thousand followers</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="rate-calculator"
+      toolName="Rate Calculator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <RateCalculatorContent />
+    </ToolAccessGate>
   )
 }
 

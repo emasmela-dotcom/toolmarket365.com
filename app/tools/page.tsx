@@ -98,6 +98,7 @@ const toolSections = [
     title: 'Engagement & Growth',
     description: 'Tools to grow your audience and increase engagement',
     tools: [
+      { name: 'AI Lead Follow-Up Agent', slug: 'ai-lead-follow-up-agent', icon: Sparkles },
       { name: 'Poll / Question Generator', slug: 'poll-question-generator', icon: Lightbulb },
       { name: 'Giveaway Manager', slug: 'giveaway-manager', icon: Calendar },
       { name: 'Influencer Outreach Tool', slug: 'influencer-outreach-tool', icon: FileText },

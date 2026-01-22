@@ -74,10 +74,14 @@ export default function DashboardPage() {
   const [usingLocalStorage, setUsingLocalStorage] = useState(false)
   const [saveToLibraryEnabled, setSaveToLibraryEnabled] = useState(true)
 
+  // Load user once on mount
   useEffect(() => {
     loadUser()
+  }, [])
+
+  // Load dashboard data and preferences once on mount
+  useEffect(() => {
     loadDashboardData()
-    loadFavorites()
     
     // Load preferences
     const prefs = getPreferences()
@@ -98,7 +102,17 @@ export default function DashboardPage() {
       }
     }
     checkStorageMode()
-  }, [user])
+  }, [])
+
+  // Load favorites when user is available
+  useEffect(() => {
+    if (user?.id) {
+      loadFavorites()
+    } else {
+      // If no user, try loading from localStorage
+      loadFavoritesFromLocalStorage()
+    }
+  }, [user?.id])
   
   const handleToggleSaveToLibrary = (enabled: boolean) => {
     toggleSaveToLibrary(enabled)

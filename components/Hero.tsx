@@ -12,8 +12,11 @@ export function Hero() {
           <p className="text-base sm:text-lg text-mono-600 dark:text-mono-400 mb-2 max-w-xl mx-auto font-medium">
             The Micro-SaaS Marketplace for Content Creators
           </p>
-          <p className="text-sm sm:text-base text-mono-600 dark:text-mono-400 mb-6 max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-mono-600 dark:text-mono-400 mb-3 max-w-xl mx-auto">
             Build, optimize, and monetize your content with 43+ professional tools—all in one place. Store, organize, and manage all your content in your personal cloud library.
+          </p>
+          <p className="text-base sm:text-lg font-semibold text-accent-600 dark:text-accent-400 mb-6 max-w-2xl mx-auto">
+            Run your entire creator business from one platform—not just schedule posts.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link

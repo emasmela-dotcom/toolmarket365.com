@@ -2,8 +2,9 @@
 
 import { useState, useRef } from 'react'
 import { FileText, Upload, Copy, Check } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function PodcastShowNotesGenerator() {
+function PodcastShowNotesGeneratorContent() {
   const [episodeTitle, setEpisodeTitle] = useState('')
   const [guestName, setGuestName] = useState('')
   const [lang, setLang] = useState('en')
@@ -277,6 +278,32 @@ Generated with Podcast Show-Notes Generator
         )}
       </div>
     </div>
+  )
+}
+
+export default function PodcastShowNotesGenerator() {
+  const toolDescription = "Generate professional podcast show notes from your episode transcript. Create structured show notes with key points, timestamps, and summaries to help listeners navigate your content."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Enter episode title:</strong> Type the title of your podcast episode</li>
+      <li><strong>Add guest name (optional):</strong> Include guest name if applicable</li>
+      <li><strong>Paste transcript:</strong> Upload or paste your episode transcript</li>
+      <li><strong>Select language:</strong> Choose the language of your transcript</li>
+      <li><strong>Click "Generate Show Notes"</strong> to create structured notes</li>
+      <li><strong>Copy and use:</strong> Copy the generated show notes for your podcast platform</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="podcast-show-notes-generator"
+      toolName="Podcast Show Notes Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <PodcastShowNotesGeneratorContent />
+    </ToolAccessGate>
   )
 }
 

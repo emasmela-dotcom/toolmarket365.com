@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function AICaptionGenerator() {
+function AICaptionGeneratorContent() {
   const [prompt, setPrompt] = useState('')
   const [tone, setTone] = useState('funny')
   const [platform, setPlatform] = useState('instagram')
@@ -266,6 +267,31 @@ export default function AICaptionGenerator() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function AICaptionGenerator() {
+  const toolDescription = "Generates 3 social media captions instantly based on your image/video description, selected tone, platform, and length preference."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Describe your content:</strong> Paste image description or video script</li>
+      <li><strong>Select tone:</strong> Funny/Witty, Inspirational, Professional, Casual, or Informative</li>
+      <li><strong>Choose platform:</strong> Instagram, TikTok, LinkedIn, Twitter/X, or Facebook</li>
+      <li><strong>Pick length:</strong> Short (≤70 chars), Medium (70-220 chars), or Long (220+ chars)</li>
+      <li><strong>Click "Generate 3 captions"</strong> to create your captions</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="ai-caption-generator"
+      toolName="AI Caption Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <AICaptionGeneratorContent />
+    </ToolAccessGate>
   )
 }
 

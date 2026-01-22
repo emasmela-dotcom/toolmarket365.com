@@ -13,7 +13,7 @@ interface RevenueEntry {
 
 const STORE_KEY = 'revenueTracker'
 
-export default function RevenueTracker() {
+function RevenueTrackerContent() {
   const [entries, setEntries] = useState<RevenueEntry[]>([])
   const [formData, setFormData] = useState({
     amount: '',
@@ -118,7 +118,23 @@ export default function RevenueTracker() {
             </div>
           </div>
           <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">Revenue Tracker</h1>
-          <p className="text-xl text-mono-600 dark:text-mono-400">Track your income and revenue streams</p>
+          <p className="text-xl text-mono-600 dark:text-mono-400 mb-4">Track your income and revenue streams</p>
+          {entries.length === 0 && (
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 max-w-2xl mx-auto">
+              <p className="text-sm text-blue-900 dark:text-blue-200 text-center">
+                <strong>New to monetization?</strong> Set up payment processing with{' '}
+                <a 
+                  href="https://stripe.com/payments" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-700 dark:text-blue-300 underline hover:text-blue-800 dark:hover:text-blue-200 font-semibold"
+                >
+                  Stripe
+                </a>
+                {' '}to start accepting payments from brands and clients.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Documentation Section */}
@@ -341,6 +357,32 @@ export default function RevenueTracker() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function RevenueTracker() {
+  const toolDescription = "Track and manage your creator revenue across all income sources. Monitor earnings, view trends, filter by date range, and export data for tax and financial planning."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Add revenue entry:</strong> Click "Add Revenue" and enter amount, date, source, and description</li>
+      <li><strong>View all entries:</strong> See all revenue entries in a table with totals</li>
+      <li><strong>Filter by date:</strong> Use date filters to view revenue for specific periods</li>
+      <li><strong>View trends:</strong> See monthly and yearly revenue summaries</li>
+      <li><strong>Export data:</strong> Download revenue data as CSV for accounting</li>
+      <li><strong>Delete entries:</strong> Remove incorrect entries as needed</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="revenue-tracker"
+      toolName="Revenue Tracker"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <RevenueTrackerContent />
+    </ToolAccessGate>
   )
 }
 

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 const templates = [
   '{em} I help {who} {do}',
@@ -15,7 +16,7 @@ function rand<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-export default function BioGenerator() {
+function BioGeneratorContent() {
   const [whatYouDo, setWhatYouDo] = useState('')
   const [whoYouHelp, setWhoYouHelp] = useState('')
   const [emoji, setEmoji] = useState('')
@@ -235,6 +236,31 @@ export default function BioGenerator() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function BioGenerator() {
+  const toolDescription = "Generate professional social media bios instantly. Create compelling bios for Instagram, Twitter, LinkedIn, and other platforms based on what you do and who you help."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Enter what you do:</strong> Describe your profession, business, or expertise</li>
+      <li><strong>Enter who you help:</strong> Describe your target audience or customers</li>
+      <li><strong>Add emoji (optional):</strong> Include an emoji to personalize your bio</li>
+      <li><strong>Click "Generate"</strong> to create multiple bio variations</li>
+      <li><strong>Copy your favorite:</strong> Select and copy the bio that best fits your brand</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="bio-generator"
+      toolName="Bio Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <BioGeneratorContent />
+    </ToolAccessGate>
   )
 }
 

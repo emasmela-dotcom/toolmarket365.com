@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function BlogOutlineGenerator() {
+function BlogOutlineGeneratorContent() {
   const [title, setTitle] = useState('')
   const [tone, setTone] = useState('professional')
   const [level, setLevel] = useState('intermediate')
@@ -240,6 +241,32 @@ export default function BlogOutlineGenerator() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function BlogOutlineGenerator() {
+  const toolDescription = "Generate structured blog post outlines based on your title, tone, and target audience. Create comprehensive outlines with headings, subheadings, and key points to guide your writing."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Enter blog title:</strong> Type the title or topic of your blog post</li>
+      <li><strong>Select tone:</strong> Choose professional, casual, or friendly</li>
+      <li><strong>Select level:</strong> Choose beginner, intermediate, or advanced</li>
+      <li><strong>Add keyword (optional):</strong> Include a focus keyword for SEO</li>
+      <li><strong>Click "Generate Outline"</strong> to create your blog structure</li>
+      <li><strong>Review and use:</strong> Copy the outline to guide your writing</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="blog-outline-generator"
+      toolName="Blog Outline Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <BlogOutlineGeneratorContent />
+    </ToolAccessGate>
   )
 }
 

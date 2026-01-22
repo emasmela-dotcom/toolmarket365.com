@@ -192,9 +192,12 @@ export default function ComparePage() {
             <h1 className="text-4xl sm:text-5xl font-bold text-mono-950 dark:text-mono-50 mb-6">
               Why CreatorFlow365 is Different
             </h1>
-            <p className="text-xl text-mono-600 dark:text-mono-400 mb-8">
+            <p className="text-xl text-mono-600 dark:text-mono-400 mb-3">
               See how we compare to Later, Buffer, Hootsuite, and other tools. 
               Discover unique features that actually improve your content quality.
+            </p>
+            <p className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-8">
+              Not just a scheduler—CreatorFlow365 is where creators run their whole business.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

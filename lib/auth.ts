@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { createHash, randomUUID } from 'node:crypto'
+import { createHash, randomUUID } from 'crypto'
 
 export const SESSION_COOKIE_NAME = 'msm_session'
 export const SESSION_TTL_DAYS = 30

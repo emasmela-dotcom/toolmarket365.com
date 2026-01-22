@@ -237,8 +237,11 @@ export default function PricingPage() {
             <h1 className="text-4xl sm:text-5xl font-bold text-mono-950 dark:text-mono-50 mb-6">
               Simple, Affordable Pricing
             </h1>
-            <p className="text-xl text-mono-600 dark:text-mono-400 mb-4">
+            <p className="text-xl text-mono-600 dark:text-mono-400 mb-3">
               Start at $9/month. Grow as you need. No credit card required for trial.
+            </p>
+            <p className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-4">
+              Everything you need to run your creator operation in one place.
             </p>
             <p className="text-lg text-mono-500 dark:text-mono-500 mb-6">
               All plans include a <span className="font-semibold text-accent-600">7-day free trial</span>
@@ -266,8 +269,8 @@ export default function PricingPage() {
                     <li><strong className="text-green-700 dark:text-green-400">Subscribe with credit card:</strong> Keep all content created during trial</li>
                     <li><strong className="text-red-700 dark:text-red-400">Don't subscribe:</strong> Your account will be restored to pre-trial state (content created during trial will be removed)</li>
                   </ul>
-                  <p className="text-sm font-semibold text-yellow-900 dark:text-yellow-200 mt-3">
-                    💡 Tip: Subscribe before trial ends to keep everything you've created!
+                  <p className="text-sm text-yellow-800 dark:text-yellow-300 mt-3">
+                    <strong>Plan Changes:</strong> You can upgrade to a higher plan anytime, but you cannot downgrade from your selected plan when trial completes.
                   </p>
                 </div>
               </div>
@@ -429,9 +432,12 @@ export default function PricingPage() {
       <section className="py-16 bg-mono-50 dark:bg-mono-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-8 text-center">
+            <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4 text-center">
               Why Choose CreatorFlow365?
             </h2>
+            <p className="text-center text-lg text-mono-600 dark:text-mono-400 mb-8">
+              More than a scheduler—we provide everything creators need to run their entire business: content creation, analytics, monetization, and growth.
+            </p>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
@@ -486,6 +492,26 @@ export default function PricingPage() {
                 </div>
               </div>
             </div>
+            
+            {/* Monetization Help */}
+            <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+              <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                💰 New to Monetization?
+              </h3>
+              <p className="text-sm text-blue-800 dark:text-blue-300">
+                Once you know your rates, you'll need a way to get paid. Many creators use{' '}
+                <a 
+                  href="https://stripe.com/payments" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-700 dark:text-blue-300 underline hover:text-blue-800 dark:hover:text-blue-200 font-semibold"
+                >
+                  Stripe
+                </a>
+                {' '}to accept payments from brands and clients. Set up your account to start accepting payments.
+              </p>
+            </div>
+            
             <div className="mt-8 text-center">
               <Link
                 href="/compare"

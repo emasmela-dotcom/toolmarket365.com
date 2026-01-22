@@ -43,8 +43,8 @@ export default function SignupPage() {
       const data = await response.json()
 
       if (response.ok) {
-        // Success - redirect to home
-        router.push('/')
+        // Success - redirect to plan selection
+        router.push('/select-plan')
         router.refresh()
       } else {
         if (data.requiresSetup) {

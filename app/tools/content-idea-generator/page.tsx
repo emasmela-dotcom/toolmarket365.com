@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 const formats = ['How-To', 'Listicle', 'Comparison', 'Story', 'News-jack', 'Carousel']
 const angles = ['Pain-point', 'Myth-bust', 'Beginner', 'Expert', 'Case-study', 'Trend']
@@ -19,7 +20,7 @@ interface Idea {
   altKW: string
 }
 
-export default function ContentIdeaGenerator() {
+function ContentIdeaGeneratorContent() {
   const [niche, setNiche] = useState('')
   const [count, setCount] = useState(30)
   const [ideas, setIdeas] = useState<Idea[]>([])
@@ -205,6 +206,31 @@ export default function ContentIdeaGenerator() {
         ))}
       </div>
     </div>
+  )
+}
+
+export default function ContentIdeaGenerator() {
+  const toolDescription = "Generate unlimited content ideas for your niche. Create titles, keywords, angles, formats, and difficulty levels to fuel your content calendar."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Enter your niche:</strong> Type your content niche or topic area (e.g., "fitness", "cooking", "tech")</li>
+      <li><strong>Set idea count:</strong> Choose how many content ideas to generate (default: 30)</li>
+      <li><strong>Click "Generate Ideas"</strong> to create content ideas</li>
+      <li><strong>Review results:</strong> Each idea includes title, keywords, angle, format, and difficulty</li>
+      <li><strong>Export or copy:</strong> Export all ideas or copy individual ones to your content calendar</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="content-idea-generator"
+      toolName="Content Idea Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ContentIdeaGeneratorContent />
+    </ToolAccessGate>
   )
 }
 

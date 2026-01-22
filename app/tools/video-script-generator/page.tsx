@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Video, Play, Copy, Check, Download } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface ScriptSection {
   type: string
@@ -9,7 +10,7 @@ interface ScriptSection {
   duration?: string
 }
 
-export default function VideoScriptGenerator() {
+function VideoScriptGeneratorContent() {
   const [topic, setTopic] = useState('')
   const [platform, setPlatform] = useState('youtube')
   const [length, setLength] = useState('medium')
@@ -280,6 +281,32 @@ export default function VideoScriptGenerator() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function VideoScriptGenerator() {
+  const toolDescription = "Generates structured video scripts for YouTube, TikTok, Instagram Reels, and YouTube Shorts. Creates scripts with hooks, introductions, main content points, and calls-to-action based on your topic."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Enter video topic:</strong> Type your video topic or title (e.g., "How to cook pasta")</li>
+      <li><strong>Select platform:</strong> Choose YouTube, TikTok, Instagram Reels, or YouTube Shorts. Script structure adapts to platform.</li>
+      <li><strong>Choose video length:</strong> Short (30-60s, 3 sections), Medium (2-5min, 5 sections), or Long (5+min, 8 sections)</li>
+      <li><strong>Click "Generate Script"</strong> to create your script</li>
+      <li><strong>Review generated script:</strong> Hook section, Introduction, Main content points, Call to action, Outro</li>
+      <li><strong>Copy or download:</strong> Copy formatted script, copy plain text, or download as .txt file</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="video-script-generator"
+      toolName="Video Script Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <VideoScriptGeneratorContent />
+    </ToolAccessGate>
   )
 }
 

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Search, Copy, TrendingUp, BarChart3, Users, Zap, Check } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Hashtag {
   tag: string
@@ -11,7 +12,7 @@ interface Hashtag {
   trending: boolean
 }
 
-export default function HashtagResearchTool() {
+function HashtagResearchToolContent() {
   const [searchTerm, setSearchTerm] = useState('')
   const [platform, setPlatform] = useState('instagram')
   const [results, setResults] = useState<{
@@ -381,6 +382,31 @@ export default function HashtagResearchTool() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function HashtagResearchTool() {
+  const toolDescription = "Research and discover the best hashtags for your content. Find trending hashtags, analyze engagement levels, competition, and volume to optimize your social media posts."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Enter search term:</strong> Type a keyword or topic related to your content</li>
+      <li><strong>Select platform:</strong> Choose Instagram, TikTok, Twitter, or LinkedIn</li>
+      <li><strong>Click "Search Hashtags"</strong> to find relevant hashtags</li>
+      <li><strong>Review results:</strong> See hashtag volume, engagement levels, competition, and trending status</li>
+      <li><strong>Copy hashtags:</strong> Click the copy button to use hashtags in your posts</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="hashtag-research"
+      toolName="Hashtag Research"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <HashtagResearchToolContent />
+    </ToolAccessGate>
   )
 }
 

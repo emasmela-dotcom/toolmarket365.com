@@ -17,6 +17,7 @@ import {
   X
 } from 'lucide-react'
 import { isSaveToLibraryEnabled } from '@/lib/preferences'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface PredictionResult {
   viralScore: number
@@ -31,7 +32,7 @@ interface PredictionResult {
   }
 }
 
-export default function ViralContentPredictor() {
+function ViralContentPredictorContent() {
   const [content, setContent] = useState('')
   const [platform, setPlatform] = useState('tiktok')
   const [mediaType, setMediaType] = useState('video')
@@ -590,5 +591,30 @@ export default function ViralContentPredictor() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function ViralContentPredictor() {
+  const toolDescription = "AI-powered analysis to predict your content's viral potential before you post. Analyzes emotional triggers, visual elements, timing factors, competitor landscape, and hashtag effectiveness to give you a comprehensive viral score."
+  
+  const howToUse = (
+    <ol className="list-decimal list-inside space-y-1 ml-2">
+      <li><strong>Enter your content:</strong> Paste your caption, post text, or content description</li>
+      <li><strong>Select platform:</strong> Choose the platform you're posting to (TikTok, Instagram, YouTube, etc.)</li>
+      <li><strong>Select media type:</strong> Choose the type of content (video, image, carousel, reel)</li>
+      <li><strong>Click "Predict Viral Potential"</strong> to analyze</li>
+      <li><strong>Review results:</strong> See viral score, engagement predictions, optimal posting time, and recommendations</li>
+    </ol>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="viral-content-predictor"
+      toolName="Viral Content Predictor"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ViralContentPredictorContent />
+    </ToolAccessGate>
   )
 }

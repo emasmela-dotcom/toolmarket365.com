@@ -38,9 +38,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const pwHash = await hashPassword(password)
+    // Extract name from email (part before @) as default name
+    const defaultName = email.split('@')[0] || 'User'
+    
     const userRows = await sql`
-      INSERT INTO users (email, password_hash)
-      VALUES (${email}, ${pwHash})
+      INSERT INTO users (email, password_hash, name)
+      VALUES (${email}, ${pwHash}, ${defaultName})
       RETURNING id, email
     `
 
@@ -62,6 +65,9 @@ export async function POST(req: NextRequest) {
       path: '/',
       expires: new Date(expiresAt),
     })
+    
+    // Redirect to plan selection after signup
+    // The frontend will handle the redirect based on this response
     return res
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'
