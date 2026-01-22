@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface ComparisonData {
   competitor: {
@@ -287,4 +288,29 @@ export default function CompetitorAnalyzer() {
   )
 }
 
+export default function CompetitorAnalyzer() {
+  const toolDescription = "Compares your social media performance against competitors. Analyzes posts, followers, and engagement rates to identify strengths and areas for improvement."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter competitor handle:</strong> Type the competitor's social media handle</li>
+        <li><strong>Enter your handle:</strong> Type your own social media handle</li>
+        <li><strong>Click "Compare"</strong> to generate a side-by-side comparison</li>
+        <li><strong>Review metrics:</strong> See posts count, followers, and engagement rate for both accounts</li>
+        <li><strong>Identify gaps:</strong> Use the comparison to understand where you can improve</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="competitor-analyzer"
+      toolName="Competitor Analyzer"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <CompetitorAnalyzerContent />
+    </ToolAccessGate>
+  )
+}
 

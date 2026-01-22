@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState, useRef } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function ColorPaletteExtractor() {
+function ColorPaletteExtractorContent() {
   const [palette, setPalette] = useState<string[]>([])
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -181,4 +182,28 @@ export default function ColorPaletteExtractor() {
   )
 }
 
+export default function ColorPaletteExtractor() {
+  const toolDescription = "Extracts dominant colors from uploaded images. Analyzes image pixels to identify the top 5 most frequent colors and displays them as a color palette with hex codes."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Upload image:</strong> Click "Choose Image" or drag and drop an image file</li>
+        <li><strong>View palette:</strong> See the top 5 dominant colors extracted from your image</li>
+        <li><strong>Copy colors:</strong> Click on any color swatch to copy its hex code to clipboard</li>
+        <li><strong>Use colors:</strong> Use the extracted colors for your brand kit, design projects, or content creation</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="color-palette-extractor"
+      toolName="Color Palette Extractor"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ColorPaletteExtractorContent />
+    </ToolAccessGate>
+  )
+}
 

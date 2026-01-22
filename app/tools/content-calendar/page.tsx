@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Post {
   id: string
@@ -382,4 +383,29 @@ export default function ContentCalendar() {
   )
 }
 
+export default function ContentCalendar() {
+  const toolDescription = "Plan, schedule, and manage your content across multiple platforms. Create posts, set publication dates, track status (draft, scheduled, published), and export to calendar formats."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Create post:</strong> Click on a date or use "New Post" to add content</li>
+        <li><strong>Fill details:</strong> Enter title, text, date, time, status, and tags</li>
+        <li><strong>View calendar:</strong> Switch between month and week views to see your content schedule</li>
+        <li><strong>Edit posts:</strong> Click on any post to edit or delete it</li>
+        <li><strong>Export:</strong> Export your calendar to .ics format for external calendar apps</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="content-calendar"
+      toolName="Content Calendar"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ContentCalendarContent />
+    </ToolAccessGate>
+  )
+}
 
