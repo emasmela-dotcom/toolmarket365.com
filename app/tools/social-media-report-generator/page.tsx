@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useMemo, useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 type Platform =
   | 'Instagram'
@@ -26,7 +27,7 @@ function money(n: number): string {
   return `$${n.toFixed(2)}`
 }
 
-export default function SocialMediaReportGenerator() {
+function SocialMediaReportGeneratorContent() {
   const [platform, setPlatform] = useState<Platform>('Instagram')
   const [campaignName, setCampaignName] = useState('')
   const [startDate, setStartDate] = useState('')
@@ -288,6 +289,32 @@ export default function SocialMediaReportGenerator() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SocialMediaReportGenerator() {
+  const toolDescription = "Generates professional social media performance reports. Input metrics for Instagram, TikTok, YouTube, Twitter, or LinkedIn to create comprehensive reports with analytics, insights, and visualizations."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Select platform:</strong> Choose Instagram, TikTok, YouTube, Twitter, or LinkedIn</li>
+        <li><strong>Enter campaign name:</strong> Name your report/campaign</li>
+        <li><strong>Input metrics:</strong> Enter followers, posts, engagement, reach, impressions, etc.</li>
+        <li><strong>Click "Generate Report":</strong> Create a comprehensive performance report</li>
+        <li><strong>Download:</strong> Export the report as PDF or copy the data</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="social-media-report-generator"
+      toolName="Social Media Report Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <SocialMediaReportGeneratorContent />
+    </ToolAccessGate>
   )
 }
 

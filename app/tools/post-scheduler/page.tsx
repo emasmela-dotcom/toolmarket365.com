@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Calendar, Download } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface PostData {
   title: string
@@ -11,7 +12,7 @@ interface PostData {
 const STORE_KEY = 'postSched'
 const BEST_TIMES = ['09:00', '11:30', '13:00', '15:30', '19:00'] // UTC for demo
 
-export default function PostScheduler() {
+function PostSchedulerContent() {
   const [db, setDb] = useState<Record<string, PostData>>({})
   const [currentDate, setCurrentDate] = useState(new Date())
   const [viewMode, setViewMode] = useState<'month' | 'week'>('month')
@@ -352,5 +353,32 @@ export default function PostScheduler() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function PostScheduler() {
+  const toolDescription = "Schedule social media posts with calendar view. Plan posts for specific dates and times, edit scheduled content, and export your schedule to calendar formats."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Navigate calendar:</strong> Use arrows to move between months</li>
+        <li><strong>Click date:</strong> Select a date to schedule a post</li>
+        <li><strong>Enter content:</strong> Add title and body text for your post</li>
+        <li><strong>Set time:</strong> Choose a posting time (best times are suggested)</li>
+        <li><strong>Save:</strong> Click "Save" to schedule the post</li>
+        <li><strong>Edit/Delete:</strong> Click on scheduled posts to edit or delete them</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="post-scheduler"
+      toolName="Post Scheduler"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <PostSchedulerContent />
+    </ToolAccessGate>
   )
 }

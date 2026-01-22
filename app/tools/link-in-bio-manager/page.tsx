@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Plus, Edit, Trash2, ExternalLink, Download, QrCode } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Link {
   title: string
@@ -12,7 +13,7 @@ interface Link {
 
 const STORE_KEY = 'linkBio'
 
-export default function LinkInBioManager() {
+function LinkInBioManagerContent() {
   const [links, setLinks] = useState<Link[]>([])
   const [editingId, setEditingId] = useState<number | null>(null)
   const [showModal, setShowModal] = useState(false)
@@ -302,4 +303,29 @@ header p{margin:0;font-size:.95rem;color:#444}
   )
 }
 
+export default function LinkInBioManager() {
+  const toolDescription = "Manages your link-in-bio page by organizing links, tracking clicks and views, and generating QR codes. Create a centralized hub for all your important links and monitor their performance."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Set profile:</strong> Enter your profile name and username</li>
+        <li><strong>Add links:</strong> Click "Add Link" to add title and URL for each link</li>
+        <li><strong>Manage links:</strong> Edit, delete, or reorder your links</li>
+        <li><strong>Track performance:</strong> View clicks and views for each link</li>
+        <li><strong>Generate QR code:</strong> Create a QR code for easy sharing</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="link-in-bio-manager"
+      toolName="Link in Bio Manager"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <LinkInBioManagerContent />
+    </ToolAccessGate>
+  )
+}
 

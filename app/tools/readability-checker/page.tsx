@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { FileText, CheckCircle, AlertCircle, TrendingUp, BookOpen } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface ReadabilityMetrics {
   words: number
@@ -17,7 +18,7 @@ interface ReadabilityMetrics {
   readingTime: number
 }
 
-export default function ReadabilityChecker() {
+function ReadabilityCheckerContent() {
   const [text, setText] = useState('')
   const [metrics, setMetrics] = useState<ReadabilityMetrics | null>(null)
 
@@ -271,4 +272,29 @@ export default function ReadabilityChecker() {
   )
 }
 
+export default function ReadabilityChecker() {
+  const toolDescription = "Analyzes text readability using multiple metrics including Flesch Reading Ease, Flesch-Kincaid Grade Level, and more. Provides detailed statistics to help you write content that's easy to read and understand."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Paste text:</strong> Enter or paste the text you want to analyze</li>
+        <li><strong>Click "Check Readability":</strong> Analyze the text for readability metrics</li>
+        <li><strong>Review metrics:</strong> See word count, sentence count, reading ease score, and grade level</li>
+        <li><strong>Understand scores:</strong> Use the color-coded ratings to see how readable your text is</li>
+        <li><strong>Improve:</strong> Use the insights to make your content more accessible</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="readability-checker"
+      toolName="Readability Checker"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ReadabilityCheckerContent />
+    </ToolAccessGate>
+  )
+}
 

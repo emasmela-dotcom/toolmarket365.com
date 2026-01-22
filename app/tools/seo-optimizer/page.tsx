@@ -2,13 +2,14 @@
 
 import { useState } from 'react'
 import { Search, Hash, TrendingUp } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Keyword {
   word: string
   count: number
 }
 
-export default function SEOOptimizer() {
+function SEOOptimizerContent() {
   const [text, setText] = useState('')
   const [keywords, setKeywords] = useState<Keyword[]>([])
 
@@ -157,5 +158,31 @@ export default function SEOOptimizer() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SEOOptimizer() {
+  const toolDescription = "Optimizes content for search engines by analyzing keywords, density, and SEO best practices. Provides keyword suggestions, density analysis, and recommendations to improve search visibility."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter content:</strong> Paste your text content to analyze</li>
+        <li><strong>Click "Analyze":</strong> Get SEO analysis and keyword insights</li>
+        <li><strong>Review keywords:</strong> See most frequent keywords and their counts</li>
+        <li><strong>Check density:</strong> Review keyword density percentages</li>
+        <li><strong>Get suggestions:</strong> Use recommendations to improve SEO</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="seo-optimizer"
+      toolName="SEO Optimizer"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <SEOOptimizerContent />
+    </ToolAccessGate>
   )
 }

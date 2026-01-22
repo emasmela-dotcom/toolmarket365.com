@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { TrendingUp, Users, Heart, MessageCircle, Share2, Eye, BarChart3, Calculator, AlertCircle } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Results {
   engagementRate: string
@@ -494,4 +495,29 @@ export default function EngagementCalculator() {
   )
 }
 
+export default function EngagementCalculator() {
+  const toolDescription = "Calculates your engagement rate based on followers and interactions (likes, comments, shares, views). Provides detailed breakdowns, performance ratings, and projections to help you understand and improve your social media engagement."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter followers:</strong> Input your total follower count</li>
+        <li><strong>Enter metrics:</strong> Add likes, comments, shares, and optionally views</li>
+        <li><strong>Click "Calculate":</strong> See your engagement rate and detailed breakdown</li>
+        <li><strong>Review results:</strong> Check your performance rating, projections, and benchmarks</li>
+        <li><strong>Analyze:</strong> Use the insights to improve your content strategy</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="engagement-calculator"
+      toolName="Engagement Calculator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <EngagementCalculatorContent />
+    </ToolAccessGate>
+  )
+}
 

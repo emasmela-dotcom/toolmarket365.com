@@ -2,8 +2,9 @@
 
 import { useState, useRef } from 'react'
 import { Image, Upload, Copy, Check, Loader2, Sparkles } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function ImageAltTextGenerator() {
+function ImageAltTextGeneratorContent() {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   const [altText, setAltText] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
@@ -297,3 +298,28 @@ export default function ImageAltTextGenerator() {
   )
 }
 
+export default function ImageAltTextGenerator() {
+  const toolDescription = "Generates accessible alt text descriptions for images. Analyzes uploaded images and creates descriptive, SEO-friendly alt text that helps with accessibility and search engine optimization."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Upload image:</strong> Click "Upload Image" or drag and drop an image file</li>
+        <li><strong>Generate alt text:</strong> The tool automatically analyzes the image and generates alt text</li>
+        <li><strong>Review and edit:</strong> Check the generated alt text and edit if needed</li>
+        <li><strong>Copy:</strong> Click "Copy" to copy the alt text to your clipboard</li>
+        <li><strong>Use:</strong> Paste the alt text into your image's alt attribute for accessibility</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="image-alt-text-generator"
+      toolName="Image Alt Text Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ImageAltTextGeneratorContent />
+    </ToolAccessGate>
+  )
+}

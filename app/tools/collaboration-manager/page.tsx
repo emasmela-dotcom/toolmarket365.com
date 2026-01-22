@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Collaboration {
   name: string
@@ -8,7 +9,7 @@ interface Collaboration {
   deliv: string
 }
 
-export default function CollaborationManager() {
+function CollaborationManagerContent() {
   const [name, setName] = useState('')
   const [platform, setPlatform] = useState('IG')
   const [deliverable, setDeliverable] = useState('')
@@ -212,4 +213,29 @@ export default function CollaborationManager() {
   )
 }
 
+export default function CollaborationManager() {
+  const toolDescription = "Manages collaboration partnerships by tracking partner names, platforms, and deliverables. Keeps an organized list of all your collaborations for easy reference and management."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter partner name:</strong> Type the brand name or creator name you're collaborating with</li>
+        <li><strong>Select platform:</strong> Choose IG, TikTok, or YouTube</li>
+        <li><strong>Enter deliverable:</strong> Type what needs to be delivered (e.g., "1 reel + 3 stories")</li>
+        <li><strong>Click "Add Collab"</strong> to save the collaboration</li>
+        <li><strong>Manage collaborations:</strong> View all saved collaborations, delete individual collaborations, or clear all</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="collaboration-manager"
+      toolName="Collaboration Manager"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <CollaborationManagerContent />
+    </ToolAccessGate>
+  )
+}
 

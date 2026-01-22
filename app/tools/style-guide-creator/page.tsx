@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function StyleGuideCreator() {
+function StyleGuideCreatorContent() {
   const [brandName, setBrandName] = useState('')
   const [logoUrl, setLogoUrl] = useState('')
   const [primaryColor, setPrimaryColor] = useState('#0a66c2')
@@ -206,6 +207,33 @@ ${voiceTone}
         )}
       </div>
     </div>
+  )
+}
+
+export default function StyleGuideCreator() {
+  const toolDescription = "Creates comprehensive brand style guides including brand name, logo, colors, typography, voice and tone, and usage guidelines. Generates a complete style guide document for brand consistency."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter brand name:</strong> Type your brand or business name</li>
+        <li><strong>Add logo URL (optional):</strong> Enter your logo image URL</li>
+        <li><strong>Select colors:</strong> Choose primary and secondary brand colors</li>
+        <li><strong>Define voice:</strong> Describe your brand's voice and tone</li>
+        <li><strong>Add guidelines:</strong> Enter usage guidelines and rules</li>
+        <li><strong>Generate guide:</strong> Create and download your style guide</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="style-guide-creator"
+      toolName="Style Guide Creator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <StyleGuideCreatorContent />
+    </ToolAccessGate>
   )
 }
 

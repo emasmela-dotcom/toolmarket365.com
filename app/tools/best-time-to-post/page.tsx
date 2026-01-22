@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 const data: Record<string, Record<string, string[]>> = {
   ig: {
@@ -28,7 +29,7 @@ const data: Record<string, Record<string, string[]>> = {
 const days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 const hours = Array.from({ length: 24 }, (_, i) => i)
 
-export default function BestTimeToPost() {
+function BestTimeToPostContent() {
   const [platform, setPlatform] = useState('ig')
   const [industry, setIndustry] = useState('travel')
   const [tz, setTz] = useState('et')
@@ -215,4 +216,28 @@ export default function BestTimeToPost() {
   )
 }
 
+export default function BestTimeToPost() {
+  const toolDescription = "Shows the best times to post on social media platforms using a heat-map visualization. Displays optimal posting times by day of week and hour of day to maximize engagement."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Select platform:</strong> Choose Instagram, TikTok, Twitter, LinkedIn, or Facebook</li>
+        <li><strong>View heat-map:</strong> See color-coded grid showing best posting times (darker colors = better times)</li>
+        <li><strong>Hover over cells:</strong> See specific day and time combinations</li>
+        <li><strong>Plan your posts:</strong> Schedule content during the optimal times shown in darker colors</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="best-time-to-post"
+      toolName="Best Time to Post"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <BestTimeToPostContent />
+    </ToolAccessGate>
+  )
+}
 

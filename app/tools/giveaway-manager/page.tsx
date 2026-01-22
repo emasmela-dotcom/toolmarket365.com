@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Giveaway {
   prize: string
@@ -223,4 +224,29 @@ export default function GiveawayManager() {
   )
 }
 
+export default function GiveawayManager() {
+  const toolDescription = "Manages giveaways and contests by tracking prizes, rules, entries, and randomly selecting winners. Organize multiple giveaways and keep track of participants and winners."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter prize:</strong> Describe what you're giving away</li>
+        <li><strong>Enter rules:</strong> List the giveaway rules and requirements</li>
+        <li><strong>Add entries:</strong> List all participants (one per line)</li>
+        <li><strong>Save giveaway:</strong> Click "Save Giveaway" to store it</li>
+        <li><strong>Pick winner:</strong> Click "Pick Random Winner" to randomly select a winner</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="giveaway-manager"
+      toolName="Giveaway Manager"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <GiveawayManagerContent />
+    </ToolAccessGate>
+  )
+}
 

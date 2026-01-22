@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 const template = `Hi {handle},
 
@@ -181,4 +182,29 @@ export default function InfluencerOutreachTool() {
   )
 }
 
+export default function InfluencerOutreachTool() {
+  const toolDescription = "Generates professional outreach emails for influencer collaborations. Creates personalized email templates based on influencer handle and follower count for brand partnership opportunities."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter handle:</strong> Type the influencer's social media handle</li>
+        <li><strong>Enter followers (optional):</strong> Add their follower count for context</li>
+        <li><strong>Customize message (optional):</strong> Add a custom message to personalize the email</li>
+        <li><strong>Click "Generate Email":</strong> Create a professional outreach email template</li>
+        <li><strong>Copy and send:</strong> Copy the email and send it to the influencer</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="influencer-outreach-tool"
+      toolName="Influencer Outreach Tool"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <InfluencerOutreachToolContent />
+    </ToolAccessGate>
+  )
+}
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 const templates = {
   linkedin: [
@@ -42,7 +43,7 @@ function summarise(text: string, ratio: number = 0.25): string {
   return sentences.slice(idx, idx + target).join(' ').trim()
 }
 
-export default function ContentRepurposer() {
+function ContentRepurposerContent() {
   const [manual, setManual] = useState('')
   const [output, setOutput] = useState('')
   const [showOutput, setShowOutput] = useState(false)
@@ -284,4 +285,28 @@ ${car}
   )
 }
 
+export default function ContentRepurposer() {
+  const toolDescription = "Repurposes long-form content into multiple formats for different platforms. Converts blog posts, articles, or videos into LinkedIn posts, Twitter threads, Instagram captions, TikTok scripts, emails, and carousel formats."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Paste content:</strong> Drag and drop a file or paste your long-form content</li>
+        <li><strong>Click "Repurpose":</strong> The tool automatically converts your content into multiple formats</li>
+        <li><strong>Review output:</strong> See repurposed content for LinkedIn, Twitter, Instagram, TikTok, email, and carousel formats</li>
+        <li><strong>Copy or download:</strong> Copy individual formats or download all as a ZIP file</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="content-repurposer"
+      toolName="Content Repurposer"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ContentRepurposerContent />
+    </ToolAccessGate>
+  )
+}
 

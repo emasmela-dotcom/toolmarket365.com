@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface TrendData {
   week: string
@@ -11,7 +12,7 @@ function rand(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-export default function TrendTracker() {
+function TrendTrackerContent() {
   const [keyword, setKeyword] = useState('')
   const [trends, setTrends] = useState<TrendData[]>([])
   const [isTracking, setIsTracking] = useState(false)
@@ -199,6 +200,31 @@ export default function TrendTracker() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function TrendTracker() {
+  const toolDescription = "Tracks trending topics and keywords over time. Monitors trend scores, identifies rising trends, and provides insights into what's gaining popularity in your niche or industry."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter topic:</strong> Type a topic or keyword to track</li>
+        <li><strong>Click "Track":</strong> See trend data and scores over time</li>
+        <li><strong>Review trends:</strong> View weekly trend scores and visualizations</li>
+        <li><strong>Analyze patterns:</strong> Identify rising or declining trends</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="trend-tracker"
+      toolName="Trend Tracker"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <TrendTrackerContent />
+    </ToolAccessGate>
   )
 }
 

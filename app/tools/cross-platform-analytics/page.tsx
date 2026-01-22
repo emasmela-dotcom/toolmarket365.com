@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface PlatformData {
   platform: string
@@ -15,7 +16,7 @@ function rand(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-export default function CrossPlatformAnalytics() {
+function CrossPlatformAnalyticsContent() {
   const [data, setData] = useState<PlatformData[]>([])
 
   const loadMockData = () => {
@@ -256,4 +257,28 @@ export default function CrossPlatformAnalytics() {
   )
 }
 
+export default function CrossPlatformAnalytics() {
+  const toolDescription = "View analytics across multiple social media platforms in one dashboard. Compare followers, posts, and engagement rates across Instagram, TikTok, Twitter, YouTube, and LinkedIn."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Load data:</strong> Click "Load Mock Data" to see sample analytics</li>
+        <li><strong>View metrics:</strong> See followers, posts, and engagement rates for each platform</li>
+        <li><strong>Compare platforms:</strong> Review totals and averages across all platforms</li>
+        <li><strong>Analyze performance:</strong> Use color-coded engagement rates to identify top-performing platforms</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="cross-platform-analytics"
+      toolName="Cross-Platform Analytics"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <CrossPlatformAnalyticsContent />
+    </ToolAccessGate>
+  )
+}
 

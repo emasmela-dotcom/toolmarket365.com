@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface MentionData {
   platform: string
@@ -11,7 +12,7 @@ function rand(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-export default function BrandMentionTracker() {
+function BrandMentionTrackerContent() {
   const [brand, setBrand] = useState('')
   const [mentions, setMentions] = useState<MentionData[]>([])
   const [isChecking, setIsChecking] = useState(false)
@@ -193,4 +194,27 @@ export default function BrandMentionTracker() {
   )
 }
 
+export default function BrandMentionTracker() {
+  const toolDescription = "Tracks mentions of your brand across different social media platforms. Shows how many times your brand is mentioned on Twitter, Reddit, TikTok, Instagram, LinkedIn, YouTube, and Facebook."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter brand name:</strong> Type your brand name to track</li>
+        <li><strong>Click "Check"</strong> to search for brand mentions</li>
+        <li><strong>Review results:</strong> See total mentions and breakdown by platform with visual progress bars showing distribution</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="brand-mention-tracker"
+      toolName="Brand Mention Tracker"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <BrandMentionTrackerContent />
+    </ToolAccessGate>
+  )
+}
 

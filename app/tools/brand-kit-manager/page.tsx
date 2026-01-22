@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface BrandKit {
   name: string
@@ -9,7 +10,7 @@ interface BrandKit {
   tag: string
 }
 
-export default function BrandKitManager() {
+function BrandKitManagerContent() {
   const [name, setName] = useState('')
   const [c1, setC1] = useState('#0a66c2')
   const [c2, setC2] = useState('#16a34a')
@@ -185,4 +186,30 @@ export default function BrandKitManager() {
   )
 }
 
+export default function BrandKitManager() {
+  const toolDescription = "Stores and manages your brand kit including brand name, primary and secondary colors, and brand tagline. Saves your brand identity for easy reference and consistency across your content."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter brand name:</strong> Type your brand or business name</li>
+        <li><strong>Select primary color:</strong> Choose your main brand color using the color picker</li>
+        <li><strong>Select secondary color:</strong> Choose your secondary brand color</li>
+        <li><strong>Enter tagline (optional):</strong> Add your brand tagline or slogan</li>
+        <li><strong>Click "Save Brand Kit"</strong> to store your brand identity</li>
+        <li><strong>View saved kit:</strong> Your brand kit is automatically loaded and displayed when you return</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="brand-kit-manager"
+      toolName="Brand Kit Manager"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <BrandKitManagerContent />
+    </ToolAccessGate>
+  )
+}
 

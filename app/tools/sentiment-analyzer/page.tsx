@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface SentimentResult {
   sentiment: 'Positive' | 'Negative' | 'Neutral'
@@ -57,7 +58,7 @@ const negativeWords = [
   'waste',
 ]
 
-export default function SentimentAnalyzer() {
+function SentimentAnalyzerContent() {
   const [text, setText] = useState('')
   const [result, setResult] = useState<SentimentResult | null>(null)
 
@@ -269,6 +270,31 @@ export default function SentimentAnalyzer() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function SentimentAnalyzer() {
+  const toolDescription = "Analyzes the sentiment of text to determine if it's positive, negative, or neutral. Perfect for analyzing comments, reviews, social media posts, and customer feedback to understand emotional tone."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter text:</strong> Paste or type the text you want to analyze</li>
+        <li><strong>Click "Analyze":</strong> Get sentiment analysis results</li>
+        <li><strong>Review results:</strong> See sentiment classification (Positive/Negative/Neutral), score, percentage, and word lists</li>
+        <li><strong>Understand insights:</strong> Use the positive and negative word lists to understand what drives the sentiment</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="sentiment-analyzer"
+      toolName="Sentiment Analyzer"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <SentimentAnalyzerContent />
+    </ToolAccessGate>
   )
 }
 

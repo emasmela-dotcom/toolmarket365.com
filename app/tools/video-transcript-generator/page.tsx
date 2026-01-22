@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function VideoTranscriptGenerator() {
+function VideoTranscriptGeneratorContent() {
   const [mode, setMode] = useState<'fetch' | 'paste'>('fetch')
   const [url, setUrl] = useState('')
   const [transcript, setTranscript] = useState('')
@@ -397,6 +398,32 @@ export default function VideoTranscriptGenerator() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function VideoTranscriptGenerator() {
+  const toolDescription = "Generates transcripts from video URLs or pasted text. Supports YouTube videos and manual text input. Creates searchable, editable transcripts for content repurposing and accessibility."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Choose mode:</strong> Select "Fetch from URL" or "Paste Text"</li>
+        <li><strong>For URL mode:</strong> Enter a YouTube video URL and click "Fetch Transcript"</li>
+        <li><strong>For paste mode:</strong> Paste your transcript text directly</li>
+        <li><strong>Edit transcript:</strong> Review and edit the generated transcript</li>
+        <li><strong>Copy or download:</strong> Copy the transcript or download as text file</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="video-transcript-generator"
+      toolName="Video Transcript Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <VideoTranscriptGeneratorContent />
+    </ToolAccessGate>
   )
 }
 

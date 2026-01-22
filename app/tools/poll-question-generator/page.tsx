@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 const pools: Record<string, string[]> = {
   coffee: [
@@ -151,4 +152,28 @@ export default function PollQuestionGenerator() {
   )
 }
 
+export default function PollQuestionGenerator() {
+  const toolDescription = "Generates engaging poll questions for social media stories and posts. Creates topic-specific or general poll questions to boost engagement and interaction with your audience."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter topic (optional):</strong> Type a topic like "coffee", "fitness", or "food" for topic-specific questions</li>
+        <li><strong>Leave blank for general:</strong> Leave topic empty for general engagement questions</li>
+        <li><strong>Click "Generate":</strong> Get a list of poll questions perfect for stories and posts</li>
+        <li><strong>Copy and use:</strong> Copy the questions and use them in your social media polls</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="poll-question-generator"
+      toolName="Poll Question Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <PollQuestionGeneratorContent />
+    </ToolAccessGate>
+  )
+}
 

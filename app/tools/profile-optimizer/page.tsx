@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface OptimizationResult {
   score: number
@@ -250,4 +251,29 @@ export default function ProfileOptimizer() {
   )
 }
 
+export default function ProfileOptimizer() {
+  const toolDescription = "Optimizes your social media profile bio by analyzing keywords, emojis, length, and structure. Provides a score and actionable tips to improve your bio's effectiveness."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter your bio:</strong> Paste your current social media bio</li>
+        <li><strong>Click "Optimize":</strong> Get an optimization score and detailed analysis</li>
+        <li><strong>Review score:</strong> See how well-optimized your bio is (out of 100)</li>
+        <li><strong>Read tips:</strong> Get specific suggestions for improving your bio</li>
+        <li><strong>Apply changes:</strong> Use the tips to update your bio for better performance</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="profile-optimizer"
+      toolName="Profile Optimizer"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ProfileOptimizerContent />
+    </ToolAccessGate>
+  )
+}
 

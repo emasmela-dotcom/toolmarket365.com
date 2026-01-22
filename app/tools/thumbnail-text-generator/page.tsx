@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import { Type, Copy, Check, Download, Image as ImageIcon } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function ThumbnailTextGenerator() {
+function ThumbnailTextGeneratorContent() {
   const [title, setTitle] = useState('')
   const [wordsPerLine, setWordsPerLine] = useState(3)
   const [result, setResult] = useState<string[]>([])
@@ -261,6 +262,32 @@ export default function ThumbnailTextGenerator() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ThumbnailTextGenerator() {
+  const toolDescription = "Generates formatted text for video thumbnails. Splits titles into multiple lines with customizable words per line, colors, fonts, and alignment. Perfect for YouTube, TikTok, and other video platforms."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter title:</strong> Type or paste your video title</li>
+        <li><strong>Set words per line:</strong> Choose how many words appear on each line (default: 3)</li>
+        <li><strong>Customize appearance:</strong> Adjust font size, text color, background color, and alignment</li>
+        <li><strong>Click "Generate":</strong> See formatted text preview</li>
+        <li><strong>Copy results:</strong> Copy as plain text or HTML format</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="thumbnail-text-generator"
+      toolName="Thumbnail Text Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ThumbnailTextGeneratorContent />
+    </ToolAccessGate>
   )
 }
 

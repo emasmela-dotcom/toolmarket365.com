@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Download, Image as ImageIcon } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function QuoteCardGenerator() {
+function QuoteCardGeneratorContent() {
   const [quote, setQuote] = useState('Stay hungry, stay foolish.')
   const [author, setAuthor] = useState('')
   const [theme, setTheme] = useState('minimal')
@@ -319,4 +320,31 @@ export default function QuoteCardGenerator() {
   )
 }
 
+export default function QuoteCardGenerator() {
+  const toolDescription = "Creates beautiful quote cards for social media. Customize quotes, authors, themes, colors, sizes, and add logos to generate professional quote graphics ready for download."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter quote:</strong> Type or paste the quote text</li>
+        <li><strong>Enter author (optional):</strong> Add the quote author's name</li>
+        <li><strong>Choose theme:</strong> Select a visual theme (minimal, bold, elegant, etc.)</li>
+        <li><strong>Customize colors:</strong> Adjust text and background colors</li>
+        <li><strong>Set size:</strong> Choose image dimensions (1080x1080, 1920x1080, etc.)</li>
+        <li><strong>Add logo (optional):</strong> Upload a logo to include on the card</li>
+        <li><strong>Download:</strong> Click "Download" to save your quote card</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="quote-card-generator"
+      toolName="Quote Card Generator"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <QuoteCardGeneratorContent />
+    </ToolAccessGate>
+  )
+}
 

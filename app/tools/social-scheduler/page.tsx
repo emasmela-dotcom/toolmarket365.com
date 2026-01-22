@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { CalendarClock, RefreshCw, Trash2, Save, PlusCircle } from 'lucide-react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 type Status = 'draft' | 'scheduled' | 'published' | 'canceled'
 
@@ -34,7 +35,7 @@ function isoFromDtLocal(v: string): string | null {
   return d.toISOString()
 }
 
-export default function SocialScheduler() {
+function SocialSchedulerContent() {
   const [posts, setPosts] = useState<ScheduledPost[]>([])
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -457,6 +458,32 @@ export default function SocialScheduler() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function SocialScheduler() {
+  const toolDescription = "Schedule social media posts across multiple platforms. Create, edit, and manage scheduled posts with calendar view, status tracking, and bulk operations for efficient content planning."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Create post:</strong> Click "New Post" to add a scheduled post</li>
+        <li><strong>Enter details:</strong> Add title, body text, scheduled date/time, and media URLs</li>
+        <li><strong>Set status:</strong> Choose draft, scheduled, published, or canceled</li>
+        <li><strong>View calendar:</strong> See all scheduled posts in calendar view</li>
+        <li><strong>Manage posts:</strong> Edit, delete, or change status of scheduled posts</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="social-scheduler"
+      toolName="Social Scheduler"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <SocialSchedulerContent />
+    </ToolAccessGate>
   )
 }
 

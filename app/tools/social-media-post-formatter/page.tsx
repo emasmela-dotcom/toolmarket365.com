@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function SocialMediaPostFormatter() {
+function SocialMediaPostFormatterContent() {
   const [input, setInput] = useState('')
   const [platform, setPlatform] = useState('twitter')
   const [output, setOutput] = useState('')
@@ -209,6 +210,33 @@ export default function SocialMediaPostFormatter() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SocialMediaPostFormatter() {
+  const toolDescription = "Formats social media content for different platforms with character limits, text styling (bold, italic, underline), emoji picker, and AI hashtag suggestions."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter content:</strong> Type or paste your social media post</li>
+        <li><strong>Select platform:</strong> Choose Twitter/X, Instagram, LinkedIn, Facebook, or TikTok</li>
+        <li><strong>Format text:</strong> Select text and use Bold, Italic, or Underline buttons</li>
+        <li><strong>Add emojis:</strong> Click emojis to insert them into your text</li>
+        <li><strong>Generate hashtags:</strong> Use "🪄 AI hashtags" to auto-generate hashtags</li>
+        <li><strong>Copy output:</strong> Click "Copy output" to copy the formatted text</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="social-media-post-formatter"
+      toolName="Social Media Post Formatter"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <SocialMediaPostFormatterContent />
+    </ToolAccessGate>
   )
 }
 

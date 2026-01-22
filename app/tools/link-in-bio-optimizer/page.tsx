@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function LinkInBioOptimizer() {
+function LinkInBioOptimizerContent() {
   const [bio, setBio] = useState('')
   const [optimized, setOptimized] = useState<string | null>(null)
   const [tips, setTips] = useState<string[]>([])
@@ -173,4 +174,28 @@ export default function LinkInBioOptimizer() {
   )
 }
 
+export default function LinkInBioOptimizer() {
+  const toolDescription = "Optimizes your social media bio for maximum impact. Analyzes your current bio and provides an optimized version with link-in-bio call-to-action, character count optimization, and improvement tips."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter current bio:</strong> Paste your existing social media bio</li>
+        <li><strong>Click "Optimize":</strong> Get an optimized version with improvements</li>
+        <li><strong>Review tips:</strong> See specific suggestions for improving your bio</li>
+        <li><strong>Copy optimized bio:</strong> Use the optimized version in your profile</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="link-in-bio-optimizer"
+      toolName="Link in Bio Optimizer"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <LinkInBioOptimizerContent />
+    </ToolAccessGate>
+  )
+}
 

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface GrowthData {
   current: number
@@ -266,4 +267,28 @@ export default function FollowerGrowthTracker() {
   )
 }
 
+export default function FollowerGrowthTracker() {
+  const toolDescription = "Tracks your follower growth progress toward a 30-day goal. Calculates daily and weekly follower targets, growth rate, and provides visual progress indicators to help you stay on track."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter current followers:</strong> Input your current follower count</li>
+        <li><strong>Enter goal:</strong> Set your 30-day follower goal</li>
+        <li><strong>Click "Track":</strong> See how many followers you need and daily/weekly targets</li>
+        <li><strong>Monitor progress:</strong> Use the visual progress bar and growth rate to track your progress</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="follower-growth-tracker"
+      toolName="Follower Growth Tracker"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <FollowerGrowthTrackerContent />
+    </ToolAccessGate>
+  )
+}
 

@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
-export default function ContentGapAnalyzer() {
+function ContentGapAnalyzerContent() {
   const [yourTopics, setYourTopics] = useState('')
   const [competitorTopics, setCompetitorTopics] = useState('')
   const [gaps, setGaps] = useState<string[]>([])
@@ -196,4 +197,29 @@ export default function ContentGapAnalyzer() {
   )
 }
 
+export default function ContentGapAnalyzer() {
+  const toolDescription = "Identifies content topics your competitors cover that you don't. Helps discover content opportunities and gaps in your content strategy by comparing topic lists."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter your topics:</strong> List your content topics (one per line) in the first field</li>
+        <li><strong>Enter competitor topics:</strong> List your competitor's content topics (one per line) in the second field</li>
+        <li><strong>Click "Find Gaps"</strong> to identify topics your competitor covers that you don't</li>
+        <li><strong>Review gaps:</strong> See the list of content opportunities</li>
+        <li><strong>Copy gaps:</strong> Use "Copy Gaps" to copy the list for your content planning</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="content-gap-analyzer"
+      toolName="Content Gap Analyzer"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <ContentGapAnalyzerContent />
+    </ToolAccessGate>
+  )
+}
 

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Hash, TrendingUp, TrendingDown, BarChart3, Target, Award, AlertCircle, CheckCircle, XCircle, Zap } from 'lucide-react'
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface HashtagData {
   tag: string
@@ -27,7 +28,7 @@ interface Results {
   recommendations: { type: string; message: string }[]
 }
 
-export default function HashtagAnalyzer() {
+function HashtagAnalyzerContent() {
   const [hashtags, setHashtags] = useState('')
   const [postCount, setPostCount] = useState('')
   const [totalEngagement, setTotalEngagement] = useState('')
@@ -485,4 +486,29 @@ export default function HashtagAnalyzer() {
   )
 }
 
+export default function HashtagAnalyzer() {
+  const toolDescription = "Analyzes hashtag performance by tracking usage, engagement rates, reach, and trends. Provides recommendations on which hashtags to keep, test, or replace based on performance data."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Enter hashtags:</strong> Paste your hashtags (one per line or comma-separated)</li>
+        <li><strong>Enter post count:</strong> Input the number of posts you've used these hashtags in</li>
+        <li><strong>Click "Analyze":</strong> See detailed performance metrics for each hashtag</li>
+        <li><strong>Review results:</strong> Check performance ratings, trends, and recommendations</li>
+        <li><strong>Optimize:</strong> Use the recommendations to improve your hashtag strategy</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="hashtag-analyzer"
+      toolName="Hashtag Analyzer"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <HashtagAnalyzerContent />
+    </ToolAccessGate>
+  )
+}
 

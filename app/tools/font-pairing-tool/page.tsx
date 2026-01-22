@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 const fonts = [
   'Arial',
@@ -140,4 +141,28 @@ export default function FontPairingTool() {
   )
 }
 
+export default function FontPairingTool() {
+  const toolDescription = "Helps you find the perfect font combinations for headings and body text. Preview different font pairings in real-time to create visually appealing and readable content designs."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Select heading font:</strong> Choose a font for your headings from the dropdown</li>
+        <li><strong>Select body font:</strong> Choose a font for your body text</li>
+        <li><strong>Click "Apply":</strong> See the font pairing preview with sample text</li>
+        <li><strong>Experiment:</strong> Try different combinations to find the perfect pairing</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="font-pairing-tool"
+      toolName="Font Pairing Tool"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <FontPairingToolContent />
+    </ToolAccessGate>
+  )
+}
 

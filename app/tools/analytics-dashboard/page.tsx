@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 const STORAGE_KEY = 'mini_analytics'
 
@@ -12,7 +13,7 @@ interface AnalyticsEntry {
   site?: string
 }
 
-export default function AnalyticsDashboard() {
+function AnalyticsDashboardContent() {
   const [db, setDb] = useState<AnalyticsEntry[]>([])
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -238,4 +239,28 @@ export default function AnalyticsDashboard() {
   )
 }
 
+export default function AnalyticsDashboard() {
+  const toolDescription = "Tracks page views, unique visitors, top pages, referrers, and device split. Stores data locally and exports to CSV or JSON."
+  const howToUse = (
+    <div>
+      <ol className="list-decimal list-inside space-y-1 ml-2">
+        <li><strong>Automatic tracking:</strong> The dashboard automatically tracks visits when loaded</li>
+        <li><strong>View metrics:</strong> Page Views (total visits), Unique Visitors (distinct users), Top Pages (most visited pages), Referrers (traffic sources), Device Split (mobile vs desktop)</li>
+        <li><strong>Export data:</strong> Click "Export CSV" for spreadsheet format or "Export JSON" for raw data</li>
+        <li><strong>Clear data:</strong> Click "Clear data" to reset all analytics</li>
+      </ol>
+    </div>
+  )
+
+  return (
+    <ToolAccessGate
+      toolSlug="analytics-dashboard"
+      toolName="Analytics Dashboard"
+      toolDescription={toolDescription}
+      howToUse={howToUse}
+    >
+      <AnalyticsDashboardContent />
+    </ToolAccessGate>
+  )
+}
 
