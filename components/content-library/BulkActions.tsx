@@ -120,10 +120,7 @@ export function BulkActions({ selectedItems, onActionComplete, collections }: Bu
 
   const handleConfirm = () => {
     if (pendingAction === 'move') {
-      if (!targetCollection) {
-        alert('Please select a target collection')
-        return
-      }
+      // Empty string is valid (removes from collection), so we allow it
       executeAction('move', { targetCollection })
     } else {
       executeAction(pendingAction!)
@@ -230,7 +227,7 @@ export function BulkActions({ selectedItems, onActionComplete, collections }: Bu
               </button>
               <button
                 onClick={handleConfirm}
-                disabled={isProcessing || (pendingAction === 'move' && !targetCollection && targetCollection !== '')}
+                disabled={isProcessing}
                 className={`px-4 py-2 rounded-lg transition-colors ${
                   pendingAction === 'delete'
                     ? 'bg-red-600 text-white hover:bg-red-700'

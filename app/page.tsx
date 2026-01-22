@@ -90,9 +90,14 @@ export default function Home() {
       <section className="py-10 bg-accent-600 dark:bg-accent-700 border-b-4 border-accent-700 dark:border-accent-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto text-center">
-            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-relaxed">
+            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-relaxed mb-6">
               CreatorFlow365 has several tools! Many you will not use, but also many that will strengthen your brand of content. Look around, read how they work, how to use and build your content brand to its maximum potential!
             </p>
+            <div className="bg-white/10 dark:bg-white/5 rounded-lg p-4 border border-white/20">
+              <p className="text-base sm:text-lg text-white/95 leading-relaxed">
+                <strong>All tools are fully template-based and work immediately with zero cost.</strong> Tools can be enhanced with external integrations that provide additional functionality, but at the creator's cost—CreatorFlow365 never charges for API usage.
+              </p>
+            </div>
           </div>
         </div>
       </section>

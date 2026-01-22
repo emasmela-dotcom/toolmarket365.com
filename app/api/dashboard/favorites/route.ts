@@ -33,21 +33,24 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url)
     const category = searchParams.get('category')
 
-    let query = `
-      SELECT id, tool_name, tool_category, tool_description, favorited_at, notes
-      FROM user_favorites
-      WHERE user_id = $1
-    `
-    const values: any[] = [userId]
-
+    // Use tagged template literal syntax for Neon serverless SDK
+    let favorites
     if (category) {
-      query += ` AND tool_category = $2`
-      values.push(category)
+      favorites = await (sql as any)`
+        SELECT id, tool_name, tool_category, tool_description, favorited_at, notes
+        FROM user_favorites
+        WHERE user_id = ${userId}
+          AND tool_category = ${category}
+        ORDER BY favorited_at DESC
+      `
+    } else {
+      favorites = await (sql as any)`
+        SELECT id, tool_name, tool_category, tool_description, favorited_at, notes
+        FROM user_favorites
+        WHERE user_id = ${userId}
+        ORDER BY favorited_at DESC
+      `
     }
-
-    query += ` ORDER BY favorited_at DESC`
-
-    const favorites = await (sql as any)(query, values)
 
     return NextResponse.json({
       success: true,

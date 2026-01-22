@@ -187,10 +187,10 @@ function getPerformanceTrend(performances: any[]) {
     .map(([date, data]) => ({
       date,
       predicted: data.predicted.length > 0 
-        ? Math.round(data.predicted.reduce((a, b) => a + b, 0) / data.predicted.length)
+        ? Math.round((data.predicted.reduce((a, b) => a + b, 0) / data.predicted.length) * 100) / 100
         : 0,
       actual: data.actual.length > 0
-        ? Math.round(data.actual.reduce((a, b) => a + b, 0) / data.actual.length * 100) / 100
+        ? Math.round((data.actual.reduce((a, b) => a + b, 0) / data.actual.length) * 100) / 100
         : 0
     }))
     .sort((a, b) => a.date.localeCompare(b.date))

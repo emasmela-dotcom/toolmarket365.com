@@ -47,6 +47,9 @@ export function Navigation() {
             <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Tools
             </Link>
+            <Link href="/bots" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+              Bots
+            </Link>
             <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Content Library
             </Link>
