@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
+
+export const runtime = 'nodejs'
 import {
   SESSION_COOKIE_NAME,
   SESSION_TTL_DAYS,

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 import { hashPassword, isStrongEnoughPassword, sha256Hex } from '@/lib/auth'
 
+export const runtime = 'nodejs'
+
 export async function POST(req: NextRequest) {
   if (!sql) return NextResponse.json({ error: 'DATABASE_URL is not set' }, { status: 503 })
 

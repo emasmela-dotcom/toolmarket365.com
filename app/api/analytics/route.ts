@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 
+export const runtime = 'nodejs'
+
 // POST analytics entry
 export async function POST(request: NextRequest) {
   try {

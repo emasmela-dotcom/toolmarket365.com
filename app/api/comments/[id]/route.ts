@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 
+export const runtime = 'nodejs'
+
 // DELETE a comment
 export async function DELETE(
   request: NextRequest,

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 
+export const runtime = 'nodejs'
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -112,8 +114,8 @@ async function getABTestData(userId: string, range: string) {
     return {
       activeTests: activeTests.map(formatABTest),
       completedTests: completedTests.map(formatABTest),
-      activeTests: activeTests.length,
-      completedTests: completedTests.length,
+      activeTestsCount: activeTests.length,
+      completedTestsCount: completedTests.length,
       averageImprovement: calculateAverageImprovement(completedTests),
       confidence: calculateAverageConfidence(completedTests),
       testInsights: insights

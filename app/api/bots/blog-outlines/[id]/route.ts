@@ -3,6 +3,8 @@ import { BlogOutlineBotService } from '@/lib/services/blog-outline-bot-service'
 import { getUserIdFromRequest } from '@/lib/subscription'
 import { sql } from '@/lib/db'
 
+export const runtime = 'nodejs'
+
 const outlineService = new BlogOutlineBotService()
 
 export async function GET(

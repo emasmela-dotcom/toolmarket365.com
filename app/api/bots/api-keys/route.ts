@@ -3,6 +3,9 @@ import { getUserIdFromRequest } from '@/lib/subscription'
 import { saveUserAPIKey, deleteUserAPIKey, getUserAPIKey } from '@/lib/services/external-ai-service'
 import { sql } from '@/lib/db'
 
+// Use Node.js runtime (required for crypto operations)
+export const runtime = 'nodejs'
+
 // Get user's API keys (masked for security)
 export async function GET(request: NextRequest) {
   try {

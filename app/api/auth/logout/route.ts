@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 import { SESSION_COOKIE_NAME, sha256Hex } from '@/lib/auth'
 
+export const runtime = 'nodejs'
+
 export async function POST(req: NextRequest) {
   const res = NextResponse.json({ ok: true })
 

@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+
+export const runtime = 'nodejs'
 import { sql } from '@/lib/db'
 import { SESSION_COOKIE_NAME, sha256Hex } from '@/lib/auth'
 import { getUserSubscriptionStatus } from '@/lib/subscription'

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 
+export const runtime = 'nodejs'
+
 // GET: List all templates (user's + public)
 export async function GET(request: NextRequest) {
   try {

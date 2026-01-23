@@ -12,6 +12,8 @@ import {
   sha256Hex,
 } from '@/lib/auth'
 
+export const runtime = 'nodejs'
+
 export async function POST(req: NextRequest) {
   // If database not configured, return helpful message (auth is optional)
   if (!sql) {

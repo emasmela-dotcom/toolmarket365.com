@@ -3,6 +3,8 @@ import { CompetitorWatchBotService } from '@/lib/services/competitor-watch-bot-s
 import { getUserIdFromRequest } from '@/lib/subscription'
 import { sql } from '@/lib/db'
 
+export const runtime = 'nodejs'
+
 const competitorService = new CompetitorWatchBotService()
 
 export async function GET(

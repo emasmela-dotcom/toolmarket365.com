@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+
+export const runtime = 'nodejs'
 import { sql } from '@/lib/db'
 
 type Status = 'draft' | 'scheduled' | 'published' | 'canceled'

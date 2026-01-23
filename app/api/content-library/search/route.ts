@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 
+export const runtime = 'nodejs'
+
 // POST: Advanced search with filters
 export async function POST(request: NextRequest) {
   try {

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 
+export const runtime = 'nodejs'
+
 type Status = 'draft' | 'scheduled' | 'published' | 'canceled'
 
 function isStatus(v: unknown): v is Status {
