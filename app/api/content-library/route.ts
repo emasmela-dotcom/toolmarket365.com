@@ -68,11 +68,19 @@ export async function GET(request: NextRequest) {
         published_at
       FROM content_library
       WHERE user_id = ${user_id}
-      ORDER BY ${sql.unsafe(safeSortBy)} ${sql.unsafe(safeSortOrder)}
     `
 
     // Apply filters in JavaScript (simpler for complex filters)
     let filtered = results
+    
+    // Sort in JavaScript (safer than sql.unsafe)
+    filtered.sort((a: any, b: any) => {
+      const aVal = a[safeSortBy]
+      const bVal = b[safeSortBy]
+      if (aVal === bVal) return 0
+      const comparison = aVal > bVal ? 1 : -1
+      return safeSortOrder === 'ASC' ? comparison : -comparison
+    })
 
     if (search) {
       const searchLower = search.toLowerCase()
@@ -165,6 +173,8 @@ export async function GET(request: NextRequest) {
 // POST: Create new content item
 export async function POST(request: NextRequest) {
   try {
+    const body = await request.json()
+    
     // If database not configured, return success with empty data (tool still works with localStorage fallback)
     if (!sql) {
       return NextResponse.json({
@@ -191,8 +201,6 @@ export async function POST(request: NextRequest) {
         message: 'Content saved locally (database not configured)'
       })
     }
-
-    const body = await request.json()
     
     // Validate required fields
     if (!body.title || !body.content_type) {
