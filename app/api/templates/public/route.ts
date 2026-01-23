@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0')
 
     // Build base query - fetch all public templates first, then filter in JavaScript (simpler)
-    let templates = await sql`
+    const allTemplates = await sql`
       SELECT 
         ct.id,
         ct.name,
@@ -60,51 +60,50 @@ export async function GET(request: NextRequest) {
     `
 
     // Filter in JavaScript
+    let filtered = Array.isArray(allTemplates) ? [...allTemplates] : []
+    
     if (niche !== 'all') {
-      templates = templates.filter((t: any) => t.niche === niche)
+      filtered = filtered.filter((t: any) => t.niche === niche)
     }
     if (platform !== 'all') {
-      templates = templates.filter((t: any) => t.platform === platform)
+      filtered = filtered.filter((t: any) => t.platform === platform)
     }
     if (voice !== 'all') {
-      templates = templates.filter((t: any) => t.voice === voice)
+      filtered = filtered.filter((t: any) => t.voice === voice)
     }
     if (templateType !== 'all') {
-      templates = templates.filter((t: any) => t.template_type === templateType)
+      filtered = filtered.filter((t: any) => t.template_type === templateType)
     }
     if (search && search.trim()) {
       const searchLower = search.trim().toLowerCase()
-      templates = templates.filter((t: any) => 
-        t.name.toLowerCase().includes(searchLower) ||
+      filtered = filtered.filter((t: any) => 
+        t.name?.toLowerCase().includes(searchLower) ||
         t.description?.toLowerCase().includes(searchLower) ||
-        t.tags?.some((tag: string) => tag.toLowerCase().includes(searchLower))
+        (Array.isArray(t.tags) && t.tags.some((tag: string) => tag.toLowerCase().includes(searchLower)))
       )
     }
 
     // Sort
     switch (sortBy) {
       case 'newest':
-        templates.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+        filtered.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
         break
       case 'most_used':
-        templates.sort((a: any, b: any) => (b.usage_count || 0) - (a.usage_count || 0))
+        filtered.sort((a: any, b: any) => (b.usage_count || 0) - (a.usage_count || 0))
         break
       case 'most_liked':
-        templates.sort((a: any, b: any) => (b.likes_count || 0) - (a.likes_count || 0))
+        filtered.sort((a: any, b: any) => (b.likes_count || 0) - (a.likes_count || 0))
         break
       default: // popular
-        templates.sort((a: any, b: any) => {
+        filtered.sort((a: any, b: any) => {
           const aScore = (a.usage_count || 0) + (a.likes_count || 0) * 2
           const bScore = (b.usage_count || 0) + (b.likes_count || 0) * 2
           return bScore - aScore
         })
     }
 
-    const total = templates.length
-    templates = templates.slice(offset, offset + limit)
-
-    // Get total count (for pagination)
-    const totalCount = total
+    const total = filtered.length
+    const templates = filtered.slice(offset, offset + limit)
 
     // Get filter options
     const filterOptions = await getFilterOptions()
