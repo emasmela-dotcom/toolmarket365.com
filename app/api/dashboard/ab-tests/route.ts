@@ -207,8 +207,8 @@ function getMockABTestData() {
   return {
     activeTests: [],
     completedTests: [],
-    activeTests: 0,
-    completedTests: 0,
+    activeTestsCount: 0,
+    completedTestsCount: 0,
     averageImprovement: 0,
     confidence: 0,
     testInsights: []

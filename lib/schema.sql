@@ -1036,4 +1036,26 @@ CREATE TRIGGER update_bot_social_accounts_updated_at BEFORE UPDATE ON bot_social
 CREATE TRIGGER update_bot_alert_rules_updated_at BEFORE UPDATE ON bot_alert_rules
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+-- Creator Verifications Table
+CREATE TABLE IF NOT EXISTS creator_verifications (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id TEXT NOT NULL,
+    verification_status VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (verification_status IN ('pending', 'verified', 'rejected')),
+    verification_type VARCHAR(20) NOT NULL CHECK (verification_type IN ('email', 'premium')),
+    verified_at TIMESTAMP WITH TIME ZONE,
+    rejection_reason TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Indexes for creator verifications
+CREATE INDEX IF NOT EXISTS idx_creator_verifications_user_id ON creator_verifications(user_id);
+CREATE INDEX IF NOT EXISTS idx_creator_verifications_status ON creator_verifications(verification_status);
+CREATE INDEX IF NOT EXISTS idx_creator_verifications_type ON creator_verifications(verification_type);
+CREATE INDEX IF NOT EXISTS idx_creator_verifications_created_at ON creator_verifications(created_at DESC);
+
+-- Updated at trigger for creator verifications
+CREATE TRIGGER update_creator_verifications_updated_at BEFORE UPDATE ON creator_verifications
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
 

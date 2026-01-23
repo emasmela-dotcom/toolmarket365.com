@@ -131,14 +131,13 @@ async function getAccuracyData(
 
     return {
       overallAccuracy,
-      accuracyTrend: overallAccuracy > 70 ? 5 : -3,
+      accuracyTrend: accuracyTrend,
       averageConfidence,
       highConfidencePredictions,
       likesAccuracy,
       commentsAccuracy,
       sharesAccuracy,
       viewsAccuracy,
-      accuracyTrend: accuracyTrend,
       metricBreakdown,
       confidenceCorrelation,
       highAccuracyFactors: [

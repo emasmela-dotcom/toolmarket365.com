@@ -6,6 +6,11 @@ export function Hero() {
     <section className="relative bg-mono-50 dark:bg-mono-950 border-b border-mono-200 dark:border-mono-700">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-4">
+            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-accent-600 dark:text-accent-400 mb-4">
+              Improve Your Content with CreatorFlow365!
+            </p>
+          </div>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">
             CreatorFlow<span className="text-accent-600 dark:text-accent-400">365</span>
           </h1>
