@@ -1159,7 +1159,7 @@ function ContentCard({
         <div className="mb-2">
           <span className="inline-flex items-center px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-xs font-medium">
             <Sparkles className="w-3 h-3 mr-1" />
-            {item.metadata.tool.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            {item.metadata.tool.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
           </span>
         </div>
       )}
@@ -1279,7 +1279,7 @@ function ContentListItem({
           {item.metadata?.tool && (
             <span className="inline-flex items-center px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-xs font-medium">
               <Sparkles className="w-3 h-3 mr-1" />
-              {item.metadata.tool.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              {item.metadata.tool.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
             </span>
           )}
             </div>
