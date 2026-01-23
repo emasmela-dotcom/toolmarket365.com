@@ -27,7 +27,6 @@ interface Bot {
   description: string
   frequency: string
   icon: any
-  price: string
 }
 
 const bots: Bot[] = [
@@ -39,7 +38,6 @@ const bots: Bot[] = [
     description: 'Generates 3-5 captions daily based on your content theme and tone preferences',
     frequency: 'Daily',
     icon: FileText,
-    price: '$9/month'
   },
   {
     id: 'weekly-content-ideas-bot',
@@ -57,7 +55,6 @@ const bots: Bot[] = [
     description: 'Weekly hashtag suggestions optimized for your niche and platform',
     frequency: 'Weekly',
     icon: Hash,
-    price: '$6/month'
   },
   {
     id: 'blog-outline-bot',
@@ -76,7 +73,6 @@ const bots: Bot[] = [
     description: 'Automated weekly analytics summary delivered to your inbox every Monday',
     frequency: 'Weekly',
     icon: BarChart3,
-    price: '$12/month'
   },
   {
     id: 'competitor-watch-bot',
@@ -94,7 +90,6 @@ const bots: Bot[] = [
     description: 'Daily engagement rate tracking with alerts when rates drop or spike',
     frequency: 'Daily',
     icon: TrendingUp,
-    price: '$8/month'
   },
   // Optimization Bots
   {
@@ -113,7 +108,6 @@ const bots: Bot[] = [
     description: 'Weekly profile health check with actionable improvement recommendations',
     frequency: 'Weekly',
     icon: CheckCircle2,
-    price: '$6/month'
   },
   {
     id: 'seo-content-analyzer-bot',
@@ -141,7 +135,6 @@ const bots: Bot[] = [
     description: 'Weekly suggestions for optimal posting times based on your audience',
     frequency: 'Weekly',
     icon: Clock,
-    price: '$6/month'
   },
   {
     id: 'content-repurposing-bot',
@@ -150,7 +143,6 @@ const bots: Bot[] = [
     description: 'Identifies repurposing opportunities from your existing content',
     frequency: 'Weekly',
     icon: RefreshCw,
-    price: '$8/month'
   },
   // Research & Discovery Bots
   {
@@ -160,7 +152,6 @@ const bots: Bot[] = [
     description: 'Weekly trend reports in your niche to keep content relevant',
     frequency: 'Weekly',
     icon: TrendingUp,
-    price: '$9/month'
   },
   {
     id: 'content-gap-bot',
@@ -178,7 +169,6 @@ const bots: Bot[] = [
     description: 'Pre-publish viral potential scores before you post content',
     frequency: 'On-demand',
     icon: Zap,
-    price: '$12/month'
   },
   // Monetization Bots
   {
@@ -197,7 +187,6 @@ const bots: Bot[] = [
     description: 'Monthly revenue summaries with growth trends and insights',
     frequency: 'Monthly',
     icon: DollarSign,
-    price: '$8/month'
   }
 ]
 
