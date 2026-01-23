@@ -46,7 +46,6 @@ const bots: Bot[] = [
     description: 'Sends 10 fresh content ideas every Monday to keep your content pipeline full',
     frequency: 'Weekly',
     icon: Lightbulb,
-    price: '$7/month'
   },
   {
     id: 'hashtag-research-bot',
@@ -63,7 +62,6 @@ const bots: Bot[] = [
     description: 'Generates structured blog outlines based on your topics and keywords',
     frequency: 'On-demand',
     icon: FileText,
-    price: '$5/month'
   },
   // Analytics & Reporting Bots
   {
@@ -81,7 +79,6 @@ const bots: Bot[] = [
     description: 'Monthly competitor analysis reports tracking their performance and strategies',
     frequency: 'Monthly',
     icon: TrendingUp,
-    price: '$15/month'
   },
   {
     id: 'engagement-tracker-bot',
@@ -99,7 +96,6 @@ const bots: Bot[] = [
     description: 'Monthly bio optimization suggestions to improve your profile effectiveness',
     frequency: 'Monthly',
     icon: Sparkles,
-    price: '$5/month'
   },
   {
     id: 'profile-audit-bot',
@@ -116,7 +112,6 @@ const bots: Bot[] = [
     description: 'Analyzes your content for SEO improvements and keyword optimization',
     frequency: 'On-demand',
     icon: Search,
-    price: '$7/month'
   },
   // Planning & Scheduling Bots
   {
@@ -126,7 +121,6 @@ const bots: Bot[] = [
     description: 'Auto-generates monthly content calendar with optimal posting times',
     frequency: 'Monthly',
     icon: Calendar,
-    price: '$10/month'
   },
   {
     id: 'best-time-post-bot',
@@ -160,7 +154,6 @@ const bots: Bot[] = [
     description: 'Monthly content gap analysis comparing you to competitors',
     frequency: 'Monthly',
     icon: Lightbulb,
-    price: '$10/month'
   },
   {
     id: 'viral-predictor-bot',
@@ -178,7 +171,6 @@ const bots: Bot[] = [
     description: 'Suggests optimal pricing based on your metrics and industry standards',
     frequency: 'On-demand',
     icon: DollarSign,
-    price: '$7/month'
   },
   {
     id: 'revenue-tracker-bot',
@@ -244,8 +236,8 @@ export default function BotsPage() {
               </div>
               <div>
                 <Sparkles className="w-8 h-8 mx-auto mb-2" />
-                <p className="font-semibold">Individual Pricing</p>
-                <p className="text-sm text-white/80">Buy only what you need</p>
+                <p className="font-semibold">Included in Plans</p>
+                <p className="text-sm text-white/80">Access based on your subscription</p>
               </div>
             </div>
           </div>
@@ -375,10 +367,6 @@ export default function BotsPage() {
                     <div>
                       <p className="text-xs text-mono-500 dark:text-mono-500">Frequency</p>
                       <p className="text-sm font-medium text-mono-700 dark:text-mono-300">{bot.frequency}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs text-mono-500 dark:text-mono-500">Price</p>
-                      <p className="text-lg font-bold text-accent-600 dark:text-accent-400">{bot.price}</p>
                     </div>
                   </div>
                   

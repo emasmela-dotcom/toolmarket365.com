@@ -77,12 +77,6 @@ export function Navigation() {
             <Link href="/dashboard/verification" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Verification
             </Link>
-            <Link href="/tools/instagram-scheduler" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
-              Instagram Scheduler
-            </Link>
-            <Link href="/tools/social-graphics" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
-              Graphics Tool
-            </Link>
             <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Categories
             </Link>

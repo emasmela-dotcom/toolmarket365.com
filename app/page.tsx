@@ -19,11 +19,11 @@ export default function Home() {
       <Hero />
       
       {/* Market Opportunity Section */}
-      <section className="py-12 bg-white dark:bg-mono-950 border-b border-mono-200 dark:border-mono-700">
+      <section className="py-4 bg-white dark:bg-mono-950 border-b border-mono-200 dark:border-mono-700">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4">
+            <div className="text-center mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-mono-950 dark:text-mono-50 mb-2">
                 The Creator Economy is Exploding
               </h2>
               <div className="inline-flex items-center justify-center space-x-2 bg-accent-50 dark:bg-accent-950/30 px-6 py-3 rounded-lg border-2 border-accent-200 dark:border-accent-800">
@@ -37,11 +37,11 @@ export default function Home() {
               </div>
             </div>
             
-            <p className="text-base sm:text-lg text-mono-700 dark:text-mono-300 text-center mb-8 max-w-4xl mx-auto">
+            <p className="text-sm sm:text-base text-mono-700 dark:text-mono-300 text-center mb-4 max-w-4xl mx-auto">
               The content creator industry is experiencing massive, sustained growth, with the global creator economy market projected to hit over $1 trillion by the mid-2030s, driven by demand for personalized content, evolving monetization tools, and platform empowerment.
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
               <div className="bg-mono-50 dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
                 <div className="flex items-center space-x-3 mb-3">
                   <div className="p-2 bg-accent-100 dark:bg-accent-900/30 rounded-lg">
@@ -79,7 +79,7 @@ export default function Home() {
               </div>
             </div>
             
-            <p className="text-center text-sm text-mono-500 dark:text-mono-500 italic">
+            <p className="text-center text-xs text-mono-500 dark:text-mono-500 italic">
               Now is the time to build your content brand and position yourself in this rapidly growing market.
             </p>
           </div>
@@ -87,14 +87,14 @@ export default function Home() {
       </section>
       
       {/* Tools Exploration Callout */}
-      <section className="py-10 bg-accent-600 dark:bg-accent-700 border-b-4 border-accent-700 dark:border-accent-800">
+      <section className="py-3 bg-accent-600 dark:bg-accent-700 border-b-4 border-accent-700 dark:border-accent-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto text-center">
-            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-relaxed mb-6">
+            <p className="text-base sm:text-lg lg:text-xl font-bold text-white leading-tight mb-3">
               CreatorFlow365 has several tools! Many you will not use, but also many that will strengthen your brand of content. Look around, read how they work, how to use and build your content brand to its maximum potential!
             </p>
-            <div className="bg-white/10 dark:bg-white/5 rounded-lg p-4 border border-white/20">
-              <p className="text-base sm:text-lg text-white/95 leading-relaxed">
+            <div className="bg-white/10 dark:bg-white/5 rounded-lg p-3 border border-white/20">
+              <p className="text-sm sm:text-base text-white/95 leading-tight">
                 <strong>All tools are fully template-based and work immediately with zero cost.</strong> Tools can be enhanced with external integrations that provide additional functionality, but at the creator's cost—CreatorFlow365 never charges for API usage.
               </p>
             </div>
@@ -114,10 +114,10 @@ export default function Home() {
                     Your Content Library
                   </h2>
                 </div>
-                <p className="text-base text-mono-600 dark:text-mono-400 mb-4">
+                <p className="text-sm text-mono-600 dark:text-mono-400 mb-3">
                   Store, organize, and manage all your content in one secure cloud library. Never lose your work again.
                 </p>
-                <div className="space-y-3 mb-4">
+                <div className="space-y-2 mb-3">
                   <div className="flex items-start space-x-2">
                     <Search className="w-4 h-4 text-accent-600 mt-0.5 flex-shrink-0" />
                     <div>
@@ -181,13 +181,13 @@ export default function Home() {
         </div>
       </section>
       
-      <section className="py-12 bg-mono-50 dark:bg-mono-900">
+      <section className="py-4 bg-mono-50 dark:bg-mono-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-mono-950 dark:text-mono-50 mb-8 text-center">
+            <h2 className="text-xl sm:text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4 text-center">
               These are the tools we offer
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
               {toolSections.map((section, idx) => (
                 <Link
                   key={idx}
