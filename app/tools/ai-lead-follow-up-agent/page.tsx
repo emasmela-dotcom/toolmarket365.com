@@ -286,8 +286,8 @@ function AILeadFollowUpAgentContent() {
         : lead
     )
 
-    setLeads(updatedLeads)
-    setSelectedLead(updatedLeads.find(l => l.id === selectedLead.id) || null)
+    setLeads(updatedLeads as Lead[])
+    setSelectedLead(updatedLeads.find(l => l.id === selectedLead.id) as Lead | null)
     setGeneratedEmail('')
   }
 

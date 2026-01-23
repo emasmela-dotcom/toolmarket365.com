@@ -60,6 +60,7 @@ const toolSections = [
     title: 'Brand & Design',
     description: 'Create and manage your brand identity, colors, fonts, and style guides',
     tools: [
+      { name: 'Social Media Graphics Tool', slug: 'social-graphics', icon: Image },
       { name: 'Brand Kit Manager', slug: 'brand-kit-manager', icon: Palette },
       { name: 'Color Palette Extractor', slug: 'color-palette-extractor', icon: Image },
       { name: 'Font Pairing Tool', slug: 'font-pairing-tool', icon: Type },
@@ -125,6 +126,7 @@ const toolSections = [
       { name: 'Content Library', slug: 'content-library', icon: FolderOpen },
       { name: 'Social Media Post Formatter', slug: 'social-media-post-formatter', icon: FileText },
       { name: 'Social Scheduler', slug: 'social-scheduler', icon: Calendar },
+      { name: 'Instagram Scheduler', slug: 'instagram-scheduler', icon: Calendar },
       { name: 'Best Time to Post', slug: 'best-time-to-post', icon: Clock },
     ]
   },
@@ -165,6 +167,7 @@ function ToolsPageContent() {
       'engagement-calculator',
       'hashtag-analyzer',
       'social-media-report-generator',
+      'social-graphics',
     ],
     professional: [
       'ai-caption-generator',
@@ -197,6 +200,7 @@ function ToolsPageContent() {
       'sentiment-analyzer',
       'follower-growth-tracker',
       'cross-platform-analytics',
+      'social-graphics',
       'brand-kit-manager',
       'color-palette-extractor',
       'font-pairing-tool',
@@ -212,6 +216,7 @@ function ToolsPageContent() {
       'link-in-bio-optimizer',
       'social-media-post-formatter',
       'social-scheduler',
+      'instagram-scheduler',
     ],
     creator: [], // All tools
     business: [], // All tools

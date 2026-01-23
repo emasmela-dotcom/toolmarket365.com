@@ -772,7 +772,11 @@ export default function ContentLibraryPage() {
                         collection_id: '',
                         is_favorite: false,
                         sort_by: 'created_at',
-                        sort_order: 'desc'
+                        sort_order: 'desc',
+                        date_range: {
+                          start: null,
+                          end: null
+                        }
                       })
                     }}
                     className="px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
@@ -922,6 +926,7 @@ export default function ContentLibraryPage() {
                     }}
                     onDelete={() => handleDeleteItem(item.id)}
                     onToggleFavorite={() => handleToggleFavorite(item.id, item.is_favorite)}
+                    onPreview={() => setPreviewItem(item)}
                     contentTypeIcons={contentTypeIcons}
                     contentTypeColors={contentTypeColors}
                     statusColors={statusColors}

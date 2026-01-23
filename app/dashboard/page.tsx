@@ -18,7 +18,9 @@ import {
   Image,
   Video,
   Hash,
-  Eye
+  Eye,
+  CheckCircle2,
+  Instagram
 } from 'lucide-react'
 import { getPreferences, toggleSaveToLibrary, isSaveToLibraryEnabled } from '@/lib/preferences'
 
@@ -525,7 +527,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Quick Actions */}
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Link
               href="/tools"
               className="flex items-center justify-between p-4 bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700 hover:border-accent-500 dark:hover:border-accent-500 transition-colors"
@@ -553,6 +555,26 @@ export default function DashboardPage() {
               <div className="flex items-center space-x-3">
                 <TrendingUp className="w-5 h-5 text-accent-600" />
                 <span className="font-medium text-mono-950 dark:text-mono-50">Performance Dashboard</span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-mono-400" />
+            </Link>
+            <Link
+              href="/dashboard/verification"
+              className="flex items-center justify-between p-4 bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700 hover:border-accent-500 dark:hover:border-accent-500 transition-colors"
+            >
+              <div className="flex items-center space-x-3">
+                <CheckCircle2 className="w-5 h-5 text-accent-600" />
+                <span className="font-medium text-mono-950 dark:text-mono-50">Creator Verification</span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-mono-400" />
+            </Link>
+            <Link
+              href="/tools/instagram-scheduler"
+              className="flex items-center justify-between p-4 bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700 hover:border-accent-500 dark:hover:border-accent-500 transition-colors"
+            >
+              <div className="flex items-center space-x-3">
+                <Instagram className="w-5 h-5 text-accent-600" />
+                <span className="font-medium text-mono-950 dark:text-mono-50">Instagram Scheduler</span>
               </div>
               <ArrowRight className="w-4 h-4 text-mono-400" />
             </Link>

@@ -228,14 +228,13 @@ function getStartDate(range: string, now: Date): Date {
 function getMockAccuracyData() {
   return {
     overallAccuracy: 0,
-    accuracyTrend: 0,
+    accuracyTrend: [],
     averageConfidence: 0,
     highConfidencePredictions: 0,
     likesAccuracy: 0,
     commentsAccuracy: 0,
     sharesAccuracy: 0,
     viewsAccuracy: 0,
-    accuracyTrend: [],
     metricBreakdown: [],
     confidenceCorrelation: [],
     highAccuracyFactors: [],

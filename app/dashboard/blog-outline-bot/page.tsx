@@ -583,7 +583,10 @@ function BlogOutlineBotDashboardContent() {
               Generate your first blog outline by entering a topic above
             </p>
             <button
-              onClick={() => document.querySelector('input[type="text"]')?.focus()}
+              onClick={() => {
+                const input = document.querySelector('input[type="text"]') as HTMLInputElement
+                input?.focus()
+              }}
               className="px-6 py-3 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
             >
               Create First Outline

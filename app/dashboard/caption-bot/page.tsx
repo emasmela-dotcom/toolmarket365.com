@@ -33,6 +33,9 @@ function CaptionBotDashboardContent() {
   const [selectedTone, setSelectedTone] = useState('all')
   const [showSuccess, setShowSuccess] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
+  const [apiKeys, setApiKeys] = useState<Array<{service: string, hasKey: boolean}>>([])
+  const [apiKeyInput, setApiKeyInput] = useState({service: '', key: ''})
+  const [showAPIKeys, setShowAPIKeys] = useState(false)
 
   useEffect(() => {
     fetchDailyCaptions()
@@ -271,7 +274,7 @@ function CaptionBotDashboardContent() {
                   <div key={key.service} className="flex items-center justify-between p-3 bg-mono-50 dark:bg-mono-800 rounded">
                     <div>
                       <span className="font-medium capitalize text-mono-900 dark:text-mono-100">{key.service}</span>
-                      {key.isActive && (
+                      {key.hasKey && (
                         <span className="ml-2 text-xs text-green-600 dark:text-green-400">● Active</span>
                       )}
                     </div>

@@ -1058,4 +1058,150 @@ CREATE INDEX IF NOT EXISTS idx_creator_verifications_created_at ON creator_verif
 CREATE TRIGGER update_creator_verifications_updated_at BEFORE UPDATE ON creator_verifications
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+-- Instagram Planning & Scheduling Tables
+CREATE TABLE IF NOT EXISTS instagram_accounts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id TEXT NOT NULL,
+    account_name VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    access_token TEXT,
+    refresh_token TEXT,
+    expires_at TIMESTAMP WITH TIME ZONE,
+    profile_picture_url TEXT,
+    follower_count INTEGER DEFAULT 0,
+    following_count INTEGER DEFAULT 0,
+    is_business_account BOOLEAN DEFAULT true,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS instagram_posts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id TEXT NOT NULL,
+    account_id UUID NOT NULL REFERENCES instagram_accounts(id) ON DELETE CASCADE,
+    content TEXT NOT NULL,
+    media_urls TEXT[] NOT NULL,
+    media_types VARCHAR(10)[] NOT NULL,
+    post_type VARCHAR(20) DEFAULT 'feed' CHECK (post_type IN ('feed', 'story', 'reel', 'igtv')),
+    caption TEXT,
+    hashtags TEXT[],
+    mentions TEXT[],
+    location_id VARCHAR(100),
+    location_name VARCHAR(200),
+    scheduled_for TIMESTAMP WITH TIME ZONE NOT NULL,
+    timezone VARCHAR(50) DEFAULT 'UTC',
+    status VARCHAR(20) DEFAULT 'draft' CHECK (status IN ('draft', 'scheduled', 'published', 'failed', 'cancelled')),
+    posted_at TIMESTAMP WITH TIME ZONE,
+    instagram_post_id VARCHAR(100),
+    instagram_permalink_url TEXT,
+    engagement_data JSONB,
+    error_message TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS instagram_media (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id TEXT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_url TEXT NOT NULL,
+    file_type VARCHAR(10) NOT NULL CHECK (file_type IN ('image', 'video')),
+    file_size BIGINT NOT NULL,
+    mime_type VARCHAR(100) NOT NULL,
+    dimensions JSONB,
+    duration INTEGER,
+    thumbnail_url TEXT,
+    metadata JSONB,
+    tags TEXT[],
+    is_used BOOLEAN DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS instagram_hashtags (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id TEXT NOT NULL,
+    group_name VARCHAR(100) NOT NULL,
+    hashtags TEXT[] NOT NULL,
+    category VARCHAR(50),
+    usage_count INTEGER DEFAULT 0,
+    last_used_at TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS instagram_analytics (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id TEXT NOT NULL,
+    account_id UUID NOT NULL REFERENCES instagram_accounts(id) ON DELETE CASCADE,
+    metric_date DATE NOT NULL,
+    followers INTEGER DEFAULT 0,
+    following INTEGER DEFAULT 0,
+    posts_count INTEGER DEFAULT 0,
+    engagement_rate DECIMAL(5,2),
+    reach INTEGER DEFAULT 0,
+    impressions INTEGER DEFAULT 0,
+    profile_visits INTEGER DEFAULT 0,
+    website_clicks INTEGER DEFAULT 0,
+    email_contacts INTEGER DEFAULT 0,
+    story_reach INTEGER DEFAULT 0,
+    story_impressions INTEGER DEFAULT 0,
+    data JSONB,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    CONSTRAINT unique_account_metric_date UNIQUE(account_id, metric_date)
+);
+
+CREATE TABLE IF NOT EXISTS instagram_schedules (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id TEXT NOT NULL,
+    template_name VARCHAR(100) NOT NULL,
+    posting_times TIME[] NOT NULL,
+    days_of_week INTEGER[] NOT NULL,
+    timezone VARCHAR(50) DEFAULT 'UTC',
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Indexes for Instagram tables
+CREATE INDEX IF NOT EXISTS idx_instagram_accounts_user_id ON instagram_accounts(user_id);
+CREATE INDEX IF NOT EXISTS idx_instagram_accounts_username ON instagram_accounts(username);
+CREATE INDEX IF NOT EXISTS idx_instagram_accounts_active ON instagram_accounts(is_active);
+
+CREATE INDEX IF NOT EXISTS idx_instagram_posts_user_id ON instagram_posts(user_id);
+CREATE INDEX IF NOT EXISTS idx_instagram_posts_account_id ON instagram_posts(account_id);
+CREATE INDEX IF NOT EXISTS idx_instagram_posts_scheduled ON instagram_posts(scheduled_for);
+CREATE INDEX IF NOT EXISTS idx_instagram_posts_status ON instagram_posts(status);
+CREATE INDEX IF NOT EXISTS idx_instagram_posts_type ON instagram_posts(post_type);
+
+CREATE INDEX IF NOT EXISTS idx_instagram_media_user_id ON instagram_media(user_id);
+CREATE INDEX IF NOT EXISTS idx_instagram_media_type ON instagram_media(file_type);
+CREATE INDEX IF NOT EXISTS idx_instagram_media_used ON instagram_media(is_used);
+
+CREATE INDEX IF NOT EXISTS idx_instagram_hashtags_user_id ON instagram_hashtags(user_id);
+CREATE INDEX IF NOT EXISTS idx_instagram_hashtags_group ON instagram_hashtags(group_name);
+
+CREATE INDEX IF NOT EXISTS idx_instagram_analytics_user_id ON instagram_analytics(user_id);
+CREATE INDEX IF NOT EXISTS idx_instagram_analytics_account_id ON instagram_analytics(account_id);
+CREATE INDEX IF NOT EXISTS idx_instagram_analytics_date ON instagram_analytics(metric_date);
+
+CREATE INDEX IF NOT EXISTS idx_instagram_schedules_user_id ON instagram_schedules(user_id);
+CREATE INDEX IF NOT EXISTS idx_instagram_schedules_active ON instagram_schedules(is_active);
+
+-- Updated at triggers for Instagram tables
+CREATE TRIGGER update_instagram_accounts_updated_at BEFORE UPDATE ON instagram_accounts
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_instagram_posts_updated_at BEFORE UPDATE ON instagram_posts
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_instagram_media_updated_at BEFORE UPDATE ON instagram_media
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_instagram_hashtags_updated_at BEFORE UPDATE ON instagram_hashtags
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_instagram_analytics_updated_at BEFORE UPDATE ON instagram_analytics
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_instagram_schedules_updated_at BEFORE UPDATE ON instagram_schedules
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
 
