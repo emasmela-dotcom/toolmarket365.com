@@ -17,6 +17,13 @@ const nextConfig = {
       }),
       new webpack.IgnorePlugin({
         resourceRegExp: /\.node$/,
+      }),
+      // Optional AI service packages - ignore if not installed
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^openai$/,
+      }),
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^@anthropic-ai\/sdk$/,
       })
     )
 

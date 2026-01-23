@@ -18,7 +18,7 @@ const fonts = [
   'Montserrat'
 ]
 
-export default function FontPairingTool() {
+function FontPairingToolContent() {
   const [headingFont, setHeadingFont] = useState(fonts[0])
   const [bodyFont, setBodyFont] = useState(fonts[1])
 

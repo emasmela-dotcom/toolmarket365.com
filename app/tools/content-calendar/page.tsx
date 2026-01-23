@@ -13,7 +13,7 @@ interface Post {
   time: string
 }
 
-export default function ContentCalendar() {
+function ContentCalendarContent() {
   const [posts, setPosts] = useState<Post[]>([])
   const [currentDate, setCurrentDate] = useState(new Date())
   const [viewMode, setViewMode] = useState<'month' | 'week'>('month')

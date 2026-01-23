@@ -11,7 +11,7 @@ Let us know if you're interested and we'll send details.
 Best,
 Your Brand Team`
 
-export default function InfluencerOutreachTool() {
+function InfluencerOutreachToolContent() {
   const [handle, setHandle] = useState('')
   const [followers, setFollowers] = useState('')
   const [email, setEmail] = useState('')

@@ -179,7 +179,8 @@ export async function POST(req: NextRequest) {
 }
 
 // Utility function to log tool usage - uses Neon SQL
-export async function logToolUsage(
+// Note: This should be moved to a separate utility file if needed elsewhere
+async function logToolUsage(
   userId: string,
   toolName: string,
   toolCategory: string,

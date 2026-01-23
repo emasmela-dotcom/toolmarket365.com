@@ -32,7 +32,7 @@ const pools: Record<string, string[]> = {
   ],
 }
 
-export default function PollQuestionGenerator() {
+function PollQuestionGeneratorContent() {
   const [topic, setTopic] = useState('')
   const [questions, setQuestions] = useState<string[]>([])
 

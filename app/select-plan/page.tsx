@@ -156,6 +156,14 @@ export default function SelectPlanPage() {
                 <p className="text-mono-600 dark:text-mono-400 mb-4">
                   {toolCount} tools included
                 </p>
+                <div className="mb-4">
+                  <Link
+                    href={`/tools?plan=${plan.name.toLowerCase()}`}
+                    className="text-sm text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline font-medium"
+                  >
+                    View All Tools →
+                  </Link>
+                </div>
                 <button
                   onClick={() => startTrial(plan.name)}
                   disabled={isStarting || !!startingTrial}

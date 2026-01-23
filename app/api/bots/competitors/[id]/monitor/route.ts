@@ -17,7 +17,7 @@ export async function POST(
       )
     }
 
-    const metrics = await competitorService.monitorCompetitor(params.id, userId)
+    const metrics = await competitorService.generateCompetitorMetrics(userId, params.id)
 
     return NextResponse.json({ 
       success: true, 

@@ -13,7 +13,7 @@ interface OptimizationResult {
   bioLength: number
 }
 
-export default function ProfileOptimizer() {
+function ProfileOptimizerContent() {
   const [bio, setBio] = useState('')
   const [keywords, setKeywords] = useState('')
   const [result, setResult] = useState<OptimizationResult | null>(null)

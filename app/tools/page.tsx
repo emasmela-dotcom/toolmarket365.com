@@ -133,6 +133,89 @@ const toolSections = [
 function ToolsPageContent() {
   const searchParams = useSearchParams()
   const sectionParam = searchParams.get('section')
+  const planParam = searchParams.get('plan')
+
+  // Plan to tool slugs mapping
+  const planToolSlugs: { [key: string]: string[] } = {
+    starter: [
+      'ai-caption-generator',
+      'content-idea-generator',
+      'hashtag-research',
+      'content-calendar',
+      'best-time-to-post',
+      'readability-checker',
+      'bio-generator',
+      'content-library',
+    ],
+    essential: [
+      'ai-caption-generator',
+      'content-idea-generator',
+      'hashtag-research',
+      'content-calendar',
+      'best-time-to-post',
+      'readability-checker',
+      'bio-generator',
+      'content-library',
+      'post-scheduler',
+      'analytics-dashboard',
+      'seo-optimizer',
+      'content-repurposer',
+      'video-script-generator',
+      'blog-outline-generator',
+      'engagement-calculator',
+      'hashtag-analyzer',
+      'social-media-report-generator',
+    ],
+    professional: [
+      'ai-caption-generator',
+      'content-idea-generator',
+      'hashtag-research',
+      'content-calendar',
+      'best-time-to-post',
+      'readability-checker',
+      'bio-generator',
+      'content-library',
+      'post-scheduler',
+      'analytics-dashboard',
+      'seo-optimizer',
+      'content-repurposer',
+      'video-script-generator',
+      'blog-outline-generator',
+      'engagement-calculator',
+      'hashtag-analyzer',
+      'social-media-report-generator',
+      'viral-content-predictor',
+      'video-transcript-generator',
+      'thumbnail-text-generator',
+      'quote-card-generator',
+      'image-alt-text-generator',
+      'podcast-show-notes-generator',
+      'competitor-analyzer',
+      'trend-tracker',
+      'content-gap-analyzer',
+      'brand-mention-tracker',
+      'sentiment-analyzer',
+      'follower-growth-tracker',
+      'cross-platform-analytics',
+      'brand-kit-manager',
+      'color-palette-extractor',
+      'font-pairing-tool',
+      'style-guide-creator',
+      'profile-optimizer',
+      'rate-calculator',
+      'revenue-tracker',
+      'poll-question-generator',
+      'giveaway-manager',
+      'influencer-outreach-tool',
+      'collaboration-manager',
+      'link-in-bio-manager',
+      'link-in-bio-optimizer',
+      'social-media-post-formatter',
+      'social-scheduler',
+    ],
+    creator: [], // All tools
+    business: [], // All tools
+  }
 
   // Generate slug map
   const sectionSlugMap: { [key: string]: string } = {
@@ -146,14 +229,37 @@ function ToolsPageContent() {
     'workflow-productivity': 'Workflow & Productivity',
   }
 
+  // Get all tools as a map
+  const allToolsMap = new Map()
+  toolSections.forEach(section => {
+    section.tools.forEach(tool => {
+      if (!allToolsMap.has(tool.slug)) {
+        allToolsMap.set(tool.slug, tool)
+      }
+    })
+  })
+
+  // Filter by plan if plan parameter is provided
+  let filteredSections = toolSections
+  if (planParam && planToolSlugs[planParam]) {
+    const allowedSlugs = planToolSlugs[planParam]
+    // If plan has empty array (creator/business), show all tools
+    if (allowedSlugs.length > 0) {
+      filteredSections = toolSections.map(section => ({
+        ...section,
+        tools: section.tools.filter(tool => allowedSlugs.includes(tool.slug))
+      })).filter(section => section.tools.length > 0)
+    }
+  }
+
   // Filter sections if section parameter is provided
   const displaySections = sectionParam && sectionSlugMap[sectionParam]
-    ? toolSections.filter(section => section.title === sectionSlugMap[sectionParam])
-    : toolSections
+    ? filteredSections.filter(section => section.title === sectionSlugMap[sectionParam])
+    : filteredSections
 
   // Remove duplicates (some tools appear in multiple sections)
   const allTools = new Map()
-  toolSections.forEach(section => {
+  displaySections.forEach(section => {
     section.tools.forEach(tool => {
       if (!allTools.has(tool.slug)) {
         allTools.set(tool.slug, tool)
@@ -161,27 +267,61 @@ function ToolsPageContent() {
     })
   })
 
+  const planDisplayNames: { [key: string]: string } = {
+    starter: 'Starter Plan',
+    essential: 'Essential Plan',
+    professional: 'Professional Plan',
+    creator: 'Creator Plan',
+    business: 'Business Plan',
+  }
+
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-            {sectionParam ? sectionSlugMap[sectionParam] || 'All Tools' : 'All Tools'}
+            {planParam 
+              ? `${planDisplayNames[planParam] || planParam.charAt(0).toUpperCase() + planParam.slice(1)} Tools`
+              : sectionParam 
+                ? sectionSlugMap[sectionParam] || 'All Tools' 
+                : 'All Tools'
+            }
           </h1>
           <p className="text-xl text-mono-600 dark:text-mono-400">
-            {sectionParam 
-              ? `${displaySections[0]?.tools.length || 0} tools in this section`
-              : `${Array.from(allTools.values()).length} professional tools for content creators`
+            {planParam
+              ? `${Array.from(allTools.values()).length} tools included in this plan`
+              : sectionParam 
+                ? `${displaySections[0]?.tools.length || 0} tools in this section`
+                : `${Array.from(allTools.values()).length} professional tools for content creators`
             }
           </p>
-          {sectionParam && (
-            <Link
-              href="/tools"
-              className="inline-block mt-4 text-accent-600 dark:text-accent-400 hover:underline"
-            >
-              ← View All Sections
-            </Link>
-          )}
+          <div className="flex items-center justify-center gap-4 mt-4">
+            {planParam && (
+              <>
+                <Link
+                  href="/tools"
+                  className="text-accent-600 dark:text-accent-400 hover:underline"
+                >
+                  View All Tools
+                </Link>
+                <span className="text-mono-400">|</span>
+                <Link
+                  href="/pricing"
+                  className="text-accent-600 dark:text-accent-400 hover:underline"
+                >
+                  View Plans
+                </Link>
+              </>
+            )}
+            {sectionParam && !planParam && (
+              <Link
+                href="/tools"
+                className="text-accent-600 dark:text-accent-400 hover:underline"
+              >
+                ← View All Sections
+              </Link>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">

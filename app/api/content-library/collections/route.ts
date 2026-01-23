@@ -87,10 +87,11 @@ export async function GET(request: NextRequest) {
     }))
 
     // Include item count if requested
-    if (include_item_count) {
+    if (include_item_count && sql) {
+      const sqlQuery = sql // TypeScript narrowing
       collections = await Promise.all(
         collections.map(async (collection) => {
-          const countResult = await sql`
+          const countResult = await sqlQuery`
             SELECT COUNT(*) as item_count
             FROM content_library
             WHERE collection_id = ${collection.id}

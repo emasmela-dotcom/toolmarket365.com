@@ -335,6 +335,15 @@ export default function PricingPage() {
                     ))}
                   </ul>
 
+                  <div className="mb-4">
+                    <Link
+                      href={`/tools?plan=${plan.name.toLowerCase()}`}
+                      className="text-sm text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline font-medium flex items-center justify-center"
+                    >
+                      View All Tools →
+                    </Link>
+                  </div>
+
                   <div className="space-y-2">
                     <Link
                       href={plan.ctaLink}

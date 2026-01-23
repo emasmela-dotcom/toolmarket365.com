@@ -752,4 +752,14 @@ Return only the content idea in a clear, structured format.`
     if (month >= 8 && month <= 10) return 'fall'
     return undefined
   }
+
+  /**
+   * Get current week number (1-52)
+   */
+  getCurrentWeekNumber(): number {
+    const now = new Date()
+    const start = new Date(now.getFullYear(), 0, 1)
+    const days = Math.floor((now.getTime() - start.getTime()) / (24 * 60 * 60 * 1000))
+    return Math.ceil((days + start.getDay() + 1) / 7)
+  }
 }

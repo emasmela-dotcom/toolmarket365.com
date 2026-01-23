@@ -35,12 +35,12 @@ export function Navigation() {
     <nav className="sticky top-0 z-50 border-b border-mono-200 bg-mono-50/95 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-1">
             <span className="text-xl font-bold text-mono-950">CreatorFlow</span>
             <span className="text-xl font-bold text-accent-600">365</span>
           </Link>
           
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 ml-8">
             <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
               Home
             </Link>

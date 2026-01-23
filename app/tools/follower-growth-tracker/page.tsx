@@ -13,7 +13,7 @@ interface GrowthData {
   growthRate: number
 }
 
-export default function FollowerGrowthTracker() {
+function FollowerGrowthTrackerContent() {
   const [currentFollowers, setCurrentFollowers] = useState('')
   const [goalFollowers, setGoalFollowers] = useState('')
   const [growthData, setGrowthData] = useState<GrowthData | null>(null)

@@ -10,7 +10,7 @@ interface Giveaway {
   winner: string | null
 }
 
-export default function GiveawayManager() {
+function GiveawayManagerContent() {
   const [prize, setPrize] = useState('')
   const [rules, setRules] = useState('')
   const [entries, setEntries] = useState<string[]>([])

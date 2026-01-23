@@ -30,7 +30,7 @@ interface Results {
   }
 }
 
-export default function EngagementCalculator() {
+function EngagementCalculatorContent() {
   const [followers, setFollowers] = useState('')
   const [likes, setLikes] = useState('')
   const [comments, setComments] = useState('')
