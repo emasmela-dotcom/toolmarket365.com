@@ -15,7 +15,8 @@ import {
   Hash,
   Lightbulb,
   List,
-  X
+  X,
+  Plus
 } from 'lucide-react'
 import { extractTemplateText, getDifficultyColor } from '@/lib/template-utils'
 import TemplatePreviewModal from '@/components/templates/TemplatePreviewModal'
