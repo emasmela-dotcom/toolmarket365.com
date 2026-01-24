@@ -9,6 +9,7 @@ export default function AccountPage() {
   const [mode, setMode] = useState<'login' | 'register'>('login')
   const [user, setUser] = useState<User>(null)
   const [email, setEmail] = useState('')
+  const [fullName, setFullName] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -133,6 +134,17 @@ export default function AccountPage() {
               )}
 
               <div className="space-y-4">
+                {mode === 'register' && (
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">Full Name</label>
+                    <input
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      type="text"
+                      className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
+                    />
+                  </div>
+                )}
                 <div>
                   <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">Email</label>
                   <input
