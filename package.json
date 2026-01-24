@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:init": "node scripts/db-init.mjs"
+    "db:init": "node scripts/db-init.mjs",
+    "db:setup-templates": "node scripts/setup-template-library-db.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.0",

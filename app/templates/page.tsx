@@ -18,6 +18,7 @@ import {
   X
 } from 'lucide-react'
 import { extractTemplateText, getDifficultyColor } from '@/lib/template-utils'
+import TemplatePreviewModal from '@/components/templates/TemplatePreviewModal'
 
 interface Template {
   id: string
@@ -80,6 +81,10 @@ export default function TemplateLibraryPage() {
   })
   const [showFilters, setShowFilters] = useState(false)
   const [copiedId, setCopiedId] = useState<string | null>(null)
+  const [previewTemplate, setPreviewTemplate] = useState<Template | null>(null)
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const [favorites, setFavorites] = useState<Set<string>>(new Set())
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
 
   useEffect(() => {
     const urlNiche = searchParams.get('niche') || 'all'
@@ -101,7 +106,37 @@ export default function TemplateLibraryPage() {
 
   useEffect(() => {
     fetchTemplates()
+    fetchFavorites()
   }, [filters, searchQuery])
+
+  useEffect(() => {
+    // Sync with localStorage on mount
+    const localFavorites = getLocalStorageFavorites()
+    setFavorites(new Set(localFavorites))
+  }, [])
+
+  const fetchFavorites = async () => {
+    try {
+      const response = await fetch('/api/templates/favorites')
+      if (response.ok) {
+        const data = await response.json()
+        const favoriteIds = data.favorites?.map((fav: any) => fav.template_id || fav.id) || []
+        setFavorites(new Set(favoriteIds))
+        
+        // Also sync to localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('template_favorites', JSON.stringify(favoriteIds))
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching favorites:', error)
+      // Fallback to localStorage
+      if (typeof window !== 'undefined') {
+        const localFavorites = getLocalStorageFavorites()
+        setFavorites(new Set(localFavorites))
+      }
+    }
+  }
 
   const fetchTemplates = async () => {
     try {
@@ -198,6 +233,32 @@ export default function TemplateLibraryPage() {
       console.error('Error copying template:', error)
       alert('Failed to copy template')
     }
+  }
+
+  const handlePreview = (template: Template) => {
+    setPreviewTemplate(template)
+    setIsPreviewOpen(true)
+  }
+
+  const handlePreviewCopy = async (template: Template) => {
+    await copyTemplate(template)
+  }
+
+  const handleClosePreview = () => {
+    setIsPreviewOpen(false)
+    setPreviewTemplate(null)
+  }
+
+  const handleFavoriteToggle = (templateId: string, isFavorited: boolean) => {
+    setFavorites(prev => {
+      const newFavorites = new Set(prev)
+      if (isFavorited) {
+        newFavorites.add(templateId)
+      } else {
+        newFavorites.delete(templateId)
+      }
+      return newFavorites
+    })
   }
 
   const getTemplateIcon = (templateType: string) => {
@@ -372,15 +433,32 @@ export default function TemplateLibraryPage() {
 
         {/* Results Summary */}
         <div className="flex justify-between items-center mb-6">
-          <p className="text-mono-600 dark:text-mono-400">
-            Showing {templates.length} of {pagination.total} templates
-          </p>
+          <div className="flex items-center space-x-4">
+            <p className="text-mono-600 dark:text-mono-400">
+              Showing {showFavoritesOnly ? templates.filter(t => favorites.has(t.id)).length : templates.length} of {pagination.total} templates
+            </p>
+            {favorites.size > 0 && (
+              <button
+                onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+                className={`px-3 py-1 rounded-lg text-sm transition-colors flex items-center ${
+                  showFavoritesOnly
+                    ? 'bg-accent-600 text-white'
+                    : 'bg-mono-100 dark:bg-mono-800 text-mono-700 dark:text-mono-300 hover:bg-mono-200 dark:hover:bg-mono-700'
+                }`}
+              >
+                <Heart className={`w-4 h-4 mr-1 ${showFavoritesOnly ? 'fill-current' : ''}`} />
+                Favorites ({favorites.size})
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Template Grid */}
         {templates.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {templates.map((template) => {
+            {templates
+              .filter(template => !showFavoritesOnly || favorites.has(template.id))
+              .map((template) => {
               const TemplateIcon = getTemplateIcon(template.template_type)
               return (
                 <div
@@ -479,18 +557,37 @@ export default function TemplateLibraryPage() {
         ) : (
           <div className="text-center py-12">
             <div className="w-16 h-16 bg-mono-100 dark:bg-mono-800 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-mono-400" />
+              {showFavoritesOnly ? (
+                <Heart className="w-8 h-8 text-mono-400" />
+              ) : (
+                <Search className="w-8 h-8 text-mono-400" />
+              )}
             </div>
-            <h3 className="text-lg font-semibold text-mono-900 dark:text-mono-50 mb-2">No templates found</h3>
+            <h3 className="text-lg font-semibold text-mono-900 dark:text-mono-50 mb-2">
+              {showFavoritesOnly ? 'No favorites yet' : 'No templates found'}
+            </h3>
             <p className="text-mono-600 dark:text-mono-400 mb-4">
-              {searchQuery ? `No templates match "${searchQuery}"` : 'No templates match your current filters'}
+              {showFavoritesOnly 
+                ? 'Start adding templates to your favorites by clicking the heart icon on any template.'
+                : searchQuery 
+                  ? `No templates match "${searchQuery}"` 
+                  : 'No templates match your current filters'}
             </p>
-            <button
-              onClick={clearFilters}
-              className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
-            >
-              Clear Filters
-            </button>
+            {showFavoritesOnly ? (
+              <button
+                onClick={() => setShowFavoritesOnly(false)}
+                className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
+              >
+                Browse All Templates
+              </button>
+            ) : (
+              <button
+                onClick={clearFilters}
+                className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
+              >
+                Clear Filters
+              </button>
+            )}
           </div>
         )}
 
@@ -510,6 +607,14 @@ export default function TemplateLibraryPage() {
             </button>
           </div>
         )}
+
+        {/* Preview Modal */}
+        <TemplatePreviewModal
+          template={previewTemplate}
+          isOpen={isPreviewOpen}
+          onClose={handleClosePreview}
+          onCopy={handlePreviewCopy}
+        />
       </div>
     </div>
   )
