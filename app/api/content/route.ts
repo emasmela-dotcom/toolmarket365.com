@@ -27,50 +27,73 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    let query = `
-      SELECT id, type, title, description, content, metadata, url, 
-             thumbnail_url, created_at, updated_at
-      FROM content_items
-      WHERE user_id = $1
-    `
-    const params: any[] = [userId]
-    let paramCount = 2
-
-    if (type) {
-      query += ` AND type = $${paramCount}`
-      params.push(type)
-      paramCount++
+    // Build query using template literals
+    let contents
+    if (type && tag) {
+      contents = await sql`
+        SELECT id, type, title, description, content, metadata, url, 
+               thumbnail_url, created_at, updated_at
+        FROM content_items
+        WHERE user_id = ${userId}
+          AND type = ${type}
+          AND metadata->'tags' ? ${tag}
+        ORDER BY created_at DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `
+    } else if (type) {
+      contents = await sql`
+        SELECT id, type, title, description, content, metadata, url, 
+               thumbnail_url, created_at, updated_at
+        FROM content_items
+        WHERE user_id = ${userId}
+          AND type = ${type}
+        ORDER BY created_at DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `
+    } else if (tag) {
+      contents = await sql`
+        SELECT id, type, title, description, content, metadata, url, 
+               thumbnail_url, created_at, updated_at
+        FROM content_items
+        WHERE user_id = ${userId}
+          AND metadata->'tags' ? ${tag}
+        ORDER BY created_at DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `
+    } else {
+      contents = await sql`
+        SELECT id, type, title, description, content, metadata, url, 
+               thumbnail_url, created_at, updated_at
+        FROM content_items
+        WHERE user_id = ${userId}
+        ORDER BY created_at DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `
     }
-
-    if (tag) {
-      query += ` AND metadata->'tags' ? $${paramCount}`
-      params.push(tag)
-      paramCount++
-    }
-
-    query += ` ORDER BY created_at DESC LIMIT $${paramCount} OFFSET $${paramCount + 1}`
-    params.push(limit, offset)
-
-    const contents = await sql.unsafe(query, params)
 
     // Get total count
-    let countQuery = 'SELECT COUNT(*) as total FROM content_items WHERE user_id = $1'
-    const countParams: any[] = [userId]
-    let countParamCount = 2
-
-    if (type) {
-      countQuery += ` AND type = $${countParamCount}`
-      countParams.push(type)
-      countParamCount++
+    let countResult
+    if (type && tag) {
+      countResult = await sql`
+        SELECT COUNT(*) as total FROM content_items 
+        WHERE user_id = ${userId} AND type = ${type} AND metadata->'tags' ? ${tag}
+      `
+    } else if (type) {
+      countResult = await sql`
+        SELECT COUNT(*) as total FROM content_items 
+        WHERE user_id = ${userId} AND type = ${type}
+      `
+    } else if (tag) {
+      countResult = await sql`
+        SELECT COUNT(*) as total FROM content_items 
+        WHERE user_id = ${userId} AND metadata->'tags' ? ${tag}
+      `
+    } else {
+      countResult = await sql`
+        SELECT COUNT(*) as total FROM content_items 
+        WHERE user_id = ${userId}
+      `
     }
-
-    if (tag) {
-      countQuery += ` AND metadata->'tags' ? $${countParamCount}`
-      countParams.push(tag)
-      countParamCount++
-    }
-
-    const countResult = await sql.unsafe(countQuery, countParams)
     const total = countResult[0]?.total || 0
 
     return NextResponse.json({
