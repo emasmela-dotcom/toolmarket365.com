@@ -23,22 +23,35 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-4">
-              <h2 className="text-xl sm:text-2xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">
                 The Creator Economy is Exploding
               </h2>
-              <div className="inline-flex items-center justify-center space-x-2 bg-accent-50 dark:bg-accent-950/30 px-6 py-3 rounded-lg border-2 border-accent-200 dark:border-accent-800">
-                <TrendingUp className="w-6 h-6 text-accent-600 dark:text-accent-400" />
-                <span className="text-3xl sm:text-4xl font-bold text-accent-600 dark:text-accent-400">
-                  $1 Trillion+
-                </span>
-                <span className="text-base sm:text-lg text-mono-700 dark:text-mono-300">
-                  by mid-2030s
-                </span>
+              
+              {/* Market Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 max-w-4xl mx-auto">
+                <div className="inline-flex items-center justify-center space-x-2 bg-accent-50 dark:bg-accent-950/30 px-6 py-3 rounded-lg border-2 border-accent-200 dark:border-accent-800">
+                  <TrendingUp className="w-6 h-6 text-accent-600 dark:text-accent-400" />
+                  <span className="text-2xl sm:text-3xl font-bold text-accent-600 dark:text-accent-400">
+                    $1 Trillion+
+                  </span>
+                  <span className="text-sm sm:text-base text-mono-700 dark:text-mono-300">
+                    global market by mid-2030s
+                  </span>
+                </div>
+                
+                <div className="inline-flex items-center justify-center space-x-2 bg-blue-50 dark:bg-blue-950/30 px-6 py-3 rounded-lg border-2 border-blue-200 dark:border-blue-800">
+                  <span className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400">
+                    162 Million
+                  </span>
+                  <span className="text-sm sm:text-base text-mono-700 dark:text-mono-300">
+                    content creators in the U.S.
+                  </span>
+                </div>
               </div>
             </div>
             
             <p className="text-sm sm:text-base text-mono-700 dark:text-mono-300 text-center mb-4 max-w-4xl mx-auto">
-              The content creator industry is experiencing massive, sustained growth, with the global creator economy market projected to hit over $1 trillion by the mid-2030s, driven by demand for personalized content, evolving monetization tools, and platform empowerment.
+              With <strong className="text-accent-600 dark:text-accent-400">162 million content creators in the U.S.</strong> and the global creator economy projected to hit over <strong className="text-accent-600 dark:text-accent-400">$1 trillion by the mid-2030s</strong>, there's never been a better time to build your creator brand. The industry is experiencing massive, sustained growth, driven by demand for personalized content, evolving monetization tools, and platform empowerment.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">

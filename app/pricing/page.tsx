@@ -23,6 +23,7 @@ const plans = [
     ],
     features: [
       '8 essential tools',
+      '25 credits/month to try premium tools',
       'Content library (100 items)',
       'Basic analytics',
       'Email support',
@@ -35,7 +36,7 @@ const plans = [
     name: 'Essential',
     price: '$19',
     period: '/month',
-    description: 'For creators building their workflow',
+    description: 'For creators building their workflow. Tools matched to intermediate level.',
     popular: false,
     toolCount: '18 tools',
     tools: [
@@ -53,6 +54,7 @@ const plans = [
     ],
     features: [
       '18 professional tools',
+      '30 credits/month to try advanced tools',
       'Content library (500 items)',
       'Cloud storage',
       'Basic analytics',
@@ -65,7 +67,7 @@ const plans = [
     name: 'Professional',
     price: '$49',
     period: '/month',
-    description: 'For serious creators who want everything',
+    description: 'For serious creators who want everything. Tools matched to advanced level.',
     popular: true,
     toolCount: '35+ tools',
     tools: [
@@ -84,6 +86,7 @@ const plans = [
     features: [
       '35+ professional tools',
       'Viral Content Predictor ⭐',
+      '25 credits/month to try creator tools',
       'Content library (2,000 items)',
       'Cloud storage & sync',
       'Integrated workflow',
@@ -128,7 +131,7 @@ const plans = [
     name: 'Business',
     price: '$149',
     period: '/month',
-    description: 'For teams and agencies',
+    description: 'For teams and agencies. Tools matched to enterprise level.',
     popular: false,
     toolCount: 'All 43+ tools',
     tools: [
@@ -147,6 +150,7 @@ const plans = [
       'Custom integrations',
       'Dedicated support',
       'Advanced security',
+      'No credits needed - everything included',
     ],
     cta: 'Start Free Trial',
     ctaLink: '/signup',
@@ -279,6 +283,64 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* Tool-to-Creator Level Matching Explanation */}
+      <section className="py-12 bg-mono-100 dark:bg-mono-900 border-b border-mono-200 dark:border-mono-700">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-800 rounded-lg p-8">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <Sparkles className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-3">
+                    Tools Matched to Your Creator Level
+                  </h2>
+                  <p className="text-base text-mono-700 dark:text-mono-300 mb-4 leading-relaxed">
+                    Every tool in each plan is <strong className="text-blue-700 dark:text-blue-300">intentionally selected</strong> to match the sophistication level and needs of creators at that stage. We don't just give you random tools—we give you the <strong className="text-blue-700 dark:text-blue-300">right tools for where you are</strong> in your creator journey.
+                  </p>
+                  <div className="space-y-3 mt-4">
+                    <div className="flex items-start space-x-3">
+                      <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Starter Plan = Beginner Tools</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">Simple, one-click tools perfect for new creators learning the basics. No overwhelming features—just what you need to get started.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Essential Plan = Workflow Tools</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">Automation and insights for creators building consistent workflows. Tools that save time and help you track your progress.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Professional Plan = Advanced Tools</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">Sophisticated analytics, AI-powered features, and business insights for serious creators treating content as a business.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Creator & Business Plans = Professional Tools</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">Complete toolkit for professional creators and teams. Growth strategies, monetization optimization, and enterprise features.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-6 pt-6 border-t border-blue-200 dark:border-blue-800">
+                    <p className="text-sm text-blue-800 dark:text-blue-300 font-medium">
+                      💡 <strong>Why this matters:</strong> You get tools that match your experience level—no confusion, no overwhelm, just the right features for where you are right now.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Cards */}
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -369,13 +431,201 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* Credit Bundles Section */}
+      <section className="py-16 bg-gradient-to-b from-mono-50 to-white dark:from-mono-900 dark:to-mono-950 border-b border-mono-200 dark:border-mono-700">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4">
+                Need More Credits?
+              </h2>
+              <p className="text-lg text-mono-600 dark:text-mono-400 mb-2">
+                All plans include 25 free credits/month to try premium tools
+              </p>
+              <p className="text-base text-mono-500 dark:text-mono-500">
+                Purchase additional credits to unlock more premium tool uses. Credits roll over month to month.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Starter Bundle */}
+              <div className="bg-white dark:bg-mono-900 rounded-lg border-2 border-mono-200 dark:border-mono-700 p-6 hover:shadow-lg transition-shadow">
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+                    Starter Bundle
+                  </h3>
+                  <div className="flex items-baseline justify-center">
+                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">
+                      $5
+                    </span>
+                  </div>
+                  <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
+                    50 credits
+                  </p>
+                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">
+                    $0.10 per credit
+                  </p>
+                </div>
+                <div className="space-y-2 mb-6 min-h-[120px]">
+                  <p className="text-sm text-mono-600 dark:text-mono-400 text-center">
+                    Perfect for trying premium tools
+                  </p>
+                  <ul className="text-xs text-mono-600 dark:text-mono-400 space-y-1">
+                    <li className="flex items-center">
+                      <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                      <span>5 uses of Viral Predictor</span>
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                      <span>10 uses of Brand Kit Manager</span>
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                      <span>6 uses of Advanced Analytics</span>
+                    </li>
+                  </ul>
+                </div>
+                <button className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors">
+                  Buy 50 Credits
+                </button>
+              </div>
+
+              {/* Popular Bundle */}
+              <div className="bg-white dark:bg-mono-900 rounded-lg border-2 border-accent-500 shadow-lg p-6 hover:shadow-xl transition-shadow relative">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-accent-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    Most Popular
+                  </span>
+                </div>
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+                    Popular Bundle
+                  </h3>
+                  <div className="flex items-baseline justify-center">
+                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">
+                      $10
+                    </span>
+                  </div>
+                  <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
+                    100 credits
+                  </p>
+                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">
+                    $0.10 per credit
+                  </p>
+                </div>
+                <div className="space-y-2 mb-6 min-h-[120px]">
+                  <p className="text-sm text-mono-600 dark:text-mono-400 text-center">
+                    Best value for regular users
+                  </p>
+                  <ul className="text-xs text-mono-600 dark:text-mono-400 space-y-1">
+                    <li className="flex items-center">
+                      <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                      <span>10 uses of Viral Predictor</span>
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                      <span>20 uses of Brand Kit Manager</span>
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                      <span>12 uses of Advanced Analytics</span>
+                    </li>
+                  </ul>
+                </div>
+                <button className="w-full py-2.5 px-4 bg-accent-600 text-white rounded-lg font-semibold text-sm hover:bg-accent-700 transition-colors">
+                  Buy 100 Credits
+                </button>
+              </div>
+
+              {/* Power Bundle */}
+              <div className="bg-white dark:bg-mono-900 rounded-lg border-2 border-mono-200 dark:border-mono-700 p-6 hover:shadow-lg transition-shadow">
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+                    Power Bundle
+                  </h3>
+                  <div className="flex items-baseline justify-center">
+                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">
+                      $22.50
+                    </span>
+                  </div>
+                  <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
+                    250 credits
+                  </p>
+                  <p className="text-xs text-green-600 dark:text-green-400 mt-1 font-semibold">
+                    Save $2.50 (10% off)
+                  </p>
+                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">
+                    $0.09 per credit
+                  </p>
+                </div>
+                <div className="space-y-2 mb-6 min-h-[120px]">
+                  <p className="text-sm text-mono-600 dark:text-mono-400 text-center">
+                    Best for power users
+                  </p>
+                  <ul className="text-xs text-mono-600 dark:text-mono-400 space-y-1">
+                    <li className="flex items-center">
+                      <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                      <span>25 uses of Viral Predictor</span>
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                      <span>50 uses of Brand Kit Manager</span>
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                      <span>31 uses of Advanced Analytics</span>
+                    </li>
+                  </ul>
+                </div>
+                <button className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors">
+                  Buy 250 Credits
+                </button>
+              </div>
+            </div>
+
+            {/* Credit Info Box */}
+            <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+              <div className="flex items-start space-x-3">
+                <Zap className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                    How Credits Work
+                  </h3>
+                  <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1">
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span><strong>Free credits:</strong> 25 credits/month included with your plan (resets monthly)</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span><strong>Purchased credits:</strong> Roll over month to month (never expire)</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span><strong>Tool costs:</strong> Premium tools cost 5-15 credits per use</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span><strong>Example:</strong> Viral Predictor = 10 credits per use</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Tool Distribution Guide */}
       <section className="py-16 bg-white dark:bg-mono-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-8 text-center">
+            <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4 text-center">
               What Tools Are in Each Plan?
             </h2>
+            <p className="text-center text-mono-600 dark:text-mono-400 mb-8 max-w-3xl mx-auto">
+              Each plan includes tools specifically curated for creators at that level. Beginner tools for beginners, advanced tools for advanced creators—no overwhelm, just the right tools for your stage.
+            </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
                 <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Starter - $9/month</h3>

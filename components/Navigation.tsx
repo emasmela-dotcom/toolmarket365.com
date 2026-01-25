@@ -92,7 +92,11 @@ export function Navigation() {
           </div>
           
           <div className="flex items-center space-x-4 flex-shrink-0">
-            <button className="p-2 text-mono-600 hover:text-mono-900 transition-colors">
+            <button 
+              onClick={() => {}} 
+              className="p-2 text-mono-600 hover:text-mono-900 transition-colors"
+              aria-label="Search"
+            >
               <Search className="h-5 w-5" />
             </button>
             <>

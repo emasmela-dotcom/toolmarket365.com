@@ -3,7 +3,8 @@
 import { useState, useEffect, ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { Lock, ArrowRight, Sparkles } from 'lucide-react'
+import { Lock, ArrowRight, Sparkles, Info } from 'lucide-react'
+import { getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
 
 interface ToolAccessGateProps {
   children: ReactNode
@@ -43,6 +44,7 @@ export function ToolAccessGate({
         setHasAccess(data.canAccess || false)
         setReason(data.reason || '')
         setPlanName(data.planName || null)
+        setUserCredits(data.credits || null)
       }
     } catch (error) {
       setHasAccess(false)
@@ -98,6 +100,30 @@ export function ToolAccessGate({
                   )}
                 </div>
               </div>
+
+                      {/* Credit Cost Explanation */}
+              {needsCredits && creditCost && (
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mt-4">
+                  <div className="flex items-start space-x-3">
+                    <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                        Cost Per Use: {creditCost} Credits
+                      </h3>
+                      <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
+                        <strong>What this means:</strong> {useExplanation}
+                      </p>
+                      <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
+                        <strong>How credits work:</strong> Each plan includes 25 free credits/month (resets monthly). 
+                        You can purchase additional credits for $10 per 100 credits. Purchased credits roll over month to month.
+                      </p>
+                      <p className="text-xs text-blue-700 dark:text-blue-400 mt-2">
+                        💡 <strong>Example:</strong> With 25 free credits, you can use this tool {Math.floor(25 / creditCost)} time(s) per month for free!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -137,6 +163,57 @@ export function ToolAccessGate({
     )
   }
 
-  // User has access - show the actual tool
-  return <>{children}</>
+  // User has access - show the actual tool with credit cost info
+  return (
+    <div>
+      {/* Credit Cost Display - Show at top of tool page */}
+      {needsCredits && creditCost && (
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6 mx-4 mt-4">
+          <div className="flex items-start space-x-3">
+            <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                Cost Per Use: {creditCost} Credits
+              </h3>
+              <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
+                <strong>What this means:</strong> {useExplanation}
+              </p>
+              <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
+                <strong>How credits work:</strong> Each plan includes 25 free credits/month (resets monthly). 
+                You can purchase additional credits for $10 per 100 credits. Purchased credits roll over month to month.
+              </p>
+              {userCredits !== null && (
+                <div className="mb-2">
+                  <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
+                    <strong>Your credits:</strong> {userCredits} credits available
+                    {userCredits >= creditCost ? (
+                      <span className="text-green-600 dark:text-green-400 font-semibold ml-2">
+                        ✓ You can use this tool {Math.floor(userCredits / creditCost)} time(s)
+                      </span>
+                    ) : (
+                      <span className="text-red-600 dark:text-red-400 font-semibold ml-2">
+                        ⚠ You need {creditCost - userCredits} more credits
+                      </span>
+                    )}
+                  </p>
+                  {userCredits < creditCost && (
+                    <Link
+                      href="/account/credits"
+                      className="inline-flex items-center text-sm text-blue-700 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200 font-medium underline"
+                    >
+                      Buy Credits →
+                    </Link>
+                  )}
+                </div>
+              )}
+              <p className="text-xs text-blue-700 dark:text-blue-400 mt-2">
+                💡 <strong>Example:</strong> With 25 free credits, you can use this tool {Math.floor(25 / creditCost)} time(s) per month for free!
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      {children}
+    </div>
+  )
 }

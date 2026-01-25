@@ -6,6 +6,24 @@ export function Hero() {
     <section className="relative bg-mono-50 dark:bg-mono-950 border-b border-mono-200 dark:border-mono-700">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <div className="max-w-4xl mx-auto text-center">
+          {/* Market Statistic */}
+          <div className="mb-6">
+            <div className="inline-flex items-center justify-center space-x-2 bg-accent-50 dark:bg-accent-950/30 px-4 py-2 rounded-lg border border-accent-200 dark:border-accent-800 mb-4">
+              <span className="text-2xl sm:text-3xl font-bold text-accent-600 dark:text-accent-400">
+                162 Million
+              </span>
+              <span className="text-sm sm:text-base text-mono-700 dark:text-mono-300">
+                content creators in the U.S.
+              </span>
+            </div>
+            <p className="text-lg sm:text-xl font-semibold text-mono-950 dark:text-mono-50 mb-2">
+              Are you one of them?
+            </p>
+            <p className="text-base sm:text-lg font-bold text-accent-600 dark:text-accent-400">
+              Grow with CreatorFlow365
+            </p>
+          </div>
+          
           <div className="mb-4">
             <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-accent-600 dark:text-accent-400 mb-4">
               Improve Your Content with CreatorFlow365!
