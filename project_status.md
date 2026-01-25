@@ -3,7 +3,14 @@
 > **📌 HOW TO USE THIS FILE:**
 > - When starting a new AI agent session, paste this entire file and say "Read this to catch up"
 > - This file is updated after each major milestone
-> - Last updated: January 24, 2026
+> - Last updated: January 25, 2026
+
+> **⚠️ CRITICAL INSTRUCTIONS FOR AI AGENTS:**
+> - **DO NOT make outside calls** (web searches, external API requests, etc.) to avoid usage costs
+> - **DO NOT use web_search or mcp_web_fetch tools**
+> - If you need code from external sources or AI-generated code, **ASK THE USER FIRST**
+> - The user will provide any code needed from outside sources
+> - Work only with code the user provides or what's already in the codebase
 
 ---
 
