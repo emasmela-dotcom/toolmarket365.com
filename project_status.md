@@ -6,11 +6,14 @@
 > - Last updated: January 25, 2026
 
 > **⚠️ CRITICAL INSTRUCTIONS FOR AI AGENTS:**
+> - **DO NOT BUILD ANYTHING - BUILD NOTHING!**
+> - **DO NOT CREATE, MODIFY, OR WRITE ANY FILES**
 > - **DO NOT make outside calls** (web searches, external API requests, etc.) to avoid usage costs
 > - **DO NOT use web_search or mcp_web_fetch tools**
 > - If you need code from external sources or AI-generated code, **ASK THE USER FIRST**
 > - The user will provide any code needed from outside sources
 > - Work only with code the user provides or what's already in the codebase
+> - **ONLY ANSWER QUESTIONS, EXPLAIN, PLAN, AND DISCUSS - DO NOT BUILD**
 
 ---
 

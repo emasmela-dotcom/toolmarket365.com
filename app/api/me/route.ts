@@ -32,8 +32,35 @@ export async function GET(req: NextRequest) {
     // Get subscription status
     const subscription = await getUserSubscriptionStatus(rows[0].id)
     
+    // Check if user has brand profile
+    const brandResult = await sql`
+      SELECT id FROM brands WHERE user_id = ${rows[0].id} LIMIT 1
+    `
+
+    // Check if user has creator profile
+    const creatorResult = await sql`
+      SELECT id FROM creator_profiles WHERE user_id = ${rows[0].id} LIMIT 1
+    `
+
+    const hasBrand = brandResult.length > 0
+    const hasCreator = creatorResult.length > 0
+
+    let accountType: 'user' | 'brand' | 'creator' | 'both' = 'user'
+    if (hasBrand && hasCreator) {
+      accountType = 'both'
+    } else if (hasBrand) {
+      accountType = 'brand'
+    } else if (hasCreator) {
+      accountType = 'creator'
+    }
+    
     return NextResponse.json({ 
-      user: rows[0],
+      user: {
+        ...rows[0],
+        accountType,
+        hasBrand,
+        hasCreator
+      },
       subscription 
     })
   } catch (err: unknown) {

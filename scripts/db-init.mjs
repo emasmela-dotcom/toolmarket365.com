@@ -80,17 +80,29 @@ async function main() {
   const sql = neon(connectionString)
   console.log(`Applying ${statements.length} statements from lib/schema.sql...`)
 
+  let successCount = 0
+  let skippedCount = 0
+  
   for (let i = 0; i < statements.length; i++) {
     const stmt = statements[i]
     try {
       // neon supports raw execution by passing a string.
       // eslint-disable-next-line no-await-in-loop
       await sql(stmt)
+      successCount++
     } catch (err) {
+      // Handle "already exists" errors gracefully (tables, triggers, etc.)
+      if (err.code === '42710' || err.code === '42P07' || err.message?.includes('already exists')) {
+        skippedCount++
+        console.log(`Skipped statement #${i + 1} (already exists)`)
+        continue
+      }
       console.error(`Failed on statement #${i + 1}:\n${stmt}\n`)
       throw err
     }
   }
+  
+  console.log(`\n✅ Schema applied: ${successCount} statements executed, ${skippedCount} skipped (already exist)`)
 
   console.log('Schema applied successfully.')
 }

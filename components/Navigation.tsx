@@ -50,45 +50,48 @@ export function Navigation() {
     <nav className="sticky top-0 z-50 border-b border-mono-200 bg-mono-50/95 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-1">
+          <Link href="/" className="flex items-center space-x-1 flex-shrink-0">
             <span className="text-xl font-bold text-mono-950">CreatorFlow</span>
             <span className="text-xl font-bold text-accent-600">365</span>
           </Link>
           
-          <div className="hidden md:flex items-center space-x-8 ml-8">
-            <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+          <div className="hidden md:flex items-center space-x-2 ml-6 flex-1 justify-center">
+            <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Home
             </Link>
-            <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Tools
             </Link>
-            <Link href="/bots" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/bots" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Bots
             </Link>
-            <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Content Library
             </Link>
-            <Link href="/dashboard" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/growth-suite" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Growth Suite
+            </Link>
+            <Link href="/dashboard" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Dashboard
             </Link>
-            <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Performance Dashboard
             </Link>
-            <Link href="/dashboard/verification" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/dashboard/verification" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Verification
             </Link>
-            <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Categories
             </Link>
-            <Link href="/compare" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/compare" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Compare
             </Link>
-            <Link href="/pricing" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors">
+            <Link href="/pricing" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Pricing
             </Link>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 flex-shrink-0">
             <button className="p-2 text-mono-600 hover:text-mono-900 transition-colors">
               <Search className="h-5 w-5" />
             </button>
