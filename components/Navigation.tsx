@@ -99,6 +99,7 @@ export function Navigation() {
                 </div>
               )}
             </>
+            </div>
           </div>
           
           <div className="hidden md:flex flex-wrap items-center gap-x-2 gap-y-1 justify-center">
