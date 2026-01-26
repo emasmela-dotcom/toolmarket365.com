@@ -48,53 +48,15 @@ export function Navigation() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-mono-200 bg-mono-50/95 backdrop-blur-sm">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-1 flex-shrink-0">
-            <span className="text-xl font-bold text-mono-950">CreatorFlow</span>
-            <span className="text-xl font-bold text-accent-600">365</span>
-          </Link>
-          
-          <div className="hidden md:flex items-center space-x-2 ml-6 flex-1 justify-center">
-            <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Home
+      <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col py-2">
+          <div className="flex items-center justify-between mb-2">
+            <Link href="/" className="flex items-center space-x-1 flex-shrink-0">
+              <span className="text-xl font-bold text-mono-950">CreatorFlow</span>
+              <span className="text-xl font-bold text-accent-600">365</span>
             </Link>
-            <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Tools
-            </Link>
-            <Link href="/bots" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Bots
-            </Link>
-            <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Content Library
-            </Link>
-            <Link href="/growth-suite" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Growth Suite
-            </Link>
-            <Link href="/dashboard" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Dashboard
-            </Link>
-            <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Performance Dashboard
-            </Link>
-            <Link href="/dashboard/verification" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Verification
-            </Link>
-            <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Categories
-            </Link>
-            <Link href="/compare" className="text-sm font-semibold text-accent-600 hover:text-accent-700 transition-colors whitespace-nowrap bg-accent-50 dark:bg-accent-900/30 px-3 py-1 rounded-lg border border-accent-200 dark:border-accent-800">
-              Compare ⭐
-            </Link>
-            <Link href="/pricing" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Pricing
-            </Link>
-            <Link href="/credits" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Credit Costs
-            </Link>
-          </div>
-          
-          <div className="flex items-center space-x-4 flex-shrink-0">
+            
+            <div className="flex items-center space-x-4 flex-shrink-0">
             <Link
               href="/tools"
               className="p-2 text-mono-600 hover:text-mono-900 transition-colors"
@@ -137,6 +99,45 @@ export function Navigation() {
                 </div>
               )}
             </>
+          </div>
+          
+          <div className="hidden md:flex flex-wrap items-center gap-x-2 gap-y-1 justify-center">
+            <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Home
+            </Link>
+            <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Tools
+            </Link>
+            <Link href="/bots" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Bots
+            </Link>
+            <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Content Library
+            </Link>
+            <Link href="/growth-suite" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Growth Suite
+            </Link>
+            <Link href="/dashboard" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Dashboard
+            </Link>
+            <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Performance Dashboard
+            </Link>
+            <Link href="/dashboard/verification" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Verification
+            </Link>
+            <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Categories
+            </Link>
+            <Link href="/compare" className="text-sm font-semibold text-accent-600 hover:text-accent-700 transition-colors whitespace-nowrap bg-accent-50 dark:bg-accent-900/30 px-3 py-1 rounded-lg border border-accent-200 dark:border-accent-800">
+              Compare ⭐
+            </Link>
+            <Link href="/pricing" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Pricing
+            </Link>
+            <Link href="/credits" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Credit Costs
+            </Link>
           </div>
         </div>
       </div>
