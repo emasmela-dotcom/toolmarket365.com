@@ -26,8 +26,10 @@ import {
   Palette,
   FileCheck,
   User,
-  Sparkles as SparklesIcon
+  Sparkles as SparklesIcon,
+  Coins
 } from 'lucide-react'
+import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
 const toolSections = [
   {
@@ -329,6 +331,19 @@ function ToolsPageContent() {
           </div>
         </div>
 
+        {/* Credit Cost Info Banner */}
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-8 max-w-4xl mx-auto">
+          <div className="flex items-start space-x-3">
+            <Coins className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm text-blue-900 dark:text-blue-200">
+                <strong>Premium Tools:</strong> Some tools require credits per use (shown with a <span className="inline-flex items-center"><Coins className="inline h-3 w-3 text-yellow-600 dark:text-yellow-400 mx-0.5" /> badge</span>). 
+                All plans include 25 free credits/month. <Link href="/credits" className="underline font-semibold hover:text-blue-800 dark:hover:text-blue-100">View all credit costs →</Link>
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {displaySections.map((section, sectionIdx) => {
             // Generate slug to match homepage links
@@ -358,15 +373,29 @@ function ToolsPageContent() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                {section.tools.map(tool => (
-                  <Link
-                    key={tool.slug}
-                    href={`/tools/${tool.slug}`}
-                    className="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline transition-colors text-sm"
-                  >
-                    {tool.name}
-                  </Link>
-                ))}
+                {section.tools.map(tool => {
+                  const needsCredits = requiresCredits(tool.slug)
+                  const creditCost = getToolCreditCost(tool.slug)
+                  
+                  return (
+                    <div key={tool.slug} className="flex items-center justify-between">
+                      <Link
+                        href={`/tools/${tool.slug}`}
+                        className="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline transition-colors text-sm flex-1"
+                      >
+                        {tool.name}
+                      </Link>
+                      {needsCredits && creditCost && (
+                        <div className="flex items-center space-x-1 ml-2 px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/30 rounded border border-yellow-300 dark:border-yellow-700">
+                          <Coins className="h-3 w-3 text-yellow-700 dark:text-yellow-400" />
+                          <span className="text-xs font-semibold text-yellow-700 dark:text-yellow-400">
+                            {creditCost} credits/use
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
             </div>
             )
