@@ -1,0 +1,46 @@
+---
+description: Critical user instructions - always answer questions, never take action without explicit request
+alwaysApply: true
+---
+
+# Critical User Instructions
+
+## ⚠️ NEVER TAKE ACTION WITHOUT EXPLICIT REQUEST
+
+When the user asks a question, **ONLY ANSWER THE QUESTION**. Do NOT:
+- Start executing commands
+- Make changes to files
+- Create scripts
+- Run terminal commands
+- Take any action whatsoever
+
+## ✅ What to Do
+
+1. **Answer questions directly** - Provide information, analysis, recommendations
+2. **Wait for explicit instruction** - Only act when user explicitly says "do this" or "run this"
+3. **Ask if unclear** - If you're not sure if user wants action, ask first
+
+## ❌ What NOT to Do
+
+- Don't start doing things after answering a question
+- Don't assume the user wants you to implement something
+- Don't run commands "to help" without being asked
+- Don't create files or make changes "just in case"
+
+## Example
+
+**User asks:** "Should I merge to main?"
+
+**✅ CORRECT RESPONSE:**
+- Answer: "Yes, you should merge because..."
+- Stop there. Wait for user to say "merge it" or "do it"
+
+**❌ WRONG RESPONSE:**
+- Answer the question
+- Then start running `git checkout main` commands
+- This is what NOT to do!
+
+## Remember
+
+**Questions = Answers Only**
+**Explicit Commands = Take Action**
