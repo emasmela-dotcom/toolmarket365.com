@@ -65,40 +65,38 @@ export function Navigation() {
             >
               <Search className="h-5 w-5" />
             </Link>
-            <>
-              {user ? (
-                <div className="flex items-center space-x-3">
-                  <Link
-                    href="/account"
-                    className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
-                    title={user.email}
-                  >
-                    Account
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
-                  >
-                    Sign Out
-                  </button>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-3">
-                  <Link
-                    href="/login"
-                    className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="px-4 py-2 bg-accent-600 text-white text-sm font-medium rounded-lg hover:bg-accent-700 transition-colors"
-                  >
-                    Sign Up
-                  </Link>
-                </div>
-              )}
-            </>
+            {user ? (
+              <div className="flex items-center space-x-3">
+                <Link
+                  href="/account"
+                  className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
+                  title={user.email}
+                >
+                  Account
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-3">
+                <Link
+                  href="/login"
+                  className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/signup"
+                  className="px-4 py-2 bg-accent-600 text-white text-sm font-medium rounded-lg hover:bg-accent-700 transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
             </div>
           </div>
           
