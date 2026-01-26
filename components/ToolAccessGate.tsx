@@ -25,7 +25,13 @@ export function ToolAccessGate({
   const [loading, setLoading] = useState(true)
   const [reason, setReason] = useState<string>('')
   const [planName, setPlanName] = useState<string | null>(null)
+  const [userCredits, setUserCredits] = useState<number | null>(null)
   const pathname = usePathname()
+
+  // Get credit information for this tool
+  const needsCredits = requiresCredits(toolSlug)
+  const creditCost = getToolCreditCost(toolSlug)
+  const useExplanation = getToolUseExplanation(toolSlug)
 
   useEffect(() => {
     checkAccess()

@@ -68,6 +68,40 @@ function AnalyticsDashboardContent() {
     devices[r.device] = (devices[r.device] || 0) + 1
   })
 
+  // Performance Benchmarks (template-based, no API calls)
+  const benchmarks = {
+    pageViews: {
+      excellent: 10000,
+      good: 5000,
+      average: 1000,
+      needsImprovement: 500
+    },
+    uniqueVisitors: {
+      excellent: 5000,
+      good: 2500,
+      average: 500,
+      needsImprovement: 250
+    },
+    engagementRate: {
+      excellent: 5.0,
+      good: 3.0,
+      average: 1.5,
+      needsImprovement: 0.5
+    }
+  }
+
+  const getBenchmarkStatus = (value: number, benchmark: Record<string, number>) => {
+    if (value >= benchmark.excellent) return { status: 'excellent', label: 'Top 10%', color: 'text-green-600 dark:text-green-400' }
+    if (value >= benchmark.good) return { status: 'good', label: 'Top 25%', color: 'text-blue-600 dark:text-blue-400' }
+    if (value >= benchmark.average) return { status: 'average', label: 'Average', color: 'text-yellow-600 dark:text-yellow-400' }
+    return { status: 'needsImprovement', label: 'Needs Improvement', color: 'text-red-600 dark:text-red-400' }
+  }
+
+  const pageViewsBenchmark = getBenchmarkStatus(pageViews, benchmarks.pageViews)
+  const uniqueVisitorsBenchmark = getBenchmarkStatus(uniqueVisitors, benchmarks.uniqueVisitors)
+  const engagementRate = pageViews > 0 ? (uniqueVisitors / pageViews) * 100 : 0
+  const engagementBenchmark = getBenchmarkStatus(engagementRate, benchmarks.engagementRate)
+
   const drawPie = () => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -179,15 +213,61 @@ function AnalyticsDashboardContent() {
         </button>
       </header>
 
+      {/* Performance Benchmarks Section */}
+      <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-6">
+        <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">Performance Benchmarks</h2>
+        <p className="text-sm text-mono-600 dark:text-mono-400 mb-4">
+          See how your performance compares to industry averages
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
+            <div className="text-sm text-mono-600 dark:text-mono-400 mb-1">Page Views</div>
+            <div className="text-2xl font-bold mb-1">{pageViews.toLocaleString()}</div>
+            <div className={`text-sm font-semibold ${pageViewsBenchmark.color}`}>
+              {pageViewsBenchmark.label}
+            </div>
+            <div className="text-xs text-mono-500 dark:text-mono-500 mt-1">
+              Industry avg: {benchmarks.pageViews.average.toLocaleString()}
+            </div>
+          </div>
+          <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
+            <div className="text-sm text-mono-600 dark:text-mono-400 mb-1">Unique Visitors</div>
+            <div className="text-2xl font-bold mb-1">{uniqueVisitors.toLocaleString()}</div>
+            <div className={`text-sm font-semibold ${uniqueVisitorsBenchmark.color}`}>
+              {uniqueVisitorsBenchmark.label}
+            </div>
+            <div className="text-xs text-mono-500 dark:text-mono-500 mt-1">
+              Industry avg: {benchmarks.uniqueVisitors.average.toLocaleString()}
+            </div>
+          </div>
+          <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
+            <div className="text-sm text-mono-600 dark:text-mono-400 mb-1">Engagement Rate</div>
+            <div className="text-2xl font-bold mb-1">{engagementRate.toFixed(1)}%</div>
+            <div className={`text-sm font-semibold ${engagementBenchmark.color}`}>
+              {engagementBenchmark.label}
+            </div>
+            <div className="text-xs text-mono-500 dark:text-mono-500 mt-1">
+              Industry avg: {benchmarks.engagementRate.average}%
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-4">
           <h3 className="m-0 mb-2 text-sm text-accent-600">Page Views</h3>
           <div className="text-4xl font-bold">{pageViews.toLocaleString()}</div>
+          <div className={`text-xs mt-1 ${pageViewsBenchmark.color}`}>
+            {pageViewsBenchmark.label}
+          </div>
         </div>
 
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-4">
           <h3 className="m-0 mb-2 text-sm text-accent-600">Unique Visitors</h3>
           <div className="text-4xl font-bold">{uniqueVisitors.toLocaleString()}</div>
+          <div className={`text-xs mt-1 ${uniqueVisitorsBenchmark.color}`}>
+            {uniqueVisitorsBenchmark.label}
+          </div>
         </div>
 
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-4">

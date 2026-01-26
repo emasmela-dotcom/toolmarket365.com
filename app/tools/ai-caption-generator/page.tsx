@@ -8,6 +8,7 @@ function AICaptionGeneratorContent() {
   const [tone, setTone] = useState('funny')
   const [platform, setPlatform] = useState('instagram')
   const [length, setLength] = useState('medium')
+  const [niche, setNiche] = useState('general')
   const [output, setOutput] = useState('')
   const [showOutput, setShowOutput] = useState(false)
 
@@ -149,6 +150,183 @@ function AICaptionGeneratorContent() {
     }
   }
 
+  // Niche-specific templates (20+ templates across 6 niches)
+  const nicheTemplates: Record<string, Record<string, Record<string, string[]>>> = {
+    fitness: {
+      funny: {
+        instagram: [
+          "When %s hits different at 6am 💪☕️ #MorningMotivation #FitnessLife",
+          "POV: %s is my personality now 🏋️‍♀️ #GymLife #NoDaysOff",
+          "%s > excuses. Always. 🔥 #FitnessMotivation #Workout"
+        ],
+        tiktok: [
+          "%s but make it gym content 💪 #FitnessTok #GymTok",
+          "When %s becomes your entire personality 😅 #FitTok #Gains",
+          "%s energy = can't stop won't stop 🚀 #WorkoutMotivation"
+        ]
+      },
+      inspirational: {
+        instagram: [
+          "Your body can do %s — it's your mind you need to convince 💪✨ #Mindset #FitnessJourney",
+          "Progress > perfection. %s is proof 🌟 #FitnessMotivation #Growth",
+          "Every %s is a step closer to your goals 🎯 #KeepGoing #FitnessLife"
+        ],
+        tiktok: [
+          "%s = small steps, big changes 🌱 #FitnessJourney #Motivation",
+          "Remember why you started: %s 💫 #FitnessMotivation #Goals",
+          "%s but make it your comeback story 🏆 #FitnessTok"
+        ]
+      },
+      professional: {
+        instagram: [
+          "Science-backed: %s improves performance by 23% 📊 #FitnessScience #EvidenceBased",
+          "Training protocol: %s for optimal results 🎯 #FitnessCoaching #Performance",
+          "Case study: %s increases strength gains 📈 #FitnessResearch"
+        ]
+      }
+    },
+    food: {
+      funny: {
+        instagram: [
+          "%s but make it ✨aesthetic✨ 📸 #FoodPorn #Foodie",
+          "POV: %s is your entire personality 🍕 #FoodLover #FoodieLife",
+          "When %s hits different at 2am 😋 #LateNightSnacks #Food"
+        ],
+        tiktok: [
+          "%s but make it go viral 🍽️ #FoodTok #RecipeTok",
+          "POV: %s is the only thing on your mind 🥘 #FoodTok #Cooking",
+          "%s speed-run any% 🏃‍♀️💨 #FoodTok #CookingHacks"
+        ]
+      },
+      inspirational: {
+        instagram: [
+          "Food is love: %s brings people together ❤️ #FoodLove #Community",
+          "Every %s tells a story 📖 #FoodCulture #Foodie",
+          "Simple ingredients, extraordinary %s ✨ #Cooking #FoodArt"
+        ]
+      },
+      professional: {
+        instagram: [
+          "Recipe breakdown: %s in 5 steps 📝 #CookingTips #Recipe",
+          "Nutritional analysis: %s provides key nutrients 🥗 #HealthyEating #Nutrition",
+          "Chef's technique: mastering %s 👨‍🍳 #CookingSkills #FoodPrep"
+        ]
+      }
+    },
+    travel: {
+      funny: {
+        instagram: [
+          "%s but make it ✈️✈️✈️ #Wanderlust #TravelLife",
+          "POV: %s is your entire savings account 💸 #TravelAddict #Wanderlust",
+          "When %s > rent 🏠✈️ #TravelLife #Adventure"
+        ],
+        tiktok: [
+          "%s but make it travel content ✈️ #TravelTok #Wanderlust",
+          "POV: %s is your personality now 🗺️ #TravelTok #Adventure",
+          "%s but you're broke after 😅 #TravelLife #Wanderlust"
+        ]
+      },
+      inspirational: {
+        instagram: [
+          "Collect moments, not things: %s ✨ #TravelMemories #Wanderlust",
+          "The world is a book: %s is your next chapter 📖 #TravelLife #Adventure",
+          "%s reminds you why you travel 🌍 #Wanderlust #Explore"
+        ]
+      },
+      professional: {
+        instagram: [
+          "Travel guide: %s — what to know before you go 📍 #TravelTips #Destination",
+          "Budget breakdown: %s costs and savings 💰 #TravelPlanning #BudgetTravel",
+          "Itinerary: 3 days in %s 🗺️ #TravelGuide #Destination"
+        ]
+      }
+    },
+    fashion: {
+      funny: {
+        instagram: [
+          "%s but make it fashion 💅✨ #OOTD #Fashion",
+          "POV: %s is your entire personality 👗 #Fashionista #Style",
+          "When %s > groceries 🛍️ #FashionAddict #Shopping"
+        ],
+        tiktok: [
+          "%s but make it a fit check 👔 #FashionTok #OOTD",
+          "POV: %s is your personality trait 🎨 #FashionTok #Style",
+          "%s but make it iconic 💫 #FashionTok #Trending"
+        ]
+      },
+      inspirational: {
+        instagram: [
+          "Style is a way to say who you are: %s ✨ #Fashion #PersonalStyle",
+          "%s = confidence in every step 👠 #FashionMotivation #Style",
+          "Fashion is art: %s is your canvas 🎨 #FashionDesign #Style"
+        ]
+      },
+      professional: {
+        instagram: [
+          "Trend report: %s is dominating 2026 📊 #FashionTrends #StyleGuide",
+          "Styling tips: how to wear %s 🎯 #FashionTips #OutfitIdeas",
+          "Brand spotlight: %s collection review 👗 #FashionReview #Style"
+        ]
+      }
+    },
+    tech: {
+      funny: {
+        instagram: [
+          "%s but make it tech support 😅💻 #TechLife #Developer",
+          "POV: %s is your entire personality 🖥️ #TechTok #Coding",
+          "When %s > sleep 😴💻 #DeveloperLife #Tech"
+        ],
+        tiktok: [
+          "%s but make it coding content 💻 #TechTok #Coding",
+          "POV: %s is your life now 🚀 #TechTok #Developer",
+          "%s but you're debugging at 3am 🐛 #TechLife #Coding"
+        ]
+      },
+      inspirational: {
+        instagram: [
+          "Code is poetry: %s is your verse 💻✨ #Coding #TechLife",
+          "Innovation starts with %s 🚀 #TechMotivation #Innovation",
+          "%s = building the future 🌟 #TechLife #Developer"
+        ]
+      },
+      professional: {
+        instagram: [
+          "Tech review: %s performance analysis 📊 #TechReview #Gadgets",
+          "Tutorial: mastering %s in 10 steps 🎯 #TechTips #Tutorial",
+          "Industry insights: %s market trends 📈 #TechNews #Innovation"
+        ]
+      }
+    },
+    beauty: {
+      funny: {
+        instagram: [
+          "%s but make it ✨glam✨ 💄 #Beauty #Makeup",
+          "POV: %s is your entire personality 💅 #BeautyTok #Makeup",
+          "When %s > sleep 😴💄 #BeautyLife #MakeupAddict"
+        ],
+        tiktok: [
+          "%s but make it a glow-up ✨ #BeautyTok #Makeup",
+          "POV: %s is your personality trait 💫 #BeautyTok #GlowUp",
+          "%s but make it iconic 🌟 #BeautyTok #MakeupTutorial"
+        ]
+      },
+      inspirational: {
+        instagram: [
+          "Beauty is confidence: %s helps you shine ✨ #BeautyMotivation #SelfLove",
+          "%s = feeling your best self 💫 #BeautyLife #Confidence",
+          "Every %s is self-care 🌸 #BeautyRoutine #SelfCare"
+        ]
+      },
+      professional: {
+        instagram: [
+          "Product review: %s — honest thoughts 💄 #BeautyReview #Makeup",
+          "Tutorial: %s step-by-step guide 🎯 #MakeupTutorial #BeautyTips",
+          "Trend alert: %s is everywhere 📊 #BeautyTrends #Makeup"
+        ]
+      }
+    }
+  }
+
   const handleGenerate = () => {
     const trimmedPrompt = prompt.trim()
     if (!trimmedPrompt) {
@@ -156,8 +334,15 @@ function AICaptionGeneratorContent() {
       return
     }
 
-    const slot = pools[tone][platform]
-    const generated = slot.map(t => 
+    // Use niche templates if niche is selected and templates exist, otherwise use general pools
+    let templates: string[] = []
+    if (niche !== 'general' && nicheTemplates[niche]?.[tone]?.[platform]) {
+      templates = nicheTemplates[niche][tone][platform]
+    } else {
+      templates = pools[tone][platform]
+    }
+
+    const generated = templates.slice(0, 3).map(t => 
       t.replace("%s", trimmedPrompt) + (length === "long" ? " 💡" : "")
     ).join("\n\n—\n\n")
 
@@ -241,7 +426,7 @@ function AICaptionGeneratorContent() {
             <option value="facebook">Facebook</option>
           </select>
 
-          <label className="block mb-2 mt-4 text-sm font-semibold">4. Length</label>
+          <label className="block mb-2 mt-4 text-sm font-semibold">5. Length</label>
           <select
             value={length}
             onChange={(e) => setLength(e.target.value)}

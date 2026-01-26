@@ -83,11 +83,14 @@ export function Navigation() {
             <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Categories
             </Link>
-            <Link href="/compare" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Compare
+            <Link href="/compare" className="text-sm font-semibold text-accent-600 hover:text-accent-700 transition-colors whitespace-nowrap bg-accent-50 dark:bg-accent-900/30 px-3 py-1 rounded-lg border border-accent-200 dark:border-accent-800">
+              Compare ⭐
             </Link>
             <Link href="/pricing" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
               Pricing
+            </Link>
+            <Link href="/credits" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              Credit Costs
             </Link>
           </div>
           

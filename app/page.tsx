@@ -18,6 +18,93 @@ export default function Home() {
     <div className="flex flex-col">
       <Hero />
       
+      {/* Competitive Advantages - Prominent Section */}
+      <section className="py-8 bg-gradient-to-b from-accent-50 to-white dark:from-mono-900 dark:to-mono-950 border-b-4 border-accent-600 dark:border-accent-700">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-mono-950 dark:text-mono-50 mb-6 text-center">
+              Why CreatorFlow365 Beats the Competition
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              <div className="bg-white dark:bg-mono-900 rounded-lg p-5 border-2 border-green-500 dark:border-green-600 shadow-lg">
+                <div className="text-3xl sm:text-4xl font-bold text-green-600 dark:text-green-400 mb-2 text-center">
+                  79%
+                </div>
+                <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">
+                  Cheaper
+                </div>
+                <div className="text-xs text-mono-600 dark:text-mono-400 text-center">
+                  Save $159+/month vs buying tools separately
+                </div>
+              </div>
+              <div className="bg-white dark:bg-mono-900 rounded-lg p-5 border-2 border-blue-500 dark:border-blue-600 shadow-lg">
+                <div className="text-3xl sm:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2 text-center">
+                  43+
+                </div>
+                <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">
+                  Tools
+                </div>
+                <div className="text-xs text-mono-600 dark:text-mono-400 text-center">
+                  vs Later (3), Buffer (3), Hootsuite (5)
+                </div>
+              </div>
+              <div className="bg-white dark:bg-mono-900 rounded-lg p-5 border-2 border-accent-500 dark:border-accent-600 shadow-lg">
+                <div className="text-lg sm:text-xl font-bold text-accent-600 dark:text-accent-400 mb-2 text-center">
+                  ⭐ Only We Have
+                </div>
+                <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">
+                  Viral Predictor
+                </div>
+                <div className="text-xs text-mono-600 dark:text-mono-400 text-center">
+                  No competitor has this unique feature
+                </div>
+              </div>
+              <div className="bg-white dark:bg-mono-900 rounded-lg p-5 border-2 border-purple-500 dark:border-purple-600 shadow-lg">
+                <div className="text-lg sm:text-xl font-bold text-purple-600 dark:text-purple-400 mb-2 text-center">
+                  🔗 Integrated
+                </div>
+                <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">
+                  Workflow
+                </div>
+                <div className="text-xs text-mono-600 dark:text-mono-400 text-center">
+                  All tools work together (competitors don't)
+                </div>
+              </div>
+            </div>
+            <div className="bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-400 dark:border-yellow-600 rounded-lg p-4 text-center">
+              <p className="text-sm sm:text-base font-semibold text-yellow-900 dark:text-yellow-200">
+                💰 <strong>Competitor Comparison:</strong> Later ($18-40) + Jasper AI ($49) + Canva ($13) + Analytics ($99) = $179+/month
+              </p>
+              <p className="text-sm sm:text-base font-bold text-yellow-900 dark:text-yellow-200 mt-2">
+                CreatorFlow365 Professional: $49/month = <span className="text-green-600 dark:text-green-400">Save $130+/month!</span>
+              </p>
+            </div>
+            
+            {/* Transparency Statement - Verifiable Claims */}
+            <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-300 dark:border-blue-700 rounded-lg p-6">
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0">
+                  <svg className="h-6 w-6 text-blue-600 dark:text-blue-400 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-blue-900 dark:text-blue-200 mb-2">
+                    Our Promise: Verifiable & Transparent
+                  </h3>
+                  <p className="text-base text-blue-800 dark:text-blue-300 mb-3">
+                    <strong>Bottom line:</strong> CreatorFlow365 is the all-in-one solution. While each competitor may be stronger in their specialty, CreatorFlow365 offers everything integrated at a better price.
+                  </p>
+                  <p className="text-sm text-blue-700 dark:text-blue-400 italic">
+                    💡 <strong>We encourage you to verify:</strong> Check Jasper AI ($49/month), Canva ($12.99/month), and premium analytics tools ($99+/month) pricing yourself. Compare their features to ours. We stand behind every claim—research and confirm for yourself.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Market Opportunity Section */}
       <section className="py-4 bg-white dark:bg-mono-950 border-b border-mono-200 dark:border-mono-700">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,6 +186,34 @@ export default function Home() {
         </div>
       </section>
       
+      {/* Competitive Advantage Callout */}
+      <section className="py-4 bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-700 dark:to-blue-700 border-b-4 border-green-700 dark:border-green-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto text-center">
+            <p className="text-lg sm:text-xl lg:text-2xl font-bold text-white leading-tight mb-3">
+              💰 Save $159+/Month vs Buying Tools Separately
+            </p>
+            <p className="text-base sm:text-lg text-white/95 mb-4">
+              Later ($18) + Jasper AI ($49) + Canva ($13) + Analytics ($99) = $179+/month
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <Link
+                href="/compare"
+                className="inline-flex items-center px-6 py-2.5 bg-white text-green-600 font-bold rounded-lg hover:bg-green-50 transition-colors text-sm sm:text-base shadow-lg"
+              >
+                See How We Compare →
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center px-6 py-2.5 bg-green-700 text-white font-bold rounded-lg hover:bg-green-800 transition-colors text-sm sm:text-base border-2 border-white/30"
+              >
+                View Pricing
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Tools Exploration Callout */}
       <section className="py-3 bg-accent-600 dark:bg-accent-700 border-b-4 border-accent-700 dark:border-accent-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

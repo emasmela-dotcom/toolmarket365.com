@@ -41,6 +41,37 @@ export function Hero() {
           <p className="text-base sm:text-lg font-semibold text-accent-600 dark:text-accent-400 mb-6 max-w-2xl mx-auto">
             Run your entire creator business from one platform—not just schedule posts.
           </p>
+          
+          {/* Competitive Advantages Banner */}
+          <div className="mb-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border-2 border-green-400 dark:border-green-600 rounded-lg p-4 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400 mb-1">
+                  Save $159+
+                </div>
+                <div className="text-xs sm:text-sm text-mono-700 dark:text-mono-300">
+                  per month vs buying separately
+                </div>
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
+                  43+ Tools
+                </div>
+                <div className="text-xs sm:text-sm text-mono-700 dark:text-mono-300">
+                  vs competitors' 3-10 tools
+                </div>
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold text-accent-600 dark:text-accent-400 mb-1">
+                  Only We Have
+                </div>
+                <div className="text-xs sm:text-sm text-mono-700 dark:text-mono-300">
+                  Viral Content Predictor ⭐
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/tools"
