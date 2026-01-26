@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Info, Coins, Zap, ArrowRight, CheckCircle2, X } from 'lucide-react'
 import { TOOL_CREDIT_COSTS, getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
+import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 
 // Tool display names mapping
 const toolDisplayNames: Record<string, string> = {
@@ -173,48 +174,61 @@ export default function CreditsPage() {
                 Buy Credit Bundles
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700 flex flex-col">
                   <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">
                     50 Credits
                   </div>
                   <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">
                     $5
                   </div>
-                  <p className="text-xs text-mono-600 dark:text-mono-400">
+                  <p className="text-xs text-mono-600 dark:text-mono-400 mb-4 flex-grow">
                     Perfect for trying premium tools
                   </p>
+                  <a
+                    href={GUMROAD_LINKS.credits.bundle50}
+                    className="gumroad-button w-full text-center py-2 px-4 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors text-sm"
+                    data-gumroad-single-product="true"
+                  >
+                    Buy Now
+                  </a>
                 </div>
-                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border-2 border-accent-300 dark:border-accent-700">
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border-2 border-accent-300 dark:border-accent-700 flex flex-col">
                   <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">
                     100 Credits
                   </div>
                   <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">
                     $10
                   </div>
-                  <p className="text-xs text-mono-600 dark:text-mono-400">
+                  <p className="text-xs text-mono-600 dark:text-mono-400 mb-4 flex-grow">
                     Most popular bundle
                   </p>
+                  <a
+                    href={GUMROAD_LINKS.credits.bundle100}
+                    className="gumroad-button w-full text-center py-2 px-4 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors text-sm"
+                    data-gumroad-single-product="true"
+                  >
+                    Buy Now
+                  </a>
                 </div>
-                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700 flex flex-col">
                   <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">
                     250 Credits
                   </div>
                   <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">
                     $22.50
                   </div>
-                  <p className="text-xs text-green-600 dark:text-green-400 font-semibold">
+                  <p className="text-xs text-green-600 dark:text-green-400 font-semibold mb-4">
                     Save 10% ($2.50 off)
                   </p>
+                  <a
+                    href={GUMROAD_LINKS.credits.bundle250}
+                    className="gumroad-button w-full text-center py-2 px-4 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors text-sm"
+                    data-gumroad-single-product="true"
+                  >
+                    Buy Now
+                  </a>
                 </div>
               </div>
-              <Link
-                href="/pricing#credit-bundles"
-                className="inline-flex items-center space-x-2 px-6 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors"
-              >
-                <Coins className="h-5 w-5" />
-                <span>Buy Credits</span>
-                <ArrowRight className="h-5 w-5" />
-              </Link>
             </div>
           </div>
         </div>

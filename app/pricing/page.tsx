@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Check, Sparkles, Zap, ArrowRight } from 'lucide-react'
+import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 
 const plans = [
   {
@@ -29,8 +30,9 @@ const plans = [
       'Email support',
       'Local storage',
     ],
-    cta: 'Start Free Trial',
-    ctaLink: '/signup',
+    cta: 'Subscribe Now',
+    ctaLink: GUMROAD_LINKS.subscriptions.starter,
+    gumroad: true,
   },
   {
     name: 'Essential',
@@ -60,8 +62,9 @@ const plans = [
       'Basic analytics',
       'Email support',
     ],
-    cta: 'Start Free Trial',
-    ctaLink: '/signup',
+    cta: 'Subscribe Now',
+    ctaLink: GUMROAD_LINKS.subscriptions.essential,
+    gumroad: true,
   },
   {
     name: 'Professional',
@@ -94,8 +97,9 @@ const plans = [
       '7+ AI-powered tools',
       'Priority support',
     ],
-    cta: 'Start Free Trial',
-    ctaLink: '/signup',
+    cta: 'Subscribe Now',
+    ctaLink: GUMROAD_LINKS.subscriptions.professional,
+    gumroad: true,
     savings: 'Save $159/month vs buying separately',
   },
   {
@@ -125,7 +129,8 @@ const plans = [
       'Advanced features',
     ],
     cta: 'Start Free Trial',
-    ctaLink: '/signup',
+    ctaLink: GUMROAD_LINKS.subscriptions.creator,
+    gumroad: true,
   },
   {
     name: 'Business',
@@ -152,8 +157,9 @@ const plans = [
       'Advanced security',
       'No credits needed - everything included',
     ],
-    cta: 'Start Free Trial',
-    ctaLink: '/signup',
+    cta: 'Subscribe Now',
+    ctaLink: GUMROAD_LINKS.subscriptions.business,
+    gumroad: true,
   },
 ]
 
@@ -452,21 +458,35 @@ export default function PricingPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Link
-                      href={plan.ctaLink}
-                      className={`block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm transition-colors ${
-                        plan.popular
-                          ? 'bg-accent-600 text-white hover:bg-accent-700'
-                          : 'bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 hover:bg-mono-200 dark:hover:bg-mono-700'
-                      }`}
-                    >
-                      {plan.cta}
-                    </Link>
+                    {plan.gumroad ? (
+                      <a
+                        href={plan.ctaLink}
+                        className={`gumroad-button block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm transition-colors ${
+                          plan.popular
+                            ? 'bg-accent-600 text-white hover:bg-accent-700'
+                            : 'bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 hover:bg-mono-200 dark:hover:bg-mono-700'
+                        }`}
+                        data-gumroad-single-product="true"
+                      >
+                        {plan.cta}
+                      </a>
+                    ) : (
+                      <Link
+                        href={plan.ctaLink}
+                        className={`block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm transition-colors ${
+                          plan.popular
+                            ? 'bg-accent-600 text-white hover:bg-accent-700'
+                            : 'bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 hover:bg-mono-200 dark:hover:bg-mono-700'
+                        }`}
+                      >
+                        {plan.cta}
+                      </Link>
+                    )}
                     <p className="text-xs text-center text-mono-500 dark:text-mono-500">
-                      No credit card for trial
+                      Cancel anytime
                     </p>
                     <p className="text-xs text-center text-mono-600 dark:text-mono-400 font-medium">
-                      Subscribe to keep your content
+                      Subscribe to unlock all features
                     </p>
                   </div>
                 </div>
@@ -530,9 +550,13 @@ export default function PricingPage() {
                     </li>
                   </ul>
                 </div>
-                <button className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors">
+                <a
+                  href={GUMROAD_LINKS.credits.bundle50}
+                  className="gumroad-button w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
+                  data-gumroad-single-product="true"
+                >
                   Buy 50 Credits
-                </button>
+                </a>
               </div>
 
               {/* Popular Bundle */}
@@ -577,9 +601,13 @@ export default function PricingPage() {
                     </li>
                   </ul>
                 </div>
-                <button className="w-full py-2.5 px-4 bg-accent-600 text-white rounded-lg font-semibold text-sm hover:bg-accent-700 transition-colors">
+                <a
+                  href={GUMROAD_LINKS.credits.bundle100}
+                  className="gumroad-button w-full py-2.5 px-4 bg-accent-600 text-white rounded-lg font-semibold text-sm hover:bg-accent-700 transition-colors text-center block"
+                  data-gumroad-single-product="true"
+                >
                   Buy 100 Credits
-                </button>
+                </a>
               </div>
 
               {/* Power Bundle */}
@@ -622,9 +650,13 @@ export default function PricingPage() {
                     </li>
                   </ul>
                 </div>
-                <button className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors">
+                <a
+                  href={GUMROAD_LINKS.credits.bundle250}
+                  className="gumroad-button w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
+                  data-gumroad-single-product="true"
+                >
                   Buy 250 Credits
-                </button>
+                </a>
               </div>
             </div>
 
