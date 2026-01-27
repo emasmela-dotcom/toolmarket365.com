@@ -184,6 +184,14 @@ function InstagramSchedulerContent() {
         <div>
           <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50">Instagram Scheduler</h1>
           <p className="text-mono-600 dark:text-mono-400 mt-1">Plan, schedule, and manage your Instagram content</p>
+          
+          {/* Supported Platforms */}
+          <div className="bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-lg p-3 mt-3 inline-block">
+            <p className="text-xs font-semibold text-mono-700 dark:text-mono-300 mb-1">Supported Platform:</p>
+            <div className="flex gap-2">
+              <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">📸 Instagram</span>
+            </div>
+          </div>
         </div>
         <button
           onClick={() => router.push('/tools/instagram-scheduler/create')}

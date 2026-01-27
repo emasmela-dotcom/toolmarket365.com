@@ -120,9 +120,22 @@ function ProfileOptimizerContent() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+        <h1 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
           Profile Optimizer
         </h1>
+
+        {/* Supported Platforms */}
+        <div className="bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-lg p-4 mb-6">
+          <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Supported Platforms:</p>
+          <div className="flex flex-wrap gap-2">
+            <span className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">📸 Instagram</span>
+            <span className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">🎵 TikTok</span>
+            <span className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">💼 LinkedIn</span>
+            <span className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">🐦 Twitter/X</span>
+            <span className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">📘 Facebook</span>
+            <span className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">📺 YouTube</span>
+          </div>
+        </div>
 
         <div className="space-y-4 mb-6">
           <div>
