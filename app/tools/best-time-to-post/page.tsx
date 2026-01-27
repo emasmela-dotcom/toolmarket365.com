@@ -196,7 +196,7 @@ function BestTimeToPostContent() {
         >
           Export .ics
         </button>
-      </header>
+      </div>
 
       <div className="text-sm mt-4 flex gap-4">
         <span>■ <span className="text-mono-500">low</span></span>
