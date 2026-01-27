@@ -180,7 +180,17 @@ function HashtagResearchToolContent() {
 
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-2">Hashtag Research Tool</h1>
-          <p className="text-mono-600 dark:text-mono-400">Discover the best hashtags to boost your content reach</p>
+          <p className="text-mono-600 dark:text-mono-400 mb-4">Discover the best hashtags to boost your content reach</p>
+          
+          {/* Supported Platforms */}
+          <div className="bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-lg p-4 max-w-2xl mx-auto">
+            <p className="text-xs font-semibold text-mono-700 dark:text-mono-300 mb-2">Supported Platforms:</p>
+            <div className="flex flex-wrap gap-2 justify-center">
+              <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">📸 Instagram</span>
+              <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">🎵 TikTok</span>
+              <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">🐦 Twitter/X</span>
+            </div>
+          </div>
         </div>
 
         <div className="bg-mono-50 dark:bg-mono-900 border border-mono-200 dark:border-mono-700 rounded-lg shadow-sm p-6 mb-8">
