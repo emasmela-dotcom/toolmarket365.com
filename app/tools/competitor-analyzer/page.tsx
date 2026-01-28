@@ -1,7 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { Info, ArrowRight } from 'lucide-react'
 
 interface ComparisonData {
   competitor: {
@@ -276,9 +278,10 @@ function CompetitorAnalyzerContent() {
 
             <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
               <p className="text-sm text-blue-800 dark:text-blue-200">
-                <strong>Note:</strong> This is a demo tool that generates sample data for
-                comparison purposes. For real competitor analysis, you would need to connect to
-                Instagram's API or use a social media analytics service.
+                <strong>Note:</strong> This tool currently shows demo data. To get real competitor analysis, 
+                <Link href="/integrations" className="underline font-semibold hover:text-blue-900 dark:hover:text-blue-100 ml-1">
+                  connect your social media platform APIs in the Integrations Hub
+                </Link>.
               </p>
             </div>
           </div>

@@ -114,6 +114,40 @@ export default function CreditsPage() {
           </div>
         </div>
 
+        {/* External API Setup Notice */}
+        <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-700 rounded-lg p-6 mb-8">
+          <div className="flex items-start space-x-3">
+            <Info className="h-6 w-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-red-900 dark:text-red-200 mb-2">
+                ⚠️ Important: External API Setup Required
+              </h2>
+              <p className="text-sm text-red-800 dark:text-red-300 mb-3">
+                <strong>Some premium tools require external API integrations to fully function.</strong> Before using tools like Competitor Analyzer, Instagram Scheduler, or AI-enhanced features, you must set up your external API keys in the Integrations Hub.
+              </p>
+              <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-red-200 dark:border-red-800 mb-3">
+                <p className="text-sm font-semibold text-red-900 dark:text-red-200 mb-2">Tools requiring external API setup:</p>
+                <ul className="text-sm text-red-800 dark:text-red-300 space-y-1 ml-4">
+                  <li>• <strong>Competitor Analyzer</strong> - Requires social media API access for competitor data</li>
+                  <li>• <strong>Instagram Scheduler</strong> - Requires Instagram API for automatic posting</li>
+                  <li>• <strong>AI-Enhanced Tools</strong> - Optional OpenAI/Anthropic/Google API keys for enhanced AI features</li>
+                  <li>• <strong>Social Media Analytics</strong> - May require platform APIs for real-time data</li>
+                </ul>
+              </div>
+              <p className="text-sm text-red-800 dark:text-red-300 mb-3">
+                <strong>Don't worry:</strong> You pay the API providers directly (CreatorFlow365 never charges for API usage). We only track usage for analytics purposes.
+              </p>
+              <Link
+                href="/integrations"
+                className="inline-flex items-center space-x-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors text-sm"
+              >
+                <span>Set Up Integrations Now</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* Credit Cost Justification */}
         <div className="bg-purple-50 dark:bg-purple-900/20 border-2 border-purple-300 dark:border-purple-700 rounded-lg p-6 mb-8">
           <h2 className="text-xl font-bold text-purple-900 dark:text-purple-200 mb-4">
@@ -123,7 +157,7 @@ export default function CreditsPage() {
             <div>
               <h3 className="font-semibold mb-2">High-Value Tools (15 credits = $1.50/use):</h3>
               <p className="mb-2">
-                Tools like <strong>Competitor Analyzer</strong> require complex analysis, external API calls, and heavy data processing. These provide strategic business intelligence worth the investment.
+                Tools like <strong>Competitor Analyzer</strong> require complex analysis, external API calls, and heavy data processing. These provide strategic business intelligence worth the investment. <strong className="text-purple-900 dark:text-purple-100">Note: External API setup required for full functionality.</strong>
               </p>
             </div>
             <div>
@@ -148,9 +182,10 @@ export default function CreditsPage() {
               <p className="font-semibold mb-2">💡 Cost Factors:</p>
               <ul className="space-y-1 ml-4">
                 <li>• <strong>Processing complexity:</strong> More complex = more credits</li>
-                <li>• <strong>API costs:</strong> External data sources add cost</li>
+                <li>• <strong>API costs:</strong> External data sources add cost (you pay API providers directly)</li>
                 <li>• <strong>Value to creator:</strong> Business-critical tools cost more</li>
                 <li>• <strong>Uniqueness:</strong> Unique features (like Viral Predictor) are premium</li>
+                <li>• <strong>External API setup:</strong> Some tools require API integrations for full functionality</li>
               </ul>
             </div>
           </div>
