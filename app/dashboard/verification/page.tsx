@@ -9,17 +9,17 @@ function VerificationPageContent() {
     {
       icon: Shield,
       title: 'Trust & Credibility',
-      description: 'Build trust with your audience and potential collaborators'
+      description: 'Build trust with your audience and potential collaborators. Display a verified badge on your creator profile.'
     },
     {
       icon: CheckCircle,
-      title: 'Premium Features',
-      description: 'Unlock exclusive tools and features for verified creators'
+      title: 'Verified Badge',
+      description: 'Show a blue checkmark badge on your profile in Growth Suite, making you stand out to brands and collaborators'
     },
     {
       icon: Clock,
       title: 'Priority Support',
-      description: 'Get faster response times from our support team'
+      description: 'Get faster response times from our support team (24-48 hour response vs. standard 3-5 business days)'
     }
   ]
 
@@ -28,7 +28,7 @@ function VerificationPageContent() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50">Creator Verification</h1>
         <p className="text-mono-600 dark:text-mono-400 mt-2">
-          Get verified to unlock premium features and build trust with your audience
+          Get verified to display a verified badge, build trust with your audience, and access priority support
         </p>
       </div>
 
@@ -88,8 +88,8 @@ function VerificationPageContent() {
 }
 
 export default function VerificationPage() {
-  const toolDescription = "Get verified as a creator to unlock premium features, build trust with your audience, and access exclusive tools. Verification is automatic for Professional+ plans."
-  const howToUse = "1. Click 'Request Verification' if you're on a Starter or Essential plan. 2. Professional+ plans are automatically verified. 3. Once verified, you'll see a blue checkmark badge. 4. Verification helps build credibility and unlocks premium features."
+  const toolDescription = "Get verified as a creator to display a verified badge, build trust with your audience, and access priority support. Verification is automatic for Professional+ plans. Note: Tool access is determined by your subscription plan, not verification status."
+  const howToUse = "1. Click 'Request Verification' if you're on a Starter or Essential plan. 2. Professional+ plans are automatically verified. 3. Once verified, you'll see a blue checkmark badge on your profile. 4. Verification helps build credibility and provides priority support—your subscription plan determines which tools you can access."
 
   return (
     <ToolAccessGate
