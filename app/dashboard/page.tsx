@@ -75,11 +75,45 @@ export default function DashboardPage() {
   const [favorites, setFavorites] = useState<Favorite[]>([])
   const [usingLocalStorage, setUsingLocalStorage] = useState(false)
   const [saveToLibraryEnabled, setSaveToLibraryEnabled] = useState(true)
+  const [trialStatus, setTrialStatus] = useState<{
+    status: string
+    daysRemaining: number | null
+    planName: string | null
+  } | null>(null)
 
   // Load user once on mount
   useEffect(() => {
     loadUser()
+    loadTrialStatus()
   }, [])
+
+  const loadTrialStatus = async () => {
+    try {
+      const res = await fetch('/api/subscriptions/status')
+      if (res.ok) {
+        const data = await res.json()
+        if (data.status) {
+          const status = data.status
+          let daysRemaining: number | null = null
+          
+          if (status.status === 'trial' && status.trialEndsAt) {
+            const trialEnd = new Date(status.trialEndsAt)
+            const now = new Date()
+            const days = Math.ceil((trialEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+            daysRemaining = days > 0 ? days : 0
+          }
+          
+          setTrialStatus({
+            status: status.status,
+            daysRemaining,
+            planName: status.planName
+          })
+        }
+      }
+    } catch (error) {
+      console.error('Error loading trial status:', error)
+    }
+  }
 
   // Load dashboard data and preferences once on mount
   useEffect(() => {
@@ -267,6 +301,50 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-7xl mx-auto">
+          {/* Trial Status Banner */}
+          {trialStatus && trialStatus.status === 'trial' && trialStatus.daysRemaining !== null && (
+            <div className={`mb-6 rounded-lg p-6 border-2 ${
+              trialStatus.daysRemaining <= 3
+                ? 'bg-red-50 dark:bg-red-900/20 border-red-400 dark:border-red-600'
+                : 'bg-blue-50 dark:bg-blue-900/20 border-blue-400 dark:border-blue-600'
+            }`}>
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex-1">
+                  <h3 className={`font-semibold mb-2 ${
+                    trialStatus.daysRemaining <= 3
+                      ? 'text-red-900 dark:text-red-200'
+                      : 'text-blue-900 dark:text-blue-200'
+                  }`}>
+                    {trialStatus.daysRemaining <= 3
+                      ? `⚠️ Trial Ending Soon - ${trialStatus.daysRemaining} Day${trialStatus.daysRemaining !== 1 ? 's' : ''} Left`
+                      : `🎉 Free Trial Active - ${trialStatus.daysRemaining} Day${trialStatus.daysRemaining !== 1 ? 's' : ''} Remaining`
+                    }
+                  </h3>
+                  <p className={`text-sm ${
+                    trialStatus.daysRemaining <= 3
+                      ? 'text-red-800 dark:text-red-300'
+                      : 'text-blue-800 dark:text-blue-300'
+                  }`}>
+                    {trialStatus.daysRemaining <= 3
+                      ? 'Subscribe now to keep all content created during your trial. If you don\'t subscribe, your account will be restored to its pre-trial state.'
+                      : 'Subscribe anytime during your trial to lock in your content. You can continue using CreatorFlow365 or subscribe now to secure your work.'
+                    }
+                  </p>
+                </div>
+                <Link
+                  href="/checkout"
+                  className={`px-6 py-3 rounded-lg font-semibold transition-colors whitespace-nowrap ${
+                    trialStatus.daysRemaining <= 3
+                      ? 'bg-red-600 text-white hover:bg-red-700'
+                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                  }`}
+                >
+                  {trialStatus.daysRemaining <= 3 ? 'Subscribe Now' : 'Subscribe Early'}
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* localStorage Notice */}
           {usingLocalStorage && (
             <div className="mb-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
