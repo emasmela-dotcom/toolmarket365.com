@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import Link from 'next/link'
 import { 
   Calendar as CalendarIcon, 
   Plus, 
@@ -16,7 +17,9 @@ import {
   Share,
   Bookmark,
   Eye,
-  XCircle
+  XCircle,
+  Info,
+  ArrowRight
 } from 'lucide-react'
 import { format } from 'date-fns'
 
@@ -221,29 +224,61 @@ function InstagramSchedulerContent() {
         </div>
       )}
 
-      {/* Setup Requirements Notice */}
+      {/* API Setup Notice - Prominent */}
+      <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-700 rounded-lg p-6 mb-6">
+        <div className="flex items-start space-x-3">
+          <Info className="h-6 w-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <h3 className="font-bold text-red-900 dark:text-red-200 mb-2">
+              ⚠️ External API Setup Required for Auto-Posting
+            </h3>
+            <p className="text-sm text-red-800 dark:text-red-300 mb-3">
+              <strong>This tool requires Instagram API integration to automatically post to Instagram.</strong> Without API setup, you can plan and schedule posts, but they won't automatically publish to your Instagram account.
+            </p>
+            <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-red-200 dark:border-red-800 mb-3">
+              <p className="text-sm font-semibold text-red-900 dark:text-red-200 mb-2">Required Setup:</p>
+              <ul className="text-sm text-red-800 dark:text-red-300 space-y-2 ml-4">
+                <li>• <strong>Instagram API:</strong> Connect your Instagram account via Facebook Developer credentials (FREE)</li>
+                <li>• <strong>Cron Job:</strong> Automated task runs hourly to publish scheduled posts (FREE on Vercel)</li>
+              </ul>
+            </div>
+            <p className="text-sm text-red-800 dark:text-red-300 mb-3">
+              <strong>You pay API providers directly</strong> - CreatorFlow365 never charges for API usage. We only track usage for analytics.
+            </p>
+            <Link
+              href="/integrations"
+              className="inline-flex items-center space-x-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors text-sm"
+            >
+              <span>Set Up Instagram API Integration</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Setup Requirements Notice - Additional Details */}
       <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-8">
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0">
             <Settings className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold text-yellow-900 dark:text-yellow-200 mb-2">Setup Required for Full Functionality</h3>
+            <h3 className="font-semibold text-yellow-900 dark:text-yellow-200 mb-2">How It Works</h3>
             <p className="text-sm text-yellow-800 dark:text-yellow-300 mb-3">
-              <strong>Both of these are required</strong> for the tool to automatically post to Instagram:
+              Once both are configured, scheduled posts will automatically publish to Instagram at their scheduled times:
             </p>
             <ul className="text-sm text-yellow-800 dark:text-yellow-300 space-y-2 mb-3">
               <li className="flex items-start gap-2">
-                <span className="font-semibold">1. Instagram API Setup:</span>
-                <span>You need Facebook Developer credentials (FREE) and Instagram API access. Without this, posts won't actually publish to Instagram (they'll only be scheduled in the tool).</span>
+                <span className="font-semibold">1. Instagram API:</span>
+                <span>Enables automatic posting to your Instagram account</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="font-semibold">2. Cron Job:</span>
-                <span>An automated task runs every hour (FREE on Vercel) to check and publish scheduled posts. Without this, posts won't auto-publish at their scheduled times.</span>
+                <span>Checks every hour for posts scheduled to publish and triggers the API</span>
               </li>
             </ul>
             <p className="text-sm text-yellow-800 dark:text-yellow-300">
-              <strong>Note:</strong> You can still use this tool to plan and schedule posts, but they won't automatically publish until both are configured.
+              <strong>Note:</strong> You can still use this tool to plan and schedule posts without API setup, but they won't automatically publish until configured.
             </p>
           </div>
         </div>
