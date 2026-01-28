@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Check, Sparkles, Zap, ArrowRight, Loader2 } from 'lucide-react'
+import { PlanConfirmation } from '@/components/PlanConfirmation'
 
 interface Plan {
   id: string
@@ -23,6 +24,8 @@ export default function SelectPlanPage() {
   const [loading, setLoading] = useState(true)
   const [startingTrial, setStartingTrial] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null)
 
   useEffect(() => {
     fetchPlans()
@@ -44,15 +47,23 @@ export default function SelectPlanPage() {
     }
   }
 
-  const startTrial = async (planName: string) => {
-    setStartingTrial(planName)
+  const handlePlanSelect = (plan: Plan) => {
+    setSelectedPlan(plan)
+    setShowConfirmation(true)
+  }
+
+  const handleConfirmTrial = async () => {
+    if (!selectedPlan) return
+    
+    setShowConfirmation(false)
+    setStartingTrial(selectedPlan.name)
     setError(null)
 
     try {
       const res = await fetch('/api/subscriptions/start-trial', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planName })
+        body: JSON.stringify({ planName: selectedPlan.name })
       })
 
       const data = await res.json()
@@ -69,6 +80,11 @@ export default function SelectPlanPage() {
       setError('Failed to start trial. Please try again.')
       setStartingTrial(null)
     }
+  }
+
+  const handleCancelConfirmation = () => {
+    setShowConfirmation(false)
+    setSelectedPlan(null)
   }
 
   if (loading) {
@@ -92,12 +108,94 @@ export default function SelectPlanPage() {
     )
   }
 
-  const planOrder = ['starter', 'essential', 'professional', 'creator', 'business']
+  const planOrder = ['starter', 'essential', 'creator', 'professional', 'business']
   const sortedPlans = [...plans].sort((a, b) => {
     const indexA = planOrder.indexOf(a.name)
     const indexB = planOrder.indexOf(b.name)
     return indexA - indexB
   })
+
+  // Get plan tool lists for confirmation
+  const getPlanTools = (planName: string): { included: string[], excluded: string[] } => {
+    const planToolNames: Record<string, string[]> = {
+      starter: [
+        'AI Caption Generator',
+        'Content Idea Generator',
+        'Hashtag Research',
+        'Content Calendar',
+        'Best Time to Post',
+        'Readability Checker',
+        'Bio Generator',
+        'Content Library',
+        'Creator Pricing Guide',
+        'Engagement Ideas Generator',
+      ],
+      essential: [
+        'Everything in Starter',
+        'Post Scheduler',
+        'Analytics Dashboard',
+        'SEO Optimizer',
+        'Content Repurposer',
+        'Video Script Generator',
+        'Blog Outline Generator',
+        'Engagement Calculator',
+        'Hashtag Analyzer',
+        'Social Media Report Generator',
+        'Social Graphics',
+        'Multi-Platform Generator',
+      ],
+      creator: [
+        'Everything in Essential',
+        'Viral Content Predictor',
+        'All Content Creation tools',
+        'All Brand & Design tools',
+        'Advanced Analytics',
+        'Competitor Analyzer',
+        'Trend Tracker',
+        'All AI-powered tools',
+      ],
+      professional: [
+        'All 43+ tools',
+        'Unlimited use of all tools',
+        'Unlimited content library',
+      ],
+      business: [
+        'All 43+ tools',
+        'Team collaboration (5 users)',
+        'White-label options',
+        'Custom integrations',
+      ],
+    }
+    
+    const included = planToolNames[planName.toLowerCase()] || []
+    const excluded = planName.toLowerCase() === 'professional' || planName.toLowerCase() === 'business' 
+      ? [] 
+      : ['Tools marked with credit badge', 'Tools from higher-tier plans']
+    
+    return { included, excluded }
+  }
+
+  // Show confirmation modal
+  if (showConfirmation && selectedPlan) {
+    const { included, excluded } = getPlanTools(selectedPlan.name.toLowerCase())
+    const includedTools = included.length > 0 
+      ? included.map(slug => slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '))
+      : ['All 43+ tools', 'Unlimited use of all tools', 'Unlimited content library']
+    
+    return (
+      <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <PlanConfirmation
+            planName={selectedPlan.display_name}
+            includedTools={includedTools}
+            excludedTools={excluded.length > 0 ? ['Tools marked with credit badge', 'Tools from higher-tier plans'] : []}
+            onConfirm={handleConfirmTrial}
+            onCancel={handleCancelConfirmation}
+          />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
@@ -165,7 +263,7 @@ export default function SelectPlanPage() {
                   </Link>
                 </div>
                 <button
-                  onClick={() => startTrial(plan.name)}
+                  onClick={() => handlePlanSelect(plan)}
                   disabled={isStarting || !!startingTrial}
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 ${
                     isPopular

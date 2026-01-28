@@ -7,8 +7,8 @@ export const GUMROAD_LINKS = {
   subscriptions: {
     starter: process.env.NEXT_PUBLIC_GUMROAD_STARTER || 'https://masela.gumroad.com/l/creatorflow365-starter',
     essential: process.env.NEXT_PUBLIC_GUMROAD_ESSENTIAL || 'https://masela.gumroad.com/l/creatorflow365-essential',
-    professional: process.env.NEXT_PUBLIC_GUMROAD_PROFESSIONAL || 'https://masela.gumroad.com/l/creatorflow365-professional',
-    creator: process.env.NEXT_PUBLIC_GUMROAD_CREATOR || 'https://masela.gumroad.com/l/creatorflow365-creator',
+    creator: process.env.NEXT_PUBLIC_GUMROAD_CREATOR || 'https://masela.gumroad.com/l/creatorflow365-creator', // $49 plan (was Professional)
+    professional: process.env.NEXT_PUBLIC_GUMROAD_PROFESSIONAL || 'https://masela.gumroad.com/l/creatorflow365-professional', // $79 plan (was Creator)
     business: process.env.NEXT_PUBLIC_GUMROAD_BUSINESS || 'https://masela.gumroad.com/l/creatorflow365-business',
   },
   // Credit Bundles

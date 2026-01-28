@@ -268,7 +268,7 @@ function ToolsPageContent() {
       'creator-pricing-guide',
       'engagement-ideas-generator',
     ],
-    professional: [
+    creator: [
       'ai-caption-generator',
       'content-idea-generator',
       'hashtag-research',
@@ -318,7 +318,7 @@ function ToolsPageContent() {
       'instagram-scheduler',
       'multi-platform-generator',
     ],
-    creator: [], // All tools
+    professional: [], // All tools
     business: [], // All tools
   }
 

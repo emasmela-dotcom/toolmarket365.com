@@ -69,7 +69,7 @@ const plans = [
     gumroad: true,
   },
   {
-    name: 'Professional',
+    name: 'Creator',
     price: '$49',
     period: '/month',
     description: 'For serious creators who want everything. Tools matched to advanced level.',
@@ -131,7 +131,7 @@ const plans = [
       'Advanced features',
     ],
     cta: 'Start Free Trial',
-    ctaLink: GUMROAD_LINKS.subscriptions.creator,
+    ctaLink: GUMROAD_LINKS.subscriptions.professional,
     gumroad: true,
   },
   {
@@ -142,7 +142,7 @@ const plans = [
     popular: false,
     toolCount: 'All 43+ tools',
     tools: [
-      'Everything in Creator',
+      'Everything in Professional',
       'Team collaboration (5 users)',
       'White-label options',
       'Custom integrations',
@@ -186,7 +186,7 @@ const toolDistribution = {
     'Hashtag Analyzer',
     'Social Media Report Generator',
   ],
-  professional: [
+  creator: [
     'Everything in Essential',
     'Viral Content Predictor ⭐',
     'All Content Creation tools (Video Script, Transcript, Thumbnail, Quote Card, Image Alt Text, Podcast Notes)',
@@ -194,15 +194,15 @@ const toolDistribution = {
     'Advanced Analytics (Competitor Analyzer, Trend Tracker, Content Gap Analyzer, Brand Mention Tracker, Sentiment Analyzer, Follower Growth Tracker, Cross-Platform Analytics)',
     'All AI-powered tools',
   ],
-  creator: [
-    'Everything in Professional',
+  professional: [
+    'Everything in Creator',
     'Business & Monetization (Rate Calculator, Revenue Tracker)',
     'Engagement & Growth (Poll Generator, Giveaway Manager, Influencer Outreach, Collaboration Manager, Link in Bio tools)',
     'All remaining tools',
     'Unlimited everything',
   ],
   business: [
-    'Everything in Creator',
+    'Everything in Professional',
     'Team features',
     'White-label',
     'Custom integrations',
@@ -220,7 +220,7 @@ const faq = [
   },
   {
     question: 'What tools are in each plan?',
-    answer: 'Starter has 8 essential tools, Essential has 18 tools, Professional has 35+ tools including Viral Predictor, Creator has all 43+ tools, and Business adds team features.',
+    answer: 'Starter has 8 essential tools, Essential has 18 tools, Creator has 35+ tools including Viral Predictor, Professional has all 43+ tools, and Business adds team features.',
   },
   {
     question: 'Do you offer annual plans?',
@@ -762,7 +762,7 @@ export default function PricingPage() {
                 </ul>
               </div>
               <div className="bg-accent-50 dark:bg-accent-900/20 rounded-lg p-6 border-2 border-accent-200 dark:border-accent-800">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Professional - $49/month ⭐</h3>
+                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Creator - $49/month ⭐</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
                   {toolDistribution.professional.map((tool, idx) => (
                     <li key={idx} className="flex items-start">
@@ -773,9 +773,9 @@ export default function PricingPage() {
                 </ul>
               </div>
               <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Creator - $79/month</h3>
+                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Creator - $49/month ⭐</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.creator.map((tool, idx) => (
+                  {toolDistribution.creator.map((tool: string, idx: number) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-accent-600 mr-2">•</span>
                       <span>{tool}</span>
@@ -864,7 +864,7 @@ export default function PricingPage() {
                     Viral Content Predictor
                   </h3>
                   <p className="text-sm text-mono-600 dark:text-mono-400">
-                    Unique feature - predict viral potential before posting. Available in Professional+ plans.
+                    Unique feature - predict viral potential before posting. Available in Creator+ plans.
                   </p>
                 </div>
               </div>
