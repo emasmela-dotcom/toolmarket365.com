@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <Hero />
-      
+
       {/* Competitive Advantages - Prominent Section */}
       <section className="py-8 bg-gradient-to-b from-accent-50 to-white dark:from-mono-900 dark:to-mono-950 border-b-4 border-accent-600 dark:border-accent-700">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

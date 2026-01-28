@@ -72,6 +72,11 @@ export function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/contact?type=feedback" className="text-mono-600 hover:text-accent-600 transition-colors">
+                  Feedback & Suggestions 💬
+                </Link>
+              </li>
             </ul>
           </div>
           

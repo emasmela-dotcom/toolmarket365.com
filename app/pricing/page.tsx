@@ -21,10 +21,12 @@ const plans = [
       'Readability Checker',
       'Bio Generator',
       'Content Library (100 items)',
+      'Creator Pricing Guide',
+      'Engagement Ideas Generator',
     ],
     features: [
-      '8 essential tools',
-      '25 credits/month to try premium tools',
+      '10 essential tools',
+      '25 welcome credits during first month to try premium tools',
       'Content library (100 items)',
       'Basic analytics',
       'Email support',
@@ -55,8 +57,8 @@ const plans = [
       'Content Library (500 items)',
     ],
     features: [
-      '18 professional tools',
-      '30 credits/month to try advanced tools',
+      '20 professional tools',
+      '25 welcome credits during first month to try premium tools',
       'Content library (500 items)',
       'Cloud storage',
       'Basic analytics',
@@ -89,7 +91,7 @@ const plans = [
     features: [
       '35+ professional tools',
       'Viral Content Predictor ⭐',
-      '25 credits/month to try creator tools',
+      '25 welcome credits during first month to try premium tools',
       'Content library (2,000 items)',
       'Cloud storage & sync',
       'Integrated workflow',
@@ -142,7 +144,6 @@ const plans = [
     tools: [
       'Everything in Creator',
       'Team collaboration (5 users)',
-      'API access',
       'White-label options',
       'Custom integrations',
     ],
@@ -150,7 +151,6 @@ const plans = [
       'All 43+ tools',
       'Team collaboration (5 users)',
       'Unlimited content library',
-      'API access',
       'White-label options',
       'Custom integrations',
       'Dedicated support',
@@ -204,7 +204,6 @@ const toolDistribution = {
   business: [
     'Everything in Creator',
     'Team features',
-    'API access',
     'White-label',
     'Custom integrations',
   ],
@@ -302,6 +301,27 @@ export default function PricingPage() {
               All plans include a <span className="font-semibold text-accent-600">7-day free trial</span>
             </p>
             
+            {/* Interface Setup Banner - placed near plan selection */}
+            <section className="py-3 bg-mono-900 border-y border-mono-800 rounded-lg mt-4">
+              <div className="px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                  <p className="text-sm sm:text-base text-mono-50">
+                    <span className="font-semibold">
+                      To unlock the full power of CreatorFlow365, complete your interface setup.
+                    </span>{' '}
+                    This ensures your tools can run at 100%, and gives every piece of content a dedicated place to be stored,
+                    organized, and handled on your behalf.
+                  </p>
+                  <Link
+                    href="/onboarding"
+                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-md bg-accent-600 text-white hover:bg-accent-700 transition-colors whitespace-nowrap"
+                  >
+                    Complete your setup
+                  </Link>
+                </div>
+              </div>
+            </section>
+
             {/* Important Notice */}
             <div className="bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-400 dark:border-yellow-600 rounded-lg p-6 max-w-3xl mx-auto">
               <div className="flex items-start space-x-3">
@@ -381,8 +401,11 @@ export default function PricingPage() {
                     </div>
                   </div>
                   <div className="mt-6 pt-6 border-t border-blue-200 dark:border-blue-800">
-                    <p className="text-sm text-blue-800 dark:text-blue-300 font-medium">
+                    <p className="text-sm text-blue-800 dark:text-blue-300 font-medium mb-3">
                       💡 <strong>Why this matters:</strong> You get tools that match your experience level—no confusion, no overwhelm, just the right features for where you are right now.
+                    </p>
+                    <p className="text-sm text-blue-800 dark:text-blue-300">
+                      🔌 <strong>API Access:</strong> Available to <strong>all plans</strong>. Connect CreatorFlow365 to external services and build custom integrations. You pay for your own API usage—CreatorFlow365 never charges for API access.
                     </p>
                   </div>
                 </div>
@@ -492,6 +515,15 @@ export default function PricingPage() {
                 </div>
               ))}
             </div>
+
+            {/* Plan Clarity Disclaimer */}
+            <div className="mt-8 max-w-4xl mx-auto rounded-lg border border-amber-300 bg-amber-50 dark:border-amber-600 dark:bg-amber-900/20 px-4 py-3 text-sm text-amber-900 dark:text-amber-100">
+              <p className="font-semibold mb-1">Plan Clarity (Please Read):</p>
+              <p>
+                Your subscription only includes the tools listed under the plan you choose.
+                Tools shown with a <span className="font-semibold">credit badge</span> are <span className="font-semibold">not</span> part of that plan — you can still use them anytime by paying with credits or upgrading your plan.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -505,7 +537,10 @@ export default function PricingPage() {
                 Need More Credits?
               </h2>
               <p className="text-lg text-mono-600 dark:text-mono-400 mb-2">
-                All plans include 25 free credits/month to try premium tools
+                All plans include 25 free credits for first month as a gift to try premium tools
+              </p>
+              <p className="text-base text-mono-500 dark:text-mono-500 mb-2">
+                <strong>Lower plans:</strong> Premium tools cost credits per use. <strong>Higher plans:</strong> Premium tools included in your plan have unlimited use (no credits needed).
               </p>
               <p className="text-base text-mono-500 dark:text-mono-500">
                 Purchase additional credits to unlock more premium tool uses. Purchased credits roll over month to month.
@@ -618,17 +653,17 @@ export default function PricingPage() {
                   </h3>
                   <div className="flex items-baseline justify-center">
                     <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">
-                      $22.50
+                      $20
                     </span>
                   </div>
                   <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
                     250 credits
                   </p>
                   <p className="text-xs text-green-600 dark:text-green-400 mt-1 font-semibold">
-                    Save $2.50 (10% off)
+                    Save $5 (20% off)
                   </p>
                   <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">
-                    $0.09 per credit
+                    $0.08 per credit
                   </p>
                 </div>
                 <div className="space-y-2 mb-6 min-h-[120px]">
@@ -671,7 +706,7 @@ export default function PricingPage() {
                   <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1">
                     <li className="flex items-start">
                       <span className="mr-2">•</span>
-                      <span><strong>Free credits:</strong> 25 credits/month included with your plan (resets monthly)</span>
+                      <span><strong>Free credits:</strong> 25 credits during your first month only (one-time trial credits)</span>
                     </li>
                     <li className="flex items-start">
                       <span className="mr-2">•</span>
@@ -679,7 +714,7 @@ export default function PricingPage() {
                     </li>
                     <li className="flex items-start">
                       <span className="mr-2">•</span>
-                      <span><strong>Tool costs:</strong> Premium tools cost 5-15 credits per use</span>
+                      <span><strong>Tool access:</strong> Tools in your plan = unlimited use. Tools not in your plan = access via credits (5-15 credits per use). This gives you flexibility to try premium tools beyond your plan.</span>
                     </li>
                     <li className="flex items-start">
                       <span className="mr-2">•</span>

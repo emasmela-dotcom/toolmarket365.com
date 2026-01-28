@@ -37,6 +37,12 @@ export async function GET(request: NextRequest) {
       ORDER BY service_name
     `
 
+    // Create a map of service names to their status
+    const keysMap: Record<string, boolean> = {}
+    result.forEach(row => {
+      keysMap[row.service_name] = row.is_active
+    })
+
     return NextResponse.json({
       success: true,
       keys: result.map(row => ({
@@ -45,7 +51,9 @@ export async function GET(request: NextRequest) {
         lastUsedAt: row.last_used_at,
         usageCount: row.usage_count,
         createdAt: row.created_at
-      }))
+      })),
+      // Also return as a simple map for easy checking
+      keysMap
     })
   } catch (error) {
     console.error('Error fetching API keys:', error)

@@ -5,7 +5,7 @@
 ### **💰 STARTER - $9/month**
 ```
 ✅ 8 essential tools (unlimited)
-✅ 25 credits/month ⭐
+✅ 25 credits/month ⭐ (free credits)
 
 What they can do:
 - Viral Predictor: 2 uses/month (10 credits each)
@@ -16,24 +16,23 @@ What they can do:
 ### **🚀 ESSENTIAL - $19/month**
 ```
 ✅ 18 professional tools (unlimited)
-✅ 40 credits/month ⭐ (REDUCED from 75)
+✅ 25 credits/month ⭐ (free credits)
 
 What they can do:
-- Viral Predictor: 4 uses/month (10 credits each)
-- Competitor Analyzer: 2 uses/month (15 credits each)
-- Advanced Analytics: 5 uses/month (8 credits each)
-- Revenue Tracker: 5 uses/month (8 credits each)
+- Viral Predictor: 2 uses/month (10 credits each)
+- Competitor Analyzer: 1 use/month (15 credits each)
+- Advanced Analytics: 3 uses/month (8 credits each)
 ```
 
 ### **💎 PROFESSIONAL - $49/month**
 ```
 ✅ 35+ professional tools (unlimited)
-✅ 75 credits/month ⭐ (REDUCED from 150)
+✅ 25 credits/month ⭐ (free credits)
 
 What they can do:
-- Rate Calculator: 7 uses/month (10 credits each)
-- Revenue Tracker: 9 uses/month (8 credits each)
-- Advanced Growth Tools: Various uses
+- Viral Predictor: 2 uses/month (10 credits each)
+- Competitor Analyzer: 1 use/month (15 credits each)
+- Advanced Analytics: 3 uses/month (8 credits each)
 ```
 
 ### **💼 CREATOR - $79/month**
@@ -94,10 +93,16 @@ What they can do:
 
 ## ✅ **Final Structure**
 
-- **Starter:** 25 credits
-- **Essential:** 40 credits (reduced from 75)
-- **Professional:** 75 credits (reduced from 150)
-- **Creator:** No credits needed
-- **Business:** No credits needed
+- **Starter:** 25 credits/month (free credits)
+- **Essential:** 25 credits/month (free credits)
+- **Professional:** 25 credits/month (free credits)
+- **Creator:** No credits needed (everything included)
+- **Business:** No credits needed (everything included)
+
+**Credit Usage Order:**
+- Free credits (25/month) are used FIRST
+- Purchased credits are used AFTER free credits are exhausted
+- Free credits reset monthly
+- Purchased credits roll over and never expire
 
 **This is much more balanced and profitable!** 💪

@@ -119,7 +119,9 @@ VALUES (
     'blog-outline-generator',
     'engagement-calculator',
     'hashtag-analyzer',
-    'social-media-report-generator'
+    'social-media-report-generator',
+    'social-graphics',
+    'multi-platform-generator'
   ],
   '{"content_library_limit": 500, "storage": "cloud"}'::jsonb
 ) ON CONFLICT (name) DO NOTHING;
@@ -177,7 +179,9 @@ VALUES (
     'link-in-bio-manager',
     'link-in-bio-optimizer',
     'social-media-post-formatter',
-    'social-scheduler'
+    'social-scheduler',
+    'social-graphics',
+    'multi-platform-generator'
   ],
   '{"content_library_limit": -1, "storage": "cloud", "unlimited": true}'::jsonb
 ) ON CONFLICT (name) DO NOTHING;
@@ -236,6 +240,8 @@ VALUES (
     'link-in-bio-optimizer',
     'social-media-post-formatter',
     'social-scheduler',
+    'social-graphics',
+    'multi-platform-generator',
     'ai-lead-follow-up-agent'
   ],
   '{"content_library_limit": -1, "storage": "cloud", "unlimited": true, "priority_support": true}'::jsonb
@@ -295,6 +301,8 @@ VALUES (
     'link-in-bio-optimizer',
     'social-media-post-formatter',
     'social-scheduler',
+    'social-graphics',
+    'multi-platform-generator',
     'ai-lead-follow-up-agent'
   ],
   '{"content_library_limit": -1, "storage": "cloud", "unlimited": true, "priority_support": true, "team_features": true, "api_access": true, "white_label": true, "custom_integrations": true}'::jsonb

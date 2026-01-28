@@ -2,9 +2,9 @@
 
 ## 💰 Premium Tools & Credit Costs
 
-| Tool Name | Credits/Use | Cost |
-|-----------|------------|------|
-| **Competitor Analyzer** | 15 | $1.50 (at $0.10/credit) |
+| Tool Name | Credits/Use | Cost (at $0.10/credit) |
+|-----------|------------|------------------------|
+| **Competitor Analyzer** | 15 | $1.50 |
 | **Trend Tracker** | 12 | $1.20 |
 | **Viral Content Predictor** ⭐ | 10 | $1.00 |
 | **Rate Calculator** | 10 | $1.00 |
@@ -19,8 +19,43 @@
 
 ---
 
+## 🛒 Credit Bundles Available for Purchase
+
+| Bundle | Credits | Price | Price/Credit | Discount |
+|--------|---------|-------|--------------|----------|
+| **Starter Bundle** | 50 credits | $5.00 | $0.10 | - |
+| **Popular Bundle** ⭐ | 100 credits | $10.00 | $0.10 | - |
+| **Power Bundle** | 250 credits | $22.50 | $0.09 | **Save $2.50 (10% off)** |
+
+**Note:** Starter and Popular bundles are $0.10 per credit. Power Bundle is discounted to $0.09 per credit (10% savings). 
+
+**Important:** Free credits (25/month) are used FIRST, then purchased credits. Free credits reset monthly. Purchased credits roll over month to month and never expire.
+
+### What Each Bundle Can Buy:
+
+**50 Credits ($5):**
+- 5 Viral Predictors (10 each = 50)
+- OR 3 Competitor Analyzers (15 each = 45) + 1 Brand Kit (5)
+- OR 6 Advanced Analytics (8 each = 48)
+- OR Mix: 2 Viral (20) + 2 Advanced (16) + 1 Brand Kit (5) = 41
+
+**100 Credits ($10):**
+- 10 Viral Predictors (10 each = 100)
+- OR 6 Competitor Analyzers (15 each = 90) + 2 Brand Kits (10)
+- OR 12 Advanced Analytics (8 each = 96)
+- OR Mix: 5 Viral (50) + 5 Advanced (40) + 2 Brand Kits (10) = 100
+
+**250 Credits ($22.50 - 10% discount):**
+- 25 Viral Predictors (10 each = 250)
+- OR 16 Competitor Analyzers (15 each = 240) + 2 Brand Kits (10)
+- OR 31 Advanced Analytics (8 each = 248)
+- OR Mix: 10 Viral (100) + 10 Advanced (80) + 14 Brand Kits (70) = 250
+- **Best value:** Save $2.50 vs buying at $0.10/credit
+
+---
+
 ## 🌱 Starter Plan - $9/month
-**Credits Available: 25/month**
+**Credits Available: 25/month (free credits)**
 
 ### What You Can Buy:
 
@@ -42,54 +77,46 @@
 ---
 
 ## 🚀 Essential Plan - $19/month
-**Credits Available: 40/month**
+**Credits Available: 25/month (free credits)**
 
 ### What You Can Buy:
 
 **Single Tool Options:**
-- ✅ **Viral Predictor:** 4 uses (10 credits each = 40 credits) - 0 credits left
-- ✅ **Competitor Analyzer:** 2 uses (15 credits each = 30 credits) - 10 credits left
-- ✅ **Trend Tracker:** 3 uses (12 credits each = 36 credits) - 4 credits left
-- ✅ **Advanced Analytics:** 5 uses (8 credits each = 40 credits) - 0 credits left
-- ✅ **Revenue Tracker:** 5 uses (8 credits each = 40 credits) - 0 credits left
-- ✅ **Brand Kit Manager:** 8 uses (5 credits each = 40 credits) - 0 credits left
+- ✅ **Viral Predictor:** 2 uses (10 credits each = 20 credits) - 5 credits left
+- ✅ **Competitor Analyzer:** 1 use (15 credits) - 10 credits left
+- ✅ **Trend Tracker:** 2 uses (12 credits each = 24 credits) - 1 credit left
+- ✅ **Advanced Analytics:** 3 uses (8 credits each = 24 credits) - 1 credit left
+- ✅ **Revenue Tracker:** 3 uses (8 credits each = 24 credits) - 1 credit left
+- ✅ **Brand Kit Manager:** 5 uses (5 credits each = 25 credits) - 0 credits left
 
 **Best Combo Options:**
-1. **4 Viral Predictors (40) = 40 credits** ✅
-2. **2 Competitor Analyzers (30) + 1 Advanced Analytics (8) = 38 credits** ✅
-3. **3 Viral Predictors (30) + 1 Advanced Analytics (8) + 1 Brand Kit (5) = 43 credits** ❌ (over)
-4. **2 Viral Predictors (20) + 2 Advanced Analytics (16) = 36 credits** ✅
-5. **1 Competitor Analyzer (15) + 2 Viral Predictors (20) = 35 credits** ✅
-6. **5 Advanced Analytics (40) = 40 credits** ✅
-7. **1 Trend Tracker (12) + 2 Viral Predictors (20) = 32 credits** ✅
-8. **1 Competitor Analyzer (15) + 1 Viral Predictor (10) + 1 Advanced Analytics (8) = 33 credits** ✅
+1. **2 Viral Predictors (20) + 1 Brand Kit (5) = 25 credits** ✅
+2. **1 Competitor Analyzer (15) + 1 Advanced Analytics (8) = 23 credits** ✅
+3. **1 Trend Tracker (12) + 1 Viral Predictor (10) = 22 credits** ✅
+4. **3 Advanced Analytics (24) = 24 credits** ✅
+5. **1 Competitor Analyzer (15) + 1 Brand Kit (5) = 20 credits** ✅
 
 ---
 
 ## 💎 Professional Plan - $49/month
-**Credits Available: 75/month**
+**Credits Available: 25/month (free credits)**
 
 ### What You Can Buy:
 
 **Single Tool Options:**
-- ✅ **Viral Predictor:** 7 uses (10 credits each = 70 credits) - 5 credits left
-- ✅ **Competitor Analyzer:** 5 uses (15 credits each = 75 credits) - 0 credits left
-- ✅ **Trend Tracker:** 6 uses (12 credits each = 72 credits) - 3 credits left
-- ✅ **Advanced Analytics:** 9 uses (8 credits each = 72 credits) - 3 credits left
-- ✅ **Revenue Tracker:** 9 uses (8 credits each = 72 credits) - 3 credits left
-- ✅ **Brand Kit Manager:** 15 uses (5 credits each = 75 credits) - 0 credits left
+- ✅ **Viral Predictor:** 2 uses (10 credits each = 20 credits) - 5 credits left
+- ✅ **Competitor Analyzer:** 1 use (15 credits) - 10 credits left
+- ✅ **Trend Tracker:** 2 uses (12 credits each = 24 credits) - 1 credit left
+- ✅ **Advanced Analytics:** 3 uses (8 credits each = 24 credits) - 1 credit left
+- ✅ **Revenue Tracker:** 3 uses (8 credits each = 24 credits) - 1 credit left
+- ✅ **Brand Kit Manager:** 5 uses (5 credits each = 25 credits) - 0 credits left
 
 **Best Combo Options:**
-1. **5 Viral Predictors (50) + 3 Advanced Analytics (24) = 74 credits** ✅
-2. **3 Competitor Analyzers (45) + 3 Advanced Analytics (24) = 69 credits** ✅
-3. **4 Viral Predictors (40) + 4 Advanced Analytics (32) = 72 credits** ✅
-4. **7 Viral Predictors (70) + 1 Brand Kit (5) = 75 credits** ✅
-5. **5 Competitor Analyzers (75) = 75 credits** ✅
-6. **2 Competitor Analyzers (30) + 4 Viral Predictors (40) = 70 credits** ✅
-7. **1 Trend Tracker (12) + 5 Viral Predictors (50) = 62 credits** ✅
-8. **1 Competitor Analyzer (15) + 4 Viral Predictors (40) + 2 Advanced Analytics (16) = 71 credits** ✅
-9. **9 Advanced Analytics (72) = 72 credits** ✅
-10. **6 Viral Predictors (60) + 1 Advanced Analytics (8) + 1 Brand Kit (5) = 73 credits** ✅
+1. **2 Viral Predictors (20) + 1 Brand Kit (5) = 25 credits** ✅
+2. **1 Competitor Analyzer (15) + 1 Advanced Analytics (8) = 23 credits** ✅
+3. **1 Trend Tracker (12) + 1 Viral Predictor (10) = 22 credits** ✅
+4. **3 Advanced Analytics (24) = 24 credits** ✅
+5. **1 Competitor Analyzer (15) + 1 Brand Kit (5) = 20 credits** ✅
 
 ---
 
@@ -98,37 +125,39 @@
 | Plan | Credits | Max Single Tool Uses | Best Value Combos |
 |------|---------|---------------------|-------------------|
 | **Starter** | 25 | 5 Brand Kits OR 3 Advanced Analytics | 2 Viral + 1 Brand Kit |
-| **Essential** | 40 | 8 Brand Kits OR 5 Advanced Analytics | 4 Viral OR 2 Competitors + 1 Advanced |
-| **Professional** | 75 | 15 Brand Kits OR 9 Advanced Analytics | 5 Viral + 3 Advanced OR 3 Competitors + 3 Advanced |
+| **Essential** | 25 | 5 Brand Kits OR 3 Advanced Analytics | 2 Viral + 1 Brand Kit |
+| **Professional** | 25 | 5 Brand Kits OR 3 Advanced Analytics | 2 Viral + 1 Brand Kit |
 
 ---
 
 ## 💡 Key Takeaways
 
-1. **Starter (25 credits):** Can try 2-3 premium tools per month
+1. **All Plans (25 credits/month):** All subscription plans get 25 free credits per month
+   - Starter, Essential, and Professional all get the same 25 credits
+   - Can try 2-3 premium tools per month with free credits
    - Best for: Testing premium features
-   - Example: 2 Viral Predictors + 1 Brand Kit
 
-2. **Essential (40 credits):** Can use 4-5 premium tools per month
-   - Best for: Regular premium tool usage
-   - Example: 4 Viral Predictors OR 2 Competitor Analyzers + 1 Advanced Analytics
+2. **Credit Usage Order:**
+   - **Free credits (25/month) are used FIRST**
+   - **Purchased credits are used AFTER free credits are exhausted**
+   - Free credits reset monthly
+   - Purchased credits roll over and never expire
 
-3. **Professional (75 credits):** Can use 7-9 premium tools per month
-   - Best for: Heavy premium tool usage
-   - Example: 5 Viral Predictors + 3 Advanced Analytics OR 3 Competitor Analyzers + 3 Advanced Analytics
+3. **To Use More Premium Tools:**
+   - Purchase credit bundles (50, 100, or 250 credits)
+   - Free credits get used first, then purchased credits
+   - Example: With 25 free + 50 purchased = 75 total credits available
 
 ---
 
-## 🎯 Most Popular Combinations
+## 🎯 Most Popular Combinations (All Plans - 25 Free Credits)
 
-**Starter Plan:**
-- 2 Viral Predictors + 1 Brand Kit = 25 credits
-- 1 Competitor Analyzer + 1 Advanced Analytics = 23 credits
+**With Free Credits (25/month):**
+- 2 Viral Predictors + 1 Brand Kit = 25 credits ✅
+- 1 Competitor Analyzer + 1 Advanced Analytics = 23 credits ✅
+- 3 Advanced Analytics = 24 credits ✅
 
-**Essential Plan:**
-- 4 Viral Predictors = 40 credits
-- 2 Competitor Analyzers + 1 Advanced Analytics = 38 credits
-
-**Professional Plan:**
-- 5 Viral Predictors + 3 Advanced Analytics = 74 credits
-- 3 Competitor Analyzers + 3 Advanced Analytics = 69 credits
+**With Free Credits + Purchased Bundle (Example: 25 free + 50 purchased = 75 total):**
+- 5 Viral Predictors + 2 Advanced Analytics + 1 Brand Kit = 73 credits ✅
+- 3 Competitor Analyzers + 2 Advanced Analytics = 61 credits ✅
+- 7 Viral Predictors + 1 Brand Kit = 75 credits ✅

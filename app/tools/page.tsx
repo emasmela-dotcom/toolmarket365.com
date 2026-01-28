@@ -27,7 +27,8 @@ import {
   FileCheck,
   User,
   Sparkles as SparklesIcon,
-  Coins
+  Coins,
+  BookOpen
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -81,10 +82,12 @@ const toolPlatforms: Record<string, SocialPlatform[]> = {
   'profile-optimizer': allPlatforms,
 
   // Business & monetization
+  'creator-pricing-guide': allPlatforms,
   'rate-calculator': allPlatforms,
   'revenue-tracker': allPlatforms,
 
   // Growth & engagement
+  'engagement-ideas-generator': allPlatforms,
   'poll-question-generator': allPlatforms,
   'giveaway-manager': allPlatforms,
   'influencer-outreach-tool': allPlatforms,
@@ -101,7 +104,6 @@ const toolPlatforms: Record<string, SocialPlatform[]> = {
   'content-library': allPlatforms,
   'content-repurposer': allPlatforms,
   'post-scheduler': allPlatforms,
-  'multi-platform-generator': allPlatforms,
 }
 
 const getToolPlatforms = (slug: string): SocialPlatform[] => {
@@ -176,6 +178,7 @@ const toolSections = [
     title: 'Business & Monetization',
     description: 'Track revenue and calculate rates for your work',
     tools: [
+      { name: 'Creator Pricing Guide', slug: 'creator-pricing-guide', icon: BookOpen },
       { name: 'Rate Calculator', slug: 'rate-calculator', icon: Calculator },
       { name: 'Revenue Tracker', slug: 'revenue-tracker', icon: DollarSign },
     ]
@@ -184,6 +187,7 @@ const toolSections = [
     title: 'Engagement & Growth',
     description: 'Tools to grow your audience and increase engagement',
     tools: [
+      { name: 'Engagement Ideas Generator', slug: 'engagement-ideas-generator', icon: Lightbulb },
       { name: 'AI Lead Follow-Up Agent', slug: 'ai-lead-follow-up-agent', icon: Sparkles },
       { name: 'Poll / Question Generator', slug: 'poll-question-generator', icon: Lightbulb },
       { name: 'Giveaway Manager', slug: 'giveaway-manager', icon: Calendar },
@@ -261,6 +265,8 @@ function ToolsPageContent() {
       'social-media-report-generator',
       'social-graphics',
       'multi-platform-generator',
+      'creator-pricing-guide',
+      'engagement-ideas-generator',
     ],
     professional: [
       'ai-caption-generator',
@@ -481,8 +487,12 @@ function ToolsPageContent() {
             <Coins className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-sm text-blue-900 dark:text-blue-200">
-                <strong>Premium Tools:</strong> Some tools require credits per use (shown with a <span className="inline-flex items-center"><Coins className="inline h-3 w-3 text-yellow-600 dark:text-yellow-400 mx-0.5" /> badge</span>). 
-                All plans include 25 free credits/month. <Link href="/credits" className="underline font-semibold hover:text-blue-800 dark:hover:text-blue-100">View all credit costs →</Link>
+                <strong>Premium Tools:</strong> Tools shown with a <span className="inline-flex items-center"><Coins className="inline h-3 w-3 text-yellow-600 dark:text-yellow-400 mx-0.5" /> badge</span> are premium tools.
+                {" "}
+                <strong>Included vs Premium:</strong> Tools <strong>without</strong> a credit badge are included in your plan (unlimited use). Tools <strong>with</strong> a credit badge are premium extras and were <strong>never included</strong> in your plan — you can unlock them with credits whenever they're worth it for you.
+                {" "}
+                All plans include 25 welcome credits during your first month to try premium tools. After that, purchase credits to access tools beyond your plan.{" "}
+                <Link href="/credits" className="underline font-semibold hover:text-blue-800 dark:hover:text-blue-100">View all credit costs →</Link>
               </p>
             </div>
           </div>

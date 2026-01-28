@@ -29,7 +29,7 @@ export function Hero() {
               Improve Your Content with CreatorFlow365!
             </p>
           </div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">
+          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-bold text-mono-950 dark:text-mono-50 mb-3">
             CreatorFlow<span className="text-accent-600 dark:text-accent-400">365</span>
           </h1>
           <p className="text-base sm:text-lg text-mono-600 dark:text-mono-400 mb-2 max-w-xl mx-auto font-medium">

@@ -1,17 +1,27 @@
 'use client'
 
-import { useState } from 'react'
-import { Mail, MessageSquare, Send, CheckCircle } from 'lucide-react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { Mail, MessageSquare, Send, CheckCircle, Lightbulb } from 'lucide-react'
 
-export default function ContactPage() {
+function ContactForm() {
+  const searchParams = useSearchParams()
+  const isFeedback = searchParams?.get('type') === 'feedback'
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
+    subject: isFeedback ? 'feedback' : '',
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (isFeedback && !formData.subject) {
+      setFormData(prev => ({ ...prev, subject: 'feedback' }))
+    }
+  }, [isFeedback])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -41,12 +51,28 @@ export default function ContactPage() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-              Contact Us
-            </h1>
-            <p className="text-lg text-mono-600 dark:text-mono-400">
-              Have a question? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-            </p>
+            {isFeedback ? (
+              <>
+                <div className="flex items-center justify-center space-x-3 mb-4">
+                  <Lightbulb className="h-10 w-10 text-accent-600 dark:text-accent-400" />
+                  <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50">
+                    Feedback & Suggestions
+                  </h1>
+                </div>
+                <p className="text-lg text-mono-600 dark:text-mono-400">
+                  Your feedback helps us improve CreatorFlow365! Share your ideas, suggestions, or report issues. We read every message.
+                </p>
+              </>
+            ) : (
+              <>
+                <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">
+                  Contact Us
+                </h1>
+                <p className="text-lg text-mono-600 dark:text-mono-400">
+                  Have a question? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                </p>
+              </>
+            )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -94,7 +120,9 @@ export default function ContactPage() {
                       Message Sent!
                     </h3>
                     <p className="text-mono-600 dark:text-mono-400">
-                      Thank you for contacting us. We'll get back to you soon.
+                      {isFeedback 
+                        ? "Thank you for your feedback! We appreciate your input and will review it carefully."
+                        : "Thank you for contacting us. We'll get back to you soon."}
                     </p>
                   </div>
                 ) : (
@@ -144,12 +172,24 @@ export default function ContactPage() {
                         className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
                       >
                         <option value="">Select a subject</option>
-                        <option value="general">General Inquiry</option>
-                        <option value="support">Technical Support</option>
-                        <option value="billing">Billing Question</option>
-                        <option value="feature">Feature Request</option>
-                        <option value="partnership">Partnership Inquiry</option>
-                        <option value="other">Other</option>
+                        {isFeedback ? (
+                          <>
+                            <option value="feedback">General Feedback</option>
+                            <option value="feature">Feature Suggestion</option>
+                            <option value="improvement">Tool Improvement</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="other">Other Feedback</option>
+                          </>
+                        ) : (
+                          <>
+                            <option value="general">General Inquiry</option>
+                            <option value="support">Technical Support</option>
+                            <option value="billing">Billing Question</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="partnership">Partnership Inquiry</option>
+                            <option value="other">Other</option>
+                          </>
+                        )}
                       </select>
                     </div>
 
@@ -194,5 +234,20 @@ export default function ContactPage() {
         </div>
       </main>
     </div>
+  )
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-mono-50 dark:bg-mono-950 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-600 mx-auto mb-4"></div>
+          <p className="text-mono-600 dark:text-mono-400">Loading...</p>
+        </div>
+      </div>
+    }>
+      <ContactForm />
+    </Suspense>
   )
 }

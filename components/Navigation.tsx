@@ -49,14 +49,66 @@ export function Navigation() {
   return (
     <nav className="sticky top-0 z-50 border-b border-mono-200 bg-mono-50/95 backdrop-blur-sm">
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col py-2">
-          <div className="flex items-center justify-between mb-2">
-            <Link href="/" className="flex items-center space-x-1 flex-shrink-0">
+        <div className="flex items-center justify-between py-2">
+          {/* Left: Logo + Compare Button */}
+          <div className="flex flex-col items-start flex-shrink-0">
+            <Link href="/" className="flex items-center space-x-1 mb-1">
               <span className="text-xl font-bold text-mono-950">CreatorFlow</span>
               <span className="text-xl font-bold text-accent-600">365</span>
             </Link>
-            
-            <div className="flex items-center space-x-4 flex-shrink-0">
+            <Link 
+              href="/compare" 
+              className="text-xs font-semibold text-accent-600 hover:text-accent-700 transition-colors bg-accent-50 dark:bg-accent-900/30 px-2 py-1 rounded border border-accent-200 dark:border-accent-800 whitespace-nowrap"
+            >
+              Compare ⭐
+            </Link>
+          </div>
+          
+          {/* Center: Navigation Links in 2 Rows */}
+          <div className="hidden md:flex flex-col gap-y-2 flex-1 justify-center mx-4">
+            {/* Row 1 */}
+            <div className="flex items-center justify-center gap-x-4 gap-y-1 flex-wrap">
+              <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Home
+              </Link>
+              <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Tools
+              </Link>
+              <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Content Library
+              </Link>
+              <Link href="/growth-suite" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Growth Suite
+              </Link>
+              <Link href="/dashboard" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Dashboard
+              </Link>
+            </div>
+            {/* Row 2 */}
+            <div className="flex items-center justify-center gap-x-4 gap-y-1 flex-wrap">
+              <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Performance Dashboard
+              </Link>
+              <Link href="/dashboard/verification" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Verification
+              </Link>
+              <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Categories
+              </Link>
+              <Link href="/pricing" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Pricing
+              </Link>
+              <Link href="/credits" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Credit Costs
+              </Link>
+              <Link href="/integrations" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Integrations
+              </Link>
+            </div>
+          </div>
+          
+          {/* Right: Search, Account, Sign Out */}
+          <div className="flex items-center space-x-4 flex-shrink-0">
             <Link
               href="/tools"
               className="p-2 text-mono-600 hover:text-mono-900 transition-colors"
@@ -97,46 +149,6 @@ export function Navigation() {
                 </Link>
               </div>
             )}
-            </div>
-          </div>
-          
-          <div className="hidden md:flex flex-wrap items-center gap-x-2 gap-y-1 justify-center">
-            <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Home
-            </Link>
-            <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Tools
-            </Link>
-            <Link href="/bots" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Bots
-            </Link>
-            <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Content Library
-            </Link>
-            <Link href="/growth-suite" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Growth Suite
-            </Link>
-            <Link href="/dashboard" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Dashboard
-            </Link>
-            <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Performance Dashboard
-            </Link>
-            <Link href="/dashboard/verification" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Verification
-            </Link>
-            <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Categories
-            </Link>
-            <Link href="/compare" className="text-sm font-semibold text-accent-600 hover:text-accent-700 transition-colors whitespace-nowrap bg-accent-50 dark:bg-accent-900/30 px-3 py-1 rounded-lg border border-accent-200 dark:border-accent-800">
-              Compare ⭐
-            </Link>
-            <Link href="/pricing" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Pricing
-            </Link>
-            <Link href="/credits" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-              Credit Costs
-            </Link>
           </div>
         </div>
       </div>

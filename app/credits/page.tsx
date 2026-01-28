@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Info, Coins, Zap, ArrowRight, CheckCircle2, X } from 'lucide-react'
+import { Info, Coins, Zap, ArrowRight, CheckCircle2, X, MessageSquare } from 'lucide-react'
 import { TOOL_CREDIT_COSTS, getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 
@@ -49,9 +49,22 @@ export default function CreditsPage() {
               Credit Costs Per Tool
             </h1>
           </div>
-          <p className="text-lg text-mono-600 dark:text-mono-400 max-w-2xl mx-auto">
-            See exactly how many credits each premium tool costs per use. All plans include 25 free credits/month.
+          <p className="text-lg text-mono-600 dark:text-mono-400 max-w-2xl mx-auto mb-4">
+            See exactly how many credits each premium tool costs per use. <strong>Tools in your plan:</strong> Unlimited use, no credits needed. <strong>Tools not in your plan:</strong> Access them using credits—this flexibility lets you try premium tools beyond your plan level.
           </p>
+          
+          {/* Welcome Credits Banner */}
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border-2 border-green-300 dark:border-green-700 rounded-lg p-4 max-w-3xl mx-auto">
+            <div className="flex items-center justify-center space-x-2 mb-2">
+              <Zap className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <p className="font-bold text-green-900 dark:text-green-200">
+                25 Welcome Credits During Your First Month
+              </p>
+            </div>
+            <p className="text-sm text-green-800 dark:text-green-300">
+              All plans include 25 free credits during your first month to try premium tools. After that, purchase credits to continue accessing tools beyond your plan level.
+            </p>
+          </div>
         </div>
 
         {/* How Credits Work */}
@@ -62,24 +75,83 @@ export default function CreditsPage() {
               <h2 className="text-xl font-bold text-blue-900 dark:text-blue-200 mb-3">
                 How Credits Work
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-800 dark:text-blue-300">
+              <p className="text-sm text-blue-800 dark:text-blue-300 mb-4 font-semibold">
+                Credits are only required for tools that are <strong>not</strong> included in your plan. Tools included in your plan remain unlimited — credits are just for optional premium extras.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-800 dark:text-blue-300 mb-4">
                 <div>
-                  <p className="font-semibold mb-2">Free Monthly Credits:</p>
+                  <p className="font-semibold mb-2">Welcome Credits (First Month Only):</p>
                   <ul className="space-y-1 ml-4">
-                    <li>• 25 credits/month included with all plans</li>
-                    <li>• Resets on the 1st of each month</li>
-                    <li>• Does NOT roll over</li>
+                    <li>• 25 credits during your first month</li>
+                    <li>• One-time trial to try premium tools</li>
+                    <li>• After first month, purchase credits to continue</li>
                   </ul>
                 </div>
                 <div>
                   <p className="font-semibold mb-2">Purchased Credits:</p>
                   <ul className="space-y-1 ml-4">
-                    <li>• $10 per 100 credits</li>
-                    <li>• Purchased credits roll over month to month</li>
-                    <li>• Never expire</li>
+                    <li>• $10 per 100 credits ($0.10 per credit)</li>
+                    <li>• Roll over month to month</li>
+                    <li>• Never expire - use them anytime</li>
                   </ul>
                 </div>
               </div>
+              <div className="mt-4 pt-4 border-t border-blue-200 dark:border-blue-800">
+                <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                  Why Credits Instead of One-Time Purchases?
+                </h3>
+                <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
+                  Credits give you <strong>flexibility</strong> to use multiple premium tools without committing to individual tool purchases. Instead of buying each tool separately, credits let you:
+                </p>
+                <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1 ml-4">
+                  <li>• Try different premium tools with one purchase</li>
+                  <li>• Use credits across multiple tools as needed</li>
+                  <li>• Only pay for what you actually use</li>
+                  <li>• Build up credits over time (they never expire)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Credit Cost Justification */}
+        <div className="bg-purple-50 dark:bg-purple-900/20 border-2 border-purple-300 dark:border-purple-700 rounded-lg p-6 mb-8">
+          <h2 className="text-xl font-bold text-purple-900 dark:text-purple-200 mb-4">
+            💰 Why These Credit Costs?
+          </h2>
+          <div className="space-y-4 text-sm text-purple-800 dark:text-purple-300">
+            <div>
+              <h3 className="font-semibold mb-2">High-Value Tools (15 credits = $1.50/use):</h3>
+              <p className="mb-2">
+                Tools like <strong>Competitor Analyzer</strong> require complex analysis, external API calls, and heavy data processing. These provide strategic business intelligence worth the investment.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Medium-High Tools (10-12 credits = $1.00-$1.20/use):</h3>
+              <p className="mb-2">
+                Tools like <strong>Viral Content Predictor</strong> and <strong>Rate Calculator</strong> use AI/ML processing and provide high value to creators. These can directly impact your revenue and content performance.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Medium Tools (8 credits = $0.80/use):</h3>
+              <p className="mb-2">
+                Analytics and tracking tools require data processing and API calls. These provide professional insights for serious creators.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Low-Medium Tools (5 credits = $0.50/use):</h3>
+              <p className="mb-2">
+                Design and organization tools like <strong>Brand Kit Manager</strong> have lower processing needs but still provide value for creators building their brand.
+              </p>
+            </div>
+            <div className="mt-4 pt-4 border-t border-purple-200 dark:border-purple-800">
+              <p className="font-semibold mb-2">💡 Cost Factors:</p>
+              <ul className="space-y-1 ml-4">
+                <li>• <strong>Processing complexity:</strong> More complex = more credits</li>
+                <li>• <strong>API costs:</strong> External data sources add cost</li>
+                <li>• <strong>Value to creator:</strong> Business-critical tools cost more</li>
+                <li>• <strong>Uniqueness:</strong> Unique features (like Viral Predictor) are premium</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -215,10 +287,10 @@ export default function CreditsPage() {
                     250 Credits
                   </div>
                   <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">
-                    $22.50
+                    $20
                   </div>
                   <p className="text-xs text-green-600 dark:text-green-400 font-semibold mb-4">
-                    Save 10% ($2.50 off)
+                    Save 20% ($5 off)
                   </p>
                   <a
                     href={GUMROAD_LINKS.credits.bundle250}
@@ -240,12 +312,13 @@ export default function CreditsPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-yellow-800 dark:text-yellow-300">
             <div>
-              <p className="font-semibold mb-2">With 25 Free Credits:</p>
+              <p className="font-semibold mb-2">With 25 Welcome Credits (First Month Only):</p>
               <ul className="space-y-1 ml-4">
                 <li>• Viral Predictor: 2 uses (10 credits each)</li>
                 <li>• Competitor Analyzer: 1 use (15 credits)</li>
                 <li>• Brand Kit Manager: 5 uses (5 credits each)</li>
                 <li>• Mix & match any combination!</li>
+                <li>• <strong>After first month:</strong> Purchase credits to continue</li>
               </ul>
             </div>
             <div>
@@ -255,9 +328,28 @@ export default function CreditsPage() {
                 <li>• Competitor Analyzer: 6 uses</li>
                 <li>• Trend Tracker: 8 uses</li>
                 <li>• Purchased credits roll over month to month</li>
+                <li>• <strong>Never expire</strong> - use them anytime</li>
               </ul>
             </div>
           </div>
+        </div>
+
+        {/* Feedback Section */}
+        <div className="mt-8 bg-accent-50 dark:bg-accent-900/20 border-2 border-accent-300 dark:border-accent-700 rounded-lg p-6 text-center">
+          <h2 className="text-xl font-bold text-accent-900 dark:text-accent-200 mb-2">
+            💬 Have Feedback or Suggestions?
+          </h2>
+          <p className="text-sm text-accent-800 dark:text-accent-300 mb-4">
+            We want to hear from you! Share your thoughts on credit costs, tool pricing, or any improvements you'd like to see.
+          </p>
+          <Link
+            href="/contact?type=feedback"
+            className="inline-flex items-center space-x-2 px-6 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors"
+          >
+            <MessageSquare className="h-5 w-5" />
+            <span>Share Your Feedback</span>
+            <ArrowRight className="h-5 w-5" />
+          </Link>
         </div>
       </div>
     </div>

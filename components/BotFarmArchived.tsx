@@ -2,13 +2,13 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { 
-  Sparkles, 
-  TrendingUp, 
-  Calendar, 
-  Hash, 
-  FileText, 
-  BarChart3, 
+import {
+  Sparkles,
+  TrendingUp,
+  Calendar,
+  Hash,
+  FileText,
+  BarChart3,
   Lightbulb,
   Clock,
   DollarSign,
@@ -17,10 +17,10 @@ import {
   Zap,
   Bot,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
 } from 'lucide-react'
 
-interface Bot {
+interface BotDefinition {
   id: string
   name: string
   category: string
@@ -29,8 +29,7 @@ interface Bot {
   icon: any
 }
 
-const bots: Bot[] = [
-  // Content Generation Bots
+const bots: BotDefinition[] = [
   {
     id: 'daily-caption-bot',
     name: 'Daily Caption Bot',
@@ -63,7 +62,6 @@ const bots: Bot[] = [
     frequency: 'On-demand',
     icon: FileText,
   },
-  // Analytics & Reporting Bots
   {
     id: 'weekly-performance-bot',
     name: 'Weekly Performance Report Bot',
@@ -88,7 +86,6 @@ const bots: Bot[] = [
     frequency: 'Daily',
     icon: TrendingUp,
   },
-  // Optimization Bots
   {
     id: 'bio-optimizer-bot',
     name: 'Bio Optimizer Bot',
@@ -113,7 +110,6 @@ const bots: Bot[] = [
     frequency: 'On-demand',
     icon: Search,
   },
-  // Planning & Scheduling Bots
   {
     id: 'content-calendar-bot',
     name: 'Content Calendar Builder Bot',
@@ -138,7 +134,6 @@ const bots: Bot[] = [
     frequency: 'Weekly',
     icon: RefreshCw,
   },
-  // Research & Discovery Bots
   {
     id: 'trend-tracker-bot',
     name: 'Trend Tracker Bot',
@@ -163,7 +158,6 @@ const bots: Bot[] = [
     frequency: 'On-demand',
     icon: Zap,
   },
-  // Monetization Bots
   {
     id: 'rate-calculator-bot',
     name: 'Rate Calculator Bot',
@@ -179,7 +173,7 @@ const bots: Bot[] = [
     description: 'Monthly revenue summaries with growth trends and insights',
     frequency: 'Monthly',
     icon: DollarSign,
-  }
+  },
 ]
 
 const categories = [
@@ -189,23 +183,26 @@ const categories = [
   'Optimization',
   'Planning & Scheduling',
   'Research & Discovery',
-  'Monetization'
+  'Monetization',
 ]
 
-export default function BotsPage() {
+export default function BotFarmArchived() {
   const [selectedCategory, setSelectedCategory] = useState('All Bots')
   const [searchQuery, setSearchQuery] = useState('')
 
-  const filteredBots = bots.filter(bot => {
+  const filteredBots = bots.filter((bot) => {
     const matchesCategory = selectedCategory === 'All Bots' || bot.category === selectedCategory
-    const matchesSearch = bot.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         bot.description.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchesSearch =
+      bot.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      bot.description.toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
-      {/* Hero Section */}
+      {/* This component is archived and not currently routed.
+          To restore as a page, wrap it in a route under app/bots/page.tsx. */}
+
       <section className="bg-gradient-to-br from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900 text-white py-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-8">
@@ -221,7 +218,6 @@ export default function BotsPage() {
             </p>
           </div>
 
-          {/* Key Features Box */}
           <div className="bg-white/10 dark:bg-white/5 rounded-lg p-6 border border-white/20 max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
               <div>
@@ -244,7 +240,6 @@ export default function BotsPage() {
         </div>
       </section>
 
-      {/* How It Works */}
       <section className="py-12 bg-white dark:bg-mono-900 border-b border-mono-200 dark:border-mono-700">
         <div className="container mx-auto px-4 max-w-6xl">
           <h2 className="text-3xl font-bold text-center mb-8 text-mono-950 dark:text-mono-50">
@@ -282,7 +277,6 @@ export default function BotsPage() {
         </div>
       </section>
 
-      {/* Important Notice */}
       <section className="py-8 bg-blue-50 dark:bg-blue-900/20 border-b-2 border-blue-400 dark:border-blue-600">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex items-start space-x-3">
@@ -292,20 +286,19 @@ export default function BotsPage() {
                 All Bots Are Template-Based
               </h3>
               <p className="text-blue-800 dark:text-blue-300">
-                <strong>All bots work immediately with zero cost to you or CreatorFlow365.</strong> No external API calls, no setup fees, no usage charges. Bots can be enhanced with external integrations that provide additional functionality, but at the creator's cost—CreatorFlow365 never charges for API usage.
+                <strong>All bots work immediately with zero cost to you or CreatorFlow365.</strong> No external API calls,
+                no setup fees, no usage charges. Bots can be enhanced with external integrations that provide additional
+                functionality, but at the creator&apos;s cost—CreatorFlow365 never charges for API usage.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Bots Marketplace */}
       <section className="py-12 bg-mono-50 dark:bg-mono-950">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-            <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50">
-              Available Bots
-            </h2>
+            <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50">Available Bots</h2>
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
               <input
                 type="text"
@@ -317,9 +310,8 @@ export default function BotsPage() {
             </div>
           </div>
 
-          {/* Category Filter */}
           <div className="flex flex-wrap gap-2 mb-8">
-            {categories.map(category => (
+            {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
@@ -334,9 +326,8 @@ export default function BotsPage() {
             ))}
           </div>
 
-          {/* Bots Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredBots.map(bot => {
+            {filteredBots.map((bot) => {
               const Icon = bot.icon
               return (
                 <div
@@ -349,92 +340,30 @@ export default function BotsPage() {
                         <Icon className="w-6 h-6 text-accent-600 dark:text-accent-400" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-mono-950 dark:text-mono-50">
-                          {bot.name}
-                        </h3>
+                        <h3 className="text-lg font-semibold text-mono-950 dark:text-mono-50">{bot.name}</h3>
                         <span className="text-xs text-mono-500 dark:text-mono-500 bg-mono-100 dark:bg-mono-800 px-2 py-1 rounded">
                           {bot.category}
                         </span>
                       </div>
                     </div>
                   </div>
-                  
-                  <p className="text-mono-600 dark:text-mono-400 mb-4 text-sm">
-                    {bot.description}
-                  </p>
-                  
+
+                  <p className="text-mono-600 dark:text-mono-400 mb-4 text-sm">{bot.description}</p>
+
                   <div className="flex items-center justify-between pt-4 border-t border-mono-200 dark:border-mono-700">
                     <div>
                       <p className="text-xs text-mono-500 dark:text-mono-500">Frequency</p>
                       <p className="text-sm font-medium text-mono-700 dark:text-mono-300">{bot.frequency}</p>
                     </div>
                   </div>
-                  
-                  {bot.id === 'daily-caption-bot' ? (
-                    <Link
-                      href="/dashboard/caption-bot"
-                      className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
-                    >
-                      <span>Open Dashboard</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  ) : bot.id === 'weekly-content-ideas-bot' ? (
-                    <Link
-                      href="/dashboard/weekly-content-ideas"
-                      className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
-                    >
-                      <span>Open Dashboard</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  ) : bot.id === 'hashtag-research-bot' ? (
-                    <Link
-                      href="/dashboard/hashtag-research"
-                      className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
-                    >
-                      <span>Open Dashboard</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  ) : bot.id === 'blog-outline-bot' ? (
-                    <Link
-                      href="/dashboard/blog-outline-bot"
-                      className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
-                    >
-                      <span>Open Dashboard</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  ) : bot.id === 'weekly-performance-bot' ? (
-                    <Link
-                      href="/dashboard/weekly-performance-report"
-                      className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
-                    >
-                      <span>Open Dashboard</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  ) : bot.id === 'competitor-watch-bot' ? (
-                    <Link
-                      href="/dashboard/competitor-watch"
-                      className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
-                    >
-                      <span>Open Dashboard</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  ) : bot.id === 'engagement-tracker-bot' ? (
-                    <Link
-                      href="/dashboard/engagement-tracker"
-                      className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
-                    >
-                      <span>Open Dashboard</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  ) : (
-                    <Link
-                      href="/dashboard"
-                      className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
-                    >
-                      <span>Open Dashboard</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  )}
+
+                  <Link
+                    href="/dashboard"
+                    className="w-full mt-4 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                  >
+                    <span>Open Dashboard</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
               )
             })}
@@ -450,12 +379,9 @@ export default function BotsPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-12 bg-accent-600 dark:bg-accent-700 text-white">
         <div className="container mx-auto px-4 max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Automate Your Content Workflow?
-          </h2>
+          <h2 className="text-3xl font-bold mb-4">Ready to Automate Your Content Workflow?</h2>
           <p className="text-xl text-white/90 mb-6">
             Start with one bot and see how much time you save. Add more as you need them.
           </p>
@@ -471,3 +397,4 @@ export default function BotsPage() {
     </div>
   )
 }
+

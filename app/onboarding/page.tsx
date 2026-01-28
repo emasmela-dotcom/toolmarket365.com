@@ -156,7 +156,7 @@ const tutorials: Tutorial[] = [
       },
       {
         title: 'Free Credits',
-        content: 'All plans include 25 free credits/month to try premium tools. Free credits reset monthly.'
+        content: 'All plans include 25 free credits during your first month to try premium tools. After that, purchase credits to continue accessing premium tools beyond your plan.'
       },
       {
         title: 'Buy More Credits',

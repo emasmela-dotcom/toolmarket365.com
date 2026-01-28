@@ -61,7 +61,7 @@ export function CreditCostDisplay({ toolSlug, className = '' }: CreditCostDispla
             </p>
           )}
           <p className="text-xs text-blue-700 dark:text-blue-400 mt-2">
-            💡 <strong>Tip:</strong> Free credits (25/month) reset monthly. Purchased credits ($10 per 100) roll over month to month.
+            💡 <strong>Tip:</strong> All plans include 25 welcome credits during your first month only. After that, purchase credits ($10 per 100) to continue accessing premium tools. Purchased credits roll over month to month and never expire.
           </p>
         </div>
       </div>

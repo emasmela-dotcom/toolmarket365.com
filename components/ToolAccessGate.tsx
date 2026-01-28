@@ -120,11 +120,11 @@ export function ToolAccessGate({
                         <strong>What this means:</strong> {useExplanation}
                       </p>
                       <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
-                        <strong>How credits work:</strong> Each plan includes 25 free credits/month (resets monthly). 
-                        You can purchase additional credits for $10 per 100 credits. Purchased credits roll over month to month.
+                        <strong>How credits work:</strong> Each plan includes 25 free credits during your first month only (one-time trial). 
+                        After that, purchase credits for $10 per 100 credits. Purchased credits roll over month to month and never expire.
                       </p>
                       <p className="text-xs text-blue-700 dark:text-blue-400 mt-2">
-                        💡 <strong>Example:</strong> With 25 free credits, you can use this tool {Math.floor(25 / creditCost)} time(s) per month for free!
+                        💡 <strong>Example:</strong> With 25 free credits (first month), you can try this tool {Math.floor(25 / creditCost)} time(s). After that, purchase credits to continue using it.
                       </p>
                     </div>
                   </div>
@@ -185,8 +185,8 @@ export function ToolAccessGate({
                 <strong>What this means:</strong> {useExplanation}
               </p>
               <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
-                <strong>How credits work:</strong> Each plan includes 25 free credits/month (resets monthly). 
-                You can purchase additional credits for $10 per 100 credits. Purchased credits roll over month to month.
+                <strong>How credits work:</strong> Each plan includes 25 free credits during your first month only (one-time trial). 
+                After that, purchase credits for $10 per 100 credits. Purchased credits roll over month to month and never expire.
               </p>
               {userCredits !== null && (
                 <div className="mb-2">
@@ -213,7 +213,7 @@ export function ToolAccessGate({
                 </div>
               )}
               <p className="text-xs text-blue-700 dark:text-blue-400 mt-2">
-                💡 <strong>Example:</strong> With 25 free credits, you can use this tool {Math.floor(25 / creditCost)} time(s) per month for free!
+                💡 <strong>Example:</strong> With 25 free credits (first month only), you can try this tool {Math.floor(25 / creditCost)} time(s). After that, purchase credits to continue using it.
               </p>
             </div>
           </div>
