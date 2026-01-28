@@ -31,6 +31,86 @@ import {
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
+type SocialPlatform = 'instagram' | 'tiktok' | 'youtube' | 'twitter' | 'linkedin' | 'facebook'
+
+const allPlatforms: SocialPlatform[] = ['instagram', 'tiktok', 'youtube', 'twitter', 'linkedin', 'facebook']
+
+const toolPlatforms: Record<string, SocialPlatform[]> = {
+  // Scheduling & workflow
+  'instagram-scheduler': ['instagram'],
+  'social-scheduler': allPlatforms,
+  'content-calendar': allPlatforms,
+  'best-time-to-post': allPlatforms,
+
+  // Visuals & graphics
+  'social-graphics': allPlatforms,
+  'thumbnail-text-generator': allPlatforms,
+  'quote-card-generator': allPlatforms,
+
+  // Video-focused tools
+  'video-script-generator': ['instagram', 'tiktok', 'youtube'],
+  'video-transcript-generator': ['instagram', 'tiktok', 'youtube'],
+
+  // Writing & captions
+  'ai-caption-generator': allPlatforms,
+  'podcast-show-notes-generator': allPlatforms,
+  'blog-outline-generator': allPlatforms,
+  'bio-generator': allPlatforms,
+  'social-media-post-formatter': allPlatforms,
+
+  // Analytics & insights
+  'engagement-calculator': allPlatforms,
+  'viral-content-predictor': allPlatforms,
+  'hashtag-research': allPlatforms,
+  'hashtag-analyzer': allPlatforms,
+  'social-media-report-generator': allPlatforms,
+  'competitor-analyzer': allPlatforms,
+  'trend-tracker': allPlatforms,
+  'content-gap-analyzer': allPlatforms,
+  'brand-mention-tracker': allPlatforms,
+  'sentiment-analyzer': allPlatforms,
+  'follower-growth-tracker': allPlatforms,
+  'cross-platform-analytics': allPlatforms,
+
+  // Brand & profile
+  'brand-kit-manager': allPlatforms,
+  'color-palette-extractor': allPlatforms,
+  'font-pairing-tool': allPlatforms,
+  'style-guide-creator': allPlatforms,
+  'profile-optimizer': allPlatforms,
+
+  // Business & monetization
+  'rate-calculator': allPlatforms,
+  'revenue-tracker': allPlatforms,
+
+  // Growth & engagement
+  'poll-question-generator': allPlatforms,
+  'giveaway-manager': allPlatforms,
+  'influencer-outreach-tool': allPlatforms,
+  'collaboration-manager': allPlatforms,
+  'link-in-bio-manager': allPlatforms,
+  'link-in-bio-optimizer': allPlatforms,
+
+  // SEO & accessibility
+  'seo-optimizer': allPlatforms,
+  'image-alt-text-generator': allPlatforms,
+  'readability-checker': allPlatforms,
+
+  // Library & workflow
+  'content-library': allPlatforms,
+  'content-repurposer': allPlatforms,
+  'post-scheduler': allPlatforms,
+}
+
+const getToolPlatforms = (slug: string): SocialPlatform[] => {
+  return toolPlatforms[slug] || allPlatforms
+}
+
+const toolMatchesPlatform = (slug: string, platform: SocialPlatform | null): boolean => {
+  if (!platform) return true
+  return getToolPlatforms(slug).includes(platform)
+}
+
 const toolSections = [
   {
     title: 'High Priority - Complete the Workflow',
@@ -138,6 +218,13 @@ function ToolsPageContent() {
   const searchParams = useSearchParams()
   const sectionParam = searchParams.get('section')
   const planParam = searchParams.get('plan')
+  const platformParam = searchParams.get('platform') as SocialPlatform | null
+
+  const validPlatforms: SocialPlatform[] = ['instagram', 'tiktok', 'youtube', 'twitter', 'linkedin', 'facebook']
+  const activePlatform: SocialPlatform | null =
+    platformParam && validPlatforms.includes(platformParam as SocialPlatform)
+      ? (platformParam as SocialPlatform)
+      : null
 
   // Plan to tool slugs mapping
   const planToolSlugs: { [key: string]: string[] } = {
@@ -252,11 +339,23 @@ function ToolsPageContent() {
     const allowedSlugs = planToolSlugs[planParam]
     // If plan has empty array (creator/business), show all tools
     if (allowedSlugs.length > 0) {
-      filteredSections = toolSections.map(section => ({
-        ...section,
-        tools: section.tools.filter(tool => allowedSlugs.includes(tool.slug))
-      })).filter(section => section.tools.length > 0)
+      filteredSections = toolSections
+        .map(section => ({
+          ...section,
+          tools: section.tools.filter(tool => allowedSlugs.includes(tool.slug)),
+        }))
+        .filter(section => section.tools.length > 0)
     }
+  }
+
+  // Filter by social platform if platform parameter is provided
+  if (activePlatform) {
+    filteredSections = filteredSections
+      .map(section => ({
+        ...section,
+        tools: section.tools.filter(tool => toolMatchesPlatform(tool.slug, activePlatform)),
+      }))
+      .filter(section => section.tools.length > 0)
   }
 
   // Filter sections if section parameter is provided
@@ -280,6 +379,27 @@ function ToolsPageContent() {
     professional: 'Professional Plan',
     creator: 'Creator Plan',
     business: 'Business Plan',
+  }
+
+  const platformFilters: { id: 'all' | SocialPlatform; label: string }[] = [
+    { id: 'all', label: 'All Platforms' },
+    { id: 'instagram', label: 'Instagram' },
+    { id: 'tiktok', label: 'TikTok' },
+    { id: 'youtube', label: 'YouTube' },
+    { id: 'twitter', label: 'Twitter / X' },
+    { id: 'linkedin', label: 'LinkedIn' },
+    { id: 'facebook', label: 'Facebook' },
+  ]
+
+  const buildPlatformHref = (platformId: 'all' | SocialPlatform) => {
+    const params = new URLSearchParams()
+
+    if (planParam) params.set('plan', planParam)
+    if (sectionParam) params.set('section', sectionParam)
+    if (platformId !== 'all') params.set('platform', platformId)
+
+    const query = params.toString()
+    return query ? `/tools?${query}` : '/tools'
   }
 
   return (
@@ -328,6 +448,25 @@ function ToolsPageContent() {
                 ← View All Sections
               </Link>
             )}
+          </div>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            {platformFilters.map(platform => {
+              const isActive = platform.id === (activePlatform ?? 'all')
+              return (
+                <Link
+                  key={platform.id}
+                  href={buildPlatformHref(platform.id)}
+                  className={[
+                    'px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-colors',
+                    isActive
+                      ? 'bg-accent-600 text-white border-accent-600'
+                      : 'bg-white dark:bg-mono-900 text-mono-700 dark:text-mono-200 border-mono-200 dark:border-mono-700 hover:bg-mono-100 dark:hover:bg-mono-800',
+                  ].join(' ')}
+                >
+                  {platform.label}
+                </Link>
+              )
+            })}
           </div>
         </div>
 
