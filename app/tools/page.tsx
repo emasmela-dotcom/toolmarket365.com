@@ -57,6 +57,7 @@ const toolPlatforms: Record<string, SocialPlatform[]> = {
   'blog-outline-generator': allPlatforms,
   'bio-generator': allPlatforms,
   'social-media-post-formatter': allPlatforms,
+  'multi-platform-generator': allPlatforms,
 
   // Analytics & insights
   'engagement-calculator': allPlatforms,
@@ -100,6 +101,7 @@ const toolPlatforms: Record<string, SocialPlatform[]> = {
   'content-library': allPlatforms,
   'content-repurposer': allPlatforms,
   'post-scheduler': allPlatforms,
+  'multi-platform-generator': allPlatforms,
 }
 
 const getToolPlatforms = (slug: string): SocialPlatform[] => {
@@ -121,6 +123,7 @@ const toolSections = [
       { name: 'SEO Optimizer', slug: 'seo-optimizer', icon: Search },
       { name: 'Content Repurposer', slug: 'content-repurposer', icon: RefreshCw },
       { name: 'AI Caption Generator', slug: 'ai-caption-generator', icon: Sparkles },
+      { name: 'Multi-Platform Generator', slug: 'multi-platform-generator', icon: Sparkles },
     ]
   },
   {
@@ -257,6 +260,7 @@ function ToolsPageContent() {
       'hashtag-analyzer',
       'social-media-report-generator',
       'social-graphics',
+      'multi-platform-generator',
     ],
     professional: [
       'ai-caption-generator',
@@ -306,6 +310,7 @@ function ToolsPageContent() {
       'social-media-post-formatter',
       'social-scheduler',
       'instagram-scheduler',
+      'multi-platform-generator',
     ],
     creator: [], // All tools
     business: [], // All tools
