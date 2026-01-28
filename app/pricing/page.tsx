@@ -105,14 +105,14 @@ const plans = [
     savings: 'Save $159/month vs buying separately',
   },
   {
-    name: 'Creator',
+    name: 'Professional',
     price: '$79',
     period: '/month',
     description: 'Complete toolkit for professional creators',
     popular: false,
     toolCount: 'All 43+ tools',
     tools: [
-      'Everything in Professional',
+      'Everything in Creator',
       'All Business & Monetization tools',
       'All Engagement & Growth tools',
       'All remaining Analytics tools',
@@ -395,7 +395,7 @@ export default function PricingPage() {
                     <div className="flex items-start space-x-3">
                       <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Creator & Business Plans = Professional Tools</p>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Professional & Business Plans = Professional Tools</p>
                         <p className="text-sm text-mono-600 dark:text-mono-400">Complete toolkit for professional creators and teams. Growth strategies, monetization optimization, and enterprise features.</p>
                       </div>
                     </div>
@@ -764,7 +764,7 @@ export default function PricingPage() {
               <div className="bg-accent-50 dark:bg-accent-900/20 rounded-lg p-6 border-2 border-accent-200 dark:border-accent-800">
                 <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Creator - $49/month ⭐</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.professional.map((tool, idx) => (
+                  {toolDistribution.creator.map((tool: string, idx: number) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-accent-600 mr-2">•</span>
                       <span>{tool}</span>
@@ -773,9 +773,9 @@ export default function PricingPage() {
                 </ul>
               </div>
               <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Creator - $49/month ⭐</h3>
+                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Professional - $79/month</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.creator.map((tool: string, idx: number) => (
+                  {toolDistribution.professional.map((tool: string, idx: number) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-accent-600 mr-2">•</span>
                       <span>{tool}</span>
