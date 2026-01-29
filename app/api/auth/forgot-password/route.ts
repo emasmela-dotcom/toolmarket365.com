@@ -40,9 +40,13 @@ export async function POST(req: NextRequest) {
       VALUES (${user.id}, ${tokenHash}, ${expiresAt})
     `
 
-    // In production you'd email this link. In dev we return it for convenience.
-    const origin = req.headers.get('origin') || 'http://localhost:3000'
-    const resetUrl = `${origin}/account/reset?token=${encodeURIComponent(token)}`
+    // Use canonical site URL in production so reset links in email work on your .com domain
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
+      req.headers.get('origin') ||
+      'http://localhost:3000'
+    const resetUrl = `${baseUrl}/account/reset?token=${encodeURIComponent(token)}`
 
     return NextResponse.json({
       ok: true,

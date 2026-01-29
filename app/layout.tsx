@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://creatorflow365.com',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://creatorflow365.com',
     siteName: 'CreatorFlow365',
     title: 'CreatorFlow365 — The Micro-SaaS Marketplace for Content Creators',
     description: 'Professional toolkit with 43+ tools for content planning, SEO, analytics, social media, and revenue optimization.',

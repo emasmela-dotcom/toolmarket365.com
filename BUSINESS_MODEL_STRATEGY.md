@@ -185,15 +185,26 @@ This document outlines how organizing tools by social media platform (Instagram,
 
 ---
 
+## ✅ Finalized Decision (January 2026)
+
+**Approved model: Hybrid (Option C)**
+
+- **Platform organization** = UX/discovery only, not a paywall. All plans see all platforms.
+- **Differentiators**: Credits per tier, usage limits (if any), support level.
+- **Pricing**: Starter → Creator tiers with core tools + credit-based premium tools.
+- **Next**: Keep pricing page and credit system aligned with this; platform selection UI is implemented.
+
+---
+
 ## 📝 Next Steps
 
-1. Review this document and identify which model fits your vision
+1. ~~Review this document and identify which model fits your vision~~ → **Done: Hybrid**
 2. Calculate costs per tool to determine credit pricing
 3. Decide on usage limits (if any) per tier
 4. Design pricing page that reflects chosen model
-5. Implement platform organization UI (already done in code)
+5. ~~Implement platform organization UI~~ → **Done: visual platform cards on /tools**
 
 ---
 
 *Document created: January 27, 2026*
-*Last updated: January 27, 2026*
+*Last updated: January 29, 2026*

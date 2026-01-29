@@ -106,6 +106,15 @@ Value: your_random_secret_key_here
 Environment: Production, Preview, Development
 ```
 
+#### **4. Site URL (for .com / custom domain)**
+```
+Name: NEXT_PUBLIC_SITE_URL
+Value: https://creatorflow365.com
+Environment: Production (and Preview if you use a custom preview domain)
+```
+
+**Why:** Used for password-reset links, Open Graph, and sitemap so they point to your real domain.
+
 **How to generate:**
 ```bash
 # Run in terminal:
@@ -118,7 +127,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 ### **Optional Environment Variables (If Using):**
 
-#### **4. Instagram API (If Using Instagram Scheduler)**
+#### **5. Instagram API (If Using Instagram Scheduler)**
 ```
 Name: INSTAGRAM_APP_ID
 Value: your_instagram_app_id
@@ -139,7 +148,7 @@ Environment: Production, Preview, Development
 
 ---
 
-#### **5. Cron Job Secret (If Using Instagram Scheduler)**
+#### **6. Cron Job Secret (If Using Instagram Scheduler)**
 ```
 Name: CRON_SECRET
 Value: your_secure_random_string
@@ -150,7 +159,7 @@ Environment: Production only
 
 ---
 
-#### **6. Cloudinary (If Using Image Uploads)**
+#### **7. Cloudinary (If Using Image Uploads)**
 ```
 Name: CLOUDINARY_URL
 Value: cloudinary://api_key:api_secret@cloud_name
@@ -159,7 +168,7 @@ Environment: Production, Preview, Development
 
 ---
 
-#### **7. OpenAI (If Using AI Features)**
+#### **8. OpenAI (If Using AI Features)**
 ```
 Name: OPENAI_API_KEY
 Value: your_openai_api_key

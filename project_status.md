@@ -1,6 +1,6 @@
 # CreatorFlow365 - Project Status
 
-**Last Updated:** January 27, 2026
+**Last Updated:** January 29, 2026
 
 ## 🎯 Project Overview
 
@@ -24,30 +24,36 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 
 ### UI/UX
 - ✅ Tools listing page with platform filters
+- ✅ **Platform selection UI** – Visual cards per platform (Instagram, TikTok, YouTube, Twitter, LinkedIn, Facebook) on /tools
 - ✅ Navigation system
 - ✅ Tool access gates
 - ✅ Credit cost displays
 
+### Business Model
+- ✅ **Business model finalized** – Hybrid model (Option C) approved; see `BUSINESS_MODEL_STRATEGY.md`
+
 ## 🚧 In Progress
 
-- Platform selection UI (visual cards for each platform) - **Design approved, needs implementation**
-- Business model finalization - **Strategy document created, user reviewing**
-- Multi-platform repurposing tool - **Concept saved for later**
+- (None – ready for polish and launch)
 
 ## 📋 Next Steps
 
-1. **Implement platform selection UI** - Visual cards linking to platform-filtered tool pages
-2. **Finalize business model** - User reviewing strategy document
-3. **Polish and testing** - Final checks before launch
-4. **Marketing preparation** - Ready to launch and market
+1. **.com purchase & launch** – Follow **`LAUNCH_AND_DOMAIN_READINESS.md`** (domain, env vars, production checks)
+2. **Polish and testing** – Final checks before launch
+3. **Marketing preparation** – Ready to launch and market
 
 ## 🎯 Launch Readiness
 
 - **Tools:** ✅ Built and tested
-- **Platform Organization:** ✅ Implemented
+- **Platform Organization:** ✅ Implemented (including visual platform cards)
 - **Subscription System:** ✅ Ready
 - **Credit System:** ✅ Working
-- **UI/UX:** ✅ Mostly complete (platform cards pending)
+- **UI/UX:** ✅ Complete
+- **Business Model:** ✅ Finalized
+
+## ⏸️ Deferred (Later)
+
+- **Multi-platform repurposing tool** – Unified “one input → many platform outputs” experience. Concept saved for later. Existing tools (Content Repurposer, Multi-Platform Generator) cover repurposing today; a single combined flow can be added in a future release.
 
 ## 📝 Notes
 

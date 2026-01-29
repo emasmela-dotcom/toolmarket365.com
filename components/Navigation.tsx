@@ -104,6 +104,9 @@ export function Navigation() {
               <Link href="/integrations" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
                 Integrations
               </Link>
+              <Link href="/contact?type=feedback" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+                Feedback 💬
+              </Link>
             </div>
           </div>
           

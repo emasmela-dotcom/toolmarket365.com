@@ -59,9 +59,14 @@ function ContactForm() {
                     Feedback & Suggestions
                   </h1>
                 </div>
-                <p className="text-lg text-mono-600 dark:text-mono-400">
+                <p className="text-lg text-mono-600 dark:text-mono-400 mb-2">
                   Your feedback helps us improve CreatorFlow365! Share your ideas, suggestions, or report issues. We read every message.
                 </p>
+                <div className="bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-lg p-4 max-w-2xl mx-auto">
+                  <p className="text-sm text-accent-800 dark:text-accent-300">
+                    <strong>💡 Have a tool idea?</strong> We're always looking to add tools creators actually want! Select "New Tool Suggestion" as your subject and tell us what tool would help you most.
+                  </p>
+                </div>
               </>
             ) : (
               <>
@@ -175,6 +180,7 @@ function ContactForm() {
                         {isFeedback ? (
                           <>
                             <option value="feedback">General Feedback</option>
+                            <option value="tool-suggestion">New Tool Suggestion</option>
                             <option value="feature">Feature Suggestion</option>
                             <option value="improvement">Tool Improvement</option>
                             <option value="bug">Bug Report</option>

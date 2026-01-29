@@ -28,7 +28,15 @@ import {
   User,
   Sparkles as SparklesIcon,
   Coins,
-  BookOpen
+  BookOpen,
+  MessageSquare,
+  ArrowRight,
+  Camera,
+  Tv,
+  MessageCircle,
+  Briefcase,
+  Share2,
+  LayoutGrid
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -114,6 +122,16 @@ const toolMatchesPlatform = (slug: string, platform: SocialPlatform | null): boo
   if (!platform) return true
   return getToolPlatforms(slug).includes(platform)
 }
+
+// Platform selection cards: visual config and tool counts
+const platformCardConfig: { id: SocialPlatform; label: string; tagline: string; icon: typeof Camera; gradient: string }[] = [
+  { id: 'instagram', label: 'Instagram', tagline: 'Reels, Stories & feed', icon: Camera, gradient: 'from-pink-500 to-purple-600' },
+  { id: 'tiktok', label: 'TikTok', tagline: 'Short-form video', icon: Video, gradient: 'from-mono-900 to-mono-700' },
+  { id: 'youtube', label: 'YouTube', tagline: 'Long-form & Shorts', icon: Tv, gradient: 'from-red-600 to-red-700' },
+  { id: 'twitter', label: 'Twitter / X', tagline: 'Threads & posts', icon: MessageCircle, gradient: 'from-mono-800 to-mono-600' },
+  { id: 'linkedin', label: 'LinkedIn', tagline: 'Professional content', icon: Briefcase, gradient: 'from-blue-600 to-blue-800' },
+  { id: 'facebook', label: 'Facebook', tagline: 'Posts & reach', icon: Share2, gradient: 'from-blue-500 to-blue-700' },
+]
 
 const toolSections = [
   {
@@ -384,6 +402,9 @@ function ToolsPageContent() {
     })
   })
 
+  // Total unique tools (all platforms) for "All platforms" card
+  const totalUniqueToolCount = new Set(toolSections.flatMap(s => s.tools.map(t => t.slug))).size
+
   const planDisplayNames: { [key: string]: string } = {
     starter: 'Starter Plan',
     essential: 'Essential Plan',
@@ -460,6 +481,59 @@ function ToolsPageContent() {
               </Link>
             )}
           </div>
+
+          {/* Platform selection – visual cards */}
+          <div className="mt-10 mb-6">
+            <h2 className="text-lg font-semibold text-mono-800 dark:text-mono-200 mb-3 text-center">
+              Choose your platform
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-4xl mx-auto">
+              <Link
+                href={buildPlatformHref('all')}
+                className={[
+                  'flex flex-col items-center justify-center rounded-xl border-2 p-4 transition-all min-h-[100px]',
+                  activePlatform === null
+                    ? 'border-accent-500 bg-accent-50 dark:bg-accent-900/30'
+                    : 'border-mono-200 dark:border-mono-700 bg-white dark:bg-mono-900 hover:border-accent-300 dark:hover:border-accent-700',
+                ].join(' ')}
+              >
+                <LayoutGrid className={activePlatform === null ? 'h-8 w-8 text-accent-600 dark:text-accent-400' : 'h-8 w-8 text-mono-500 dark:text-mono-400'} />
+                <span className="mt-2 text-sm font-semibold text-mono-800 dark:text-mono-200">All platforms</span>
+                <span className="text-xs text-mono-500 dark:text-mono-400 mt-0.5">
+                  {totalUniqueToolCount} tools
+                </span>
+              </Link>
+              {platformCardConfig.map((platform) => {
+                const uniqueCount = new Set(
+                  toolSections.flatMap(section =>
+                    section.tools.filter(t => toolMatchesPlatform(t.slug, platform.id)).map(t => t.slug)
+                  )
+                ).size
+                const isActive = activePlatform === platform.id
+                const Icon = platform.icon
+                return (
+                  <Link
+                    key={platform.id}
+                    href={buildPlatformHref(platform.id)}
+                    className={[
+                      'flex flex-col items-center justify-center rounded-xl border-2 p-4 transition-all min-h-[100px]',
+                      isActive
+                        ? 'border-accent-500 bg-accent-50 dark:bg-accent-900/30'
+                        : 'border-mono-200 dark:border-mono-700 bg-white dark:bg-mono-900 hover:border-accent-300 dark:hover:border-accent-700',
+                    ].join(' ')}
+                  >
+                    <div className={['rounded-lg p-1.5 bg-gradient-to-br', platform.gradient].join(' ')}>
+                      <Icon className="h-6 w-6 text-white" />
+                    </div>
+                    <span className="mt-2 text-sm font-semibold text-mono-800 dark:text-mono-200">{platform.label}</span>
+                    <span className="text-xs text-mono-500 dark:text-mono-400 mt-0.5">{platform.tagline}</span>
+                    <span className="text-xs font-medium text-mono-600 dark:text-mono-300 mt-1">{uniqueCount} tools</span>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
             {platformFilters.map(platform => {
               const isActive = platform.id === (activePlatform ?? 'all')
@@ -494,6 +568,32 @@ function ToolsPageContent() {
                 All plans include 25 welcome credits during your first month to try premium tools. After that, purchase credits to access tools beyond your plan.{" "}
                 <Link href="/credits" className="underline font-semibold hover:text-blue-800 dark:hover:text-blue-100">View all credit costs →</Link>
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Tool Suggestion Callout */}
+        <div className="bg-accent-50 dark:bg-accent-900/20 border-2 border-accent-300 dark:border-accent-700 rounded-lg p-6 mb-8 max-w-4xl mx-auto">
+          <div className="flex items-start space-x-3">
+            <Lightbulb className="h-6 w-6 text-accent-600 dark:text-accent-400 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="text-lg font-bold text-accent-900 dark:text-accent-200 mb-2">
+                💡 What Tools Would You Like to See?
+              </h3>
+              <p className="text-sm text-accent-800 dark:text-accent-300 mb-4">
+                We're always looking to add tools that creators actually want! Is there a tool you'd love to see in CreatorFlow365? Maybe something that would save you time, help you grow, or make your content creation easier?
+              </p>
+              <p className="text-sm text-accent-800 dark:text-accent-300 mb-4">
+                <strong>Share your ideas:</strong> Tell us what tool would help you most, and we'll consider adding it to CreatorFlow365!
+              </p>
+              <Link
+                href="/contact?type=feedback"
+                className="inline-flex items-center space-x-2 px-6 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors text-sm"
+              >
+                <MessageSquare className="h-5 w-5" />
+                <span>Suggest a New Tool</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
         </div>
