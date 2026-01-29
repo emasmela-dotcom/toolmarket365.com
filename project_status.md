@@ -25,6 +25,7 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 ### UI/UX
 - ✅ Tools listing page with platform filters
 - ✅ **Platform selection UI** – Visual cards per platform (Instagram, TikTok, YouTube, Twitter, LinkedIn, Facebook) on /tools
+- ✅ **CreatorFlow Assistant** – In-app AI assistant at /assistant (answers CreatorFlow365 questions, directs to tools; uses OPENAI_API_KEY or user’s OpenAI key)
 - ✅ Navigation system
 - ✅ Tool access gates
 - ✅ Credit cost displays
