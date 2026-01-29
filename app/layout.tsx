@@ -4,6 +4,9 @@ import './globals.css'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
 
+// Avoid static generation issues (e.g. event handlers passed to Client Components during SSG)
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'CreatorFlow365 — The Micro-SaaS Marketplace for Content Creators',
   description: 'The Micro-SaaS Marketplace for Content Creators. Professional toolkit with 53+ tools for content planning, SEO, analytics, social media, viral content prediction, and revenue optimization.',
