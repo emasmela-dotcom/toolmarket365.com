@@ -17,28 +17,30 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ tags: [], personalTags: [], total: 0 })
     }
 
-    let query = 'SELECT id, name, category, color, description, usage_count, created_at FROM tags'
-    const conditions = []
-    const params = []
-
-    if (search) {
-      conditions.push('name ILIKE $' + (params.length + 1))
-      params.push(`%${search}%`)
-    }
-
-    if (category) {
-      conditions.push('category = $' + (params.length + 1))
-      params.push(category)
-    }
-
-    if (conditions.length > 0) {
-      query += ' WHERE ' + conditions.join(' AND ')
-    }
-
-    query += ' ORDER BY usage_count DESC, name ASC LIMIT $' + (params.length + 1)
-    params.push(limit)
-
-    const tags = await sql.unsafe(query, params)
+    const searchPattern = search ? `%${search}%` : null
+    const tags =
+      search && category
+        ? await sql`
+            SELECT id, name, category, color, description, usage_count, created_at FROM tags
+            WHERE name ILIKE ${searchPattern} AND category = ${category}
+            ORDER BY usage_count DESC, name ASC LIMIT ${limit}
+          `
+        : search
+          ? await sql`
+              SELECT id, name, category, color, description, usage_count, created_at FROM tags
+              WHERE name ILIKE ${searchPattern}
+              ORDER BY usage_count DESC, name ASC LIMIT ${limit}
+            `
+          : category
+            ? await sql`
+                SELECT id, name, category, color, description, usage_count, created_at FROM tags
+                WHERE category = ${category}
+                ORDER BY usage_count DESC, name ASC LIMIT ${limit}
+              `
+            : await sql`
+                SELECT id, name, category, color, description, usage_count, created_at FROM tags
+                ORDER BY usage_count DESC, name ASC LIMIT ${limit}
+              `
 
     return NextResponse.json({ 
       tags,

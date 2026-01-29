@@ -169,9 +169,9 @@ function CreatorPricingGuideContent() {
                           className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300"
                         >
                           <div className="flex items-center space-x-2">
-                            <span>{price}</span>
+                            <span>{String(price)}</span>
                             <button
-                              onClick={() => copyToClipboard(price, cellId)}
+                              onClick={() => copyToClipboard(String(price), cellId)}
                               className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition-colors"
                               title="Copy price"
                             >

@@ -25,24 +25,22 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ metadata: null, tags: [], exists: false })
     }
 
-    let query = 'SELECT * FROM content_metadata WHERE content_id = $1 AND content_type = $2'
-    const params = [contentId, contentType]
+    const metadata = userId
+      ? await sql`
+          SELECT * FROM content_metadata
+          WHERE content_id = ${contentId} AND content_type = ${contentType} AND user_id = ${userId}
+        `
+      : await sql`
+          SELECT * FROM content_metadata
+          WHERE content_id = ${contentId} AND content_type = ${contentType}
+        `
 
-    if (userId) {
-      query += ' AND user_id = $3'
-      params.push(userId)
-    }
-
-    const metadata = await sql.unsafe(query, params)
-
-    // Get tags for this content
-    const tags = await sql.unsafe(
-      `SELECT t.id, t.name, t.category, t.color, ct.confidence_score, ct.is_auto_generated
-       FROM content_tags ct
-       JOIN tags t ON ct.tag_id = t.id
-       WHERE ct.content_id = $1 AND ct.content_type = $2`,
-      [contentId, contentType]
-    )
+    const tags = await sql`
+      SELECT t.id, t.name, t.category, t.color, ct.confidence_score, ct.is_auto_generated
+      FROM content_tags ct
+      JOIN tags t ON ct.tag_id = t.id
+      WHERE ct.content_id = ${contentId} AND ct.content_type = ${contentType}
+    `
 
     return NextResponse.json({ 
       metadata: metadata[0] || null,

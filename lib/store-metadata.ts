@@ -232,7 +232,7 @@ export async function updateStoreMetadata(
       RETURNING *
     `
 
-    const result = await sql.unsafe(query, values)
+    const result = await (sql as (query: string, params?: unknown[]) => Promise<StoreMetadata[]>)(query, values)
     return result[0] as StoreMetadata || null
   } catch (error) {
     console.error('Error updating store metadata:', error)

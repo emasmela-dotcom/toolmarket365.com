@@ -45,7 +45,7 @@ interface CreatorProfile {
   }
   portfolio_urls: string[] // Array, not single portfolio_url
   profile_image_url?: string // Not avatar_url
-  created_at: string
+  created_at?: string
   is_verified: boolean
 }
 

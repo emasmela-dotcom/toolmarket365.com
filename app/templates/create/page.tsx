@@ -42,7 +42,8 @@ export default function CreateTemplatePage() {
       title: '',
       introduction: '',
       call_to_action: '',
-      best_posting_time: ''
+      best_posting_time: '',
+      idea: ''
     }
   })
 

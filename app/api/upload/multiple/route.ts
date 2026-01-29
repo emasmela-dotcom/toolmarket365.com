@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
       const uploadOptions = {
         ...presetConfig,
         folder: customFolder || presetConfig.folder,
-        tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+        tags: tags ? tags.split(',').map((tag: string) => tag.trim()) : [],
         timestamp: Math.floor(Date.now() / 1000)
       }
 

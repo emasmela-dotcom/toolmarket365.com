@@ -509,7 +509,7 @@ function MultiPlatformGeneratorContent() {
                           </span>
                         )}
                         <button
-                          onClick={() => handleCopy(output.platform, output.format)}
+                          onClick={() => handleCopy(output.platform)}
                           className="flex items-center gap-1 px-3 py-1.5 bg-mono-100 dark:bg-mono-800 rounded hover:bg-mono-200 dark:hover:bg-mono-700 text-sm"
                         >
                           {output.copied ? (

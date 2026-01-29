@@ -193,7 +193,7 @@ export async function updateUpload(
       RETURNING *
     `
 
-    const result = await sql.unsafe(query, values)
+    const result = await (sql as (query: string, params?: unknown[]) => Promise<Upload[]>)(query, values)
     return result[0] as Upload || null
   } catch (error) {
     console.error('Error updating upload:', error)

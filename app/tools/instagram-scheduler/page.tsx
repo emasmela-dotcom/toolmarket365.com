@@ -48,6 +48,7 @@ interface InstagramPost {
   engagement_data: any | null
   username: string
   account_name: string
+  created_at?: string
 }
 
 interface DashboardStats {

@@ -19,6 +19,7 @@ import {
   Plus
 } from 'lucide-react'
 import { extractTemplateText, getDifficultyColor } from '@/lib/template-utils'
+import { getLocalStorageFavorites } from '@/lib/templates/favorites'
 import TemplatePreviewModal from '@/components/templates/TemplatePreviewModal'
 
 interface Template {

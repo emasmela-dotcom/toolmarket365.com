@@ -10,10 +10,10 @@ let ChromePicker: any = null
 
 if (typeof window !== 'undefined') {
   import('fabric').then((f) => {
-    fabric = f.fabric
+    fabric = (f as { default?: unknown }).default
   })
   import('react-colorful').then((rc) => {
-    ChromePicker = rc.ChromePicker
+    ChromePicker = (rc as { ChromePicker?: unknown; HexColorPicker?: unknown }).ChromePicker ?? (rc as { HexColorPicker?: unknown }).HexColorPicker
   })
 }
 
@@ -41,7 +41,7 @@ function SocialGraphicsToolContent() {
     if (typeof window === 'undefined') return
     
     import('fabric').then((f) => {
-      fabric = f.fabric
+      fabric = (f as { default?: unknown }).default
       setFabricLoaded(true)
       setError(null)
     }).catch((err) => {
@@ -50,7 +50,7 @@ function SocialGraphicsToolContent() {
     })
     
     import('react-colorful').then((rc) => {
-      ChromePicker = rc.ChromePicker
+      ChromePicker = (rc as { ChromePicker?: unknown; HexColorPicker?: unknown }).ChromePicker ?? (rc as { HexColorPicker?: unknown }).HexColorPicker
       setPickerLoaded(true)
     }).catch((err) => {
       console.error('Error loading color picker:', err)
