@@ -1,0 +1,11 @@
+---
+description: Keep answers and actions simple; do not overcomplicate
+alwaysApply: true
+---
+
+# Do Not Overcomplicate
+
+- **Give the simplest answer that works.** If the user asks "how do I see the build?", answer: run `npm run dev`, open http://localhost:3000. Do not bring in Vercel, domains, or extra options unless asked.
+- **One direct solution first.** Do not list multiple approaches, caveats, or "you could also..." unless the user asks.
+- **No extra context unless needed.** Skip long explanations and edge cases unless the user asks for them.
+- **If in doubt, say less.** Short and correct beats long and thorough.

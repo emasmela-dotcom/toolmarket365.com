@@ -563,7 +563,7 @@ function ViralContentPredictorContent() {
                       Risk Factors
                     </h3>
                     <ul className="space-y-2">
-                      {prediction.analysis.riskFactors.map((risk: string, index: number) => (
+                      {(prediction.analysis?.riskFactors ?? []).map((risk: string, index: number) => (
                         <li key={index} className="text-sm text-red-800 dark:text-red-200 flex items-start">
                           <span className="mr-2">•</span>
                           <span>{risk}</span>
@@ -580,7 +580,7 @@ function ViralContentPredictorContent() {
                       Opportunities
                     </h3>
                     <ul className="space-y-2">
-                      {prediction.analysis.opportunities.map((opp: string, index: number) => (
+                      {(prediction.analysis?.opportunities ?? []).map((opp: string, index: number) => (
                         <li key={index} className="text-sm text-green-800 dark:text-green-200 flex items-start">
                           <span className="mr-2">•</span>
                           <span>{opp}</span>

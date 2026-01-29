@@ -1,0 +1,23 @@
+---
+description: Do not assume or apply what seems like the user's next move
+alwaysApply: true
+---
+
+# No Assumptions Rule
+
+## Explain only. Do not infer next steps.
+
+- **Answer what was asked.** Do not add "I can do X for you" or "Should I...?" unless the user asked.
+- **Do not assume** the user's next move, intent, or that they want something done.
+- **Do not apply** or act on what "seems like" what they might want next.
+- If you are not sure, answer the question and stop. Do not suggest or execute follow-ups.
+
+## Wrong
+
+- User asks a question → you answer and then offer to do something or start doing it.
+- User says "I want to see the build" → you assume they want domain/launch steps and write them.
+
+## Right
+
+- User asks a question → you answer. Full stop.
+- User says "do X" → then you do X.
