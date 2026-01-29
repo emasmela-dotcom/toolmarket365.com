@@ -99,6 +99,31 @@ function CompetitorAnalyzerContent() {
           </div>
         </div>
 
+        {/* API Setup Notice */}
+        <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-700 rounded-lg p-6 mb-6">
+          <div className="flex items-start space-x-3">
+            <Info className="h-6 w-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="font-bold text-red-900 dark:text-red-200 mb-2">
+                ⚠️ External API Setup for Real Data
+              </h3>
+              <p className="text-sm text-red-800 dark:text-red-300 mb-3">
+                <strong>This tool works immediately with demo data, but requires external API integrations for real competitor analysis.</strong> You can use it right now to see how it works, but to get actual competitor data, you must connect your social media platform APIs (Instagram, Twitter, etc.) in the Integrations Hub.
+              </p>
+              <p className="text-sm text-red-800 dark:text-red-300 mb-3">
+                <strong>Without API setup:</strong> Shows demo data (random numbers for comparison). <strong>With API setup:</strong> Shows real competitor metrics and analysis. <strong>You pay API providers directly</strong> - CreatorFlow365 never charges for API usage.
+              </p>
+              <Link
+                href="/integrations"
+                className="inline-flex items-center space-x-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors text-sm"
+              >
+                <span>Set Up Integrations Now</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           Competitor Analyzer
         </h1>

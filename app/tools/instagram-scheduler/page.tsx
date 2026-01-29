@@ -233,7 +233,7 @@ function InstagramSchedulerContent() {
               ⚠️ External API Setup Required for Auto-Posting
             </h3>
             <p className="text-sm text-red-800 dark:text-red-300 mb-3">
-              <strong>This tool requires Instagram API integration to automatically post to Instagram.</strong> Without API setup, you can plan and schedule posts, but they won't automatically publish to your Instagram account.
+              <strong>This tool works immediately for planning and scheduling posts, but requires Instagram API integration to automatically post to Instagram.</strong> You can use it right now to create, schedule, and manage your content calendar. However, posts won't automatically publish to your Instagram account until API setup is complete.
             </p>
             <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-red-200 dark:border-red-800 mb-3">
               <p className="text-sm font-semibold text-red-900 dark:text-red-200 mb-2">Required Setup:</p>
