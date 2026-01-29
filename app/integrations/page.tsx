@@ -220,12 +220,27 @@ function IntegrationsPageContent() {
               <strong>How it works:</strong> All CreatorFlow365 tools work without integrations. Connect external services to unlock enhanced features—you pay those services directly, not us.
             </p>
           </div>
-          <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-300 dark:border-green-700 rounded-lg p-4 max-w-3xl mx-auto">
+          <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-300 dark:border-green-700 rounded-lg p-4 max-w-3xl mx-auto mb-4">
             <div className="flex items-start space-x-2">
               <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
               <p className="text-sm text-green-800 dark:text-green-300">
                 <strong>No Usage Charges:</strong> CreatorFlow365 never charges for integration usage. We only track usage for analytics purposes—you pay third-party services directly for their API costs. Your CreatorFlow365 subscription covers the platform; integrations are optional enhancements you pay for separately.
               </p>
+            </div>
+          </div>
+
+          {/* Transparency Notice */}
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 max-w-4xl mx-auto">
+            <div className="flex items-start space-x-3">
+              <Info className="h-6 w-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                  Transparency Notice
+                </h3>
+                <p className="text-sm text-blue-800 dark:text-blue-300">
+                  CreatorFlow365 provides everything we can offer at no extra cost beyond your subscription fee. However, some advanced tools require external API integrations (like Instagram API, OpenAI, etc.) to function at full capacity. These external services charge their own fees, which you pay directly to them—CreatorFlow365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your CreatorFlow365 subscription cost predictable.
+                </p>
+              </div>
             </div>
           </div>
         </div>

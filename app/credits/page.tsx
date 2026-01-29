@@ -67,6 +67,21 @@ export default function CreditsPage() {
           </div>
         </div>
 
+        {/* Transparency Notice */}
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8">
+          <div className="flex items-start space-x-3">
+            <Info className="h-6 w-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                Transparency Notice
+              </h3>
+              <p className="text-sm text-blue-800 dark:text-blue-300">
+                CreatorFlow365 provides everything we can offer at no extra cost beyond your subscription fee. However, some advanced tools require external API integrations (like Instagram API, OpenAI, etc.) to function at full capacity. These external services charge their own fees, which you pay directly to them—CreatorFlow365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your CreatorFlow365 subscription cost predictable.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* How Credits Work */}
         <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-300 dark:border-blue-700 rounded-lg p-6 mb-8">
           <div className="flex items-start space-x-3">

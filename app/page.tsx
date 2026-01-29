@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Hero } from '@/components/Hero'
-import { Cloud, Search, Folder, Tag, TrendingUp, DollarSign, Video, ShoppingCart, Sparkles } from 'lucide-react'
+import { Cloud, Search, Folder, Tag, TrendingUp, DollarSign, Video, ShoppingCart, Sparkles, Info } from 'lucide-react'
 
 const toolSections = [
   { title: 'High Priority - Complete the Workflow', slug: 'high-priority-complete-the-workflow' },
@@ -225,6 +225,27 @@ export default function Home() {
               <p className="text-sm sm:text-base text-white/95 leading-tight">
                 <strong>All tools are fully template-based and work immediately with zero cost.</strong> Tools can be enhanced with external integrations that provide additional functionality, but at the creator's cost—CreatorFlow365 never charges for API usage.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Transparency Notice */}
+      <section className="py-8 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white dark:bg-mono-900 rounded-lg border border-blue-200 dark:border-blue-800 p-6">
+              <div className="flex items-start space-x-3">
+                <Info className="h-6 w-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                    Transparency Notice
+                  </h3>
+                  <p className="text-sm text-blue-800 dark:text-blue-300">
+                    CreatorFlow365 provides everything we can offer at no extra cost beyond your subscription fee. However, some advanced tools require external API integrations (like Instagram API, OpenAI, etc.) to function at full capacity. These external services charge their own fees, which you pay directly to them—CreatorFlow365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your CreatorFlow365 subscription cost predictable.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
