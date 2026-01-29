@@ -307,7 +307,7 @@ export class CompetitorWatchBotService {
         recommendations, status, generated_at
       ) VALUES (
         ${report.id}, ${report.userId}, ${report.reportType}, ${report.title},
-        ${report.periodStartDate}, ${report.periodEndDate}, ${sql.array(report.competitors)},
+        ${report.periodStartDate}, ${report.periodEndDate}, ${report.competitors},
         ${report.executiveSummary}, ${JSON.stringify(report.keyFindings)},
         ${JSON.stringify(report.opportunities)}, ${JSON.stringify(report.threats)},
         ${JSON.stringify(report.recommendations)}, ${report.status}, ${report.generatedAt}

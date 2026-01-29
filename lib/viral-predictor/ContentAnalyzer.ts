@@ -34,13 +34,13 @@ export class ContentAnalyzer {
     // For now, return default analysis
     // In production, this would analyze actual media files
     return {
-      attentionScore: 60,
-      colorPsychologyScore: 65,
-      compositionScore: 70,
-      thumbnailEffectiveness: 75,
-      textReadability: 80,
-      brandConsistency: 70,
-      accessibilityScore: 75
+      attention_score: 60,
+      color_psychology_score: 65,
+      composition_score: 70,
+      thumbnail_effectiveness: 75,
+      text_readability: 80,
+      brand_consistency: 70,
+      accessibility_score: 75
     }
   }
 

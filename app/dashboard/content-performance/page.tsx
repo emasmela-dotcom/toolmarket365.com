@@ -122,7 +122,7 @@ export default function ContentPerformanceDashboard() {
           />
           <MetricCard
             title="A/B Tests Running"
-            value={abTestData?.activeTests || 0}
+            value={abTestData?.activeTestsCount ?? (Array.isArray(abTestData?.activeTests) ? abTestData.activeTests.length : 0)}
             change={0}
             icon={<GitCompare className="w-8 h-8 text-orange-500" />}
           />

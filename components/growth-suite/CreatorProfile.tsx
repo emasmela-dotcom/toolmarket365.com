@@ -224,7 +224,7 @@ export function CreatorProfile({ creatorId, profile: propProfile, compact = fals
                       </div>
                       <div className="flex justify-between">
                         <span className="text-mono-600 dark:text-mono-400">Followers:</span>
-                        <span className="font-medium text-mono-950 dark:text-mono-50">{formatNumber(data.followers || data.subscribers || 0)}</span>
+                        <span className="font-medium text-mono-950 dark:text-mono-50">{formatNumber(('followers' in data ? data.followers : data.subscribers) ?? 0)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-mono-600 dark:text-mono-400">Engagement:</span>

@@ -441,8 +441,8 @@ Include competition level, engagement rate estimate, and trending score.`
         max_competition, focus_on
       ) VALUES (
         ${defaultPrefs.id}, ${defaultPrefs.userId}, ${defaultPrefs.industry},
-        ${defaultPrefs.niche}, ${defaultPrefs.targetAudience}, ${sql.array(defaultPrefs.primaryPlatforms)},
-        ${sql.array(defaultPrefs.contentTypes)}, ${defaultPrefs.brandTone}, ${defaultPrefs.language},
+        ${defaultPrefs.niche}, ${defaultPrefs.targetAudience}, ${defaultPrefs.primaryPlatforms},
+        ${defaultPrefs.contentTypes}, ${defaultPrefs.brandTone}, ${defaultPrefs.language},
         ${defaultPrefs.preferredHashtagCount}, ${defaultPrefs.maxCompetition}, ${defaultPrefs.focusOn}
       )
     `
@@ -465,9 +465,9 @@ Include competition level, engagement rate estimate, and trending score.`
         competition_level, average_posts_per_hour, engagement_rate, reach_potential,
         trending_score, seasonal_relevance, geo_target, language, is_active
       ) VALUES (
-        ${set.id}, ${set.userId}, ${set.name}, ${set.description}, ${sql.array(set.hashtags)},
-        ${sql.array(set.primaryHashtags)}, ${sql.array(set.secondaryHashtags)},
-        ${sql.array(set.nicheHashtags)}, ${sql.array(set.bannedHashtags)}, ${set.platform},
+        ${set.id}, ${set.userId}, ${set.name}, ${set.description}, ${set.hashtags},
+        ${set.primaryHashtags}, ${set.secondaryHashtags},
+        ${set.nicheHashtags}, ${set.bannedHashtags}, ${set.platform},
         ${set.category}, ${set.industry}, ${set.targetAudience}, ${set.competitionLevel},
         ${set.averagePostsPerHour}, ${set.engagementRate}, ${set.reachPotential},
         ${set.trendingScore}, ${set.seasonalRelevance || null}, ${set.geoTarget || null},
@@ -491,10 +491,10 @@ Include competition level, engagement rate estimate, and trending score.`
         recommendations, industry_trends, email_sent, email_delivered
       ) VALUES (
         ${report.id}, ${report.userId}, ${report.weekNumber}, ${report.year},
-        ${JSON.stringify(report.hashtagSets)}, ${sql.array(report.trendingHashtags)},
-        ${sql.array(report.emergingHashtags)}, ${sql.array(report.decliningHashtags)},
-        ${sql.array(report.seasonalHashtags)}, ${JSON.stringify(report.competitorInsights)},
-        ${JSON.stringify(report.recommendations)}, ${sql.array(report.industryTrends)},
+        ${JSON.stringify(report.hashtagSets)}, ${report.trendingHashtags},
+        ${report.emergingHashtags}, ${report.decliningHashtags},
+        ${report.seasonalHashtags}, ${JSON.stringify(report.competitorInsights)},
+        ${JSON.stringify(report.recommendations)}, ${report.industryTrends},
         ${report.emailSent}, ${report.emailDelivered}
       )
       ON CONFLICT (user_id, week_number, year) DO UPDATE SET

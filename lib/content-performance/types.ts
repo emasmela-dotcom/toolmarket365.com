@@ -147,7 +147,7 @@ export interface AccuracyData {
   commentsAccuracy: number
   sharesAccuracy: number
   viewsAccuracy: number
-  accuracyTrend: any[]
+  accuracyTrendSeries: any[]
   metricBreakdown: any[]
   confidenceCorrelation: any[]
   highAccuracyFactors: string[]
@@ -165,8 +165,8 @@ export interface InsightsData {
 export interface ABTestData {
   activeTests: any[]
   completedTests: any[]
-  activeTests: number
-  completedTests: number
+  activeTestsCount?: number
+  completedTestsCount?: number
   averageImprovement: number
   confidence: number
   testInsights: any[]
@@ -181,7 +181,7 @@ export interface ROIData {
   efficiencyScore: number
   totalPredictions: number
   successfulPredictions: number
-  roiTrend: any[]
+  roiTrendSeries?: any[]
   costBreakdown: any[]
   revenueSources: any[]
   highROIContent: any[]

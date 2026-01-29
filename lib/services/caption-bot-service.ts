@@ -326,7 +326,7 @@ export class CaptionBotService {
       id: `caption_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       userId,
       content,
-      tone,
+      tone: tone as Caption['tone'],
       theme,
       platform: platform as Caption['platform'],
       hashtags: allHashtags,
@@ -404,9 +404,9 @@ export class CaptionBotService {
         id, user_id, content_themes, brand_tone, target_audience, industry,
         preferred_platforms, posting_schedule, daily_generation_enabled, generation_time
       ) VALUES (
-        ${defaultPrefs.id}, ${defaultPrefs.userId}, ${sql.array(defaultPrefs.contentThemes)}, 
+        ${defaultPrefs.id}, ${defaultPrefs.userId}, ${defaultPrefs.contentThemes}, 
         ${defaultPrefs.brandTone}, ${defaultPrefs.targetAudience}, ${defaultPrefs.industry},
-        ${sql.array(defaultPrefs.preferredPlatforms)}, ${JSON.stringify(defaultPrefs.postingSchedule)},
+        ${defaultPrefs.preferredPlatforms}, ${JSON.stringify(defaultPrefs.postingSchedule)},
         ${defaultPrefs.dailyGenerationEnabled}, ${defaultPrefs.generationTime}
       )
     `
@@ -428,8 +428,8 @@ export class CaptionBotService {
         category, is_generated, is_used, performance_data
       ) VALUES (
         ${caption.id}, ${caption.userId}, ${caption.content}, ${caption.tone},
-        ${caption.theme}, ${caption.platform}, ${sql.array(caption.hashtags)},
-        ${sql.array(caption.emojis)}, ${caption.category}, ${caption.isGenerated},
+        ${caption.theme}, ${caption.platform}, ${caption.hashtags},
+        ${caption.emojis}, ${caption.category}, ${caption.isGenerated},
         ${caption.isUsed}, ${JSON.stringify(caption.performanceData || {})}
       )
     `

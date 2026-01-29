@@ -663,8 +663,13 @@ Format as a structured JSON report with all metrics, insights, and recommendatio
   }
 
   private generateAudienceInsights(): AudienceInsights {
+    const d = this.generateDemographics()
     return {
-      demographics: this.generateDemographics(),
+      demographics: {
+        age: d.ageGroups,
+        gender: d.genders,
+        location: d.locations
+      },
       behavior: {
         activeHours: {
           '9:00 AM': this.randomBetween(15, 25),

@@ -537,10 +537,10 @@ Return only the content idea in a clear, structured format.`
         id, user_id, content_themes, preferred_platforms, content_types,
         industry, target_audience, brand_tone, posting_frequency, content_goals
       ) VALUES (
-        ${defaultPrefs.id}, ${defaultPrefs.userId}, ${sql.array(defaultPrefs.contentThemes)},
-        ${sql.array(defaultPrefs.preferredPlatforms)}, ${sql.array(defaultPrefs.contentTypes)},
+        ${defaultPrefs.id}, ${defaultPrefs.userId}, ${defaultPrefs.contentThemes},
+        ${defaultPrefs.preferredPlatforms}, ${defaultPrefs.contentTypes},
         ${defaultPrefs.industry}, ${defaultPrefs.targetAudience}, ${defaultPrefs.brandTone},
-        ${defaultPrefs.postingFrequency}, ${sql.array(defaultPrefs.contentGoals)}
+        ${defaultPrefs.postingFrequency}, ${defaultPrefs.contentGoals}
       )
     `
 
@@ -563,10 +563,10 @@ Return only the content idea in a clear, structured format.`
         week_number, year
       ) VALUES (
         ${idea.id}, ${idea.userId}, ${idea.title}, ${idea.description},
-        ${idea.contentType}, ${sql.array(idea.platforms)}, ${idea.category},
+        ${idea.contentType}, ${idea.platforms}, ${idea.category},
         ${idea.estimatedTime}, ${idea.difficulty}, ${idea.engagementPotential},
-        ${idea.trending}, ${idea.seasonal || null}, ${sql.array(idea.hashtags)},
-        ${idea.callToAction}, ${sql.array(idea.tips)}, ${sql.array(idea.examples)},
+        ${idea.trending}, ${idea.seasonal || null}, ${idea.hashtags},
+        ${idea.callToAction}, ${idea.tips}, ${idea.examples},
         ${idea.isUsed}, ${JSON.stringify(idea.performance || {})},
         ${idea.weekNumber}, ${idea.year}
       )

@@ -12,6 +12,7 @@ interface Deal {
   requirements: string
   deliverables: string[]
   status: string
+  platform?: string
 }
 
 interface DealNegotiationProps {
@@ -113,7 +114,7 @@ export function DealNegotiation({ deal, userRole, onUpdate }: DealNegotiationPro
               <span className="text-sm">Platform</span>
             </div>
             <span className="inline-block px-2 py-1 bg-accent-100 dark:bg-accent-900 text-accent-800 dark:text-accent-200 rounded text-sm capitalize">
-              {deal.platform}
+              {deal.platform ?? '—'}
             </span>
           </div>
 

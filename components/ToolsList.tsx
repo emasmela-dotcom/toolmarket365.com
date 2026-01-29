@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Clock, Tag, Layers, Tool } from 'lucide-react'
+import { Clock, Tag, Layers, Wrench } from 'lucide-react'
 import { SearchFilter } from './SearchFilter'
 
 interface Tool {
@@ -106,7 +106,7 @@ export function ToolsList({
 
       {tools.length === 0 ? (
         <div className="border border-gray-200 rounded-lg p-12 text-center bg-gray-50">
-          <Tool className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+          <Wrench className="w-16 h-16 mx-auto mb-4 text-gray-300" />
           <h3 className="text-lg font-semibold text-gray-900 mb-2">No tools found</h3>
           <p className="text-gray-600 mb-4">Try adjusting your search criteria or filters</p>
           <button

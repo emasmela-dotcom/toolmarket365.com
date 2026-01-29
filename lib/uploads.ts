@@ -169,32 +169,36 @@ export async function updateUpload(
   try {
     if (!sql) return null
 
-    const updates: string[] = []
-    const values: any[] = []
-    let paramCount = 1
+    const existing = await sql`
+      SELECT * FROM uploads WHERE id = ${id}
+    `
+    const row = (existing as Upload[])[0]
+    if (!row) return null
 
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== undefined) {
-        updates.push(`${key} = $${paramCount}`)
-        values.push(value)
-        paramCount++
-      }
-    })
+    const merged = {
+      file_name: data.file_name !== undefined ? data.file_name : row.file_name,
+      file_url: data.file_url !== undefined ? data.file_url : row.file_url,
+      cloudinary_public_id: data.cloudinary_public_id !== undefined ? data.cloudinary_public_id : row.cloudinary_public_id,
+      file_type: data.file_type !== undefined ? data.file_type : row.file_type,
+      file_size: data.file_size !== undefined ? data.file_size : row.file_size,
+      width: data.width !== undefined ? data.width : row.width,
+      height: data.height !== undefined ? data.height : row.height,
+      duration: data.duration !== undefined ? data.duration : row.duration,
+      tags: data.tags !== undefined ? data.tags : row.tags,
+      description: data.description !== undefined ? data.description : row.description
+    }
 
-    if (updates.length === 0) return null
-
-    updates.push(`updated_at = NOW()`)
-    values.push(id)
-
-    const query = `
+    const result = await sql`
       UPDATE uploads
-      SET ${updates.join(', ')}
-      WHERE id = $${paramCount}
+      SET file_name = ${merged.file_name}, file_url = ${merged.file_url},
+          cloudinary_public_id = ${merged.cloudinary_public_id}, file_type = ${merged.file_type},
+          file_size = ${merged.file_size}, width = ${merged.width}, height = ${merged.height},
+          duration = ${merged.duration}, tags = ${merged.tags}, description = ${merged.description},
+          updated_at = NOW()
+      WHERE id = ${id}
       RETURNING *
     `
-
-    const result = await (sql as (query: string, params?: unknown[]) => Promise<Upload[]>)(query, values)
-    return result[0] as Upload || null
+    return (result as Upload[])[0] ?? null
   } catch (error) {
     console.error('Error updating upload:', error)
     return null

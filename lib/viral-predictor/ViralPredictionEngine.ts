@@ -152,13 +152,13 @@ export class ViralPredictionEngine {
     const shareabilityScore = this.calculateShareability(text, emotionalIntensity, surpriseFactor)
 
     return {
-      primaryEmotions: emotions.length > 0 ? emotions : ['neutral'],
-      emotionalIntensity,
-      sentimentScore,
-      empathyScore,
-      surpriseFactor,
-      controversyRisk,
-      shareabilityScore
+      primary_emotions: emotions.length > 0 ? emotions : ['neutral'],
+      emotional_intensity: emotionalIntensity,
+      sentiment_score: sentimentScore,
+      empathy_score: empathyScore,
+      surprise_factor: surpriseFactor,
+      controversy_risk: controversyRisk,
+      shareability_score: shareabilityScore
     }
   }
 
@@ -230,25 +230,25 @@ export class ViralPredictionEngine {
     const multiplier = mediaTypeMultiplier[content.mediaType] || 1.0
 
     return {
-      attentionScore: Math.min(100, 50 + Math.random() * 30 * multiplier),
-      colorPsychologyScore: Math.min(100, 60 + Math.random() * 25 * multiplier),
-      compositionScore: Math.min(100, 55 + Math.random() * 30 * multiplier),
-      thumbnailEffectiveness: Math.min(100, 50 + Math.random() * 35 * multiplier),
-      textReadability: Math.min(100, 70 + Math.random() * 20),
-      brandConsistency: Math.min(100, 60 + Math.random() * 25),
-      accessibilityScore: Math.min(100, 65 + Math.random() * 25)
+      attention_score: Math.min(100, 50 + Math.random() * 30 * multiplier),
+      color_psychology_score: Math.min(100, 60 + Math.random() * 25 * multiplier),
+      composition_score: Math.min(100, 55 + Math.random() * 30 * multiplier),
+      thumbnail_effectiveness: Math.min(100, 50 + Math.random() * 35 * multiplier),
+      text_readability: Math.min(100, 70 + Math.random() * 20),
+      brand_consistency: Math.min(100, 60 + Math.random() * 25),
+      accessibility_score: Math.min(100, 65 + Math.random() * 25)
     }
   }
 
   private getDefaultVisualAnalysis(): VisualAnalysis {
     return {
-      attentionScore: 50,
-      colorPsychologyScore: 50,
-      compositionScore: 50,
-      thumbnailEffectiveness: 50,
-      textReadability: 75,
-      brandConsistency: 50,
-      accessibilityScore: 60
+      attention_score: 50,
+      color_psychology_score: 50,
+      composition_score: 50,
+      thumbnail_effectiveness: 50,
+      text_readability: 75,
+      brand_consistency: 50,
+      accessibility_score: 60
     }
   }
 
@@ -263,12 +263,12 @@ export class ViralPredictionEngine {
     const optimalTimes = await this.calculateOptimalPostingTimes(content)
     
     return {
-      currentTrendingScore: trendingScore,
-      seasonalRelevance: seasonalScore,
-      dayOfWeekScore: this.getDayOfWeekScore(now),
-      timeOfDayScore: this.getTimeOfDayScore(now),
-      timezoneOptimization: optimalTimes.timezones,
-      competitorActivity: await this.getCompetitorActivityScore(content)
+      current_trending_score: trendingScore,
+      seasonal_relevance: seasonalScore,
+      day_of_week_score: this.getDayOfWeekScore(now),
+      time_of_day_score: this.getTimeOfDayScore(now),
+      timezone_optimization: optimalTimes.timezones,
+      competitor_activity: await this.getCompetitorActivityScore(content)
     }
   }
 
@@ -357,15 +357,15 @@ export class ViralPredictionEngine {
 
   private async analyzeCompetitorLandscape(content: ContentInput, niche: string): Promise<CompetitorAnalysis> {
     return {
-      similarContentPerformance: [],
-      contentGapOpportunities: this.generateContentGapOpportunities(content),
-      trendingHashtagsInNiche: this.extractHashtags(content.text),
-      engagementBenchmarks: {
-        averageEngagementRate: 3.5,
-        topPerformerRate: 8.5,
-        viralThreshold: 10.0
+      similar_content_performance: [],
+      content_gap_opportunities: this.generateContentGapOpportunities(content),
+      trending_hashtags_in_niche: this.extractHashtags(content.text),
+      engagement_benchmarks: {
+        average_engagement_rate: 3.5,
+        top_performer_rate: 8.5,
+        viral_threshold: 10.0
       },
-      viralThreshold: 10.0
+      viral_threshold: 10.0
     }
   }
 
@@ -396,16 +396,16 @@ export class ViralPredictionEngine {
     const recommended = this.generateRecommendedHashtags(content)
     
     return {
-      overallScore: Math.min(100, 50 + (hashtags.length * 5) + (recommended.length * 3)),
-      recommendedHashtags: recommended,
-      trendingHashtags: this.getTrendingHashtags(content.platform),
-      nicheHashtags: this.getNicheHashtags(content.platform),
-      viralPotentialHashtags: recommended.slice(0, 5)
+      overall_score: Math.min(100, 50 + (hashtags.length * 5) + (recommended.length * 3)),
+      recommended_hashtags: recommended,
+      trending_hashtags: this.getTrendingHashtags(content.platform),
+      niche_hashtags: this.getNicheHashtags(content.platform),
+      viral_potential_hashtags: recommended.slice(0, 5)
     }
   }
 
   private generateRecommendedHashtags(content: ContentInput): string[] {
-    const baseHashtags = []
+    const baseHashtags: string[] = []
     const text = content.text.toLowerCase()
     
     // Extract keywords
@@ -455,7 +455,7 @@ export class ViralPredictionEngine {
     }
 
     const scores = {
-      emotional: analyses.emotionalAnalysis.shareabilityScore,
+      emotional: analyses.emotionalAnalysis.shareability_score,
       visual: this.averageVisualScore(analyses.visualAnalysis),
       timing: this.averageTimingScore(analyses.timingAnalysis),
       competitor: Math.max(0, 100 - analyses.competitorAnalysis.viralThreshold * 10),
@@ -470,23 +470,23 @@ export class ViralPredictionEngine {
 
   private averageVisualScore(visual: VisualAnalysis): number {
     return (
-      visual.attentionScore +
-      visual.colorPsychologyScore +
-      visual.compositionScore +
-      visual.thumbnailEffectiveness +
-      visual.textReadability +
-      visual.brandConsistency +
-      visual.accessibilityScore
+      visual.attention_score +
+      visual.color_psychology_score +
+      visual.composition_score +
+      visual.thumbnail_effectiveness +
+      visual.text_readability +
+      visual.brand_consistency +
+      visual.accessibility_score
     ) / 7
   }
 
   private averageTimingScore(timing: TimingAnalysis): number {
     return (
-      timing.currentTrendingScore +
-      timing.seasonalRelevance +
-      timing.dayOfWeekScore +
-      timing.timeOfDayScore +
-      timing.competitorActivity
+      timing.current_trending_score +
+      timing.seasonal_relevance +
+      timing.day_of_week_score +
+      timing.time_of_day_score +
+      timing.competitor_activity
     ) / 5
   }
 
@@ -521,7 +521,7 @@ export class ViralPredictionEngine {
       },
       viralProbability: Math.min(viralScore, 95), // Cap at 95%
       optimalPostingTime: this.calculateOptimalPostingTime(analyses.timingAnalysis),
-      recommendedHashtags: analyses.hashtagAnalysis.recommendedHashtags,
+      recommendedHashtags: analyses.hashtagAnalysis.recommended_hashtags,
       similarViralContent: await this.findSimilarViralContent(content)
     }
   }

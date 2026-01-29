@@ -135,7 +135,7 @@ export function UploadProgress({
         file,
         progress: 0,
         status: error ? 'error' : 'pending',
-        error
+        error: error ?? undefined
       }
     })
 

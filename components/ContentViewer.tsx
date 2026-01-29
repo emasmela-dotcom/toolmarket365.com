@@ -282,7 +282,7 @@ export function ContentViewer({ content, isOpen, onClose }: ContentViewerProps) 
                   <div className="flex-1">
                     <span className="text-sm font-medium">Tags:</span>
                     <div className="flex flex-wrap gap-1 mt-1">
-                      {content.metadata.tags.map((tag, index) => (
+                      {content.metadata.tags.map((tag: string, index: number) => (
                         <span key={index} className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded">
                           {tag}
                         </span>

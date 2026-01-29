@@ -129,7 +129,7 @@ export function DealDeliverables({ deal, userRole, onUpdate }: DealDeliverablesP
                 {canSubmit && deliverable.status === 'pending' ? (
                   <input
                     type="checkbox"
-                    checked={deliverable.status === 'completed'}
+                    checked={false}
                     onChange={(e) => {
                       if (e.target.checked) {
                         updateDeliverableStatus(deliverable.id, 'completed')

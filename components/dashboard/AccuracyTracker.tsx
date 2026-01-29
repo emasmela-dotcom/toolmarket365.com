@@ -12,7 +12,7 @@ export function AccuracyTracker({ data }: { data: any }) {
     )
   }
 
-  const accuracyTrend = data.accuracyTrend || []
+  const accuracyTrendSeries = data.accuracyTrendSeries || []
   const metricBreakdown = data.metricBreakdown || []
   const confidenceCorrelation = data.confidenceCorrelation || []
 
@@ -93,11 +93,11 @@ export function AccuracyTracker({ data }: { data: any }) {
       </div>
 
       {/* Accuracy Trend Chart */}
-      {accuracyTrend.length > 0 && (
+      {accuracyTrendSeries.length > 0 && (
         <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">📈 Accuracy Trend Over Time</h2>
           <ResponsiveContainer width="100%" height={300}>
-            <AreaChart data={accuracyTrend}>
+            <AreaChart data={accuracyTrendSeries}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
               <XAxis dataKey="date" stroke="#6b7280" />
               <YAxis domain={[0, 100]} stroke="#6b7280" />

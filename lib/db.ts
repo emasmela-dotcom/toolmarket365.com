@@ -3,7 +3,7 @@ import { neon, neonConfig } from '@neondatabase/serverless'
 // Configure connection pooling for better performance under load
 // This enables connection caching and reuse
 neonConfig.fetchConnectionCache = true
-neonConfig.pipelineConnect = true
+neonConfig.pipelineConnect = 'password'
 
 const connectionString = process.env.DATABASE_URL || ''
 

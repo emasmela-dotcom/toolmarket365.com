@@ -450,7 +450,7 @@ export class BlogOutlineBotService {
       topic,
       targetAudience: preferences.targetAudience,
       tone: preferences.brandVoice,
-      blogType,
+      blogType: blogType as BlogOutline['blogType'],
       estimatedReadTime,
       wordCountTarget: wordCount,
       sections,
@@ -643,10 +643,10 @@ Return a structured outline with sections, key points, keywords, and meta inform
         keyword_research, internal_linking, call_to_action_style, content_types
       ) VALUES (
         ${defaultPrefs.id}, ${defaultPrefs.userId}, ${defaultPrefs.industry},
-        ${defaultPrefs.targetAudience}, ${defaultPrefs.brandVoice}, ${sql.array(defaultPrefs.contentGoals)},
+        ${defaultPrefs.targetAudience}, ${defaultPrefs.brandVoice}, ${defaultPrefs.contentGoals},
         ${defaultPrefs.preferredLength}, ${defaultPrefs.seoFocus}, ${defaultPrefs.includeStats},
         ${defaultPrefs.includeExamples}, ${defaultPrefs.includeImages}, ${defaultPrefs.keywordResearch},
-        ${defaultPrefs.internalLinking}, ${defaultPrefs.callToActionStyle}, ${sql.array(defaultPrefs.contentTypes)}
+        ${defaultPrefs.internalLinking}, ${defaultPrefs.callToActionStyle}, ${defaultPrefs.contentTypes}
       )
     `
 
@@ -672,9 +672,9 @@ Return a structured outline with sections, key points, keywords, and meta inform
         ${outline.id}, ${outline.userId}, ${outline.title}, ${outline.topic},
         ${outline.targetAudience}, ${outline.tone}, ${outline.blogType},
         ${outline.estimatedReadTime}, ${outline.wordCountTarget}, ${JSON.stringify(outline.sections)},
-        ${sql.array(outline.keyPoints)}, ${sql.array(outline.keywords)}, ${outline.metaDescription},
-        ${outline.slug}, ${sql.array(outline.internalLinks)}, ${sql.array(outline.externalLinks)},
-        ${sql.array(outline.questionsToAnswer)}, ${outline.callToAction}, ${sql.array(outline.relatedTopics)},
+        ${outline.keyPoints}, ${outline.keywords}, ${outline.metaDescription},
+        ${outline.slug}, ${outline.internalLinks}, ${outline.externalLinks},
+        ${outline.questionsToAnswer}, ${outline.callToAction}, ${outline.relatedTopics},
         ${outline.contentBrief}, ${outline.researchNotes}, ${outline.seoScore},
         ${outline.originalityScore}, ${outline.difficulty}, ${outline.status}
       )

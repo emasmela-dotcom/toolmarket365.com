@@ -129,9 +129,13 @@ async function getAccuracyData(
     // Confidence correlation
     const confidenceCorrelation = calculateConfidenceCorrelation(performances)
 
+    const trendPercent = accuracyTrend.length >= 2
+      ? Math.round((accuracyTrend[accuracyTrend.length - 1].accuracy - accuracyTrend[0].accuracy))
+      : 0
     return {
       overallAccuracy,
-      accuracyTrend: accuracyTrend,
+      accuracyTrend: trendPercent,
+      accuracyTrendSeries: accuracyTrend,
       averageConfidence,
       highConfidencePredictions,
       likesAccuracy,
@@ -228,7 +232,8 @@ function getStartDate(range: string, now: Date): Date {
 function getMockAccuracyData() {
   return {
     overallAccuracy: 0,
-    accuracyTrend: [],
+    accuracyTrend: 0,
+    accuracyTrendSeries: [],
     averageConfidence: 0,
     highConfidencePredictions: 0,
     likesAccuracy: 0,

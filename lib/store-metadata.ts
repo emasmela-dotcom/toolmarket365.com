@@ -208,32 +208,39 @@ export async function updateStoreMetadata(
   try {
     if (!sql) return null
 
-    const updates: string[] = []
-    const values: any[] = []
-    let paramCount = 1
+    const existing = await sql`
+      SELECT * FROM store_metadata WHERE id = ${id}
+    `
+    const row = (existing as StoreMetadata[])[0]
+    if (!row) return null
 
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== undefined) {
-        updates.push(`${key} = $${paramCount}`)
-        values.push(value)
-        paramCount++
-      }
-    })
+    const merged = {
+      user_id: data.user_id !== undefined ? data.user_id : row.user_id,
+      title: data.title !== undefined ? data.title : row.title,
+      tags: data.tags !== undefined ? data.tags : row.tags,
+      type: data.type !== undefined ? data.type : row.type,
+      cloudinary_public_id: data.cloudinary_public_id !== undefined ? data.cloudinary_public_id : row.cloudinary_public_id,
+      cloudinary_url: data.cloudinary_url !== undefined ? data.cloudinary_url : row.cloudinary_url,
+      file_size: data.file_size !== undefined ? data.file_size : row.file_size,
+      format: data.format !== undefined ? data.format : row.format,
+      width: data.width !== undefined ? data.width : row.width,
+      height: data.height !== undefined ? data.height : row.height,
+      duration: data.duration !== undefined ? data.duration : row.duration,
+      description: data.description !== undefined ? data.description : row.description
+    }
 
-    if (updates.length === 0) return null
-
-    updates.push(`updated_at = NOW()`)
-    values.push(id)
-
-    const query = `
+    const result = await sql`
       UPDATE store_metadata
-      SET ${updates.join(', ')}
-      WHERE id = $${paramCount}
+      SET user_id = ${merged.user_id}, title = ${merged.title}, tags = ${merged.tags},
+          type = ${merged.type}, cloudinary_public_id = ${merged.cloudinary_public_id},
+          cloudinary_url = ${merged.cloudinary_url}, file_size = ${merged.file_size},
+          format = ${merged.format}, width = ${merged.width}, height = ${merged.height},
+          duration = ${merged.duration}, description = ${merged.description},
+          updated_at = NOW()
+      WHERE id = ${id}
       RETURNING *
     `
-
-    const result = await (sql as (query: string, params?: unknown[]) => Promise<StoreMetadata[]>)(query, values)
-    return result[0] as StoreMetadata || null
+    return (result as StoreMetadata[])[0] ?? null
   } catch (error) {
     console.error('Error updating store metadata:', error)
     return null
