@@ -39,7 +39,7 @@ export default function Home() {
               </div>
               <div className="bg-white dark:bg-mono-900 rounded-lg p-5 border-2 border-blue-500 dark:border-blue-600 shadow-lg">
                 <div className="text-3xl sm:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2 text-center">
-                  43+
+                  53+
                 </div>
                 <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">
                   Tools

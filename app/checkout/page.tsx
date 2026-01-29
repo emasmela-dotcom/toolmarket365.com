@@ -100,8 +100,8 @@ export default function CheckoutPage() {
       starter: ['AI Caption Generator', 'Content Idea Generator', 'Hashtag Research', 'Content Calendar', 'Best Time to Post', 'Readability Checker', 'Bio Generator', 'Content Library', 'Creator Pricing Guide', 'Engagement Ideas Generator'],
       essential: ['Everything in Starter', 'Post Scheduler', 'Analytics Dashboard', 'SEO Optimizer', 'Content Repurposer', 'Video Script Generator', 'Blog Outline Generator', 'Engagement Calculator', 'Hashtag Analyzer', 'Social Media Report Generator', 'Social Graphics', 'Multi-Platform Generator'],
       professional: ['Everything in Essential', 'Viral Content Predictor', 'All Content Creation tools', 'All Brand & Design tools', 'Advanced Analytics', 'Competitor Analyzer', 'Trend Tracker', 'All AI-powered tools'],
-      creator: ['All 43+ tools', 'Unlimited use of all tools', 'Unlimited content library'],
-      business: ['All 43+ tools', 'Team collaboration', 'White-label options', 'Custom integrations'],
+      creator: ['All 53+ tools', 'Unlimited use of all tools', 'Unlimited content library'],
+      business: ['All 53+ tools', 'Team collaboration', 'White-label options', 'Custom integrations'],
     }
     
     const includedTools = planToolSlugs[planName.toLowerCase()] || ['All tools in your plan']

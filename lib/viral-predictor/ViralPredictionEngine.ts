@@ -458,8 +458,8 @@ export class ViralPredictionEngine {
       emotional: analyses.emotionalAnalysis.shareability_score,
       visual: this.averageVisualScore(analyses.visualAnalysis),
       timing: this.averageTimingScore(analyses.timingAnalysis),
-      competitor: Math.max(0, 100 - analyses.competitorAnalysis.viralThreshold * 10),
-      hashtag: analyses.hashtagAnalysis.overallScore,
+      competitor: Math.max(0, 100 - analyses.competitorAnalysis.viral_threshold * 10),
+      hashtag: analyses.hashtagAnalysis.overall_score,
       platform: this.getPlatformOptimizationScore()
     }
 

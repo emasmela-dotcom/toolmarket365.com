@@ -72,8 +72,11 @@ export default function AssistantPage() {
           <MessageSquare className="h-8 w-8 text-accent-600 dark:text-accent-400" />
           <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">CreatorFlow Assistant</h1>
         </div>
-        <p className="text-mono-600 dark:text-mono-400 mb-6 text-sm">
+        <p className="text-mono-600 dark:text-mono-400 mb-2 text-sm">
           Ask about CreatorFlow365 (plans, credits, tools) or general creator advice. I can&apos;t post, schedule, or connect to external APIs—I&apos;ll point you to the right tool.
+        </p>
+        <p className="text-mono-500 dark:text-mono-500 mb-6 text-sm">
+          <strong>An account is required to use the Assistant.</strong> Sign in or sign up to get started.
         </p>
 
         <div className="border border-mono-200 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-900 min-h-[320px] flex flex-col">

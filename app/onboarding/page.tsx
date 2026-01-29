@@ -23,7 +23,7 @@ const tutorials: Tutorial[] = [
     steps: [
       {
         title: 'Welcome to CreatorFlow365',
-        content: 'CreatorFlow365 is your all-in-one platform for content creation. You have access to 43+ tools to help you create, optimize, and schedule content.'
+        content: 'CreatorFlow365 is your all-in-one platform for content creation. You have access to 53+ tools to help you create, optimize, and schedule content.'
       },
       {
         title: 'Explore Tools',

@@ -22,7 +22,7 @@ export default function AboutPage() {
               CreatorFlow365 was built to solve a real problem: content creators need powerful tools, but they're scattered across dozens of platforms, each with its own pricing, learning curve, and limitations.
             </p>
             <p className="text-mono-700 dark:text-mono-300">
-              We've created a unified platform that brings together 43+ professional tools—from content creation and optimization to analytics and monetization—all in one place, with a secure cloud library to store and organize everything you create.
+              We've created a unified platform that brings together 53+ professional tools—from content creation and optimization to analytics and monetization—all in one place, with a secure cloud library to store and organize everything you create.
             </p>
           </section>
 
@@ -32,7 +32,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
                 <Zap className="w-8 h-8 text-accent-600 mb-4" />
-                <h3 className="text-xl font-semibold text-mono-950 dark:text-mono-50 mb-2">43+ Professional Tools</h3>
+                <h3 className="text-xl font-semibold text-mono-950 dark:text-mono-50 mb-2">53+ Professional Tools</h3>
                 <p className="text-mono-600 dark:text-mono-400">
                   Everything you need to create, optimize, and monetize content. From AI caption generators to viral content predictors, we've got you covered.
                 </p>

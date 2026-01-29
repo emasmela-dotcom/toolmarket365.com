@@ -155,12 +155,12 @@ export default function SelectPlanPage() {
         'All AI-powered tools',
       ],
       professional: [
-        'All 43+ tools',
+        'All 53+ tools',
         'Unlimited use of all tools',
         'Unlimited content library',
       ],
       business: [
-        'All 43+ tools',
+        'All 53+ tools',
         'Team collaboration (5 users)',
         'White-label options',
         'Custom integrations',
@@ -180,7 +180,7 @@ export default function SelectPlanPage() {
     const { included, excluded } = getPlanTools(selectedPlan.name.toLowerCase())
     const includedTools = included.length > 0 
       ? included.map(slug => slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '))
-      : ['All 43+ tools', 'Unlimited use of all tools', 'Unlimited content library']
+      : ['All 53+ tools', 'Unlimited use of all tools', 'Unlimited content library']
     
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">

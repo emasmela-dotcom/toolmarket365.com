@@ -36,7 +36,7 @@ export function Hero() {
             The Micro-SaaS Marketplace for Content Creators
           </p>
           <p className="text-sm sm:text-base text-mono-600 dark:text-mono-400 mb-3 max-w-xl mx-auto">
-            Build, optimize, and monetize your content with 43+ professional tools—all in one place. Store, organize, and manage all your content in your personal cloud library.
+            Build, optimize, and monetize your content with 53+ professional tools—all in one place. Store, organize, and manage all your content in your personal cloud library.
           </p>
           <p className="text-base sm:text-lg font-semibold text-accent-600 dark:text-accent-400 mb-6 max-w-2xl mx-auto">
             Run your entire creator business from one platform—not just schedule posts.
@@ -55,7 +55,7 @@ export function Hero() {
               </div>
               <div>
                 <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-                  43+ Tools
+                  53+ Tools
                 </div>
                 <div className="text-xs sm:text-sm text-mono-700 dark:text-mono-300">
                   vs competitors' 3-10 tools

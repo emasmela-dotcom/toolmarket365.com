@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'CreatorFlow365 — The Micro-SaaS Marketplace for Content Creators',
-  description: 'The Micro-SaaS Marketplace for Content Creators. Professional toolkit with 43+ tools for content planning, SEO, analytics, social media, viral content prediction, and revenue optimization.',
+  description: 'The Micro-SaaS Marketplace for Content Creators. Professional toolkit with 53+ tools for content planning, SEO, analytics, social media, viral content prediction, and revenue optimization.',
   keywords: ['content creator tools', 'social media tools', 'content planning', 'SEO tools', 'creator economy', 'content library', 'viral content predictor', 'social media analytics'],
   authors: [{ name: 'CreatorFlow365' }],
   creator: 'CreatorFlow365',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     url: process.env.NEXT_PUBLIC_SITE_URL || 'https://creatorflow365.com',
     siteName: 'CreatorFlow365',
     title: 'CreatorFlow365 — The Micro-SaaS Marketplace for Content Creators',
-    description: 'Professional toolkit with 43+ tools for content planning, SEO, analytics, social media, and revenue optimization.',
+    description: 'Professional toolkit with 53+ tools for content planning, SEO, analytics, social media, and revenue optimization.',
     images: [
       {
         url: '/og-image.png', // You'll need to create this
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'CreatorFlow365 — The Micro-SaaS Marketplace for Content Creators',
-    description: 'Professional toolkit with 43+ tools for content planning, SEO, analytics, social media, and revenue optimization.',
+    description: 'Professional toolkit with 53+ tools for content planning, SEO, analytics, social media, and revenue optimization.',
     images: ['/og-image.png'], // You'll need to create this
   },
   robots: {

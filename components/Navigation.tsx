@@ -104,7 +104,7 @@ export function Navigation() {
               <Link href="/integrations" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
                 Integrations
               </Link>
-              <Link href="/assistant" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              <Link href="/assistant" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap" title="Assistant (account required)">
                 Assistant
               </Link>
               <Link href="/contact?type=feedback" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">

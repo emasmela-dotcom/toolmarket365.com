@@ -110,7 +110,7 @@ const plans = [
     period: '/month',
     description: 'Complete toolkit for professional creators',
     popular: false,
-    toolCount: 'All 43+ tools',
+    toolCount: 'All 53+ tools',
     tools: [
       'Everything in Creator',
       'All Business & Monetization tools',
@@ -120,7 +120,7 @@ const plans = [
       'Advanced features',
     ],
     features: [
-      'All 43+ tools (unlimited uses)',
+      'All 53+ tools (unlimited uses)',
       'Viral Content Predictor ⭐',
       'Unlimited content library',
       'Cloud storage & sync',
@@ -140,7 +140,7 @@ const plans = [
     period: '/month',
     description: 'For teams and agencies. Tools matched to enterprise level.',
     popular: false,
-    toolCount: 'All 43+ tools',
+    toolCount: 'All 53+ tools',
     tools: [
       'Everything in Professional',
       'Team collaboration (5 users)',
@@ -148,7 +148,7 @@ const plans = [
       'Custom integrations',
     ],
     features: [
-      'All 43+ tools',
+      'All 53+ tools',
       'Team collaboration (5 users)',
       'Unlimited content library',
       'White-label options',
@@ -220,7 +220,7 @@ const faq = [
   },
   {
     question: 'What tools are in each plan?',
-    answer: 'Starter has 8 essential tools, Essential has 18 tools, Creator has 35+ tools including Viral Predictor, Professional has all 43+ tools, and Business adds team features.',
+    answer: 'Starter has 8 essential tools, Essential has 18 tools, Creator has 35+ tools including Viral Predictor, Professional has all 53+ tools, and Business adds team features.',
   },
   {
     question: 'Do you offer annual plans?',
@@ -232,7 +232,7 @@ const faq = [
   },
   {
     question: 'What makes CreatorFlow365 different?',
-    answer: 'We\'re the only platform with Viral Content Predictor, integrated workflow, and 43+ tools in one place. Most competitors have 3-10 tools and charge $200+/month for everything.',
+    answer: 'We\'re the only platform with Viral Content Predictor, integrated workflow, and 53+ tools in one place. Most competitors have 3-10 tools and charge $200+/month for everything.',
   },
 ]
 
@@ -269,7 +269,7 @@ export default function PricingPage() {
                   <div className="text-xs text-mono-600 dark:text-mono-400">Cheaper</div>
                 </div>
                 <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">43+</div>
+                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">53+</div>
                   <div className="text-xs text-mono-600 dark:text-mono-400">Tools vs 3-10</div>
                 </div>
                 <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
@@ -837,7 +837,7 @@ export default function PricingPage() {
                 <div className="text-xs text-mono-600 dark:text-mono-400 text-center">Save $159+/month vs buying separately</div>
               </div>
               <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border-2 border-blue-500 dark:border-blue-600 shadow-lg">
-                <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2 text-center">43+</div>
+                <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2 text-center">53+</div>
                 <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">Tools</div>
                 <div className="text-xs text-mono-600 dark:text-mono-400 text-center">vs Later (3), Buffer (3), Hootsuite (5)</div>
               </div>

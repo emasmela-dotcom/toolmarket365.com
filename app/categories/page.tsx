@@ -167,7 +167,7 @@ export default function CategoriesPage() {
               Tool Categories
             </h1>
             <p className="text-lg text-mono-600 dark:text-mono-400 max-w-2xl mx-auto">
-              Explore our comprehensive collection of 43+ professional tools organized by category. Find exactly what you need to create, optimize, and monetize your content.
+              Explore our comprehensive collection of 53+ professional tools organized by category. Find exactly what you need to create, optimize, and monetize your content.
             </p>
           </div>
 
@@ -230,7 +230,7 @@ export default function CategoriesPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-accent-600 dark:text-accent-400 mb-2">
-                  43+
+                  53+
                 </div>
                 <div className="text-sm text-mono-600 dark:text-mono-400">
                   Professional Tools

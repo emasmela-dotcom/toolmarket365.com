@@ -115,7 +115,7 @@ const differentiators = [
   },
   {
     icon: Target,
-    title: '43+ Professional Tools',
+    title: '53+ Professional Tools',
     description: 'Content creation, analytics, brand management, SEO, scheduling, repurposing, monetization - everything creators need in one platform.',
     competitorStatus: '⚠️ Competitors have 3-10 tools, you need to buy multiple subscriptions',
     howItImproves: 'One platform for everything. No juggling 10+ subscriptions. All tools work together. Consistent workflow across all content types.',
@@ -286,7 +286,7 @@ export default function ComparePage() {
                   </tr>
                   <tr>
                     <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">Number of Tools</td>
-                    <td className="px-6 py-4 text-center text-sm font-semibold text-accent-600">43+</td>
+                    <td className="px-6 py-4 text-center text-sm font-semibold text-accent-600">53+</td>
                     {competitors.map((comp) => (
                       <td key={comp.name} className="px-6 py-4 text-center text-sm text-mono-600">
                         {comp.tools}
