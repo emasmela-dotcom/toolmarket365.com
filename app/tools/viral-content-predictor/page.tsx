@@ -554,7 +554,7 @@ function ViralContentPredictorContent() {
             )}
 
             {/* Risk Factors & Opportunities */}
-            {(prediction.analysis?.riskFactors?.length || prediction.analysis?.opportunities?.length) && (
+            {((prediction.analysis?.riskFactors?.length ?? 0) > 0 || (prediction.analysis?.opportunities?.length ?? 0) > 0) && (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {(prediction.analysis?.riskFactors?.length ?? 0) > 0 && (
                   <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-6 border border-red-200 dark:border-red-800">
