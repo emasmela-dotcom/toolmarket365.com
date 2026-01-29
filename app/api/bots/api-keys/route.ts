@@ -5,6 +5,7 @@ import { sql } from '@/lib/db'
 
 // Use Node.js runtime (required for crypto operations)
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 // Get user's API keys (masked for security)
 export async function GET(request: NextRequest) {
