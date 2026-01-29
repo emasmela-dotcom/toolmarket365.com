@@ -97,7 +97,7 @@ export function BulkActions({ selectedItems, onActionComplete, collections }: Bu
       })
 
       const results = await Promise.all(promises)
-      const allSuccessful = results.every(response => response.ok)
+      const allSuccessful = results.every((r): r is Response => r instanceof Response && r.ok)
 
       if (allSuccessful) {
         const actionLabel = actions.find(a => a.id === actionId)?.label || actionId

@@ -573,7 +573,7 @@ function ViralContentPredictorContent() {
                   </div>
                 )}
 
-                {prediction.analysis?.opportunities?.length > 0 && (
+                {(prediction.analysis?.opportunities?.length ?? 0) > 0 && (
                   <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-6 border border-green-200 dark:border-green-800">
                     <h3 className="text-lg font-bold mb-4 text-green-900 dark:text-green-200 flex items-center">
                       <CheckCircle2 className="w-5 h-5 mr-2" />
