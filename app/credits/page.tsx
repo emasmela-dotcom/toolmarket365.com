@@ -135,18 +135,18 @@ export default function CreditsPage() {
             <Info className="h-6 w-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <h2 className="text-xl font-bold text-red-900 dark:text-red-200 mb-2">
-                ⚠️ Important: External API Setup Required
+                ⚠️ Important: External API Setup for Full Functionality
               </h2>
               <p className="text-sm text-red-800 dark:text-red-300 mb-3">
-                <strong>Some premium tools require external API integrations to fully function.</strong> Before using tools like Competitor Analyzer, Instagram Scheduler, or AI-enhanced features, you must set up your external API keys in the Integrations Hub.
+                <strong>Some premium tools work with demo/template data, but require external API integrations for full functionality.</strong> You can use these tools immediately without API setup, but they'll show demo data or have limited features. For real data and full functionality, set up external API keys in the Integrations Hub.
               </p>
               <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-red-200 dark:border-red-800 mb-3">
-                <p className="text-sm font-semibold text-red-900 dark:text-red-200 mb-2">Tools requiring external API setup:</p>
-                <ul className="text-sm text-red-800 dark:text-red-300 space-y-1 ml-4">
-                  <li>• <strong>Competitor Analyzer</strong> - Requires social media API access for competitor data</li>
-                  <li>• <strong>Instagram Scheduler</strong> - Requires Instagram API for automatic posting</li>
-                  <li>• <strong>AI-Enhanced Tools</strong> - Optional OpenAI/Anthropic/Google API keys for enhanced AI features</li>
-                  <li>• <strong>Social Media Analytics</strong> - May require platform APIs for real-time data</li>
+                <p className="text-sm font-semibold text-red-900 dark:text-red-200 mb-2">Tools with limited functionality without API setup:</p>
+                <ul className="text-sm text-red-800 dark:text-red-300 space-y-2 ml-4">
+                  <li>• <strong>Competitor Analyzer</strong> - Works with demo data; requires social media API for real competitor analysis</li>
+                  <li>• <strong>Instagram Scheduler</strong> - Can plan/schedule posts; requires Instagram API for automatic posting</li>
+                  <li>• <strong>AI-Enhanced Tools</strong> - Work with templates; optional OpenAI/Anthropic/Google API keys enhance results</li>
+                  <li>• <strong>Social Media Analytics</strong> - Show mock data; require platform APIs for real-time analytics</li>
                 </ul>
               </div>
               <p className="text-sm text-red-800 dark:text-red-300 mb-3">
@@ -159,6 +159,62 @@ export default function CreditsPage() {
                 <span>Set Up Integrations Now</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* How Tools Work With/Without API Setup */}
+        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mb-8">
+          <div className="flex items-start space-x-3">
+            <Zap className="h-6 w-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-green-900 dark:text-green-200 mb-3">
+                How Tools Work With & Without API Setup
+              </h2>
+              <p className="text-sm text-green-800 dark:text-green-300 mb-4">
+                <strong>Good news:</strong> All CreatorFlow365 tools work immediately without API setup! Some tools show demo/template data, while others have full functionality. API integrations enhance tools with real data and advanced features.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                  <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">1. Competitor Analyzer</h4>
+                  <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
+                    <li>• <strong>Without API:</strong> Works with demo data (random numbers for comparison)</li>
+                    <li>• <strong>With API:</strong> Shows real competitor metrics and analysis</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                  <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">2. Instagram Scheduler</h4>
+                  <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
+                    <li>• <strong>Without API:</strong> Can plan, schedule, and manage posts in the calendar</li>
+                    <li>• <strong>With API:</strong> Posts automatically publish to Instagram at scheduled times</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                  <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">3. AI-Enhanced Tools</h4>
+                  <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
+                    <li>• <strong>Without API:</strong> Work with template-based generation</li>
+                    <li className="ml-4">- Blog Outline Generator: Template outlines</li>
+                    <li className="ml-4">- AI Caption Generator: Template pools</li>
+                    <li className="ml-4">- AI Lead Follow-Up Agent: 100% template-based</li>
+                    <li>• <strong>With API:</strong> Enhanced, personalized results</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                  <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">4. Social Media Analytics</h4>
+                  <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
+                    <li>• <strong>Without API:</strong> Show mock/demo data</li>
+                    <li>• <strong>With API:</strong> Real-time analytics from platform APIs</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p className="text-sm text-green-800 dark:text-green-300 font-medium">
+                💡 <strong>Bottom line:</strong> You can use all tools immediately. API setup unlocks real data and advanced features, but isn't required to get started!
+              </p>
             </div>
           </div>
         </div>

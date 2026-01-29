@@ -13,7 +13,8 @@ import {
   BarChart3,
   Video,
   MessageSquare,
-  Settings
+  Settings,
+  ArrowRight
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -230,7 +231,7 @@ function IntegrationsPageContent() {
           </div>
 
           {/* Transparency Notice */}
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 max-w-4xl mx-auto">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 max-w-4xl mx-auto mb-6">
             <div className="flex items-start space-x-3">
               <Info className="h-6 w-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
@@ -239,6 +240,62 @@ function IntegrationsPageContent() {
                 </h3>
                 <p className="text-sm text-blue-800 dark:text-blue-300">
                   CreatorFlow365 provides everything we can offer at no extra cost beyond your subscription fee. However, some advanced tools require external API integrations (like Instagram API, OpenAI, etc.) to function at full capacity. These external services charge their own fees, which you pay directly to them—CreatorFlow365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your CreatorFlow365 subscription cost predictable.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* How Tools Work With/Without API Setup */}
+          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 max-w-4xl mx-auto">
+            <div className="flex items-start space-x-3">
+              <Zap className="h-6 w-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h3 className="font-semibold text-green-900 dark:text-green-200 mb-3">
+                  How Tools Work With & Without API Setup
+                </h3>
+                <p className="text-sm text-green-800 dark:text-green-300 mb-4">
+                  <strong>Good news:</strong> All CreatorFlow365 tools work immediately without API setup! Some tools show demo/template data, while others have full functionality. API integrations enhance tools with real data and advanced features.
+                </p>
+                
+                <div className="space-y-4">
+                  <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">1. Competitor Analyzer</h4>
+                    <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
+                      <li>• <strong>Without API:</strong> Works with demo data (random numbers for comparison)</li>
+                      <li>• <strong>With API:</strong> Shows real competitor metrics and analysis</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">2. Instagram Scheduler</h4>
+                    <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
+                      <li>• <strong>Without API:</strong> Can plan, schedule, and manage posts in the calendar</li>
+                      <li>• <strong>With API:</strong> Posts automatically publish to Instagram at scheduled times</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">3. AI-Enhanced Tools</h4>
+                    <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
+                      <li>• <strong>Without API:</strong> Work with template-based generation</li>
+                      <li className="ml-4">- Blog Outline Generator: Generates template outlines</li>
+                      <li className="ml-4">- AI Caption Generator: Uses template pools</li>
+                      <li className="ml-4">- AI Lead Follow-Up Agent: 100% template-based</li>
+                      <li>• <strong>With API:</strong> Enhanced, more personalized results</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">4. Social Media Analytics</h4>
+                    <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
+                      <li>• <strong>Without API:</strong> Show mock/demo data (Cross-Platform Analytics, Brand Mention Tracker, etc.)</li>
+                      <li>• <strong>With API:</strong> Real-time analytics from platform APIs</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <p className="text-sm text-green-800 dark:text-green-300 mt-4 font-medium">
+                  💡 <strong>Bottom line:</strong> You can use all tools immediately. API setup unlocks real data and advanced features, but isn't required to get started!
                 </p>
               </div>
             </div>
