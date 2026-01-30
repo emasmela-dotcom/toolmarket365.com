@@ -9,22 +9,22 @@ export default function GlobalError({
 }) {
   return (
     <html>
-      <body>
-        <div className="min-h-screen flex items-center justify-center bg-mono-50 dark:bg-mono-950 px-4">
-          <div className="max-w-2xl w-full text-center">
-            <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-              Application Error
-            </h1>
-            <p className="text-lg text-mono-600 dark:text-mono-400 mb-8">
-              A critical error occurred. Please refresh the page or contact support.
-            </p>
-            <button
-              onClick={reset}
-              className="inline-flex items-center justify-center px-6 py-3 bg-accent-600 text-white font-medium rounded-lg hover:bg-accent-700 transition-colors"
-            >
-              Try Again
-            </button>
-          </div>
+      <head><meta charSet="utf-8" /></head>
+      <body style={{ margin: 0, fontFamily: 'system-ui, sans-serif', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>
+        <div style={{ maxWidth: '32rem', width: '100%', textAlign: 'center', padding: '1rem' }}>
+          <h1 style={{ fontSize: '1.875rem', fontWeight: 700, marginBottom: '1rem', color: '#111' }}>
+            Application Error
+          </h1>
+          <p style={{ fontSize: '1.125rem', color: '#444', marginBottom: '2rem' }}>
+            A critical error occurred. Please refresh the page.
+          </p>
+          <button
+            type="button"
+            onClick={() => reset()}
+            style={{ padding: '0.75rem 1.5rem', fontSize: '1rem', fontWeight: 500, color: '#fff', background: '#2563eb', border: 'none', borderRadius: '0.5rem', cursor: 'pointer' }}
+          >
+            Try Again
+          </button>
         </div>
       </body>
     </html>
