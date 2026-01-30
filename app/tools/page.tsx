@@ -111,6 +111,7 @@ const toolPlatforms: Record<string, SocialPlatform[]> = {
   // Library & workflow
   'content-library': allPlatforms,
   'content-repurposer': allPlatforms,
+  'one-input-many-outputs': allPlatforms,
   'post-scheduler': allPlatforms,
 }
 
@@ -142,6 +143,7 @@ const toolSections = [
       { name: 'Analytics Dashboard', slug: 'analytics-dashboard', icon: BarChart3 },
       { name: 'SEO Optimizer', slug: 'seo-optimizer', icon: Search },
       { name: 'Content Repurposer', slug: 'content-repurposer', icon: RefreshCw },
+      { name: 'One Input → Many Outputs', slug: 'one-input-many-outputs', icon: LayoutGrid },
       { name: 'AI Caption Generator', slug: 'ai-caption-generator', icon: Sparkles },
       { name: 'Multi-Platform Generator', slug: 'multi-platform-generator', icon: Sparkles },
     ]
@@ -335,6 +337,7 @@ function ToolsPageContent() {
       'social-scheduler',
       'instagram-scheduler',
       'multi-platform-generator',
+      'one-input-many-outputs',
     ],
     professional: [], // All tools
     business: [], // All tools
