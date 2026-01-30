@@ -140,7 +140,9 @@ export default function Home() {
             <p className="text-sm sm:text-base text-mono-700 dark:text-mono-300 text-center mb-4 max-w-4xl mx-auto">
               With <strong className="text-accent-600 dark:text-accent-400">162 million content creators in the U.S.</strong> and the global creator economy projected to hit over <strong className="text-accent-600 dark:text-accent-400">$1 trillion by the mid-2030s</strong>, there's never been a better time to build your creator brand. The industry is experiencing massive, sustained growth, driven by demand for personalized content, evolving monetization tools, and platform empowerment.
             </p>
-            
+            <p className="text-xs text-mono-500 dark:text-mono-500 text-center mb-3 max-w-2xl mx-auto">
+              The three areas below are here only to illustrate why the market is growing—they are not links or buttons.
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
               <div className="bg-mono-50 dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
                 <div className="flex items-center space-x-3 mb-3">
