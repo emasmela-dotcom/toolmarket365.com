@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import './globals.css'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
@@ -61,7 +60,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <Script src="https://gumroad.com/js/gumroad.js" strategy="lazyOnload" />
         <Navigation />
         <main className="min-h-screen">
           {children}

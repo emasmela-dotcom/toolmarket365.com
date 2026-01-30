@@ -1,0 +1,10 @@
+---
+description: Create and post nothing without being told; user creates nothing on their own
+alwaysApply: true
+---
+
+# Create Nothing Without Being Told
+
+- **Create and post nothing** unless the user explicitly tells you to create or post it.
+- **I create nothing on my own** — the user does not want the assistant to add, suggest, or ship features, copy, or UI without an explicit instruction.
+- Do not add new sections, boxes, links, or content "to be helpful." Only change or create when the user says to do it.

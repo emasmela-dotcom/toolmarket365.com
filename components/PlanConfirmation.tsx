@@ -9,6 +9,8 @@ interface PlanConfirmationProps {
   excludedTools?: string[]
   onConfirm: () => void
   onCancel?: () => void
+  /** When set, show Subscribe now (link) + Start free trial (button) and trial content terms */
+  subscribeNowHref?: string
 }
 
 export function PlanConfirmation({
@@ -17,6 +19,7 @@ export function PlanConfirmation({
   excludedTools = [],
   onConfirm,
   onCancel,
+  subscribeNowHref,
 }: PlanConfirmationProps) {
   const [confirmed, setConfirmed] = useState(false)
 
@@ -110,27 +113,64 @@ export function PlanConfirmation({
         </label>
       </div>
 
+      {/* Trial content terms (when Subscribe now + Trial options are shown) */}
+      {subscribeNowHref && (
+        <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+          <h3 className="font-semibold text-amber-900 dark:text-amber-200 mb-2">Content created during trial</h3>
+          <p className="text-sm text-amber-800 dark:text-amber-300 mb-2">
+            <strong>If you subscribe before trial ends:</strong> You keep all content created during the trial.
+          </p>
+          <p className="text-sm text-amber-800 dark:text-amber-300">
+            <strong>If you don’t subscribe:</strong> Your account is restored to its pre-trial state and content created during the trial will be removed.
+          </p>
+        </div>
+      )}
+
       {/* Action Buttons */}
-      <div className="flex items-center justify-end space-x-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3">
         {onCancel && (
           <button
             onClick={onCancel}
-            className="px-6 py-2 text-sm font-medium text-mono-700 dark:text-mono-300 bg-mono-100 dark:bg-mono-800 rounded-lg hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors"
+            className="px-6 py-2 text-sm font-medium text-mono-700 dark:text-mono-300 bg-mono-100 dark:bg-mono-800 rounded-lg hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors order-3 sm:order-1"
           >
             Cancel
           </button>
         )}
-        <button
-          onClick={handleConfirm}
-          disabled={!confirmed}
-          className={`px-6 py-2 text-sm font-semibold rounded-lg transition-colors ${
-            confirmed
-              ? 'bg-accent-600 text-white hover:bg-accent-700'
-              : 'bg-mono-300 dark:bg-mono-700 text-mono-500 dark:text-mono-400 cursor-not-allowed'
-          }`}
-        >
-          Confirm & Continue
-        </button>
+        {subscribeNowHref ? (
+          <>
+            <a
+              href={subscribeNowHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2.5 text-sm font-semibold rounded-lg bg-mono-200 dark:bg-mono-700 text-mono-950 dark:text-mono-50 hover:bg-mono-300 dark:hover:bg-mono-600 transition-colors text-center"
+            >
+              Subscribe now
+            </a>
+            <button
+              onClick={handleConfirm}
+              disabled={!confirmed}
+              className={`px-6 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
+                confirmed
+                  ? 'bg-accent-600 text-white hover:bg-accent-700'
+                  : 'bg-mono-300 dark:bg-mono-700 text-mono-500 dark:text-mono-400 cursor-not-allowed'
+              }`}
+            >
+              Start free trial
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={handleConfirm}
+            disabled={!confirmed}
+            className={`px-6 py-2 text-sm font-semibold rounded-lg transition-colors ${
+              confirmed
+                ? 'bg-accent-600 text-white hover:bg-accent-700'
+                : 'bg-mono-300 dark:bg-mono-700 text-mono-500 dark:text-mono-400 cursor-not-allowed'
+            }`}
+          >
+            Confirm & Continue
+          </button>
+        )}
       </div>
     </div>
   )

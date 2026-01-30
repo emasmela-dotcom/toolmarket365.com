@@ -117,9 +117,9 @@ const differentiators = [
     icon: Target,
     title: '53+ Professional Tools',
     description: 'Content creation, analytics, brand management, SEO, scheduling, repurposing, monetization - everything creators need in one platform.',
-    competitorStatus: '⚠️ Competitors have 3-10 tools, you need to buy multiple subscriptions',
-    howItImproves: 'One platform for everything. No juggling 10+ subscriptions. All tools work together. Consistent workflow across all content types.',
-    impact: 'Save $159+/month vs buying tools separately',
+    competitorStatus: '⚠️ Competitors combined offer ~18 tools across multiple subscriptions equaling $434/month',
+    howItImproves: 'We offer comparable tools plus 35+ other content creator tools in one subscription. 53+ tools for $79/month.',
+    impact: 'One platform, one price—save $355+/month vs buying separately',
   },
 ]
 

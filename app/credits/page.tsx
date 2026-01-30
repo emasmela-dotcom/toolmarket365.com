@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Info, Coins, Zap, ArrowRight, CheckCircle2, X, MessageSquare } from 'lucide-react'
+import { Info, Coins, Zap, ArrowRight, X, MessageSquare } from 'lucide-react'
 import { TOOL_CREDIT_COSTS, getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 
@@ -320,30 +320,7 @@ export default function CreditsPage() {
           ))}
         </div>
 
-        {/* Free Tools Section */}
-        <div className="mt-8 bg-green-50 dark:bg-green-900/20 border-2 border-green-300 dark:border-green-700 rounded-lg p-6">
-          <div className="flex items-start space-x-3">
-            <CheckCircle2 className="h-6 w-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <h2 className="text-xl font-bold text-green-900 dark:text-green-200 mb-2">
-                Free Tools (No Credits Required)
-              </h2>
-              <p className="text-sm text-green-800 dark:text-green-300 mb-3">
-                Most tools in CreatorFlow365 are included with your plan and don't require credits. 
-                Only premium/advanced tools listed above require credits.
-              </p>
-              <Link
-                href="/tools"
-                className="inline-flex items-center space-x-2 text-sm font-semibold text-green-700 dark:text-green-300 hover:text-green-800 dark:hover:text-green-200"
-              >
-                <span>View All Tools</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Credit Bundles */}
+        {/* Buy Credit Bundles */}
         <div className="mt-8 bg-accent-50 dark:bg-accent-900/20 border-2 border-accent-300 dark:border-accent-700 rounded-lg p-6">
           <div className="flex items-start space-x-3">
             <Zap className="h-6 w-6 text-accent-600 dark:text-accent-400 flex-shrink-0 mt-0.5" />
@@ -353,57 +330,42 @@ export default function CreditsPage() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700 flex flex-col">
-                  <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">
-                    50 Credits
-                  </div>
-                  <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">
-                    $5
-                  </div>
-                  <p className="text-xs text-mono-600 dark:text-mono-400 mb-4 flex-grow">
-                    Perfect for trying premium tools
-                  </p>
+                  <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">50 Credits</div>
+                  <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">$5</div>
+                  <p className="text-xs text-mono-600 dark:text-mono-400 mb-4 flex-grow">Perfect for trying premium tools</p>
                   <a
                     href={GUMROAD_LINKS.credits.bundle50}
-                    className="gumroad-button w-full text-center py-2 px-4 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors text-sm"
-                    data-gumroad-single-product="true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm"
                   >
-                    Buy Now
+                    Buy credits
                   </a>
                 </div>
                 <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border-2 border-accent-300 dark:border-accent-700 flex flex-col">
-                  <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">
-                    100 Credits
-                  </div>
-                  <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">
-                    $10
-                  </div>
-                  <p className="text-xs text-mono-600 dark:text-mono-400 mb-4 flex-grow">
-                    Most popular bundle
-                  </p>
+                  <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">100 Credits</div>
+                  <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">$10</div>
+                  <p className="text-xs text-mono-600 dark:text-mono-400 mb-4 flex-grow">Most popular bundle</p>
                   <a
                     href={GUMROAD_LINKS.credits.bundle100}
-                    className="gumroad-button w-full text-center py-2 px-4 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors text-sm"
-                    data-gumroad-single-product="true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm"
                   >
-                    Buy Now
+                    Buy credits
                   </a>
                 </div>
                 <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700 flex flex-col">
-                  <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">
-                    250 Credits
-                  </div>
-                  <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">
-                    $20
-                  </div>
-                  <p className="text-xs text-green-600 dark:text-green-400 font-semibold mb-4">
-                    Save 20% ($5 off)
-                  </p>
+                  <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">250 Credits</div>
+                  <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">$20</div>
+                  <p className="text-xs text-green-600 dark:text-green-400 font-semibold mb-4">Save 20% ($5 off)</p>
                   <a
                     href={GUMROAD_LINKS.credits.bundle250}
-                    className="gumroad-button w-full text-center py-2 px-4 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors text-sm"
-                    data-gumroad-single-product="true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm"
                   >
-                    Buy Now
+                    Buy credits
                   </a>
                 </div>
               </div>

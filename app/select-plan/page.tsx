@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Check, Sparkles, Zap, ArrowRight, Loader2 } from 'lucide-react'
 import { PlanConfirmation } from '@/components/PlanConfirmation'
+import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 
 interface Plan {
   id: string
@@ -26,10 +27,23 @@ export default function SelectPlanPage() {
   const [error, setError] = useState<string | null>(null)
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null)
+  const hasAutoOpenedFromQuery = useRef(false)
 
   useEffect(() => {
     fetchPlans()
   }, [])
+
+  // Pre-select plan from ?plan= query (e.g. from pricing "Choose this plan") — once per load
+  const planParam = searchParams.get('plan')
+  useEffect(() => {
+    if (!planParam || plans.length === 0 || hasAutoOpenedFromQuery.current) return
+    const match = plans.find((p) => p.name.toLowerCase() === planParam.toLowerCase())
+    if (match) {
+      hasAutoOpenedFromQuery.current = true
+      setSelectedPlan(match)
+      setShowConfirmation(true)
+    }
+  }, [planParam, plans])
 
   const fetchPlans = async () => {
     try {
@@ -175,13 +189,15 @@ export default function SelectPlanPage() {
     return { included, excluded }
   }
 
-  // Show confirmation modal
+  // Show confirmation: Subscribe now (Gumroad) or Start free trial, plus trial content terms
   if (showConfirmation && selectedPlan) {
     const { included, excluded } = getPlanTools(selectedPlan.name.toLowerCase())
     const includedTools = included.length > 0 
       ? included.map(slug => slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '))
       : ['All 53+ tools', 'Unlimited use of all tools', 'Unlimited content library']
-    
+    const planKey = selectedPlan.name.toLowerCase() as keyof typeof GUMROAD_LINKS.subscriptions
+    const subscribeNowHref = GUMROAD_LINKS.subscriptions[planKey] ?? undefined
+
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
         <div className="max-w-4xl mx-auto">
@@ -191,6 +207,7 @@ export default function SelectPlanPage() {
             excludedTools={excluded.length > 0 ? ['Tools marked with credit badge', 'Tools from higher-tier plans'] : []}
             onConfirm={handleConfirmTrial}
             onCancel={handleCancelConfirmation}
+            subscribeNowHref={subscribeNowHref}
           />
         </div>
       </div>

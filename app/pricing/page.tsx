@@ -502,35 +502,18 @@ export default function PricingPage() {
                   </div>
 
                   <div className="space-y-2">
-                    {plan.gumroad ? (
-                      <a
-                        href={plan.ctaLink}
-                        className={`gumroad-button block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm transition-colors ${
-                          plan.popular
-                            ? 'bg-accent-600 text-white hover:bg-accent-700'
-                            : 'bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 hover:bg-mono-200 dark:hover:bg-mono-700'
-                        }`}
-                        data-gumroad-single-product="true"
-                      >
-                        {plan.cta}
-                      </a>
-                    ) : (
-                      <Link
-                        href={plan.ctaLink}
-                        className={`block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm transition-colors ${
-                          plan.popular
-                            ? 'bg-accent-600 text-white hover:bg-accent-700'
-                            : 'bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 hover:bg-mono-200 dark:hover:bg-mono-700'
-                        }`}
-                      >
-                        {plan.cta}
-                      </Link>
-                    )}
+                    <Link
+                      href={`/select-plan?plan=${plan.name.toLowerCase()}`}
+                      className={`block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm transition-colors ${
+                        plan.popular
+                          ? 'bg-accent-600 text-white hover:bg-accent-700'
+                          : 'bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 hover:bg-mono-200 dark:hover:bg-mono-700'
+                      }`}
+                    >
+                      Choose this plan
+                    </Link>
                     <p className="text-xs text-center text-mono-500 dark:text-mono-500">
-                      Cancel anytime
-                    </p>
-                    <p className="text-xs text-center text-mono-600 dark:text-mono-400 font-medium">
-                      Subscribe to unlock all features
+                      You’ll see Subscribe now or Start trial, plus terms for content during trial
                     </p>
                   </div>
                 </div>
@@ -608,10 +591,11 @@ export default function PricingPage() {
                 </div>
                 <a
                   href={GUMROAD_LINKS.credits.bundle50}
-                  className="gumroad-button w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
-                  data-gumroad-single-product="true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
                 >
-                  Buy 50 Credits
+                  Buy credits
                 </a>
               </div>
 
@@ -659,10 +643,11 @@ export default function PricingPage() {
                 </div>
                 <a
                   href={GUMROAD_LINKS.credits.bundle100}
-                  className="gumroad-button w-full py-2.5 px-4 bg-accent-600 text-white rounded-lg font-semibold text-sm hover:bg-accent-700 transition-colors text-center block"
-                  data-gumroad-single-product="true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-4 bg-accent-600 text-white rounded-lg font-semibold text-sm hover:bg-accent-700 transition-colors text-center block"
                 >
-                  Buy 100 Credits
+                  Buy credits
                 </a>
               </div>
 
@@ -708,10 +693,11 @@ export default function PricingPage() {
                 </div>
                 <a
                   href={GUMROAD_LINKS.credits.bundle250}
-                  className="gumroad-button w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
-                  data-gumroad-single-product="true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
                 >
-                  Buy 250 Credits
+                  Buy credits
                 </a>
               </div>
             </div>

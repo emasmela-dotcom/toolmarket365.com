@@ -265,7 +265,7 @@ export default function CheckoutPage() {
             </button>
 
             <p className="text-xs text-center text-mono-500 dark:text-mono-500 mt-4">
-              Secure checkout via Gumroad • Cancel anytime
+              Secure checkout • Cancel anytime
             </p>
           </div>
         )}
