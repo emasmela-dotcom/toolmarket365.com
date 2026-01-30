@@ -10,7 +10,7 @@ let ChromePicker: any = null
 
 if (typeof window !== 'undefined') {
   import('fabric').then((f) => {
-    fabric = (f as { default?: unknown }).default
+read  project_status.md    fabric = (f as { default?: unknown }).default
   })
   import('react-colorful').then((rc) => {
     ChromePicker = (rc as { ChromePicker?: unknown; HexColorPicker?: unknown }).ChromePicker ?? (rc as { HexColorPicker?: unknown }).HexColorPicker

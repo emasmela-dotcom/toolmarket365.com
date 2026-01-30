@@ -33,6 +33,11 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 ### Business Model
 - ✅ **Business model finalized** – Hybrid model (Option C) approved; see `BUSINESS_MODEL_STRATEGY.md`
 
+### Build & Deploy
+- ✅ **Production build passing** – `export const dynamic = 'force-dynamic'` in root layout and in bot API routes (api-keys, captions/daily, competitors/alerts, competitors/reports, engagement-tracker/alerts) to avoid SSG/cookie errors
+- ✅ **Vercel** – App deploys from `main`; push to trigger new deploy
+- ✅ **Domain plan** – Option A: buy creatorflow365.com (e.g. via Vercel ~$11.25/yr), don’t connect until ready; then add domain in Vercel and set `NEXT_PUBLIC_SITE_URL`
+
 ## 🚧 In Progress
 
 - (None – ready for polish and launch)
