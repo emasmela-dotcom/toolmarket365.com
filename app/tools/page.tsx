@@ -558,6 +558,21 @@ function ToolsPageContent() {
           </div>
         </div>
 
+        {/* Platform filter active – show what's filtered */}
+        {activePlatform && (
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-3 rounded-lg border-2 border-accent-200 dark:border-accent-800 bg-accent-50 dark:bg-accent-900/20 px-4 py-3">
+            <span className="text-sm font-semibold text-accent-800 dark:text-accent-200">
+              Showing {Array.from(allTools.values()).length} tools for {platformCardConfig.find(p => p.id === activePlatform)?.label || activePlatform}
+            </span>
+            <Link
+              href={buildPlatformHref('all')}
+              className="text-sm font-medium text-accent-600 dark:text-accent-400 hover:underline"
+            >
+              Show all platforms
+            </Link>
+          </div>
+        )}
+
         {/* Credit Cost Info Banner */}
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-8 max-w-4xl mx-auto">
           <div className="flex items-start space-x-3">
