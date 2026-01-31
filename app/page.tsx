@@ -4,6 +4,8 @@ import { ToolCategories } from '@/components/ToolCategories'
 import { ValuePropositions } from '@/components/ValuePropositions'
 import { Stats } from '@/components/Stats'
 
+export const dynamic = 'force-dynamic'
+
 export default function Home() {
   return (
     <>
