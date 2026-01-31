@@ -3,6 +3,7 @@ import { sql } from '@/lib/db'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 // GET /api/growth-suite/brands - Get user's brand profile or list all brands
 export async function GET(request: NextRequest) {

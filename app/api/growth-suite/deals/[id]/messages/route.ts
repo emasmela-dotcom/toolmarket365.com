@@ -3,6 +3,7 @@ import { sql } from '@/lib/db'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 // GET: Fetch messages for a deal
 export async function GET(

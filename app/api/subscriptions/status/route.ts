@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getUserIdFromRequest, getUserSubscriptionStatus } from '@/lib/subscription'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     const userId = await getUserIdFromRequest(request)

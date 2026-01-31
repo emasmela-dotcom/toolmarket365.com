@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 // CRON job: Process scheduled Instagram posts
 export async function GET(request: NextRequest) {

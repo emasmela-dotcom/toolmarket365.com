@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { CompetitorWatchBotService } from '@/lib/services/competitor-watch-bot-service'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
+export const dynamic = 'force-dynamic'
 const competitorService = new CompetitorWatchBotService()
 
 export async function POST(request: NextRequest) {

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getUserIdFromRequest, canUserAccessTool } from '@/lib/subscription'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(req: NextRequest) {
   const userId = await getUserIdFromRequest(req)
   

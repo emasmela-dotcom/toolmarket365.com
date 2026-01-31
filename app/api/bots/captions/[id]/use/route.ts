@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { CaptionBotService } from '@/lib/services/caption-bot-service'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
+export const dynamic = 'force-dynamic'
 const captionService = new CaptionBotService()
 
 export async function POST(

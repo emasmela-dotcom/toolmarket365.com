@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { BlogOutlineBotService } from '@/lib/services/blog-outline-bot-service'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
+export const dynamic = 'force-dynamic'
 const outlineService = new BlogOutlineBotService()
 
 export async function POST(request: NextRequest) {

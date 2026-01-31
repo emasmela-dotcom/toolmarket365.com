@@ -4,6 +4,7 @@ import { getUserIdFromRequest } from '@/lib/subscription'
 import { sql } from '@/lib/db'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 const outlineService = new BlogOutlineBotService()
 

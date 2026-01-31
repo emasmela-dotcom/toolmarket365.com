@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { HashtagResearchService } from '@/lib/services/hashtag-research-service'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
+export const dynamic = 'force-dynamic'
 const hashtagService = new HashtagResearchService()
 
 export async function GET(request: NextRequest) {

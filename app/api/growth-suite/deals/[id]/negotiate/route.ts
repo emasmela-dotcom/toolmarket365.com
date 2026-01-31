@@ -3,6 +3,7 @@ import { sql } from '@/lib/db'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 // POST /api/growth-suite/deals/[id]/negotiate - Submit negotiation proposal
 export async function POST(

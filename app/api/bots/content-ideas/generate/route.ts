@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { WeeklyContentIdeasService } from '@/lib/services/weekly-content-ideas-service'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
+export const dynamic = 'force-dynamic'
 const weeklyService = new WeeklyContentIdeasService()
 
 export async function POST(request: NextRequest) {

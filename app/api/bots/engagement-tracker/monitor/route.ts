@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { EngagementTrackerBotService } from '@/lib/services/engagement-tracker-bot-service'
 
+export const dynamic = 'force-dynamic'
 const engagementService = new EngagementTrackerBotService()
 
 export async function GET(request: NextRequest) {

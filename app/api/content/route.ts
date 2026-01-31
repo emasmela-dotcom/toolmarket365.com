@@ -4,6 +4,7 @@ import { getUserIdFromRequest } from '@/lib/subscription'
 import { nanoid } from 'nanoid'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 // GET /api/content - Fetch content items
 export async function GET(request: NextRequest) {

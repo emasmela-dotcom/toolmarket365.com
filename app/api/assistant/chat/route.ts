@@ -3,6 +3,7 @@ import { getUserIdFromRequest } from '@/lib/subscription'
 import { getUserAPIKey } from '@/lib/services/external-ai-service'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 const CREATORFLOW_KNOWLEDGE = `CreatorFlow365 is a Micro-SaaS marketplace for content creators with 53+ tools.
 

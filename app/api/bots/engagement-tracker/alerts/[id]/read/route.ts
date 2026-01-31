@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { EngagementTrackerBotService } from '@/lib/services/engagement-tracker-bot-service'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
+export const dynamic = 'force-dynamic'
 const engagementService = new EngagementTrackerBotService()
 
 export async function POST(

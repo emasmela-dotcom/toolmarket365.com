@@ -4,6 +4,7 @@ import { getUserIdFromRequest } from '@/lib/subscription'
 import { nanoid } from 'nanoid'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 // GET: Fetch metadata for content
 export async function GET(request: NextRequest) {

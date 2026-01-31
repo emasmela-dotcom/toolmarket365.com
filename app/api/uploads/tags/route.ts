@@ -7,6 +7,7 @@ import {
 import { getUserIdFromRequest } from '@/lib/subscription'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 // POST add tags to upload
 export async function POST(request: NextRequest) {
