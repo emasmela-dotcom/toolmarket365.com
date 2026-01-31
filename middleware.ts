@@ -105,10 +105,73 @@ body{font-family:system-ui,sans-serif;background:#fafafa;color:#171717;line-heig
 </body>
 </html>`
 
+const TOOLS_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tools — CreatorFlow365</title>
+<link rel="icon" href="/favicon.svg"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#fafafa;color:#171717;line-height:1.5}
+.nav{position:sticky;top:0;z-index:50;border-bottom:1px solid #e5e5e5;background:rgba(250,250,250,.95);backdrop-filter:blur(8px);padding:.5rem 1rem}
+.nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.logo{font-size:1.25rem;font-weight:700;color:#0a0a0a;text-decoration:none}.logo span{color:#2563eb}
+.nav-links{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.nav-links a{color:#525252;text-decoration:none;font-size:.875rem;font-weight:500}.nav-links a:hover{color:#1d4ed8}
+.btn-pri{display:inline-block;padding:.5rem 1rem;background:#2563eb;color:#fff;font-weight:500;text-decoration:none;border-radius:.5rem;font-size:.875rem}
+.section{padding:2rem 1rem;max-width:1280px;margin:0 auto}
+.section h1{font-size:2rem;font-weight:700;color:#0a0a0a;margin-bottom:.5rem}
+.section h1 span{color:#2563eb}
+.section p{color:#525252;margin-bottom:1.5rem}
+.tool-links{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
+.tool-links a{color:#2563eb;text-decoration:none;font-size:.875rem;padding:.5rem;border:1px solid #e5e5e5;border-radius:.5rem;background:#fff}
+.tool-links a:hover{border-color:#93c5fd;background:#eff6ff}
+.footer{border-top:1px solid #e5e5e5;background:#f5f5f5;padding:2rem 1rem;text-align:center;font-size:.875rem;color:#525252}
+.footer a{color:#2563eb;text-decoration:none}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+<a href="/" class="logo">CreatorFlow<span>365</span></a>
+<div class="nav-links">
+<a href="/">Home</a><a href="/tools">Tools</a><a href="/tools/content-library">Content Library</a><a href="/growth-suite">Growth Suite</a><a href="/dashboard">Dashboard</a>
+<a href="/categories">Categories</a><a href="/pricing">Pricing</a><a href="/credits">Credit Costs</a><a href="/integrations">Integrations</a><a href="/contact">Contact</a>
+<a href="/login">Sign In</a><a href="/signup" class="btn-pri">Sign Up</a>
+</div></div>
+</nav>
+<section class="section">
+<h1>Tools <span>53+</span></h1>
+<p>Browse and use 53+ professional tools for content planning, SEO, analytics, social media, and more.</p>
+<div class="tool-links">
+<a href="/tools/ai-caption-generator">AI Caption Generator</a>
+<a href="/tools/content-library">Content Library</a>
+<a href="/tools/content-repurposer">Content Repurposer</a>
+<a href="/tools/viral-content-predictor">Viral Content Predictor</a>
+<a href="/tools/hashtag-research">Hashtag Research</a>
+<a href="/tools/social-graphics">Social Graphics</a>
+<a href="/tools/instagram-scheduler">Instagram Scheduler</a>
+<a href="/tools/analytics-dashboard">Analytics Dashboard</a>
+<a href="/tools/competitor-analyzer">Competitor Analyzer</a>
+<a href="/categories">All categories</a>
+</div>
+</section>
+<footer class="footer">
+<a href="/">CreatorFlow365</a> · <a href="/tools">Tools</a> · <a href="/pricing">Pricing</a> · <a href="/contact">Contact</a>
+</footer>
+</body>
+</html>`
+
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
   if (path === '/' || path === '') {
     return new NextResponse(FULL_HOME_HTML, {
+      headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' },
+    })
+  }
+  if (path === '/tools') {
+    return new NextResponse(TOOLS_HTML, {
       headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' },
     })
   }
