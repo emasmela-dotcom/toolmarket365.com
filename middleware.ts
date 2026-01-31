@@ -8,5 +8,5 @@ export function middleware(_request: NextRequest) {
 }
 
 export const config = {
-  matcher: [] as string[], // no routes — middleware never runs
+  matcher: ['/nonexistent-path-that-never-matches'],
 }
