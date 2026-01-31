@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Hero } from '@/components/Hero'
 import { FeaturedTools } from '@/components/FeaturedTools'
 import { ToolCategories } from '@/components/ToolCategories'
