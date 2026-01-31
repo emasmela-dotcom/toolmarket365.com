@@ -18,31 +18,35 @@ body{font-family:system-ui,sans-serif;background:#fafafa;color:#171717;line-heig
 .logo span{color:#2563eb}
 .nav-links{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
 .nav-links a{color:#525252;text-decoration:none;font-size:.875rem;font-weight:500}
-.nav-links a:hover{color:#2563eb}
+.nav-links a:hover{color:#1d4ed8}
 .btn-pri{display:inline-block;padding:.5rem 1rem;background:#2563eb;color:#fff;font-weight:500;text-decoration:none;border-radius:.5rem;font-size:.875rem}
+.btn-pri:hover{background:#1d4ed8}
 .hero{background:#fafafa;border-bottom:1px solid #e5e5e5;padding:2rem 1rem 2.5rem;text-align:center}
 .hero-inner{max-width:896px;margin:0 auto}
 .badge-hero{display:inline-flex;align-items:center;gap:.5rem;background:#eff6ff;padding:.5rem 1rem;border-radius:.5rem;border:1px solid #bfdbfe;margin-bottom:1rem}
 .badge-hero strong{color:#2563eb;font-size:1.5rem}
+.badge-hero span{color:#404040}
 .hero h1{font-size:clamp(2.25rem,5vw,4.5rem);font-weight:700;margin-bottom:.75rem;color:#0a0a0a}
 .hero h1 span{color:#2563eb}
 .hero p{margin-bottom:.5rem;color:#525252}
 .hero .lead{font-size:1.125rem;font-weight:600;color:#2563eb}
-.advantages{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;max-width:48rem;margin:2rem auto;padding:1rem;background:linear-gradient(to right,#f0fdf4,#eff6ff);border:2px solid #4ade80;border-radius:.5rem;text-align:center}
-.advantages div{font-weight:700;font-size:1.25rem;color:#16a34a}
-.advantages div small{display:block;font-size:.75rem;font-weight:500;color:#525252}
-.advantages .blue{color:#2563eb}
+.advantages{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:48rem;margin:2rem auto;padding:1rem;background:linear-gradient(to right,#f0fdf4,#eff6ff);border:2px solid #4ade80;border-radius:.5rem;text-align:center}
+.advantages .save{font-weight:700;font-size:1.25rem;color:#16a34a}
+.advantages .tools{font-weight:700;font-size:1.25rem;color:#2563eb}
+.advantages .only{font-weight:700;font-size:1.25rem;color:#2563eb}
+.advantages small{display:block;font-size:.75rem;font-weight:500;color:#404040}
 .hero-btns{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:1.5rem}
 .hero-btns a{padding:.625rem 1.5rem;border-radius:.5rem;font-size:.875rem;font-weight:500;text-decoration:none}
 .hero-btns .btn-pri{background:#2563eb;color:#fff}
 .hero-btns .btn-sec{background:#fff;color:#0a0a0a;border:1px solid #e5e5e5}
+.hero-btns .btn-sec:hover{background:#f5f5f5}
 .section{padding:3rem 1rem;max-width:1280px;margin:0 auto}
 .section h2{font-size:1.875rem;font-weight:700;margin-bottom:1rem;color:#0a0a0a}
 .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
 .tool-card{background:#fff;border:1px solid #e5e5e5;border-radius:.5rem;padding:1.5rem;text-decoration:none;color:inherit;display:block}
 .tool-card:hover{border-color:#93c5fd}
 .tool-card .badge{font-size:.75rem;padding:.25rem .5rem;background:#dbeafe;color:#1d4ed8;border-radius:.25rem;display:inline-block;margin-bottom:.5rem}
-.tool-card h3{font-size:1.25rem;font-weight:600;margin-bottom:.5rem}
+.tool-card h3{font-size:1.25rem;font-weight:600;margin-bottom:.5rem;color:#0a0a0a}
 .tool-card p{font-size:.875rem;color:#525252}
 .stats{background:#f5f5f5;border-top:1px solid #e5e5e5;padding:2rem 1rem}
 .stats-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
@@ -50,7 +54,8 @@ body{font-family:system-ui,sans-serif;background:#fafafa;color:#171717;line-heig
 .stats-inner span{display:block;font-size:.875rem;color:#525252;font-weight:400}
 .footer{border-top:1px solid #e5e5e5;background:#f5f5f5;padding:2rem 1rem;text-align:center;font-size:.875rem;color:#525252}
 .footer a{color:#2563eb;text-decoration:none}
-@media(max-width:768px){.stats-inner{grid-template-columns:repeat(2,1fr)}}
+.footer a:hover{color:#1d4ed8}
+@media(max-width:768px){.stats-inner{grid-template-columns:repeat(2,1fr)}.advantages{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -71,9 +76,9 @@ body{font-family:system-ui,sans-serif;background:#fafafa;color:#171717;line-heig
 <p>Build, optimize, and monetize your content with 53+ professional tools—all in one place.</p>
 <p class="lead">Run your entire creator business from one platform—not just schedule posts.</p>
 <div class="advantages">
-<div>Save $159+<small>per month vs buying separately</small></div>
-<div class="blue">53+ Tools<small>vs competitors' 3-10 tools</small></div>
-<div class="blue">Only We Have<small>Viral Content Predictor</small></div>
+<div><span class="save">Save $159+</span><small>per month vs buying separately</small></div>
+<div><span class="tools">53+ Tools</span><small>vs competitors' 3-10 tools</small></div>
+<div><span class="only">Only We Have</span><small>Viral Content Predictor</small></div>
 </div>
 <div class="hero-btns">
 <a href="/tools" class="btn-pri">Browse All Tools</a>
