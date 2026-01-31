@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-// Temporarily removed to isolate: if page loads, error is in Nav or Footer
-// import { Navigation } from '@/components/Navigation'
-// import { Footer } from '@/components/Footer'
+import { AppShell } from '@/components/AppShell'
 
 // Avoid static generation issues (e.g. event handlers passed to Client Components during SSG)
 export const dynamic = 'force-dynamic'
@@ -38,9 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   )
