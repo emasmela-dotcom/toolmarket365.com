@@ -3,9 +3,6 @@ import Link from 'next/link'
 import './globals.css'
 import { Footer } from '@/components/Footer'
 
-export const dynamic = 'force-dynamic'
-export const runtime = 'nodejs'
-
 export const metadata: Metadata = {
   title: 'CreatorFlow365 — The Micro-SaaS Marketplace for Content Creators',
   description: 'The Micro-SaaS Marketplace for Content Creators. Professional toolkit with 53+ tools for content planning, SEO, analytics, social media, viral content prediction, and revenue optimization.',
