@@ -4,6 +4,7 @@ import './globals.css'
 import { Footer } from '@/components/Footer'
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export const metadata: Metadata = {
   title: 'CreatorFlow365 — The Micro-SaaS Marketplace for Content Creators',
