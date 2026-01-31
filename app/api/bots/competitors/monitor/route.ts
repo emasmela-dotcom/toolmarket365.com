@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { CompetitorWatchBotService } from '@/lib/services/competitor-watch-bot-service'
 
+export const dynamic = 'force-dynamic'
+
 const competitorService = new CompetitorWatchBotService()
 
 export async function GET(request: NextRequest) {
