@@ -4,6 +4,7 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["iad1"],
+  "rewrites": [{ "source": "/", "destination": "/test" }],
   "crons": [
     {
       "path": "/api/instagram/schedule",
