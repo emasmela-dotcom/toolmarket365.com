@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { AppShell } from '@/components/AppShell'
 
 export const metadata: Metadata = {
   title: 'CreatorFlow365 — The Micro-SaaS Marketplace for Content Creators',
@@ -16,9 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        <AppShell>{children}</AppShell>
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   )
 }
