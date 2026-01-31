@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { Hero } from '@/components/Hero'
 import { Cloud, Search, Folder, Tag, TrendingUp, DollarSign, Video, ShoppingCart, Sparkles, Info } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 const toolSections = [
   { title: 'High Priority - Complete the Workflow', slug: 'high-priority-complete-the-workflow' },
   { title: 'Content Creation & Optimization', slug: 'content-creation-optimization' },
