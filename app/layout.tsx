@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
+// Temporarily removed to isolate Server Components error — add back after deploy
+// import { Navigation } from '@/components/Navigation'
+// import { Footer } from '@/components/Footer'
 
 // Avoid static generation issues (e.g. event handlers passed to Client Components during SSG)
 export const dynamic = 'force-dynamic'
@@ -37,11 +38,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <Navigation />
         <main className="min-h-screen">
           {children}
         </main>
-        <Footer />
       </body>
     </html>
   )
