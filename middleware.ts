@@ -30,10 +30,8 @@ body{font-family:system-ui,sans-serif;background:#fafafa;color:#171717;line-heig
 .hero h1 span{color:#2563eb}
 .hero p{margin-bottom:.5rem;color:#525252}
 .hero .lead{font-size:1.125rem;font-weight:600;color:#2563eb}
-.advantages{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:48rem;margin:2rem auto;padding:1rem;background:linear-gradient(to right,#f0fdf4,#eff6ff);border:2px solid #4ade80;border-radius:.5rem;text-align:center}
-.advantages .save{font-weight:700;font-size:1.25rem;color:#16a34a}
-.advantages .tools{font-weight:700;font-size:1.25rem;color:#2563eb}
-.advantages .only{font-weight:700;font-size:1.25rem;color:#2563eb}
+.advantages{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:48rem;margin:2rem auto;padding:1rem;background:#eff6ff;border:2px solid #bfdbfe;border-radius:.5rem;text-align:center}
+.advantages .save,.advantages .tools,.advantages .only{font-weight:700;font-size:1.25rem;color:#2563eb}
 .advantages small{display:block;font-size:.75rem;font-weight:500;color:#404040}
 .hero-btns{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:1.5rem}
 .hero-btns a{padding:.625rem 1.5rem;border-radius:.5rem;font-size:.875rem;font-weight:500;text-decoration:none}
