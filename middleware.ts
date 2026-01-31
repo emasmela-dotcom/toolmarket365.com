@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { SESSION_COOKIE_NAME } from '@/lib/auth'
+// Do not import from @/lib/auth here — it pulls in bcrypt and breaks in Edge runtime
 
 // Simple in-memory rate limiter
 // For production with 200+ users, consider upgrading to Redis (Upstash)
