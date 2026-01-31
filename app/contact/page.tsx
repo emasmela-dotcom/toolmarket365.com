@@ -91,9 +91,6 @@ function ContactForm() {
                     support@creatorflow365.com
                   </a>
                 </p>
-                <p className="text-xs text-mono-500 dark:text-mono-500 mt-2">
-                  (Update this to your actual support email)
-                </p>
               </div>
 
               <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">

@@ -1,6 +1,6 @@
 # CreatorFlow365 - Project Status
 
-**Last Updated:** January 29, 2026
+**Last Updated:** January 30, 2026
 
 ## 🎯 Project Overview
 
@@ -36,7 +36,9 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 ### Build & Deploy
 - ✅ **Production build passing** – `export const dynamic = 'force-dynamic'` in root layout and in bot API routes (api-keys, captions/daily, competitors/alerts, competitors/reports, engagement-tracker/alerts) to avoid SSG/cookie errors
 - ✅ **Vercel** – App deploys from `main`; push to trigger new deploy
-- ✅ **Domain plan** – Option A: buy creatorflow365.com (e.g. via Vercel ~$11.25/yr), don’t connect until ready; then add domain in Vercel and set `NEXT_PUBLIC_SITE_URL`
+- ✅ **Domain** – creatorflow365.com purchased via Vercel, connected to creatorflow365 project; www.creatorflow365.com added (308 redirect from apex to www); SSL valid
+- ✅ **NEXT_PUBLIC_SITE_URL** – Set to https://creatorflow365.com in Vercel env vars (Production and Preview)
+- ✅ **Support email** – support@creatorflow365.com set up via ImprovMX (free forwarding to Gmail); TXT (SPF) + MX records in Vercel DNS; contact page locked to support@creatorflow365.com; SUPPORT_EMAIL_SETUP.md added for reference
 
 ## 🚧 In Progress
 
@@ -44,8 +46,8 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 
 ## 📋 Next Steps
 
-1. **.com purchase & launch** – Follow **`LAUNCH_AND_DOMAIN_READINESS.md`** (domain, env vars, production checks)
-2. **Polish and testing** – Final checks before launch
+1. **Polish and testing** – Final checks before launch (domain and email done)
+2. **Gumroad** – Configure products, success/redirect URLs, webhooks if desired; test checkout on creatorflow365.com
 3. **Marketing preparation** – Ready to launch and market
 
 ## 🎯 Launch Readiness
@@ -56,6 +58,8 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 - **Credit System:** ✅ Working
 - **UI/UX:** ✅ Complete
 - **Business Model:** ✅ Finalized
+- **Domain:** ✅ creatorflow365.com live (www + apex)
+- **Support email:** ✅ support@creatorflow365.com (ImprovMX → Gmail)
 
 ## ⏸️ Deferred (Later)
 
