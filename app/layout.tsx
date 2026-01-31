@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: 'The Micro-SaaS Marketplace for Content Creators. Professional toolkit with 53+ tools for content planning, SEO, analytics, social media, viral content prediction, and revenue optimization.',
   keywords: ['content creator tools', 'social media tools', 'content planning', 'SEO tools', 'creator economy', 'content library', 'viral content predictor', 'social media analytics'],
   robots: { index: true, follow: true },
+  icons: { icon: '/favicon.svg' },
 }
 
 export default function RootLayout({
