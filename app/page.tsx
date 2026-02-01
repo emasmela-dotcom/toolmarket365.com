@@ -4,7 +4,8 @@ import { ToolCategories } from '@/components/ToolCategories'
 import { ValuePropositions } from '@/components/ValuePropositions'
 import { Stats } from '@/components/Stats'
 
-export const dynamic = 'force-dynamic'
+// Static so homepage is pre-rendered at build time; avoids Vercel runtime timeout on /
+export const dynamic = 'force-static'
 
 export default function Home() {
   return (

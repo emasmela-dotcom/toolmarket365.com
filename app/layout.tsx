@@ -3,7 +3,7 @@ import Link from 'next/link'
 import './globals.css'
 import { Footer } from '@/components/Footer'
 
-export const dynamic = 'force-dynamic'
+// Do not force-dynamic so homepage can be statically generated (avoids 300s timeout on /)
 export const runtime = 'nodejs'
 export const maxDuration = 60
 
