@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { WeeklyPerformanceReportBotService } from '@/lib/services/weekly-performance-report-bot-service'
 import { getUserIdFromRequest } from '@/lib/subscription'
 
+export const dynamic = 'force-dynamic'
 const reportService = new WeeklyPerformanceReportBotService()
 
 export async function POST(request: NextRequest) {

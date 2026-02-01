@@ -10,7 +10,7 @@ const CREATORFLOW_KNOWLEDGE = `CreatorFlow365 is a Micro-SaaS marketplace for co
 Plans: Starter, Essential, Professional, Creator, Business. Pricing and features on /pricing.
 Credits: Premium tools use credits per use. Plans include monthly credits. See /credits.
 Tools: Organized by platform (Instagram, TikTok, YouTube, Twitter, LinkedIn, Facebook). Main areas: Tools (/tools), Content Library (/tools/content-library), Growth Suite (/growth-suite), Dashboard (/dashboard).
-You cannot: schedule posts, post to social, connect APIs, or perform actions that require external services. Direct users to the right tool or page (e.g. "Use the Instagram Scheduler under Tools" or "Go to Dashboard > Caption Bot").
+You cannot: schedule posts, post to social, connect APIs, or perform actions that require external services. Direct users to the right tool or page (e.g. "Use the Instagram Scheduler under Tools" or "Go to Dashboard").
 You can: answer questions about CreatorFlow365, explain plans/credits/tools, give general creator advice, and suggest which tool to use for a task.`
 
 export async function POST(req: NextRequest) {
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.OPENAI_API_KEY || (await getUserAPIKey(userId, 'openai'))
     if (!apiKey) {
       return NextResponse.json({
-        error: 'No API key. Add OPENAI_API_KEY in env, or add your OpenAI key in Dashboard (e.g. Caption Bot or API Keys).',
+        error: 'No API key. Add OPENAI_API_KEY in env, or add your OpenAI key in Integrations (API Keys).',
         needsKey: true
       }, { status: 503 })
     }

@@ -4,6 +4,7 @@ import { getUserIdFromRequest } from '@/lib/subscription'
 import { nanoid } from 'nanoid'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 // POST: Add tags to content
 export async function POST(request: NextRequest) {

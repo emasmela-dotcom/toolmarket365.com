@@ -115,7 +115,7 @@ export default function AssistantPage() {
               {needsKey && (
                 <span>
                   {' '}
-                  Add your OpenAI key in <a href="/dashboard" className="underline">Dashboard</a> (e.g. Caption Bot or API Keys), or set OPENAI_API_KEY in env.
+                  Add your OpenAI key in <a href="/integrations" className="underline">Integrations</a> (API Keys), or set OPENAI_API_KEY in env.
                 </span>
               )}
             </div>
