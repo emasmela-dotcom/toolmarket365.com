@@ -197,6 +197,7 @@ export default function SelectPlanPage() {
       : ['All 53+ tools', 'Unlimited use of all tools', 'Unlimited content library']
     const planKey = selectedPlan.name.toLowerCase() as keyof typeof GUMROAD_LINKS.subscriptions
     const subscribeNowHref = GUMROAD_LINKS.subscriptions[planKey] ?? undefined
+    const useStripe = !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
@@ -208,6 +209,8 @@ export default function SelectPlanPage() {
             onConfirm={handleConfirmTrial}
             onCancel={handleCancelConfirmation}
             subscribeNowHref={subscribeNowHref}
+            useStripe={useStripe}
+            planIdForStripe={planKey}
           />
         </div>
       </div>
