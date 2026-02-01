@@ -1,7 +1,16 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import './globals.css'
 import { Footer } from '@/components/Footer'
+
+function RootLoading() {
+  return (
+    <div className="min-h-screen bg-mono-50 flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-600" aria-hidden />
+    </div>
+  )
+}
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -57,7 +66,9 @@ export default function RootLayout({
             </div>
           </div>
         </nav>
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen">
+          <Suspense fallback={<RootLoading />}>{children}</Suspense>
+        </main>
         <Footer />
       </body>
     </html>
