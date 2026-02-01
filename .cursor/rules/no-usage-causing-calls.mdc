@@ -1,0 +1,10 @@
+---
+description: Do not make calls that incur usage (cost or quota)
+alwaysApply: true
+---
+
+# No Usage-Causing Calls
+
+- **Do not** run tools or commands that cause usage: web search, URL fetch, external API calls, or any operation that counts toward quotas or costs.
+- Prefer local, read-only actions: read files, grep, list dirs, run local build/lint. Only use network or fetch when the user explicitly asks for live data or deployment.
+- If something requires a call that causes usage, say so and ask before doing it.
