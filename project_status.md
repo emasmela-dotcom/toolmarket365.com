@@ -35,7 +35,7 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 - ✅ **Business model finalized** – Hybrid model (Option C) approved; see `BUSINESS_MODEL_STRATEGY.md`
 
 ### Build & Deploy
-- ✅ **Production build passing** – `export const dynamic = 'force-dynamic'` in root layout and in bot API routes (api-keys, captions/daily, competitors/alerts, competitors/reports, engagement-tracker/alerts) to avoid SSG/cookie errors
+- ✅ **Production build passing** – `export const dynamic = 'force-dynamic'` in root layout and in API routes to avoid SSG/cookie errors
 - ✅ **Vercel** – App deploys from `main`; push to trigger new deploy
 - ✅ **Domain** – creatorflow365.com purchased via Vercel, connected to creatorflow365 project; www.creatorflow365.com added (308 redirect from apex to www); SSL valid
 - ✅ **NEXT_PUBLIC_SITE_URL** – Set to https://creatorflow365.com in Vercel env vars (Production and Preview)
@@ -62,6 +62,35 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 - **Domain:** ✅ creatorflow365.com live (www + apex)
 - **Support email:** ✅ support@creatorflow365.com (ImprovMX → Gmail)
 
+## 🎨 Design & Rebuild Reference
+
+*(Use this to restore design or rebuild without losing the look.)*
+
+### Color scheme (Tailwind)
+- **Monochrome** (`mono`): 50 `#fafafa` → 950 `#0a0a0a` (neutral grays). Use for backgrounds (e.g. `bg-mono-50`), text (`text-mono-900`, `text-mono-950`), borders (`border-mono-200`).
+- **Accent** (professional blue): 50 `#eff6ff` → 950 `#172554`. Primary brand: `accent-600` (#2563eb) for buttons, links, logo “365”. Use `bg-accent-600`, `text-accent-600`, `hover:text-accent-700`, `border-accent-200`, etc.
+- **Where it lives:** `tailwind.config.ts` → `theme.extend.colors` (`mono`, `accent`). Base styles in `app/globals.css` (body `bg-mono-50 text-mono-900`, headings `text-mono-950`, borders `border-mono-200`).
+
+### Typography
+- **Font:** Inter. CSS var `--font-inter: 'Inter', system-ui, sans-serif` in `app/globals.css`. Tailwind: `fontFamily.sans: ['var(--font-inter)', 'system-ui', 'sans-serif']`.
+
+### Layout & shell
+- **Root layout:** `app/layout.tsx` — nav (sticky, `border-mono-200 bg-mono-50/95 backdrop-blur-sm`), main, `Footer`. Logo: “CreatorFlow” `text-mono-950` + “365” `text-accent-600`. Sign Up button: `bg-accent-600 text-white hover:text-accent-700`.
+- **Nav links:** Home, Tools, Content Library, Growth Suite, Dashboard | Categories, Pricing, Credit Costs, Integrations, Contact | Sign In, Sign Up. Compare ⭐ link: `accent-600` with `bg-accent-50`/border.
+- **Footer:** `components/Footer.tsx` — `border-mono-200 bg-mono-50`; links `text-mono-600 hover:text-accent-600`. Sections: CreatorFlow365, Platform, Account, Company, Legal.
+
+### Key config files
+- `tailwind.config.ts` — mono + accent palettes, fontFamily.
+- `app/globals.css` — :root --font-inter, base layer (borders, body, headings).
+- `next.config.js` — reactStrictMode, webpack IgnorePlugin for @xenova/transformers, onnxruntime-node, .node, openai, @anthropic-ai/sdk.
+
+### Rebuild / env (quick)
+- Port: 3002 (see REBUILD_INSTRUCTIONS.md).
+- Env: `DATABASE_URL` (Neon pooler), `NEXT_PUBLIC_SITE_URL` (e.g. https://creatorflow365.com). Run schema in Neon SQL Editor.
+- Layout needs `export const dynamic = 'force-dynamic'` and `export const runtime = 'nodejs'`; API routes that use cookies/headers need `export const dynamic = 'force-dynamic'`.
+
+---
+
 ## 📝 Notes
 
 - **Site is 100% complete** – All tools built; no unfinished tools
@@ -69,6 +98,7 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 - User wants to launch, market, and iterate
 - Focus is on polish and marketing, not building from scratch
 - Platform organization is a key differentiator
+- **Bots** – We have bot features (Caption Bot, Blog Outline Bot, Competitor Watch, Engagement Tracker, Hashtag Research Bot, Weekly Content Ideas, Weekly Performance Report) but **do not offer them yet**. Dashboard bot routes redirect to /dashboard; API routes remain for future use. Integrations page still uses API Keys for Assistant and tools.
 
 ## 🔄 Update This File
 
