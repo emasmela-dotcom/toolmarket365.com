@@ -1,9 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
-import { Info, Coins, Zap, ArrowRight, X, MessageSquare } from 'lucide-react'
+import { Info, Coins, Zap, ArrowRight, X, MessageSquare, Loader2 } from 'lucide-react'
 import { TOOL_CREDIT_COSTS, getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
+
+const useStripe = !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
 // Tool display names mapping
 const toolDisplayNames: Record<string, string> = {
@@ -37,6 +40,29 @@ const toolsByCost = Object.entries(TOOL_CREDIT_COSTS).reduce((acc, [slug, cost])
 
 export default function CreditsPage() {
   const sortedCosts = Object.keys(toolsByCost).map(Number).sort((a, b) => b - a) // Highest to lowest
+  const [creditLoading, setCreditLoading] = useState<string | null>(null)
+
+  const handleBuyCredits = async (bundleId: 'bundle50' | 'bundle100' | 'bundle250') => {
+    if (useStripe) {
+      setCreditLoading(bundleId)
+      try {
+        const res = await fetch('/api/stripe/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'credits', bundleId }),
+        })
+        const data = await res.json()
+        if (data?.url) {
+          window.location.href = data.url
+          return
+        }
+      } catch (e) {
+        console.error('Stripe checkout failed:', e)
+      }
+      setCreditLoading(null)
+    }
+    window.location.href = GUMROAD_LINKS.credits[bundleId]
+  }
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
@@ -333,40 +359,76 @@ export default function CreditsPage() {
                   <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">50 Credits</div>
                   <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">$5</div>
                   <p className="text-xs text-mono-600 dark:text-mono-400 mb-4 flex-grow">Perfect for trying premium tools</p>
-                  <a
-                    href={GUMROAD_LINKS.credits.bundle50}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm"
-                  >
-                    Buy credits
-                  </a>
+                  {useStripe ? (
+                    <button
+                      type="button"
+                      onClick={() => handleBuyCredits('bundle50')}
+                      disabled={!!creditLoading}
+                      className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm inline-flex items-center gap-2 disabled:opacity-70"
+                    >
+                      {creditLoading === 'bundle50' ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                      Buy credits
+                    </button>
+                  ) : (
+                    <a
+                      href={GUMROAD_LINKS.credits.bundle50}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm"
+                    >
+                      Buy credits
+                    </a>
+                  )}
                 </div>
                 <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border-2 border-accent-300 dark:border-accent-700 flex flex-col">
                   <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">100 Credits</div>
                   <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">$10</div>
                   <p className="text-xs text-mono-600 dark:text-mono-400 mb-4 flex-grow">Most popular bundle</p>
-                  <a
-                    href={GUMROAD_LINKS.credits.bundle100}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm"
-                  >
-                    Buy credits
-                  </a>
+                  {useStripe ? (
+                    <button
+                      type="button"
+                      onClick={() => handleBuyCredits('bundle100')}
+                      disabled={!!creditLoading}
+                      className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm inline-flex items-center gap-2 disabled:opacity-70"
+                    >
+                      {creditLoading === 'bundle100' ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                      Buy credits
+                    </button>
+                  ) : (
+                    <a
+                      href={GUMROAD_LINKS.credits.bundle100}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm"
+                    >
+                      Buy credits
+                    </a>
+                  )}
                 </div>
                 <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700 flex flex-col">
                   <div className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-1">250 Credits</div>
                   <div className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-2">$20</div>
                   <p className="text-xs text-green-600 dark:text-green-400 font-semibold mb-4">Save 20% ($5 off)</p>
-                  <a
-                    href={GUMROAD_LINKS.credits.bundle250}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm"
-                  >
-                    Buy credits
-                  </a>
+                  {useStripe ? (
+                    <button
+                      type="button"
+                      onClick={() => handleBuyCredits('bundle250')}
+                      disabled={!!creditLoading}
+                      className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm inline-flex items-center gap-2 disabled:opacity-70"
+                    >
+                      {creditLoading === 'bundle250' ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                      Buy credits
+                    </button>
+                  ) : (
+                    <a
+                      href={GUMROAD_LINKS.credits.bundle250}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent-600 dark:text-accent-400 hover:underline font-medium text-sm"
+                    >
+                      Buy credits
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

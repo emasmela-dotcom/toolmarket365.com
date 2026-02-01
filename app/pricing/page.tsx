@@ -237,7 +237,7 @@ const faq = [
   },
 ]
 
-const useStripe = typeof window !== 'undefined' && !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+const useStripe = !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
 export default function PricingPage() {
   const [creditLoading, setCreditLoading] = useState<string | null>(null)
