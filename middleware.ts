@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// Pass all requests to Next.js; no static HTML overrides
+// Pass all requests to Next.js; no static HTML overrides.
+// Disable caching for HTML so browser never serves a stale blank page.
 export function middleware(request: NextRequest) {
-  return NextResponse.next()
+  const res = NextResponse.next()
+  res.headers.set('Cache-Control', 'no-store, must-revalidate')
+  return res
 }
 
 export const config = {
