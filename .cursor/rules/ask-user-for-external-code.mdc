@@ -1,0 +1,10 @@
+---
+description: If you need code from outside, tell the user and they will get it from external AI
+alwaysApply: true
+---
+
+# External Code: Ask the User
+
+- If you need code, docs, or reference from outside this codebase (e.g. libraries, APIs, examples from the web), **tell the user** instead of fetching or searching yourself.
+- The user will get it from an outside AI or other source and can paste it here.
+- Do not run web search, URL fetch, or similar tools to pull in external code or docs.
