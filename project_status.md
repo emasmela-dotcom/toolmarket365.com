@@ -100,6 +100,10 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 - Platform organization is a key differentiator
 - **Bots** – We have bot features (Caption Bot, Blog Outline Bot, Competitor Watch, Engagement Tracker, Hashtag Research Bot, Weekly Content Ideas, Weekly Performance Report) but **do not offer them yet**. Dashboard bot routes redirect to /dashboard; API routes remain for future use. Integrations page still uses API Keys for Assistant and tools.
 
+## ⚠️ Do Not When Fixing
+
+- **Do not remove or replace** the full layout, nav, Footer, or homepage to “fix” something. Fix only the broken part (e.g. one route, one API, one component). Never strip the live site down to a minimal shell.
+
 ## 🔄 Update This File
 
 **When making significant changes, update this file with:**
