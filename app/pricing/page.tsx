@@ -1,7 +1,8 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
-import { Check, Sparkles, Zap, ArrowRight, Info } from 'lucide-react'
+import { Check, Sparkles, Zap, ArrowRight, Info, Loader2 } from 'lucide-react'
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 
 const plans = [
@@ -236,7 +237,33 @@ const faq = [
   },
 ]
 
+const useStripe = typeof window !== 'undefined' && !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+
 export default function PricingPage() {
+  const [creditLoading, setCreditLoading] = useState<string | null>(null)
+
+  const handleBuyCredits = async (bundleId: 'bundle50' | 'bundle100' | 'bundle250') => {
+    if (useStripe) {
+      setCreditLoading(bundleId)
+      try {
+        const res = await fetch('/api/stripe/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'credits', bundleId }),
+        })
+        const data = await res.json()
+        if (data?.url) {
+          window.location.href = data.url
+          return
+        }
+      } catch (e) {
+        console.error('Stripe checkout failed:', e)
+      }
+      setCreditLoading(null)
+    }
+    window.location.href = GUMROAD_LINKS.credits[bundleId]
+  }
+
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
       {/* Hero Section */}
@@ -589,14 +616,26 @@ export default function PricingPage() {
                     </li>
                   </ul>
                 </div>
-                <a
-                  href={GUMROAD_LINKS.credits.bundle50}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
-                >
-                  Buy credits
-                </a>
+                {useStripe ? (
+                  <button
+                    type="button"
+                    onClick={() => handleBuyCredits('bundle50')}
+                    disabled={!!creditLoading}
+                    className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block inline-flex items-center justify-center gap-2 disabled:opacity-70"
+                  >
+                    {creditLoading === 'bundle50' ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                    Buy credits
+                  </button>
+                ) : (
+                  <a
+                    href={GUMROAD_LINKS.credits.bundle50}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
+                  >
+                    Buy credits
+                  </a>
+                )}
               </div>
 
               {/* Popular Bundle */}
@@ -691,14 +730,26 @@ export default function PricingPage() {
                     </li>
                   </ul>
                 </div>
-                <a
-                  href={GUMROAD_LINKS.credits.bundle250}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
-                >
-                  Buy credits
-                </a>
+                {useStripe ? (
+                  <button
+                    type="button"
+                    onClick={() => handleBuyCredits('bundle250')}
+                    disabled={!!creditLoading}
+                    className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block inline-flex items-center justify-center gap-2 disabled:opacity-70"
+                  >
+                    {creditLoading === 'bundle250' ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                    Buy credits
+                  </button>
+                ) : (
+                  <a
+                    href={GUMROAD_LINKS.credits.bundle250}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-4 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg font-semibold text-sm hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-center block"
+                  >
+                    Buy credits
+                  </a>
+                )}
               </div>
             </div>
 
