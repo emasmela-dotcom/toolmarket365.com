@@ -7,6 +7,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Disabled: match nothing so middleware does not run (test if middleware was causing blank page)
-  matcher: ['/__middleware_test_nomatch__'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 }
