@@ -1,20 +1,19 @@
-import { Suspense } from 'react'
-import { HomePageClient } from '@/components/HomePageClient'
+import { Hero } from '@/components/Hero'
+import { FeaturedTools } from '@/components/FeaturedTools'
+import { ToolCategories } from '@/components/ToolCategories'
+import { ValuePropositions } from '@/components/ValuePropositions'
+import { Stats } from '@/components/Stats'
 
 export const dynamic = 'force-dynamic'
 
-function HomeLoading() {
-  return (
-    <div className="min-h-[60vh] flex items-center justify-center bg-mono-50">
-      <div className="animate-pulse text-mono-500 text-sm">Loading…</div>
-    </div>
-  )
-}
-
 export default function Home() {
   return (
-    <Suspense fallback={<HomeLoading />}>
-      <HomePageClient />
-    </Suspense>
+    <>
+      <Hero />
+      <FeaturedTools />
+      <ToolCategories />
+      <ValuePropositions />
+      <Stats />
+    </>
   )
 }
