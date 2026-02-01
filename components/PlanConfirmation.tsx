@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Check, X, AlertCircle } from 'lucide-react'
+import { Check, X, AlertCircle, Loader2 } from 'lucide-react'
 
 interface PlanConfirmationProps {
   planName: string
@@ -9,8 +9,11 @@ interface PlanConfirmationProps {
   excludedTools?: string[]
   onConfirm: () => void
   onCancel?: () => void
-  /** When set, show Subscribe now (link) + Start free trial (button) and trial content terms */
+  /** When set, show Subscribe now (link or Stripe button) + Start free trial (button) and trial content terms */
   subscribeNowHref?: string
+  /** When true and planIdForStripe is set, Subscribe now calls Stripe API and redirects */
+  useStripe?: boolean
+  planIdForStripe?: string
 }
 
 export function PlanConfirmation({
@@ -136,16 +139,28 @@ export function PlanConfirmation({
             Cancel
           </button>
         )}
-        {subscribeNowHref ? (
+        {(subscribeNowHref || (useStripe && planIdForStripe)) ? (
           <>
-            <a
-              href={subscribeNowHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2.5 text-sm font-semibold rounded-lg bg-mono-200 dark:bg-mono-700 text-mono-950 dark:text-mono-50 hover:bg-mono-300 dark:hover:bg-mono-600 transition-colors text-center"
-            >
-              Subscribe now
-            </a>
+            {useStripe && planIdForStripe ? (
+              <button
+                type="button"
+                onClick={handleSubscribeNow}
+                disabled={stripeLoading}
+                className="px-6 py-2.5 text-sm font-semibold rounded-lg bg-mono-200 dark:bg-mono-700 text-mono-950 dark:text-mono-50 hover:bg-mono-300 dark:hover:bg-mono-600 transition-colors text-center inline-flex items-center justify-center gap-2 disabled:opacity-70"
+              >
+                {stripeLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                Subscribe now
+              </button>
+            ) : (
+              <a
+                href={subscribeNowHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2.5 text-sm font-semibold rounded-lg bg-mono-200 dark:bg-mono-700 text-mono-950 dark:text-mono-50 hover:bg-mono-300 dark:hover:bg-mono-600 transition-colors text-center"
+              >
+                Subscribe now
+              </a>
+            )}
             <button
               onClick={handleConfirm}
               disabled={!confirmed}
