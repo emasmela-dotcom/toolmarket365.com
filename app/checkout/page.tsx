@@ -72,14 +72,28 @@ export default function CheckoutPage() {
     setShowConfirmation(true)
   }
 
-  const handleConfirmCheckout = () => {
+  const handleConfirmCheckout = async () => {
     if (!planName) return
-    
-    // Redirect to Gumroad checkout
-    const gumroadLink = GUMROAD_LINKS.subscriptions[planName.toLowerCase() as keyof typeof GUMROAD_LINKS.subscriptions]
-    if (gumroadLink) {
-      window.location.href = gumroadLink
+    const planKey = planName.toLowerCase() as keyof typeof GUMROAD_LINKS.subscriptions
+    const gumroadLink = GUMROAD_LINKS.subscriptions[planKey]
+
+    if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+      try {
+        const res = await fetch('/api/stripe/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'subscription', planId: planKey }),
+        })
+        const data = await res.json()
+        if (data?.url) {
+          window.location.href = data.url
+          return
+        }
+      } catch (e) {
+        console.error('Stripe checkout failed:', e)
+      }
     }
+    if (gumroadLink) window.location.href = gumroadLink
   }
 
   const handleCancelConfirmation = () => {
