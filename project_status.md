@@ -1,6 +1,6 @@
 # CreatorFlow365 - Project Status
 
-**Last Updated:** January 31, 2026
+**Last Updated:** February 1, 2026
 
 ## 🎯 Project Overview
 
@@ -41,6 +41,10 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 - ✅ **NEXT_PUBLIC_SITE_URL** – Set to https://creatorflow365.com in Vercel env vars (Production and Preview)
 - ✅ **Support email** – support@creatorflow365.com set up via ImprovMX (free forwarding to Gmail); TXT (SPF) + MX records in Vercel DNS; contact page locked to support@creatorflow365.com; SUPPORT_EMAIL_SETUP.md added for reference
 
+### Payments
+- ✅ **Stripe integration** – When Stripe env vars are set, pricing/checkout/credits use Stripe Checkout (API route `/api/stripe/create-checkout-session`, success page `/checkout/success`). When not set, CTAs fall back to Gumroad links. See `STRIPE_SETUP.md` and `.env.example` for env vars.
+- ✅ **Gumroad** – Links and config in place (`lib/gumroad-config.ts`); used when Stripe is not configured.
+
 ## 🚧 In Progress
 
 - (None – ready for polish and launch)
@@ -61,6 +65,7 @@ CreatorFlow365 is a Micro-SaaS marketplace for content creators offering 53+ too
 - **Business Model:** ✅ Finalized
 - **Domain:** ✅ creatorflow365.com live (www + apex)
 - **Support email:** ✅ support@creatorflow365.com (ImprovMX → Gmail)
+- **Payments:** Stripe integration ready (env + products required); Gumroad fallback in place
 
 ## 🎨 Design & Rebuild Reference
 
