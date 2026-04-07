@@ -1,0 +1,11 @@
+---
+description: Do nothing unless the user explicitly says to do it
+alwaysApply: true
+---
+
+# Do Nothing Unless User Says So
+
+- **No actions** unless the user clearly instructs an action (e.g. "do this", "run this", "create X", "change Y").
+- **No edits, no commands, no file creation** in response to a question or a vague wish.
+- **Questions and "I want..." without "do it" / "make it" / "run it"** = answer or clarify only. Do not execute.
+- If in doubt, do nothing. Ask instead: "Do you want me to do that?"

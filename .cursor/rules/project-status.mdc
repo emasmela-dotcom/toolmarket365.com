@@ -1,0 +1,63 @@
+---
+description: Project status and context - read this at the start of each session
+alwaysApply: true
+---
+
+# CreatorFlow365 Project Status
+
+## ⚠️ IMPORTANT: Read Project Status First
+
+**At the start of every session, ALWAYS read the project status file:**
+- `PROJECT_STATUS.md` (if it exists)
+- Check recent changes in git
+- Review open files and recent work
+
+## Project Overview
+
+**CreatorFlow365** is a Micro-SaaS marketplace for content creators with:
+- **53+ tools already built** (not in development - they exist!)
+- Platform-based organization (Instagram, TikTok, YouTube, Twitter, LinkedIn, Facebook)
+- Credit-based premium tool system
+- Subscription tiers (Starter, Essential, Professional, Creator, Business)
+
+## Current State
+
+### ✅ What's Built
+- All 53 tools have full pages and functionality
+- Platform filtering system implemented
+- Credit cost system in place
+- Subscription system ready
+- Content library functional
+- Analytics dashboards working
+
+### 🚧 What's In Progress
+- Platform selection UI (visual cards for each platform)
+- Business model finalization
+- Multi-platform repurposing tool (saved for later)
+
+### 📋 Key Files to Know
+- `app/tools/page.tsx` - Main tools listing with platform filters
+- `BUSINESS_MODEL_STRATEGY.md` - Business model analysis
+- `lib/tool-credit-costs.ts` - Credit pricing system
+- `components/Navigation.tsx` - Main navigation
+
+## Critical Context
+
+1. **Tools are BUILT** - Don't suggest building from scratch
+2. **User wants to launch and market** - Focus on polish, not new features
+3. **Platform organization is a key differentiator** - This is working
+4. **User tested tools** - They're functional, not placeholders
+
+## When Starting Work
+
+1. Read `PROJECT_STATUS.md` if it exists
+2. Check what's actually built vs. what needs work
+3. Don't assume tools need to be built - they likely already exist
+4. Ask clarifying questions if unsure about project state
+
+## User Preferences
+
+- User wants to "build it out, market it, and push it"
+- User has tested tools and knows they work
+- User is ready to launch, not still in development phase
+- User wants realistic assessments, not overly cautious warnings

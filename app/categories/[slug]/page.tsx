@@ -1,0 +1,23 @@
+import { redirect } from 'next/navigation'
+
+// Map homepage ToolCategories slugs to tools page section slugs (from /tools?section=...)
+const slugToSection: Record<string, string> = {
+  'video-tools': 'content-creation-optimization',
+  'content-planning': 'workflow-productivity',
+  'seo-optimization': 'seo-optimization',
+  'analytics-dashboard': 'analytics-insights',
+  'social-media': 'workflow-productivity',
+  'design-suite': 'brand-design',
+  'writing-assistant': 'content-creation-optimization',
+  'revenue-tracking': 'business-monetization',
+  'collaboration': 'engagement-growth',
+  'scheduling': 'workflow-productivity',
+  'ai-tools': 'high-priority-complete-the-workflow',
+}
+
+export default function CategoryPage({ params }: { params: { slug: string } }) {
+  const slug = params.slug
+  const section = slugToSection[slug]
+  const url = section ? `/tools?section=${section}` : '/tools'
+  redirect(url)
+}

@@ -1,0 +1,8 @@
+---
+description: Read project status at the start of a new conversation
+alwaysApply: true
+---
+
+# Read Project Status When New Conversation Starts
+
+At the **start of every new conversation**, read `project_status.md` (in the project root) before answering or doing anything. Use it to know what's complete, in progress, and what's next. Do not assume project state—check the file first.

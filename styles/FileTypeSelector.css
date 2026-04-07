@@ -1,0 +1,58 @@
+/* FileTypeSelector.css */
+.file-type-selector {
+  --transition-speed: 0.2s;
+}
+
+.file-type-selector-dropdown {
+  transition: all var(--transition-speed) ease;
+}
+
+.file-type-selector-button {
+  transition: all var(--transition-speed) ease;
+  transform: translateY(0);
+}
+
+.file-type-selector-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.file-type-selector-card {
+  transition: all var(--transition-speed) ease;
+}
+
+.file-type-selector-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.file-upload-zone {
+  transition: all var(--transition-speed) ease;
+}
+
+.file-upload-zone.drag-over {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+  transform: scale(1.02);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .file-type-selector-dropdown {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+  }
+  
+  .file-type-selector-button {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+  }
+  
+  .file-type-selector-card {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+  }
+}

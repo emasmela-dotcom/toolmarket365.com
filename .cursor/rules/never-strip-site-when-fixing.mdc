@@ -1,0 +1,12 @@
+---
+description: Never strip or minimize the live site when fixing bugs
+alwaysApply: true
+---
+
+# Never Strip the Site When Fixing
+
+- **Never** remove or replace the full layout, nav, Footer, or homepage to "fix" a bug or blank page.
+- **Never** serve static HTML from middleware instead of the real Next.js app to "fix" rendering.
+- **Never** reduce the app to a minimal shell (bare html/body, no nav, no globals.css) to debug.
+- **Fix only the broken part:** one route, one API, one component. Leave the rest of the site intact.
+- If the cause is unclear, add logging, check Vercel logs, or add a small diagnostic—do not strip the live site.

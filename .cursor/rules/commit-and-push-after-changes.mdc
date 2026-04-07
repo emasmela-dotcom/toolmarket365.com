@@ -1,0 +1,21 @@
+---
+description: Commit and push when the agent makes file changes that complete a task
+alwaysApply: true
+---
+
+# Commit and Push After Changes
+
+When the agent **makes file changes** that complete a task (fix, feature, or edit you asked for):
+
+1. **Stage** the changed files: `git add` (specific paths or `.` as appropriate).
+2. **Commit** with a clear message: `git commit -m "Short description of what changed"`.
+3. **Push** to the current branch: `git push`.
+
+Use `git_write` (and `network` for push) when running these commands.
+
+**When to skip:**
+- User explicitly says not to commit or push.
+- User only asked a question or for advice (no edits).
+- Changes are WIP and user said they’ll commit later.
+
+**Do not** leave commits unpushed after finishing a task unless the user asked otherwise.
