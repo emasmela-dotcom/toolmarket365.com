@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { AlertTriangle, Heart, HeartOff, Folder, Archive, Send, Trash2, X } from 'lucide-react'
+import { AlertTriangle, Heart, HeartOff, Folder, Archive, Send, Trash2, X } from 'lucide-react';
 
 interface BulkActionsProps {
   selectedItems: string[]

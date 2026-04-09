@@ -1,6 +1,6 @@
 'use client'
 
-import { Target, TrendingUp, AlertCircle, CheckCircle } from 'lucide-react'
+import { Target, TrendingUp, AlertCircle, CheckCircle } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, LineChart, Line } from 'recharts'
 
 export function AccuracyTracker({ data }: { data: any }) {

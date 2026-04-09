@@ -4,10 +4,7 @@ import { sql } from '@/lib/db'
 export const runtime = 'nodejs'
 
 // DELETE a comment
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, context: any) {
   try {
     const { id } = params
 

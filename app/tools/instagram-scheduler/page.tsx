@@ -4,23 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 import Link from 'next/link'
-import { 
-  Calendar as CalendarIcon, 
-  Plus, 
-  Clock, 
-  Instagram,
-  BarChart3,
-  Settings,
-  TrendingUp,
-  Heart,
-  MessageCircle,
-  Share,
-  Bookmark,
-  Eye,
-  XCircle,
-  Info,
-  ArrowRight
-} from 'lucide-react'
+import { Calendar as CalendarIcon, Plus, Clock, Globe, BarChart3, Settings, TrendingUp, Heart, MessageCircle, Share, Bookmark, Eye, XCircle, Info, ArrowRight } from 'lucide-react';
 import { format } from 'date-fns'
 
 interface InstagramAccount {

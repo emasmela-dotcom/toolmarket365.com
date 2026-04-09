@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { CalendarClock, RefreshCw, Trash2, Save, PlusCircle } from 'lucide-react'
+import { CalendarClock, RefreshCw, Trash2, Save, PlusCircle } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 type Status = 'draft' | 'scheduled' | 'published' | 'canceled'

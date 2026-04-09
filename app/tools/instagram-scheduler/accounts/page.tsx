@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
-import { Instagram, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { Globe, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
 function ConnectInstagramAccountContent() {
   const router = useRouter()

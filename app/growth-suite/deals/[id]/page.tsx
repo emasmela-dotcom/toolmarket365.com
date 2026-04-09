@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { DealMessages } from '@/components/growth-suite/DealMessages'
 import { DealNegotiation } from '@/components/growth-suite/DealNegotiation'
 import { DealDeliverables } from '@/components/growth-suite/DealDeliverables'
-import { Calendar, DollarSign, Target, Clock, User, Building2, ArrowLeft, CheckCircle, XCircle, MessageSquare } from 'lucide-react'
+import { Calendar, DollarSign, Target, Clock, User, Building2, ArrowLeft, CheckCircle, XCircle, MessageSquare } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils'
 import { format } from 'date-fns'
 

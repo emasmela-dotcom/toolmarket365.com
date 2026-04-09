@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
-import { Download, Undo, Redo, Type, Square, Circle, Image as ImageIcon, Trash2, Palette, XCircle, CheckCircle } from 'lucide-react'
+import { Download, Undo, Redo, Type, Square, Circle, Image as ImageIcon, Trash2, Palette, XCircle, CheckCircle } from 'lucide-react';
 
 // Dynamic imports to avoid SSR issues
 let fabric: any = null

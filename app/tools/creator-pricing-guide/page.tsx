@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { BookOpen, Copy, Check } from 'lucide-react'
+import { BookOpen, Copy, Check } from 'lucide-react';
 
 const pricingData = {
   instagram: {

@@ -9,9 +9,7 @@ export const dynamic = 'force-dynamic'
 const outlineService = new BlogOutlineBotService()
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {
@@ -45,9 +43,7 @@ export async function GET(
 }
 
 export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {

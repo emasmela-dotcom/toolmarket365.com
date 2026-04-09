@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Hash, TrendingUp, TrendingDown, BarChart3, Target, Award, AlertCircle, CheckCircle, XCircle, Zap } from 'lucide-react'
+import { Hash, TrendingUp, TrendingDown, BarChart3, Target, Award, AlertCircle, CheckCircle, XCircle, Zap } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 

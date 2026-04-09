@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { TrendingUp, Users, Heart, MessageCircle, Share2, Eye, BarChart3, Calculator, AlertCircle } from 'lucide-react'
+import { TrendingUp, Users, Heart, MessageCircle, Share2, Eye, BarChart3, Calculator, AlertCircle } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Results {

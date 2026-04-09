@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { MessageSquare, Send, Trash2, Clock } from 'lucide-react'
+import { MessageSquare, Send, Trash2, Clock } from 'lucide-react';
 
 interface Comment {
   id: string

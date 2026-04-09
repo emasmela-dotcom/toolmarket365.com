@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CalendarIcon, Filter, X } from 'lucide-react'
+import { CalendarIcon, Filter, X } from 'lucide-react';
 
 interface AdvancedFiltersProps {
   filters: {

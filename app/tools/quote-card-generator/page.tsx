@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Download, Image as ImageIcon } from 'lucide-react'
+import { Download, Image as ImageIcon } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 function QuoteCardGeneratorContent() {

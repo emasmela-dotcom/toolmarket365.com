@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { formatCurrency } from '@/lib/utils'
-import { DollarSign, Calendar, Target, Clock, RotateCcw, Save, CheckCircle } from 'lucide-react'
+import { DollarSign, Calendar, Target, Clock, RotateCcw, Save, CheckCircle } from 'lucide-react';
 
 interface Deal {
   id: string

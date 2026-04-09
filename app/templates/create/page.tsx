@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Save, X, Eye, Plus, Trash2 } from 'lucide-react'
+import { Save, X, Eye, Plus, Trash2 } from 'lucide-react';
 import { extractTemplateText } from '@/lib/template-utils'
 
 interface FilterOptions {

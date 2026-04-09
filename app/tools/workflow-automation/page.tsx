@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
-import { Play, Plus, Trash2, ArrowRight, Zap } from 'lucide-react'
+import { Play, Plus, Trash2, ArrowRight, Zap } from 'lucide-react';
 
 interface WorkflowStep {
   id: string

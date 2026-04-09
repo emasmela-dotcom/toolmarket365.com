@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Heart } from 'lucide-react'
+import { Heart } from 'lucide-react';
 import { isLocalStorageFavorite, addLocalStorageFavorite, removeLocalStorageFavorite } from '@/lib/templates/favorites'
 
 interface FavoriteButtonProps {

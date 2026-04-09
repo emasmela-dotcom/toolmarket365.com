@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Calculator, DollarSign, Clock, TrendingUp, Users, Instagram, Twitter, Youtube, Linkedin } from 'lucide-react'
+import { Calculator, DollarSign, Clock, TrendingUp, Users, Globe } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 function RateCalculatorContent() {

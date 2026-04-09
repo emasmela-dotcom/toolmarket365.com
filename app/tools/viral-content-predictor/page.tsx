@@ -1,21 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { 
-  TrendingUp, 
-  Eye, 
-  Heart, 
-  MessageCircle, 
-  Share2,
-  Clock,
-  Hash,
-  Zap,
-  AlertCircle,
-  CheckCircle2,
-  Save,
-  Check,
-  X
-} from 'lucide-react'
+import { TrendingUp, Eye, Heart, MessageCircle, Share2, Clock, Hash, Zap, AlertCircle, CheckCircle2, Save, Check, X } from 'lucide-react';
 import { isSaveToLibraryEnabled } from '@/lib/preferences'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 

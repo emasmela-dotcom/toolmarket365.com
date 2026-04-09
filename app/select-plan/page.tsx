@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Check, Sparkles, Zap, ArrowRight, Loader2 } from 'lucide-react'
+import { Check, Sparkles, Zap, ArrowRight, Loader2 } from 'lucide-react';
 import { PlanConfirmation } from '@/components/PlanConfirmation'
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 

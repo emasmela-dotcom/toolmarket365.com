@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { DollarSign, Plus, Trash2, Calendar, TrendingUp, Download, Filter } from 'lucide-react'
+import { DollarSign, Plus, Trash2, Calendar, TrendingUp, Download, Filter } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface RevenueEntry {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Video, Play, Copy, Check, Download } from 'lucide-react'
+import { Video, Play, Copy, Check, Download } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface ScriptSection {

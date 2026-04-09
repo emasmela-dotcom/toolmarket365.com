@@ -1,21 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { 
-  CheckCircle, 
-  XCircle, 
-  ExternalLink, 
-  Key, 
-  Zap, 
-  Info,
-  Sparkles,
-  Image,
-  BarChart3,
-  Video,
-  MessageSquare,
-  Settings,
-  ArrowRight
-} from 'lucide-react'
+import { CheckCircle, XCircle, ExternalLink, Key, Zap, Info, Sparkles, Image, BarChart3, Video, MessageSquare, Settings, ArrowRight } from 'lucide-react';
 import Link from 'next/link'
 
 interface Integration {

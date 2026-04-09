@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Search, Copy, TrendingUp, BarChart3, Users, Zap, Check } from 'lucide-react'
+import { Search, Copy, TrendingUp, BarChart3, Users, Zap, Check } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Hashtag {

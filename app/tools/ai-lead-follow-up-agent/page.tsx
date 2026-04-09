@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Mail, Calendar, Plus, Trash2, Copy, Check, Clock, User, Building2, Sparkles, Zap, Settings, CheckCircle2, ArrowRight } from 'lucide-react'
+import { Mail, Calendar, Plus, Trash2, Copy, Check, Clock, User, Building2, Sparkles, Zap, Settings, CheckCircle2, ArrowRight } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Lead {

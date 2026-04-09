@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { FileText, Upload, Copy, Check } from 'lucide-react'
+import { FileText, Upload, Copy, Check } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 function PodcastShowNotesGeneratorContent() {

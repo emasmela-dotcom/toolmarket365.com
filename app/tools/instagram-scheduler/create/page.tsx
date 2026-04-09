@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
-import { Instagram, Plus, X, Hash, AtSign, MapPin, Send, Save, Settings, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { Globe, Plus, X, Hash, AtSign, MapPin, Send, Save, Settings, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
 interface InstagramAccount {
   id: string

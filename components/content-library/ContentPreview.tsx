@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Eye, Heart, Share2, Download, Copy, Edit, Trash2, X, FileText, Image, Video, Music, File } from 'lucide-react'
+import { Eye, Heart, Share2, Download, Copy, Edit, Trash2, X, FileText, Image, Video, Music, File } from 'lucide-react';
 
 interface ContentItem {
   id: string

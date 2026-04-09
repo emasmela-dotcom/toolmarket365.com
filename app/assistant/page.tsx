@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { MessageSquare, Send, Loader2 } from 'lucide-react'
+import { MessageSquare, Send, Loader2 } from 'lucide-react';
 
 interface ChatMessage {
   role: 'user' | 'assistant'

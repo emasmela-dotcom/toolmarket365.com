@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Upload, Building2, Globe, DollarSign, Users, Target } from 'lucide-react'
+import { Upload, Building2, Globe, DollarSign, Users, Target } from 'lucide-react';
 
 const BUDGET_RANGES = [
   { value: 'under-1k', label: 'Under $1,000' },

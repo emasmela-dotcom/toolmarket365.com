@@ -4,10 +4,7 @@ import { sql } from '@/lib/db'
 export const runtime = 'nodejs'
 
 // GET: Get single content item by ID
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, context: any) {
   try {
     // If database not configured, return empty data (tool still works with localStorage fallback)
     if (!sql) {
@@ -97,10 +94,7 @@ export async function GET(
 }
 
 // PUT: Update content item
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest, context: any) {
   try {
     // If database not configured, return empty data (tool still works with localStorage fallback)
     if (!sql) {
@@ -228,10 +222,7 @@ export async function PUT(
 }
 
 // DELETE: Delete content item
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: NextRequest, context: any) {
   try {
     // If database not configured, return empty data (tool still works with localStorage fallback)
     if (!sql) {

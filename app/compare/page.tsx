@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Check, X, Sparkles, Zap, Cloud, TrendingUp, Workflow, Target, ArrowRight } from 'lucide-react'
+import { Check, X, Sparkles, Zap, Cloud, TrendingUp, Workflow, Target, ArrowRight } from 'lucide-react';
 
 const competitors = [
   {

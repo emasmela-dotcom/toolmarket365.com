@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { X, Copy, Tag, Calendar, Hash, BarChart3, Clock, User } from 'lucide-react'
+import { X, Copy, Tag, Calendar, Hash, BarChart3, Clock, User } from 'lucide-react';
 import { extractTemplateText, getDifficultyColor } from '@/lib/template-utils'
 
 interface Template {

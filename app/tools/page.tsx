@@ -3,41 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import Link from 'next/link'
-import { 
-  FileText, 
-  Calendar, 
-  Sparkles, 
-  BarChart3, 
-  Clock, 
-  Lightbulb, 
-  FolderOpen, 
-  RefreshCw, 
-  TrendingUp, 
-  Hash, 
-  Image, 
-  Link as LinkIcon, 
-  Mic, 
-  Type, 
-  Calculator, 
-  DollarSign, 
-  Search, 
-  Video, 
-  Eye,
-  Palette,
-  FileCheck,
-  User,
-  Sparkles as SparklesIcon,
-  Coins,
-  BookOpen,
-  MessageSquare,
-  ArrowRight,
-  Camera,
-  Tv,
-  MessageCircle,
-  Briefcase,
-  Share2,
-  LayoutGrid
-} from 'lucide-react'
+import { FileText, Calendar, Sparkles, BarChart3, Clock, Lightbulb, FolderOpen, RefreshCw, TrendingUp, Hash, Image, Link as LinkIcon, Mic, Type, Calculator, DollarSign, Search, Video, Eye, Palette, FileCheck, User, Sparkles as SparklesIcon, Coins, BookOpen, MessageSquare, ArrowRight, Camera, Tv, MessageCircle, Briefcase, Share2, LayoutGrid } from 'lucide-react';
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
 type SocialPlatform = 'instagram' | 'tiktok' | 'youtube' | 'twitter' | 'linkedin' | 'facebook'

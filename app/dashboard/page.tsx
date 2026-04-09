@@ -3,25 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  User, 
-  Settings, 
-  Clock, 
-  Star, 
-  TrendingUp, 
-  BarChart3, 
-  Calendar,
-  ArrowRight,
-  Sparkles,
-  FolderOpen,
-  FileText,
-  Image,
-  Video,
-  Hash,
-  Eye,
-  CheckCircle2,
-  Instagram
-} from 'lucide-react'
+import { User, Settings, Clock, Star, TrendingUp, BarChart3, Calendar, ArrowRight, Sparkles, FolderOpen, FileText, Image, Video, Hash, Eye, CheckCircle2, Globe } from 'lucide-react';
 import { getPreferences, toggleSaveToLibrary, isSaveToLibraryEnabled } from '@/lib/preferences'
 
 interface DashboardStats {

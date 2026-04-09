@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Upload, Plus, X, Instagram, Youtube, Twitter, Facebook } from 'lucide-react'
+import { Upload, Plus, X, Globe } from 'lucide-react';
 
 const NICHES = [
   'Fashion & Beauty',

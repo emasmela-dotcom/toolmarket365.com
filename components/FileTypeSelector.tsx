@@ -2,16 +2,7 @@
 
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
-import { 
-  Image, 
-  Video, 
-  FileText, 
-  File, 
-  ChevronDown, 
-  X,
-  Upload,
-  Folder
-} from 'lucide-react'
+import { Image, Video, FileText, File, ChevronDown, X, Upload, Folder } from 'lucide-react';
 
 interface FileType {
   value: string

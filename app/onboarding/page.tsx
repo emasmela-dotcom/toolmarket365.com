@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Check, ArrowRight, Play, BookOpen, Zap, Target } from 'lucide-react'
+import { Check, ArrowRight, Play, BookOpen, Zap, Target } from 'lucide-react';
 import Link from 'next/link'
 
 interface Tutorial {

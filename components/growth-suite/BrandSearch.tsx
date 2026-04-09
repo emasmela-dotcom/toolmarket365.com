@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Search, Filter, DollarSign, Globe, Users, Calendar } from 'lucide-react'
+import { Search, Filter, DollarSign, Globe, Users, Calendar } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils'
 
 interface Brand {

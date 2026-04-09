@@ -1,13 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { 
-  TrendingUp, 
-  Target, 
-  BarChart3, 
-  GitCompare,
-  Award
-} from 'lucide-react'
+import { TrendingUp, Target, BarChart3, GitCompare, Award } from 'lucide-react';
 import { PerformanceOverview } from '@/components/dashboard/PerformanceOverview'
 import { AccuracyTracker } from '@/components/dashboard/AccuracyTracker'
 import { ContentInsights } from '@/components/dashboard/ContentInsights'

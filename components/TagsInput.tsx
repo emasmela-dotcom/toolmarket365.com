@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { X, Plus, Hash, Search } from 'lucide-react'
+import { X, Plus, Hash, Search } from 'lucide-react';
 import { cn } from '@/lib/utils'
 import { useDebounce } from '@/lib/hooks/use-debounce'
 

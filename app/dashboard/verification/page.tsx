@@ -1,7 +1,7 @@
 'use client'
 
 import { VerificationStatus } from '@/components/verification/VerificationStatus'
-import { Shield, CheckCircle, Clock } from 'lucide-react'
+import { Shield, CheckCircle, Clock } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 function VerificationPageContent() {

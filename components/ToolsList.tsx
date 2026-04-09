@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Clock, Tag, Layers, Wrench } from 'lucide-react'
+import { Clock, Tag, Layers, Wrench } from 'lucide-react';
 import { SearchFilter } from './SearchFilter'
 
 interface Tool {

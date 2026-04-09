@@ -1,0 +1,343 @@
+
+> micro-saas-marketplace-v2@0.1.0 build
+> next build --webpack
+
+▲ Next.js 16.2.2 (webpack)
+- Environments: .env.local
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+⚠ Compiled with warnings in 15.1s
+
+./app/dashboard/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=ArrowRight,BarChart3,CheckCircle2,Clock,FileText,FolderOpen,Hash,Image,Instagram,Settings,Sparkles,Star,TrendingUp,User,Video!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+
+./app/growth-suite/creator-setup/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Facebook,Instagram,Plus,Twitter,Upload,X,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/growth-suite/creator-setup/page.tsx
+
+./app/growth-suite/creator-setup/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Facebook,Instagram,Plus,Twitter,Upload,X,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/growth-suite/creator-setup/page.tsx
+
+./app/growth-suite/creator-setup/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Facebook,Instagram,Plus,Twitter,Upload,X,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/growth-suite/creator-setup/page.tsx
+
+./app/growth-suite/creator-setup/page.tsx
+Attempted import error: 'Facebook' is not exported from '__barrel_optimize__?names=Facebook,Instagram,Plus,Twitter,Upload,X,Youtube!=!lucide-react' (imported as 'Facebook').
+
+Import trace for requested module:
+./app/growth-suite/creator-setup/page.tsx
+
+./app/growth-suite/creator/setup/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Camera,Globe,Instagram,Twitter,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/growth-suite/creator/setup/page.tsx
+
+./app/growth-suite/creator/setup/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Camera,Globe,Instagram,Twitter,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/growth-suite/creator/setup/page.tsx
+
+./app/growth-suite/creator/setup/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Camera,Globe,Instagram,Twitter,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/growth-suite/creator/setup/page.tsx
+
+./app/tools/instagram-scheduler/accounts/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=AlertCircle,CheckCircle,Instagram,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/accounts/page.tsx
+
+./app/tools/instagram-scheduler/accounts/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=AlertCircle,CheckCircle,Instagram,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/accounts/page.tsx
+
+./app/tools/instagram-scheduler/create/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=AtSign,CheckCircle,Hash,Instagram,Send,Settings,X,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/create/page.tsx
+
+./app/tools/instagram-scheduler/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=ArrowRight,BarChart3,Bookmark,Clock,Eye,Heart,Info,Instagram,MessageCircle,Plus,Settings,Share,TrendingUp,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/page.tsx
+
+./app/tools/instagram-scheduler/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=ArrowRight,BarChart3,Bookmark,Clock,Eye,Heart,Info,Instagram,MessageCircle,Plus,Settings,Share,TrendingUp,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Linkedin' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Linkedin').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Facebook' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Facebook').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Linkedin' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Linkedin').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Facebook' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Facebook').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/rate-calculator/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Calculator,Clock,DollarSign,Instagram,Linkedin,TrendingUp,Twitter,Users,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/rate-calculator/page.tsx
+
+./app/tools/rate-calculator/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Calculator,Clock,DollarSign,Instagram,Linkedin,TrendingUp,Twitter,Users,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/tools/rate-calculator/page.tsx
+
+./app/tools/rate-calculator/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Calculator,Clock,DollarSign,Instagram,Linkedin,TrendingUp,Twitter,Users,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/tools/rate-calculator/page.tsx
+
+./app/tools/rate-calculator/page.tsx
+Attempted import error: 'Linkedin' is not exported from '__barrel_optimize__?names=Calculator,Clock,DollarSign,Instagram,Linkedin,TrendingUp,Twitter,Users,Youtube!=!lucide-react' (imported as 'Linkedin').
+
+Import trace for requested module:
+./app/tools/rate-calculator/page.tsx
+
+./app/dashboard/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=ArrowRight,BarChart3,CheckCircle2,Clock,FileText,FolderOpen,Hash,Image,Instagram,Settings,Sparkles,Star,TrendingUp,User,Video!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+
+./app/growth-suite/creator-setup/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Facebook,Instagram,Plus,Twitter,Upload,X,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/growth-suite/creator-setup/page.tsx
+
+./app/growth-suite/creator-setup/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Facebook,Instagram,Plus,Twitter,Upload,X,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/growth-suite/creator-setup/page.tsx
+
+./app/growth-suite/creator-setup/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Facebook,Instagram,Plus,Twitter,Upload,X,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/growth-suite/creator-setup/page.tsx
+
+./app/growth-suite/creator-setup/page.tsx
+Attempted import error: 'Facebook' is not exported from '__barrel_optimize__?names=Facebook,Instagram,Plus,Twitter,Upload,X,Youtube!=!lucide-react' (imported as 'Facebook').
+
+Import trace for requested module:
+./app/growth-suite/creator-setup/page.tsx
+
+./app/growth-suite/creator/setup/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Camera,Globe,Instagram,Twitter,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/growth-suite/creator/setup/page.tsx
+
+./app/growth-suite/creator/setup/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Camera,Globe,Instagram,Twitter,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/growth-suite/creator/setup/page.tsx
+
+./app/growth-suite/creator/setup/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Camera,Globe,Instagram,Twitter,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/growth-suite/creator/setup/page.tsx
+
+./app/tools/instagram-scheduler/accounts/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=AlertCircle,CheckCircle,Instagram,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/accounts/page.tsx
+
+./app/tools/instagram-scheduler/accounts/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=AlertCircle,CheckCircle,Instagram,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/accounts/page.tsx
+
+./app/tools/instagram-scheduler/create/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=AtSign,CheckCircle,Hash,Instagram,Send,Settings,X,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/create/page.tsx
+
+./app/tools/instagram-scheduler/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=ArrowRight,BarChart3,Bookmark,Clock,Eye,Heart,Info,Instagram,MessageCircle,Plus,Settings,Share,TrendingUp,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/page.tsx
+
+./app/tools/instagram-scheduler/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=ArrowRight,BarChart3,Bookmark,Clock,Eye,Heart,Info,Instagram,MessageCircle,Plus,Settings,Share,TrendingUp,XCircle!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/instagram-scheduler/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Linkedin' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Linkedin').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/multi-platform-generator/page.tsx
+Attempted import error: 'Facebook' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Facebook').
+
+Import trace for requested module:
+./app/tools/multi-platform-generator/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Linkedin' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Linkedin').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/one-input-many-outputs/page.tsx
+Attempted import error: 'Facebook' is not exported from '__barrel_optimize__?names=Check,Copy,Facebook,Instagram,Linkedin,Music,Twitter,Youtube!=!lucide-react' (imported as 'Facebook').
+
+Import trace for requested module:
+./app/tools/one-input-many-outputs/page.tsx
+
+./app/tools/rate-calculator/page.tsx
+Attempted import error: 'Instagram' is not exported from '__barrel_optimize__?names=Calculator,Clock,DollarSign,Instagram,Linkedin,TrendingUp,Twitter,Users,Youtube!=!lucide-react' (imported as 'Instagram').
+
+Import trace for requested module:
+./app/tools/rate-calculator/page.tsx
+
+./app/tools/rate-calculator/page.tsx
+Attempted import error: 'Twitter' is not exported from '__barrel_optimize__?names=Calculator,Clock,DollarSign,Instagram,Linkedin,TrendingUp,Twitter,Users,Youtube!=!lucide-react' (imported as 'Twitter').
+
+Import trace for requested module:
+./app/tools/rate-calculator/page.tsx
+
+./app/tools/rate-calculator/page.tsx
+Attempted import error: 'Youtube' is not exported from '__barrel_optimize__?names=Calculator,Clock,DollarSign,Instagram,Linkedin,TrendingUp,Twitter,Users,Youtube!=!lucide-react' (imported as 'Youtube').
+
+Import trace for requested module:
+./app/tools/rate-calculator/page.tsx
+
+./app/tools/rate-calculator/page.tsx
+Attempted import error: 'Linkedin' is not exported from '__barrel_optimize__?names=Calculator,Clock,DollarSign,Instagram,Linkedin,TrendingUp,Twitter,Users,Youtube!=!lucide-react' (imported as 'Linkedin').
+
+Import trace for requested module:
+./app/tools/rate-calculator/page.tsx
+
+  Running TypeScript ...
+Failed to type check.
+
+app/api/bots/blog-outlines/[id]/route.ts
+Type error: Route "app/api/bots/blog-outlines/[id]/route.ts" has an invalid "GET" export:
+  Type "{ params: { id: string; }; }" is not a valid type for the function's second argument.
+
+Next.js build worker exited with code: 1 and signal: null

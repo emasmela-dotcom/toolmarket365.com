@@ -1,4 +1,4 @@
-import { Zap, Shield, TrendingUp, Users, Cloud, HardDrive } from 'lucide-react'
+import { Zap, Shield, TrendingUp, Users, Cloud, HardDrive } from 'lucide-react';
 
 export function ValuePropositions() {
   const features = [

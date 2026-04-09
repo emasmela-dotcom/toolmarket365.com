@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Info, Coins, Zap, ArrowRight, X, MessageSquare, Loader2 } from 'lucide-react'
+import { Info, Coins, Zap, ArrowRight, X, MessageSquare, Loader2 } from 'lucide-react';
 import { TOOL_CREDIT_COSTS, getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 

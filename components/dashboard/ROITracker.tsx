@@ -1,6 +1,6 @@
 'use client'
 
-import { TrendingUp, DollarSign, Target } from 'lucide-react'
+import { TrendingUp, DollarSign, Target } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts'
 
 export function ROITracker({ data }: { data: any }) {

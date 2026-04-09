@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Search, Filter, X, ChevronDown, Tag, Layers } from 'lucide-react'
+import { Search, Filter, X, ChevronDown, Tag, Layers } from 'lucide-react';
 
 interface SearchFilterProps {
   availableTypes?: string[]

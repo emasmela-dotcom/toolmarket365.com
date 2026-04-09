@@ -1,22 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { 
-  Eye, 
-  Download, 
-  Share2, 
-  Copy, 
-  X,
-  FileText,
-  ImageIcon,
-  Video,
-  Music,
-  File,
-  ExternalLink,
-  Calendar,
-  User,
-  Tag
-} from 'lucide-react'
+import { Eye, Download, Share2, Copy, X, FileText, ImageIcon, Video, Music, File, ExternalLink, Calendar, User, Tag } from 'lucide-react';
 
 interface ContentViewerProps {
   content: ContentItem

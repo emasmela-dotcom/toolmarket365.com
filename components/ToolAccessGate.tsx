@@ -3,7 +3,7 @@
 import { useState, useEffect, ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { Lock, ArrowRight, Sparkles, Info } from 'lucide-react'
+import { Lock, ArrowRight, Sparkles, Info } from 'lucide-react';
 import { getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
 
 interface ToolAccessGateProps {

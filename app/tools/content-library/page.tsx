@@ -4,37 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { AdvancedFilters } from '@/components/content-library/AdvancedFilters'
 import { BulkActions } from '@/components/content-library/BulkActions'
 import { ContentPreview } from '@/components/content-library/ContentPreview'
-import { 
-  Search, 
-  Plus, 
-  Grid, 
-  List, 
-  Filter, 
-  Heart, 
-  Share2, 
-  MoreVertical,
-  Folder,
-  FileText,
-  Image,
-  Video,
-  Music,
-  File,
-  Calendar,
-  Eye,
-  ThumbsUp,
-  Tag,
-  Clock,
-  Star,
-  Archive,
-  Edit,
-  Trash2,
-  Download,
-  Copy,
-  EyeOff,
-  X,
-  Check,
-  Sparkles
-} from 'lucide-react'
+import { Search, Plus, Grid, List, Filter, Heart, Share2, MoreVertical, Folder, FileText, Image, Video, Music, File, Calendar, Eye, ThumbsUp, Tag, Clock, Star, Archive, Edit, Trash2, Download, Copy, EyeOff, X, Check, Sparkles } from 'lucide-react';
 
 // Types
 interface ContentItem {

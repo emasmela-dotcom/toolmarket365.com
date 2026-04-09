@@ -1,17 +1,5 @@
 import Link from 'next/link'
-import { 
-  FileText, 
-  Search, 
-  BarChart3, 
-  Share2, 
-  Video, 
-  Palette, 
-  PenTool, 
-  DollarSign,
-  Users,
-  Calendar,
-  Sparkles
-} from 'lucide-react'
+import { FileText, Search, BarChart3, Share2, Video, Palette, PenTool, DollarSign, Users, Calendar, Sparkles } from 'lucide-react';
 
 const categories = [
   {

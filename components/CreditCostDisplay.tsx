@@ -1,6 +1,6 @@
 'use client'
 
-import { Info } from 'lucide-react'
+import { Info } from 'lucide-react';
 import { getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
 import { useState, useEffect } from 'react'
 

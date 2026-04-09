@@ -15,8 +15,8 @@ const slugToSection: Record<string, string> = {
   'ai-tools': 'high-priority-complete-the-workflow',
 }
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
-  const slug = params.slug
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const section = slugToSection[slug]
   const url = section ? `/tools?section=${section}` : '/tools'
   redirect(url)

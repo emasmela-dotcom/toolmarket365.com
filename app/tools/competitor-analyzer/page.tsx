@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
-import { Info, ArrowRight } from 'lucide-react'
+import { Info, ArrowRight } from 'lucide-react';
 
 interface ComparisonData {
   competitor: {

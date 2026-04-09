@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CheckCircle, Clock, AlertCircle } from 'lucide-react'
+import { CheckCircle, Clock, AlertCircle } from 'lucide-react';
 
 interface Deliverable {
   id: string

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight, Calendar, Download } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Calendar, Download } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface PostData {

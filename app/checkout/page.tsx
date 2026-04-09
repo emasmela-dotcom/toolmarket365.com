@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Check, AlertCircle, Lock, Loader2, ArrowLeft } from 'lucide-react'
+import { Check, AlertCircle, Lock, Loader2, ArrowLeft } from 'lucide-react';
 import { PlanConfirmation } from '@/components/PlanConfirmation'
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 

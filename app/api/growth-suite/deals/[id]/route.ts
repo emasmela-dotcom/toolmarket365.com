@@ -6,10 +6,7 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 // GET /api/growth-suite/deals/[id] - Get single deal
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {
@@ -115,10 +112,7 @@ export async function GET(
 }
 
 // PUT /api/growth-suite/deals/[id] - Update deal
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {
@@ -225,10 +219,7 @@ export async function PUT(
 }
 
 // DELETE /api/growth-suite/deals/[id] - Delete deal
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {

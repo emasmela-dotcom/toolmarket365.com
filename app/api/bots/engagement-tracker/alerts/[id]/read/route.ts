@@ -5,10 +5,7 @@ import { getUserIdFromRequest } from '@/lib/subscription'
 export const dynamic = 'force-dynamic'
 const engagementService = new EngagementTrackerBotService()
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function POST(request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {

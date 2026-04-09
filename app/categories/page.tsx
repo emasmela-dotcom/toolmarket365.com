@@ -1,28 +1,5 @@
 import Link from 'next/link'
-import { 
-  Calendar, 
-  Sparkles, 
-  BarChart3, 
-  Lightbulb, 
-  RefreshCw, 
-  Search, 
-  Video, 
-  Image, 
-  Type, 
-  Palette, 
-  FileCheck, 
-  User, 
-  TrendingUp, 
-  Hash, 
-  Calculator, 
-  DollarSign, 
-  Clock, 
-  FolderOpen, 
-  FileText,
-  Link as LinkIcon,
-  Mic,
-  Eye
-} from 'lucide-react'
+import { Calendar, Sparkles, BarChart3, Lightbulb, RefreshCw, Search, Video, Image, Type, Palette, FileCheck, User, TrendingUp, Hash, Calculator, DollarSign, Clock, FolderOpen, FileText, Link as LinkIcon, Mic, Eye } from 'lucide-react';
 
 const categories = [
   {

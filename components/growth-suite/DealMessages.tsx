@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { formatDistanceToNow } from 'date-fns'
-import { Send, User, Building2 } from 'lucide-react'
+import { Send, User, Building2 } from 'lucide-react';
 
 interface Message {
   id: string

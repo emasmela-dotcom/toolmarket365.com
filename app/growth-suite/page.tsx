@@ -3,15 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  Plus, 
-  Users, 
-  Briefcase, 
-  DollarSign, 
-  TrendingUp,
-  Clock,
-  CheckCircle
-} from 'lucide-react'
+import { Plus, Users, Briefcase, DollarSign, TrendingUp, Clock, CheckCircle } from 'lucide-react';
 import { BrandSearch } from '@/components/growth-suite/BrandSearch'
 import { CreatorProfile } from '@/components/growth-suite/CreatorProfile'
 import { DealCard } from '@/components/growth-suite/DealCard'

@@ -2,23 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import {
-  Sparkles,
-  TrendingUp,
-  Calendar,
-  Hash,
-  FileText,
-  BarChart3,
-  Lightbulb,
-  Clock,
-  DollarSign,
-  Search,
-  RefreshCw,
-  Zap,
-  Bot,
-  CheckCircle2,
-  ArrowRight,
-} from 'lucide-react'
+import { Sparkles, TrendingUp, Calendar, Hash, FileText, BarChart3, Lightbulb, Clock, DollarSign, Search, RefreshCw, Zap, Bot, CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface BotDefinition {
   id: string

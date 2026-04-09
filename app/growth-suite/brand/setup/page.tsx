@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Camera, Building2, Globe, Target, Users, DollarSign, MapPin, Plus, X } from 'lucide-react'
+import { Camera, Building2, Globe, Target, Users, DollarSign, MapPin, Plus, X } from 'lucide-react';
 
 export default function BrandSetupPage() {
   const router = useRouter()

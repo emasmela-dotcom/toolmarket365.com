@@ -3,21 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  Search, 
-  Filter, 
-  Heart, 
-  Copy, 
-  Clock, 
-  TrendingUp,
-  Users,
-  FileText,
-  Hash,
-  Lightbulb,
-  List,
-  X,
-  Plus
-} from 'lucide-react'
+import { Search, Filter, Heart, Copy, Clock, TrendingUp, Users, FileText, Hash, Lightbulb, List, X, Plus } from 'lucide-react';
 import { extractTemplateText, getDifficultyColor } from '@/lib/template-utils'
 import { getLocalStorageFavorites } from '@/lib/templates/favorites'
 import TemplatePreviewModal from '@/components/templates/TemplatePreviewModal'

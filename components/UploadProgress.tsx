@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { Upload, X, CheckCircle, AlertCircle, FileText, Image as ImageIcon, Video, Music, File } from 'lucide-react'
+import { Upload, X, CheckCircle, AlertCircle, FileText, Image as ImageIcon, Video, Music, File } from 'lucide-react';
 import { cn } from '@/lib/utils'
 import { Progress } from '@/components/ui/progress'
 

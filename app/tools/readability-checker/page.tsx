@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { FileText, CheckCircle, AlertCircle, TrendingUp, BookOpen } from 'lucide-react'
+import { FileText, CheckCircle, AlertCircle, TrendingUp, BookOpen } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface ReadabilityMetrics {

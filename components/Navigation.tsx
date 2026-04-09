@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Search, User } from 'lucide-react'
+import { Search, User } from 'lucide-react';
 
 export function Navigation() {
   const router = useRouter()

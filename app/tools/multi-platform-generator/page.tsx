@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
-import { Copy, Check, Instagram, Twitter, Youtube, Linkedin, Facebook, Music } from 'lucide-react'
+import { Copy, Check, Globe, Music } from 'lucide-react';
 
 interface PlatformOutput {
   platform: string

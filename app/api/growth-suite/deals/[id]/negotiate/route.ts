@@ -6,10 +6,7 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 // POST /api/growth-suite/deals/[id]/negotiate - Submit negotiation proposal
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function POST(request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {

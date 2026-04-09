@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Check, Sparkles, Zap, ArrowRight, Info, Loader2 } from 'lucide-react'
+import { Check, Sparkles, Zap, ArrowRight, Info, Loader2 } from 'lucide-react';
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 
 const plans = [

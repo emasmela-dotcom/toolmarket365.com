@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { VerificationBadge } from './VerificationBadge'
-import { CheckCircle2, Clock, XCircle } from 'lucide-react'
+import { CheckCircle2, Clock, XCircle } from 'lucide-react';
 
 interface VerificationStatus {
   verified: boolean

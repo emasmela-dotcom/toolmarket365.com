@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 import { getUserPreferences, getPersonalizedSuggestions, trackUsage } from '@/lib/personalization'
-import { Sparkles, TrendingUp, Clock, Target } from 'lucide-react'
+import { Sparkles, TrendingUp, Clock, Target } from 'lucide-react';
 
 function PersonalizationInsightsContent() {
   const [userId] = useState('user_' + (typeof window !== 'undefined' ? localStorage.getItem('user_id') || 'default' : 'default'))

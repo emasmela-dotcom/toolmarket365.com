@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { AlertTriangle, CheckCircle, XCircle, Clock, Heart, Users, ArrowRight } from 'lucide-react'
+import { AlertTriangle, CheckCircle, XCircle, Clock, Heart, Users, ArrowRight } from 'lucide-react';
 
 export default function MentorshipEtiquettePage() {
   return (

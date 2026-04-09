@@ -1,6 +1,6 @@
 'use client'
 
-import { Lightbulb, Clock, Hash } from 'lucide-react'
+import { Lightbulb, Clock, Hash } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Radar, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 
 export function ContentInsights({ data }: { data: any }) {

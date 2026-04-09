@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Plus, Edit, Trash2, ExternalLink, Download, QrCode } from 'lucide-react'
+import { Plus, Edit, Trash2, ExternalLink, Download, QrCode } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 interface Link {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Calendar, DollarSign, Package, Clock, MessageSquare, User, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { Calendar, DollarSign, Package, Clock, MessageSquare, User, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { formatCurrency, formatNumber } from '@/lib/utils'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'

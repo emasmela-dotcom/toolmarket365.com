@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { Upload, X, CheckCircle, AlertCircle } from 'lucide-react'
+import { Upload, X, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface UploadResult {
   success: boolean

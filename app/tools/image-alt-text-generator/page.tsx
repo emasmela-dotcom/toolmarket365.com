@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Image, Upload, Copy, Check, Loader2, Sparkles } from 'lucide-react'
+import { Image, Upload, Copy, Check, Loader2, Sparkles } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 function ImageAltTextGeneratorContent() {

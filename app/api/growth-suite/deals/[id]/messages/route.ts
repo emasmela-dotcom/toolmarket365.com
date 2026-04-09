@@ -6,10 +6,7 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 // GET: Fetch messages for a deal
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {
@@ -81,10 +78,7 @@ export async function GET(
 }
 
 // POST: Send a new message
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function POST(request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {

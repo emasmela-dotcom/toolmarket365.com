@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Lightbulb, RefreshCw, Copy, Check } from 'lucide-react'
+import { Lightbulb, RefreshCw, Copy, Check } from 'lucide-react';
 
 const engagementIdeas = {
   instagram: [

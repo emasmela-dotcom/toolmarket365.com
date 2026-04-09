@@ -59,7 +59,7 @@ function toIsoOrNull(v: unknown): string | null {
   return d.toISOString()
 }
 
-export async function GET(_req: NextRequest, ctx: { params: { id: string } }) {
+export async function GET(_req: NextRequest, ctx: any) {
   if (!sql) {
     return NextResponse.json({ error: 'DATABASE_URL is not set' }, { status: 503 })
   }
@@ -155,7 +155,7 @@ export async function GET(_req: NextRequest, ctx: { params: { id: string } }) {
   }
 }
 
-export async function PATCH(req: NextRequest, ctx: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, ctx: any) {
   if (!sql) {
     return NextResponse.json({ error: 'DATABASE_URL is not set' }, { status: 503 })
   }
@@ -346,7 +346,7 @@ export async function PATCH(req: NextRequest, ctx: { params: { id: string } }) {
   }
 }
 
-export async function DELETE(_req: NextRequest, ctx: { params: { id: string } }) {
+export async function DELETE(_req: NextRequest, ctx: any) {
   if (!sql) {
     return NextResponse.json({ error: 'DATABASE_URL is not set' }, { status: 503 })
   }

@@ -7,7 +7,7 @@ const captionService = new CaptionBotService()
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: any
 ) {
   try {
     const userId = await getUserIdFromRequest(request)

@@ -5,10 +5,7 @@ import { getUserIdFromRequest } from '@/lib/subscription'
 export const dynamic = 'force-dynamic'
 const reportService = new WeeklyPerformanceReportBotService()
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, context: any) {
   try {
     const userId = await getUserIdFromRequest(request)
     if (!userId) {

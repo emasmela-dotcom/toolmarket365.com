@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Check, X, AlertCircle, Loader2 } from 'lucide-react'
+import { Check, X, AlertCircle, Loader2 } from 'lucide-react';
 
 interface PlanConfirmationProps {
   planName: string

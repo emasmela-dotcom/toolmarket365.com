@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Camera, Instagram, Youtube, Twitter, Globe, Plus, X } from 'lucide-react'
+import { Camera, Globe, Plus, X } from 'lucide-react';
 
 export default function CreatorSetupPage() {
   const router = useRouter()

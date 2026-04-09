@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { GitCompare, TrendingUp } from 'lucide-react'
+import { GitCompare, TrendingUp } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts'
 
 export function ABTestManager({ data }: { data: any }) {

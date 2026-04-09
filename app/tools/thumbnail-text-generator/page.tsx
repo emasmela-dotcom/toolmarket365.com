@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Type, Copy, Check, Download, Image as ImageIcon } from 'lucide-react'
+import { Type, Copy, Check, Download, Image as ImageIcon } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
 
 function ThumbnailTextGeneratorContent() {

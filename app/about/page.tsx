@@ -1,4 +1,4 @@
-import { Zap, Cloud, TrendingUp, Users, Shield, Target } from 'lucide-react'
+import { Zap, Cloud, TrendingUp, Users, Shield, Target } from 'lucide-react';
 
 export default function AboutPage() {
   return (

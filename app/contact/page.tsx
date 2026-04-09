@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Mail, MessageSquare, Send, CheckCircle, Lightbulb } from 'lucide-react'
+import { Mail, MessageSquare, Send, CheckCircle, Lightbulb } from 'lucide-react';
 
 function ContactForm() {
   const searchParams = useSearchParams()

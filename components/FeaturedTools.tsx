@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Star } from 'lucide-react'
+import { ArrowRight, Star } from 'lucide-react';
 
 const featuredTools = [
   {
