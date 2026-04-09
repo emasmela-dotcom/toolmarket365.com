@@ -6,7 +6,7 @@ export const runtime = 'nodejs'
 // DELETE a comment
 export async function DELETE(request: NextRequest, context: any) {
   try {
-    const { id } = params
+    const {id } = await context.params
 
     if (!sql) {
       return NextResponse.json(

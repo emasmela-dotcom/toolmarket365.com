@@ -15,7 +15,7 @@ export async function POST(request: NextRequest, context: any) {
       )
     }
 
-    await engagementService.markAlertAsRead(params.id, userId)
+    await engagementService.markAlertAsRead((await context.params).id, userId)
 
     return NextResponse.json({ 
       success: true,

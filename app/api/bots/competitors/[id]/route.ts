@@ -18,7 +18,7 @@ export async function GET(request: NextRequest, context: any) {
       )
     }
 
-    const competitor = await competitorService.getCompetitorById(params.id)
+    const competitor = await competitorService.getCompetitorById((await context.params).id)
 
     if (!competitor) {
       return NextResponse.json(
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest, context: any) {
     }
 
     // Get metrics history
-    const metrics = await competitorService.getCompetitorMetrics(params.id, 30)
+    const metrics = await competitorService.getCompetitorMetrics((await context.params).id, 30)
 
     return NextResponse.json({ 
       success: true, 
@@ -65,7 +65,7 @@ export async function DELETE(request: NextRequest, context: any) {
     await sql`
       UPDATE bot_competitors
       SET status = 'archived', updated_at = NOW()
-      WHERE id = ${params.id} AND user_id = ${userId}
+      WHERE id = ${(await context.params).id} AND user_id = ${userId}
     `
 
     return NextResponse.json({ 

@@ -19,7 +19,7 @@ export async function GET(
       )
     }
 
-    const outline = await outlineService.getBlogOutlineById(params.id)
+    const outline = await outlineService.getBlogOutlineById((await context.params).id)
 
     if (!outline) {
       return NextResponse.json(
@@ -62,7 +62,7 @@ export async function DELETE(
 
     await sql`
       DELETE FROM bot_blog_outlines
-      WHERE id = ${params.id} AND user_id = ${userId}
+      WHERE id = ${(await context.params).id} AND user_id = ${userId}
     `
 
     return NextResponse.json({ 

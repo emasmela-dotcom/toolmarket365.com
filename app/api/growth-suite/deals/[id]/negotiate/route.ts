@@ -17,7 +17,7 @@ export async function POST(request: NextRequest, context: any) {
       return NextResponse.json({ error: 'Database not available' }, { status: 503 })
     }
 
-    const dealId = params.id
+    const dealId = (await context.params).id
     const body = await request.json()
     const { budget, deadline, requirements, deliverables, proposedBy } = body
 

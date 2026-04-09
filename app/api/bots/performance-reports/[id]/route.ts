@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, context: any) {
       )
     }
 
-    const report = await reportService.getReportById(params.id)
+    const report = await reportService.getReportById((await context.params).id)
 
     if (!report) {
       return NextResponse.json(

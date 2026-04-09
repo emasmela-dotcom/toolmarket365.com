@@ -17,7 +17,7 @@ export async function GET(request: NextRequest, context: any) {
       return NextResponse.json({ error: 'Database not available' }, { status: 503 })
     }
 
-    const dealId = params.id
+    const dealId = (await context.params).id
 
     const dealResult = await sql`
       SELECT 
@@ -123,7 +123,7 @@ export async function PUT(request: NextRequest, context: any) {
       return NextResponse.json({ error: 'Database not available' }, { status: 503 })
     }
 
-    const dealId = params.id
+    const dealId = (await context.params).id
     const body = await request.json()
 
     const {
@@ -230,7 +230,7 @@ export async function DELETE(request: NextRequest, context: any) {
       return NextResponse.json({ error: 'Database not available' }, { status: 503 })
     }
 
-    const dealId = params.id
+    const dealId = (await context.params).id
 
     // Verify user has access to this deal
     const accessCheck = await sql`

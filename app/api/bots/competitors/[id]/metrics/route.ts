@@ -18,7 +18,7 @@ export async function GET(request: NextRequest, context: any) {
     const { searchParams } = new URL(request.url)
     const limit = parseInt(searchParams.get('limit') || '30')
 
-    const metrics = await competitorService.getCompetitorMetrics(params.id, limit)
+    const metrics = await competitorService.getCompetitorMetrics((await context.params).id, limit)
 
     return NextResponse.json({ 
       success: true, 
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest, context: any) {
 
     const metrics = await competitorService.generateCompetitorMetrics(
       userId,
-      params.id,
+      (await context.params).id,
       date ? new Date(date) : undefined
     )
 

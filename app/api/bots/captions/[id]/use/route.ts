@@ -18,7 +18,7 @@ export async function POST(
       )
     }
 
-    await captionService.markCaptionAsUsed(params.id)
+    await captionService.markCaptionAsUsed((await context.params).id)
 
     return NextResponse.json({ 
       success: true,

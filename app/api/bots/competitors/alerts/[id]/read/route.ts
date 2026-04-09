@@ -15,7 +15,7 @@ export async function POST(request: NextRequest, context: any) {
       )
     }
 
-    await competitorService.markAlertAsRead(params.id)
+    await competitorService.markAlertAsRead((await context.params).id)
 
     return NextResponse.json({ 
       success: true,
