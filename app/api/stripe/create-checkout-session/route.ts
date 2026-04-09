@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const priceId = getStripePriceId(type, id)
+  const priceId = type === 'subscription' ? getStripePriceId('subscription', id) : getStripePriceId('credits', id)
   if (!priceId) {
     return NextResponse.json(
       { error: `No Stripe price configured for ${type}: ${id}` },
