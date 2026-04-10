@@ -148,13 +148,14 @@ function OneInputManyOutputsContent() {
   }
 
   const getPlatformIcon = (platform: string) => {
+    // lucide-react has no brand icons; use Globe for generic “platform”
     const icons: Record<string, typeof Copy> = {
-      instagram: Instagram,
+      instagram: Globe,
       tiktok: Music,
-      youtube: Youtube,
-      twitter: Twitter,
-      linkedin: Linkedin,
-      facebook: Facebook,
+      youtube: Globe,
+      twitter: Globe,
+      linkedin: Globe,
+      facebook: Globe,
     }
     return icons[platform] ?? Copy
   }

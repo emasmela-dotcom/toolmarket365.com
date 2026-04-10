@@ -297,7 +297,7 @@ function InstagramSchedulerContent() {
               <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Published</p>
               <p className="text-2xl font-bold text-mono-950 dark:text-mono-50">{stats.publishedPosts}</p>
             </div>
-            <Instagram className="w-8 h-8 text-green-500" />
+            <Globe className="w-8 h-8 text-green-500" />
           </div>
         </div>
 
@@ -407,7 +407,7 @@ function InstagramSchedulerContent() {
                 ))
               ) : (
                 <div className="text-center py-12">
-                  <Instagram className="w-16 h-16 text-mono-300 dark:text-mono-700 mx-auto mb-4" />
+                  <Globe className="w-16 h-16 text-mono-300 dark:text-mono-700 mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-mono-950 dark:text-mono-50 mb-2">No posts yet</h3>
                   <p className="text-mono-600 dark:text-mono-400 mb-6">Start scheduling your Instagram content</p>
                   <button

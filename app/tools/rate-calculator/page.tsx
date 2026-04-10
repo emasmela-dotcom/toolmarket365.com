@@ -150,10 +150,10 @@ function RateCalculatorContent() {
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     {[
-                      { id: 'instagram', icon: Instagram, name: 'Instagram' },
-                      { id: 'twitter', icon: Twitter, name: 'Twitter' },
-                      { id: 'youtube', icon: Youtube, name: 'YouTube' },
-                      { id: 'linkedin', icon: Linkedin, name: 'LinkedIn' }
+                      { id: 'instagram', icon: Globe, name: 'Instagram' },
+                      { id: 'twitter', icon: Globe, name: 'Twitter' },
+                      { id: 'youtube', icon: Globe, name: 'YouTube' },
+                      { id: 'linkedin', icon: Globe, name: 'LinkedIn' },
                     ].map((p) => {
                       const Icon = p.icon
                       return (

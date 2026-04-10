@@ -158,7 +158,7 @@ function CreateInstagramPostContent() {
     return (
       <div className="container mx-auto py-8 px-4 max-w-4xl">
         <div className="bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700 p-12 text-center">
-          <Instagram className="w-16 h-16 text-mono-300 dark:text-mono-700 mx-auto mb-4" />
+          <Globe className="w-16 h-16 text-mono-300 dark:text-mono-700 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-mono-950 dark:text-mono-50 mb-2">No Instagram Accounts</h3>
           <p className="text-mono-600 dark:text-mono-400 mb-6">Connect an Instagram account to start scheduling posts.</p>
           <button

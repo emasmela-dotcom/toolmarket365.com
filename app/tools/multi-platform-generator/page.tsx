@@ -304,13 +304,13 @@ function MultiPlatformGeneratorContent() {
   }
 
   const getPlatformIcon = (platform: string) => {
-    const icons: Record<string, any> = {
-      instagram: Instagram,
+    const icons: Record<string, typeof Copy> = {
+      instagram: Globe,
       tiktok: Music,
-      youtube: Youtube,
-      twitter: Twitter,
-      linkedin: Linkedin,
-      facebook: Facebook,
+      youtube: Globe,
+      twitter: Globe,
+      linkedin: Globe,
+      facebook: Globe,
     }
     return icons[platform] || Copy
   }

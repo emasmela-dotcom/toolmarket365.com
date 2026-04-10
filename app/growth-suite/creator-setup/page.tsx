@@ -23,11 +23,12 @@ const NICHES = [
   'Personal Development'
 ]
 
+// lucide-react does not ship brand icons (Instagram, etc.); use Globe for all rows.
 const PLATFORMS = [
-  { value: 'instagram', label: 'Instagram', icon: Instagram },
-  { value: 'youtube', label: 'YouTube', icon: Youtube },
-  { value: 'twitter', label: 'Twitter', icon: Twitter },
-  { value: 'facebook', label: 'Facebook', icon: Facebook }
+  { value: 'instagram', label: 'Instagram', icon: Globe },
+  { value: 'youtube', label: 'YouTube', icon: Globe },
+  { value: 'twitter', label: 'Twitter', icon: Globe },
+  { value: 'facebook', label: 'Facebook', icon: Globe },
 ]
 
 export default function CreatorSetupPage() {

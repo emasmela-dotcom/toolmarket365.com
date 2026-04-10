@@ -207,7 +207,7 @@ export default function CreatorSetupPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="flex items-center space-x-2 text-sm font-medium text-mono-700 dark:text-mono-300 mb-1">
-                  <Instagram className="w-4 h-4" />
+                  <Globe className="w-4 h-4" />
                   <span>Instagram</span>
                 </label>
                 <input
@@ -221,7 +221,7 @@ export default function CreatorSetupPage() {
 
               <div>
                 <label className="flex items-center space-x-2 text-sm font-medium text-mono-700 dark:text-mono-300 mb-1">
-                  <Youtube className="w-4 h-4" />
+                  <Globe className="w-4 h-4" />
                   <span>YouTube</span>
                 </label>
                 <input
@@ -235,7 +235,7 @@ export default function CreatorSetupPage() {
 
               <div>
                 <label className="flex items-center space-x-2 text-sm font-medium text-mono-700 dark:text-mono-300 mb-1">
-                  <Twitter className="w-4 h-4" />
+                  <Globe className="w-4 h-4" />
                   <span>Twitter</span>
                 </label>
                 <input
