@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, context: any) {
       })
     }
 
-    const { id } = await params
+    const { id } = await context.params
 
     if (!id) {
       return NextResponse.json(
@@ -105,7 +105,7 @@ export async function PUT(request: NextRequest, context: any) {
       })
     }
 
-    const { id } = await params
+    const { id } = await context.params
     const body = await request.json()
 
     if (!id) {
@@ -233,7 +233,7 @@ export async function DELETE(request: NextRequest, context: any) {
       })
     }
 
-    const { id } = await params
+    const { id } = await context.params
 
     if (!id) {
       return NextResponse.json(

@@ -633,7 +633,7 @@ export default function DashboardPage() {
               className="flex items-center justify-between p-4 bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700 hover:border-accent-500 dark:hover:border-accent-500 transition-colors"
             >
               <div className="flex items-center space-x-3">
-                <Instagram className="w-5 h-5 text-accent-600" />
+                <Globe className="w-5 h-5 text-accent-600" />
                 <span className="font-medium text-mono-950 dark:text-mono-50">Instagram Scheduler</span>
               </div>
               <ArrowRight className="w-4 h-4 text-mono-400" />

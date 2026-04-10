@@ -108,7 +108,7 @@ function ConnectInstagramAccountContent() {
       <div className="bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700 p-8">
         <div className="text-center">
           <div className="w-20 h-20 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Instagram className="w-10 h-10 text-white" />
+            <Globe className="w-10 h-10 text-white" />
           </div>
           
           <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-3">
@@ -132,7 +132,7 @@ function ConnectInstagramAccountContent() {
               </>
             ) : (
               <>
-                <Instagram className="w-5 h-5" />
+                <Globe className="w-5 h-5" />
                 Connect Instagram Account
               </>
             )}
