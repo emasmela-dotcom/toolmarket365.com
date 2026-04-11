@@ -23,8 +23,29 @@ export function PlanConfirmation({
   onConfirm,
   onCancel,
   subscribeNowHref,
+  useStripe = false,
+  planIdForStripe,
 }: PlanConfirmationProps) {
   const [confirmed, setConfirmed] = useState(false)
+  const [stripeLoading, setStripeLoading] = useState(false)
+
+  const handleSubscribeNow = async () => {
+    if (!planIdForStripe) return
+    setStripeLoading(true)
+    try {
+      const res = await fetch('/api/stripe/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'subscription', planId: planIdForStripe }),
+      })
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url as string
+      }
+    } finally {
+      setStripeLoading(false)
+    }
+  }
 
   const handleConfirm = () => {
     if (confirmed) {

@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState, type ReactElement } from 'react'
 import { Globe, Mail, MapPin, Star } from 'lucide-react';
 import { formatNumber, formatCurrency } from '@/lib/utils'
 
@@ -81,7 +82,7 @@ export function CreatorProfile({ creatorId, profile: propProfile, compact = fals
   }
 
   const getPlatformIcon = (platform: string) => {
-    const icons: { [key: string]: JSX.Element } = {
+    const icons: Record<string, ReactElement> = {
       instagram: <Globe className="w-5 h-5" />,
       youtube: <Globe className="w-5 h-5" />,
       twitter: <Globe className="w-5 h-5" />,

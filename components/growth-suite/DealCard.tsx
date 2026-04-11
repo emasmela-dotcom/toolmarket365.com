@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type ReactElement } from 'react'
 import { Calendar, DollarSign, Package, Clock, MessageSquare, User, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { formatCurrency, formatNumber } from '@/lib/utils'
 import { format } from 'date-fns'
@@ -48,7 +48,7 @@ export function DealCard({ deal, onStatusUpdate, onMessage, currentUserType }: D
   }
 
   const getStatusIcon = (status: string) => {
-    const icons: { [key: string]: JSX.Element } = {
+    const icons: Record<string, ReactElement> = {
       pending: <Clock className="w-4 h-4" />,
       negotiating: <MessageSquare className="w-4 h-4" />,
       accepted: <CheckCircle className="w-4 h-4" />,

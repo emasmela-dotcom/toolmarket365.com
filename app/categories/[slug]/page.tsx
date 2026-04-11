@@ -12,7 +12,7 @@ const slugToSection: Record<string, string> = {
   'revenue-tracking': 'business-monetization',
   'collaboration': 'engagement-growth',
   'scheduling': 'workflow-productivity',
-  'ai-tools': 'high-priority-complete-the-workflow',
+  'ai-tools': 'content-creation-optimization',
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {

@@ -1,22 +1,7 @@
 import Link from 'next/link'
-import { Calendar, Sparkles, BarChart3, Lightbulb, RefreshCw, Search, Video, Image, Type, Palette, FileCheck, User, TrendingUp, Hash, Calculator, DollarSign, Clock, FolderOpen, FileText, Link as LinkIcon, Mic, Eye } from 'lucide-react';
+import { BarChart3, Search, Video, Palette, TrendingUp, DollarSign, FolderOpen } from 'lucide-react';
 
 const categories = [
-  {
-    title: 'High Priority - Complete the Workflow',
-    slug: 'high-priority-complete-the-workflow',
-    description: 'Essential tools to complete your content creation workflow',
-    icon: Sparkles,
-    color: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-    toolCount: 5,
-    tools: [
-      'Post Scheduler',
-      'Analytics Dashboard',
-      'SEO Optimizer',
-      'Content Repurposer',
-      'AI Caption Generator'
-    ]
-  },
   {
     title: 'Content Creation & Optimization',
     slug: 'content-creation-optimization',
@@ -215,7 +200,7 @@ export default function CategoriesPage() {
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-accent-600 dark:text-accent-400 mb-2">
-                  8
+                  7
                 </div>
                 <div className="text-sm text-mono-600 dark:text-mono-400">
                   Categories

@@ -201,7 +201,7 @@ export async function generateCaptionWithAnthropic(
     })
 
     const content = response.content[0]
-    if (content.type === 'text') {
+    if (content.type === 'text' && 'text' in content) {
       return content.text
     }
     return null

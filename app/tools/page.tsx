@@ -102,19 +102,6 @@ const platformCardConfig: { id: SocialPlatform; label: string; tagline: string; 
 
 const toolSections = [
   {
-    title: 'High Priority - Complete the Workflow',
-    description: 'Essential tools to complete your content creation workflow',
-    tools: [
-      { name: 'Post Scheduler', slug: 'post-scheduler', icon: Calendar },
-      { name: 'Analytics Dashboard', slug: 'analytics-dashboard', icon: BarChart3 },
-      { name: 'SEO Optimizer', slug: 'seo-optimizer', icon: Search },
-      { name: 'Content Repurposer', slug: 'content-repurposer', icon: RefreshCw },
-      { name: 'One Input → Many Outputs', slug: 'one-input-many-outputs', icon: LayoutGrid },
-      { name: 'AI Caption Generator', slug: 'ai-caption-generator', icon: Sparkles },
-      { name: 'Multi-Platform Generator', slug: 'multi-platform-generator', icon: Sparkles },
-    ]
-  },
-  {
     title: 'Content Creation & Optimization',
     description: 'Tools for creating and optimizing content across formats',
     tools: [
@@ -311,7 +298,6 @@ function ToolsPageContent() {
 
   // Generate slug map
   const sectionSlugMap: { [key: string]: string } = {
-    'high-priority-complete-the-workflow': 'High Priority - Complete the Workflow',
     'content-creation-optimization': 'Content Creation & Optimization',
     'brand-design': 'Brand & Design',
     'analytics-insights': 'Analytics & Insights',
@@ -586,7 +572,6 @@ function ToolsPageContent() {
           {displaySections.map((section, sectionIdx) => {
             // Generate slug to match homepage links
             const reverseSlugMap: { [key: string]: string } = {
-              'High Priority - Complete the Workflow': 'high-priority-complete-the-workflow',
               'Content Creation & Optimization': 'content-creation-optimization',
               'Brand & Design': 'brand-design',
               'Analytics & Insights': 'analytics-insights',
