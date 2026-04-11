@@ -39,7 +39,13 @@ function random(arr: string[]) {
 }
 
 function optimizeTitle(input: TitleInput) {
-  const { topic, audience, keyword, tone = "viral" } = input;
+  const { topic, audience, keyword } = input;
+  const tones = ["viral", "educational", "curiosity", "authority"] as const;
+  const tone: (typeof tones)[number] = tones.includes(
+    input.tone as (typeof tones)[number]
+  )
+    ? (input.tone as (typeof tones)[number])
+    : "viral";
 
   const baseFormat = random(formats);
   const power = random(powerWords);
