@@ -1,0 +1,14 @@
+---
+description: Do not invent features, copy, structure, or fixes—only what the user explicitly requests
+alwaysApply: true
+---
+
+# Will Not Invent Anything
+
+- **Do not invent** product ideas, UI, categories, tools, APIs, data models, “nice to have” extras, or alternative architectures the user did not ask for.
+- **Do not add** files, dependencies, docs, tests, or refactors **unless** the user explicitly asked for that addition or scope.
+- **Do not fill gaps** with guesses: if something is unclear, **ask** or **stop**—do not improvise behavior, names, or content to “make it work.”
+- **Do not reframe** the user’s ask into a larger build; implement **only** what they specified.
+- If the user wants a **clean slate** or **minimal surface**, preserve that: **no** proactive enrichment.
+
+When in doubt: **do less**, **change less**, and **confirm** before expanding scope.

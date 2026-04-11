@@ -1,0 +1,17 @@
+---
+description: When the user confirms a tool is completed (yes), commit and push that work in the same session
+alwaysApply: true
+---
+
+# Commit and Push When Tool Completed Is Yes
+
+When the user **explicitly confirms** a tool (or the work for a tool) is **finished / good / tested** — including phrases like **“yes”**, **“tool completed”**, **“done”**, **“ship it”**, **“tested good”**:
+
+1. **`git status`** — see what changed for that tool (and any rule/config edits done in the same task).
+2. **`git add`** — stage the files that belong to the completed work.
+3. **`git commit -m "..."`** — short, accurate message (often tool name + what changed).
+4. **`git push`** — push to the **current branch** (usually `main`).
+
+**Skip commit/push** if the user said not to, or only asked a question with no file changes.
+
+**If build/tests** are part of “done” for this project, run them before push when the change affects build; if the user’s **“yes”** is the explicit test signal, treat that as approval to commit after a quick sanity check when applicable.

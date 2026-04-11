@@ -27,14 +27,35 @@ export default function HookGenerator() {
     <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Hook Generator</h1>
 
-      {Object.keys(form).map((key) => (
+      <section className="mb-8 space-y-4 text-mono-800">
+        <h2 className="text-lg font-semibold text-mono-950">What This Does</h2>
+        <p className="text-sm">Generates viral hooks for:</p>
+        <ul className="list-disc pl-5 text-sm space-y-1">
+          <li>Tweets (X)</li>
+          <li>Reels / TikTok</li>
+        </ul>
+        <ul className="list-disc pl-5 text-sm space-y-1">
+          <li>Uses proven patterns (curiosity, controversy, numbers, pain points)</li>
+          <li>
+            Works instantly (no AI required, but I&apos;ll show how to upgrade it too)
+          </li>
+        </ul>
+
+        <h2 className="text-lg font-semibold text-mono-950 pt-2">🧠 Core Idea</h2>
+        <p className="text-sm font-medium">Hooks = Templates + Variables</p>
+        <p className="text-sm">Example:</p>
+        <blockquote className="border-l-4 border-mono-300 pl-3 text-sm italic text-mono-700">
+          &quot;Nobody talks about how [PAIN POINT] is ruining your [DESIRED RESULT]…&quot;
+        </blockquote>
+      </section>
+
+      {(Object.keys(form) as (keyof typeof form)[]).map((key) => (
         <input
           key={key}
           placeholder={key}
           className="border p-2 mb-2 w-full"
-          onChange={(e) =>
-            setForm({ ...form, [key]: e.target.value })
-          }
+          value={form[key]}
+          onChange={(e) => setForm({ ...form, [key]: e.target.value })}
         />
       ))}
 

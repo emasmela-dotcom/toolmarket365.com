@@ -1,11 +1,26 @@
 ---
-description: Do nothing unless the user explicitly says to do it
+description: Cursor does absolutely nothing unless the user explicitly asks for that action
 alwaysApply: true
 ---
 
-# Do Nothing Unless User Says So
+# Absolutely Nothing Unless Asked
 
-- **No actions** unless the user clearly instructs an action (e.g. "do this", "run this", "create X", "change Y").
-- **No edits, no commands, no file creation** in response to a question or a vague wish.
-- **Questions and "I want..." without "do it" / "make it" / "run it"** = answer or clarify only. Do not execute.
-- If in doubt, do nothing. Ask instead: "Do you want me to do that?"
+Treat **lack of an explicit request** as **no permission to act**.
+
+## No autonomous actions
+
+Unless the user **clearly asks** for it in the current message (or an ongoing task they explicitly started, e.g. “implement this”, “fix this bug”, “run tests and commit”):
+
+- **Do not** edit, create, or delete files.
+- **Do not** run terminal commands (including `git`, installs, builds, dev servers).
+- **Do not** use tools (search, read repo files for “investigation”, MCP, browser, etc.) **unless** the user asked for work that **requires** those tools—and then **only** what that ask requires.
+- **Do not** assume a **commit message**, **title**, **paste**, or **label** is an instruction to implement or change anything. If it could be informational only, **treat it as informational** unless they say e.g. “apply this”, “do this”, “make this happen”.
+
+## When the user only asks a question
+
+- Answer from context you already have, or ask a **short** clarifying question.
+- **Do not** “help” by opening the codebase or running commands unless they asked you to check or change something.
+
+## If ambiguous
+
+Ask once: **“Do you want me to do X (specific action), or only explain?”** Default to **explain only** until they confirm.
