@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import Link from 'next/link'
-import { FileText, Calendar, Sparkles, BarChart3, Clock, Lightbulb, FolderOpen, RefreshCw, TrendingUp, Hash, Image, Link as LinkIcon, Mic, Type, Calculator, DollarSign, Search, Video, Eye, Palette, FileCheck, User, Sparkles as SparklesIcon, Coins, BookOpen, MessageSquare, ArrowRight, Camera, Tv, MessageCircle, Briefcase, Share2, LayoutGrid } from 'lucide-react';
+import { FileText, Calendar, Sparkles, BarChart3, Clock, Lightbulb, FolderOpen, RefreshCw, TrendingUp, Hash, Image, Link as LinkIcon, Mic, Type, Calculator, DollarSign, Search, Video, Eye, Palette, FileCheck, User, Sparkles as SparklesIcon, Coins, BookOpen, MessageSquare, ArrowRight, Camera, Tv, MessageCircle, Briefcase, Share2, LayoutGrid, Flame } from 'lucide-react';
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
 type SocialPlatform = 'instagram' | 'tiktok' | 'youtube' | 'twitter' | 'linkedin' | 'facebook'
@@ -108,6 +108,7 @@ const toolSections = [
       { name: 'Hook Generator', slug: 'hook-generator', icon: Sparkles },
       { name: 'Content Idea Engine', slug: 'content-idea-engine', icon: Lightbulb },
       { name: 'YouTube Title Optimizer', slug: 'youtube-title-optimizer', icon: Tv },
+      { name: 'TikTok Trend Finder', slug: 'tiktok-trend-finder', icon: Flame },
     ],
   },
   {
@@ -307,6 +308,7 @@ function ToolsPageContent() {
 
   // Generate slug map
   const sectionSlugMap: { [key: string]: string } = {
+    'creator-growth-tools': 'Creator Growth Tools (HIGH DEMAND)',
     'content-creation-optimization': 'Content Creation & Optimization',
     'brand-design': 'Brand & Design',
     'analytics-insights': 'Analytics & Insights',
@@ -581,6 +583,7 @@ function ToolsPageContent() {
           {displaySections.map((section, sectionIdx) => {
             // Generate slug to match homepage links
             const reverseSlugMap: { [key: string]: string } = {
+              'Creator Growth Tools (HIGH DEMAND)': 'creator-growth-tools',
               'Content Creation & Optimization': 'content-creation-optimization',
               'Brand & Design': 'brand-design',
               'Analytics & Insights': 'analytics-insights',
