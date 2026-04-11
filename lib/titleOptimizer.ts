@@ -71,6 +71,22 @@ function optimizeTitle(input: TitleInput) {
   return title;
 }
 
-export function generateTitles(input: TitleInput, count = 5) {
-  return Array.from({ length: count }, () => optimizeTitle(input));
+export function scoreTitle(title: string): number {
+  let score = 0;
+  if (title.length < 60) score += 2;
+  if (/\d/.test(title)) score += 2;
+  if (/(secret|proven|fast|ultimate)/i.test(title)) score += 2;
+  if (/(you|your)/i.test(title)) score += 1;
+  return score;
+}
+
+export type TitleSuggestion = { title: string; score: number };
+
+export function generateTitles(input: TitleInput, count = 5): TitleSuggestion[] {
+  const items = Array.from({ length: count }, () => {
+    const title = optimizeTitle(input);
+    return { title, score: scoreTitle(title) };
+  });
+  items.sort((a, b) => b.score - a.score);
+  return items;
 }

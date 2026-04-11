@@ -107,6 +107,7 @@ const toolSections = [
     tools: [
       { name: 'Hook Generator', slug: 'hook-generator', icon: Sparkles },
       { name: 'Content Idea Engine', slug: 'content-idea-engine', icon: Lightbulb },
+      { name: 'YouTube Title Optimizer', slug: 'youtube-title-optimizer', icon: Tv },
     ],
   },
   {
