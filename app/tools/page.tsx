@@ -102,6 +102,14 @@ const platformCardConfig: { id: SocialPlatform; label: string; tagline: string; 
 
 const toolSections = [
   {
+    title: 'Creator Growth Tools (HIGH DEMAND)',
+    description: 'Hooks and niche-based content ideas for social growth',
+    tools: [
+      { name: 'Hook Generator', slug: 'hook-generator', icon: Sparkles },
+      { name: 'Content Idea Engine', slug: 'content-idea-engine', icon: Lightbulb },
+    ],
+  },
+  {
     title: 'Content Creation & Optimization',
     description: 'Tools for creating and optimizing content across formats',
     tools: [
