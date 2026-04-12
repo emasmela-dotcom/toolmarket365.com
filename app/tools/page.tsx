@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import Link from 'next/link'
-import { FileText, Calendar, Sparkles, BarChart3, Clock, Lightbulb, FolderOpen, RefreshCw, TrendingUp, Hash, Image, Link as LinkIcon, Mic, Type, Calculator, DollarSign, Search, Video, Eye, Palette, FileCheck, User, Sparkles as SparklesIcon, Coins, BookOpen, MessageSquare, ArrowRight, Camera, Tv, MessageCircle, Briefcase, Share2, LayoutGrid, Flame } from 'lucide-react';
+import { FileText, Calendar, Sparkles, BarChart3, Clock, Lightbulb, FolderOpen, RefreshCw, TrendingUp, Hash, Image, Link as LinkIcon, Mic, Type, Calculator, DollarSign, Search, Video, Eye, Palette, FileCheck, User, Sparkles as SparklesIcon, Coins, BookOpen, MessageSquare, ArrowRight, Camera, Tv, MessageCircle, Briefcase, Share2, LayoutGrid, Flame, Mail } from 'lucide-react';
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
 type SocialPlatform = 'instagram' | 'tiktok' | 'youtube' | 'twitter' | 'linkedin' | 'facebook'
@@ -25,6 +25,13 @@ const toolPlatforms: Record<string, SocialPlatform[]> = {
   // Video-focused tools
   'video-script-generator': ['instagram', 'tiktok', 'youtube'],
   'video-transcript-generator': ['instagram', 'tiktok', 'youtube'],
+  'youtube-title-optimizer': ['youtube'],
+  'tiktok-trend-finder': ['tiktok'],
+
+  // Creator growth (also writing-adjacent)
+  'hook-generator': allPlatforms,
+  'content-idea-engine': allPlatforms,
+  'newsletter-topic-generator': allPlatforms,
 
   // Writing & captions
   'ai-caption-generator': allPlatforms,
@@ -103,12 +110,13 @@ const platformCardConfig: { id: SocialPlatform; label: string; tagline: string; 
 const toolSections = [
   {
     title: 'Creator Growth Tools (HIGH DEMAND)',
-    description: 'Hooks and niche-based content ideas for social growth',
+    description: 'Hooks, titles, trends, and newsletter angles for audience growth',
     tools: [
       { name: 'Hook Generator', slug: 'hook-generator', icon: Sparkles },
       { name: 'Content Idea Engine', slug: 'content-idea-engine', icon: Lightbulb },
       { name: 'YouTube Title Optimizer', slug: 'youtube-title-optimizer', icon: Tv },
       { name: 'TikTok Trend Finder', slug: 'tiktok-trend-finder', icon: Flame },
+      { name: 'Newsletter Topic Generator', slug: 'newsletter-topic-generator', icon: Mail },
     ],
   },
   {
