@@ -33,6 +33,7 @@ const toolPlatforms: Record<string, SocialPlatform[]> = {
   'content-idea-engine': allPlatforms,
   'newsletter-topic-generator': allPlatforms,
   'reddit-post-rewriter': allPlatforms,
+  'cold-dm-personalizer': allPlatforms,
 
   // Writing & captions
   'ai-caption-generator': allPlatforms,
