@@ -1,0 +1,21 @@
+---
+description: Immediately place pasted tool code and register tool category entry
+alwaysApply: true
+---
+
+# Immediate Tool Code Placement
+
+When the user pastes tool code and asks to add/build it:
+
+- Implement immediately in the repo (do not only explain).
+- Use the user-provided code as the primary source of truth for behavior.
+- Place code in the expected structure unless the user specifies different paths:
+  - `lib/<tool>.ts`
+  - `app/api/<tool>/route.ts`
+  - `components/<ToolComponent>.tsx` or `app/tools/<tool>/page.tsx`
+- Wire route + imports + page so the tool is usable end-to-end.
+- Add the tool to the currently active tools category the user is building.
+- Update tool slug mappings used by `/tools` (including platform mapping when needed).
+- Run a build check after wiring, then commit and push when complete.
+
+Do not stall on extra planning or repeated confirmation once code is provided.
