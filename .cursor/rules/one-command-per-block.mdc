@@ -1,0 +1,14 @@
+---
+description: Terminal commands — one command per fenced copy block
+alwaysApply: true
+---
+
+# One command per copy block
+
+When giving shell/terminal steps:
+
+- Put **exactly one** command in each fenced `bash` (or `sh`) block so the user can copy and run one at a time.
+- Do **not** chain with `&&` in one block unless the user explicitly asks for a single chained command.
+- Prose, headings, and lists stay **outside** code fences; only the command goes inside the block.
+
+This applies to `npm`, `git`, `cd`, `curl`, etc.
