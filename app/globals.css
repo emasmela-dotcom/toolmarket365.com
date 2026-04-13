@@ -24,3 +24,41 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/*
+  Tailwind `dark:` variants use a `.dark` ancestor. Body color uses prefers-color-scheme
+  in :root above; without syncing `.dark` on <html>, inputs kept `bg-white` while
+  inheriting light body text (invisible). theme-dark-class in layout aligns `.dark`
+  with system preference.
+
+  Preflight sets form controls to `color: inherit`. Force readable defaults in light
+  mode; under `.dark`, inherit light text for fields that use dark surfaces.
+*/
+@layer base {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+      [type="range"]
+    ):not([type="hidden"]),
+  textarea,
+  select {
+    color: #171717;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #525252;
+    opacity: 1;
+  }
+
+  .dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+      [type="range"]
+    ):not([type="hidden"]),
+  .dark textarea,
+  .dark select {
+    color: inherit;
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: color-mix(in oklab, currentcolor 55%, transparent);
+  }
+}

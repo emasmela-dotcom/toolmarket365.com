@@ -29,27 +29,27 @@ export default function TitleOptimizer() {
 
       <input
         placeholder="Topic"
-        className="border p-2 w-full mb-2"
+        className="border border-mono-300 dark:border-mono-600 p-2 w-full mb-2 rounded bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
         value={form.topic}
         onChange={(e) => setForm({ ...form, topic: e.target.value })}
       />
 
       <input
         placeholder="Audience (optional)"
-        className="border p-2 w-full mb-2"
+        className="border border-mono-300 dark:border-mono-600 p-2 w-full mb-2 rounded bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
         value={form.audience}
         onChange={(e) => setForm({ ...form, audience: e.target.value })}
       />
 
       <input
         placeholder="Keyword (optional)"
-        className="border p-2 w-full mb-2"
+        className="border border-mono-300 dark:border-mono-600 p-2 w-full mb-2 rounded bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
         value={form.keyword}
         onChange={(e) => setForm({ ...form, keyword: e.target.value })}
       />
 
       <select
-        className="border p-2 w-full mb-4"
+        className="border border-mono-300 dark:border-mono-600 p-2 w-full mb-4 rounded bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
         value={form.tone}
         onChange={(e) => setForm({ ...form, tone: e.target.value })}
       >

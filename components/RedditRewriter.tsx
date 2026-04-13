@@ -30,7 +30,7 @@ export default function RedditRewriter() {
       </p>
 
       <textarea
-        className="w-full border border-mono-300 dark:border-mono-600 p-2 mb-4 rounded bg-white dark:bg-mono-900"
+        className="w-full border border-mono-300 dark:border-mono-600 p-2 mb-4 rounded bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
         rows={6}
         placeholder="Paste your Reddit post..."
         value={input}

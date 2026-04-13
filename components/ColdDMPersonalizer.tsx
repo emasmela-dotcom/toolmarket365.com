@@ -29,21 +29,21 @@ export default function ColdDMPersonalizer() {
       <h1 className="text-xl font-bold mb-4">Cold DM Personalizer</h1>
 
       <input
-        className="border p-2 w-full mb-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900"
+        className="border p-2 w-full mb-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
         placeholder="Niche (e.g. content creation)"
         value={niche}
         onChange={(e) => setNiche(e.target.value)}
       />
 
       <input
-        className="border p-2 w-full mb-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900"
+        className="border p-2 w-full mb-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
         placeholder="Target (e.g. small creators)"
         value={target}
         onChange={(e) => setTarget(e.target.value)}
       />
 
       <select
-        className="border p-2 w-full mb-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900"
+        className="border p-2 w-full mb-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
         value={platform}
         onChange={(e) => setPlatform(e.target.value as Platform)}
       >
@@ -54,7 +54,7 @@ export default function ColdDMPersonalizer() {
       </select>
 
       <select
-        className="border p-2 w-full mb-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900"
+        className="border p-2 w-full mb-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
         value={tone}
         onChange={(e) => setTone(e.target.value as Tone)}
       >
@@ -65,7 +65,7 @@ export default function ColdDMPersonalizer() {
       </select>
 
       <input
-        className="border p-2 w-full mb-4 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900"
+        className="border p-2 w-full mb-4 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
         placeholder="Goal (e.g. get reply, book a call)"
         value={goal}
         onChange={(e) => setGoal(e.target.value)}

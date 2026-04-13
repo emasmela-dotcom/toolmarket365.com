@@ -38,13 +38,13 @@ export default function TikTokTrendFinderPage() {
 
       <input
         placeholder="Your niche (e.g. fitness coaching, SaaS, skincare)"
-        className="border border-mono-300 dark:border-mono-600 p-2 w-full mb-2 rounded bg-white dark:bg-mono-900"
+        className="border border-mono-300 dark:border-mono-600 p-2 w-full mb-2 rounded bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
         value={niche}
         onChange={(e) => setNiche(e.target.value)}
       />
 
       <select
-        className="border border-mono-300 dark:border-mono-600 p-2 w-full mb-4 rounded bg-white dark:bg-mono-900"
+        className="border border-mono-300 dark:border-mono-600 p-2 w-full mb-4 rounded bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
         value={focus}
         onChange={(e) =>
           setFocus(e.target.value as typeof focus)
