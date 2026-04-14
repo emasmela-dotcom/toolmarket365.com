@@ -37,4 +37,14 @@ export function getStatusColor(status: string): string {
   return colors[status] || 'bg-mono-100 text-mono-800 dark:bg-mono-800 dark:text-mono-200'
 }
 
+export function generateSlug(length = 6) {
+  const chars =
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  let slug = ''
+  for (let i = 0; i < length; i++) {
+    slug += chars[Math.floor(Math.random() * chars.length)]
+  }
+  return slug
+}
+
 

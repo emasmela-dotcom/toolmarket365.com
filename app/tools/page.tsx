@@ -18,6 +18,7 @@ import {
   TrendingUp,
   ShoppingCart,
   MessageSquareQuote,
+  Link2,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -48,6 +49,7 @@ const toolSections = [
       { name: 'Upsell Generator', slug: 'upsell-generator', icon: TrendingUp },
       { name: 'Checkout Page Optimizer', slug: 'checkout-page-optimizer', icon: ShoppingCart },
       { name: 'Testimonial Collector Tool', slug: 'testimonial-collector-tool', icon: MessageSquareQuote },
+      { name: 'Simple Affiliate Link Manager', slug: 'simple-affiliate-link-manager', icon: Link2 },
     ],
   },
 ]

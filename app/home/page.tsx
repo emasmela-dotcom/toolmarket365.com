@@ -45,6 +45,7 @@ export default function HomePage() {
               <li><Link href="/tools/upsell-generator" className="hover:underline">Upsell Generator</Link></li>
               <li><Link href="/tools/checkout-page-optimizer" className="hover:underline">Checkout Page Optimizer</Link></li>
               <li><Link href="/tools/testimonial-collector-tool" className="hover:underline">Testimonial Collector Tool</Link></li>
+              <li><Link href="/tools/simple-affiliate-link-manager" className="hover:underline">Simple Affiliate Link Manager</Link></li>
             </ul>
           </div>
         </div>
