@@ -21,6 +21,8 @@ import {
   Link2,
   FileSignature,
   Receipt,
+  ClipboardList,
+  GitBranch,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -60,6 +62,12 @@ const toolSections = [
     tools: [
       { name: 'Agreement Link Generator', slug: 'agreement-link-generator', icon: FileSignature },
       { name: 'Invoice + Reminder Tool', slug: 'invoice-reminder-tool', icon: Receipt },
+      {
+        name: 'Client Onboarding Checklist Generator',
+        slug: 'client-onboarding-checklist-generator',
+        icon: ClipboardList,
+      },
+      { name: 'Scope Creep Tracker', slug: 'scope-creep-tracker', icon: GitBranch },
     ],
   },
 ]

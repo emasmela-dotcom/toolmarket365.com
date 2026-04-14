@@ -64,6 +64,16 @@ export default function HomePage() {
                   Invoice + Reminder Tool
                 </Link>
               </li>
+              <li>
+                <Link href="/tools/client-onboarding-checklist-generator" className="hover:underline">
+                  Client Onboarding Checklist Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/scope-creep-tracker" className="hover:underline">
+                  Scope Creep Tracker
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
