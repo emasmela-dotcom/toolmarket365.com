@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <main className="relative min-h-[70vh] overflow-hidden bg-black text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.22),transparent_55%)]" />
-      <section className="mx-auto flex min-h-[70vh] max-w-7xl flex-col items-center justify-start pt-14 px-6 text-center">
+      <section className="mx-auto flex min-h-[70vh] w-full max-w-[100rem] flex-col items-center justify-start pt-14 px-4 text-center sm:px-6">
         <p className="mb-5 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1 text-xs font-semibold tracking-[0.18em] text-blue-300">
           BUILT TO SHIP
         </p>
@@ -16,13 +16,13 @@ export default function HomePage() {
         <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>
-        <div className="mt-8 flex w-full max-w-7xl flex-wrap items-start justify-start gap-6 self-start text-left">
-          <div className="inline-block w-fit rounded-lg border border-white/30 p-6 text-left">
-            <div className="text-2xl font-bold sm:text-3xl">
+        <div className="mt-8 grid w-full max-w-[100rem] grid-cols-1 gap-4 self-start text-left sm:gap-5 lg:grid-cols-3 lg:gap-4 xl:gap-6">
+          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6">
+            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
               <p>Creator Growth Tools</p>
               <p>(HIGH DEMAND)</p>
             </div>
-            <ul className="mt-5 space-y-2 text-base font-medium text-gray-200">
+            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
               <li><Link href="/tools/hook-generator" className="hover:underline">Hook Generator</Link></li>
               <li><Link href="/tools/content-idea-engine" className="hover:underline">Content Idea Engine</Link></li>
               <li><Link href="/tools/youtube-title-optimizer" className="hover:underline">YouTube Title Optimizer</Link></li>
@@ -32,12 +32,12 @@ export default function HomePage() {
               <li><Link href="/tools/cold-dm-personalizer" className="hover:underline">Cold DM Personalizer</Link></li>
             </ul>
           </div>
-          <div className="inline-block w-fit rounded-lg border border-white/30 p-6 text-left">
-            <div className="text-2xl font-bold sm:text-3xl">
+          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6">
+            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
               <p>Monetization Tools</p>
               <p>(MAKE PEOPLE MONEY)</p>
             </div>
-            <ul className="mt-5 space-y-2 text-base font-medium text-gray-200">
+            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
               <li><Link href="/tools/simple-paywall-link-generator" className="hover:underline">Simple Paywall Link Generator</Link></li>
               <li><Link href="/tools/digital-product-bundle-builder" className="hover:underline">Digital Product Bundle Builder</Link></li>
               <li><Link href="/tools/pricing-calculator" className="hover:underline">Pricing Calculator</Link></li>
@@ -48,10 +48,10 @@ export default function HomePage() {
               <li><Link href="/tools/simple-affiliate-link-manager" className="hover:underline">Simple Affiliate Link Manager</Link></li>
             </ul>
           </div>
-          <div className="inline-block w-fit rounded-lg border border-white/30 p-6 text-left">
-            <div className="text-2xl font-bold sm:text-3xl">
-              <p>Client / CRM Tools</p>
-              <p>(ALIGNED WITH "FollowThru")</p>
+          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6">
+            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
+              <p className="break-words">Client / CRM Tools</p>
+              <p className="break-words text-balance">(ALIGNED WITH &quot;FollowThru&quot;)</p>
             </div>
           </div>
         </div>
