@@ -23,6 +23,9 @@ import {
   Receipt,
   ClipboardList,
   GitBranch,
+  BellRing,
+  FilePenLine,
+  HandCoins,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -68,6 +71,9 @@ const toolSections = [
         icon: ClipboardList,
       },
       { name: 'Scope Creep Tracker', slug: 'scope-creep-tracker', icon: GitBranch },
+      { name: 'Follow-Up Reminder AI', slug: 'follow-up-reminder-ai', icon: BellRing },
+      { name: 'Simple Proposal Builder', slug: 'simple-proposal-builder', icon: FilePenLine },
+      { name: 'Late Payment Nudger (auto messages)', slug: 'late-payment-nudger', icon: HandCoins },
     ],
   },
 ]

@@ -74,6 +74,21 @@ export default function HomePage() {
                   Scope Creep Tracker
                 </Link>
               </li>
+              <li>
+                <Link href="/tools/follow-up-reminder-ai" className="hover:underline">
+                  Follow-Up Reminder AI
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/simple-proposal-builder" className="hover:underline">
+                  Simple Proposal Builder
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/late-payment-nudger" className="hover:underline">
+                  Late Payment Nudger (auto messages)
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
