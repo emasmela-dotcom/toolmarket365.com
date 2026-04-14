@@ -83,13 +83,13 @@ const categories = [
 
 export function ToolCategories() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-gray-950">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-mono-950 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             Essential Tool Categories
           </h2>
-          <p className="text-lg text-mono-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             Comprehensive toolkit covering every aspect of content creation and optimization.
           </p>
         </div>
@@ -101,18 +101,18 @@ export function ToolCategories() {
               <Link
                 key={category.name}
                 href={`/categories/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
-                className="group bg-mono-50 border border-mono-200 rounded-lg p-6 hover:border-accent-300 hover:shadow-lg transition-all"
+                className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-lg transition-all"
               >
-                <div className="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent-200 transition-colors">
-                  <Icon className="h-6 w-6 text-accent-600" />
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-200 dark:group-hover:bg-blue-900/60 transition-colors">
+                  <Icon className="h-6 w-6 text-blue-700 dark:text-blue-300" />
                 </div>
-                <h3 className="text-lg font-semibold text-mono-950 mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                   {category.name}
                 </h3>
-                <p className="text-sm text-mono-600 mb-3">
+                <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
                   {category.description}
                 </p>
-                <div className="text-sm font-medium text-accent-600">
+                <div className="text-sm font-medium text-blue-700 dark:text-blue-300">
                   {category.count} tools
                 </div>
               </Link>
