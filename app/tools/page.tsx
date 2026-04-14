@@ -19,6 +19,7 @@ import {
   ShoppingCart,
   MessageSquareQuote,
   Link2,
+  FileSignature,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -55,7 +56,9 @@ const toolSections = [
   {
     title: 'Client / CRM Tools (ALIGNED WITH "FollowThru")',
     description: '',
-    tools: [],
+    tools: [
+      { name: 'Agreement Link Generator', slug: 'agreement-link-generator', icon: FileSignature },
+    ],
   },
 ]
 

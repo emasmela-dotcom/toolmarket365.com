@@ -53,6 +53,13 @@ export default function HomePage() {
               <p className="break-words">Client / CRM Tools</p>
               <p className="break-words text-balance">(ALIGNED WITH &quot;FollowThru&quot;)</p>
             </div>
+            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
+              <li>
+                <Link href="/tools/agreement-link-generator" className="hover:underline">
+                  Agreement Link Generator
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
