@@ -11,6 +11,9 @@ import {
   Mail,
   TextQuote,
   Send,
+  Wallet,
+  Package,
+  Calculator,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -30,6 +33,15 @@ const toolSections = [
       { name: 'Cold DM Personalizer', slug: 'cold-dm-personalizer', icon: Send },
     ],
   },
+  {
+    title: 'Monetization Tools (MAKE PEOPLE MONEY)',
+    description: 'Tools focused on direct monetization workflows',
+    tools: [
+      { name: 'Simple Paywall Link Generator', slug: 'simple-paywall-link-generator', icon: Wallet },
+      { name: 'Digital Product Bundle Builder', slug: 'digital-product-bundle-builder', icon: Package },
+      { name: 'Pricing Calculator', slug: 'pricing-calculator', icon: Calculator },
+    ],
+  },
 ]
 
 function ToolsPageContent() {
@@ -38,6 +50,7 @@ function ToolsPageContent() {
 
   const sectionSlugMap: Record<string, string> = {
     'creator-growth-tools': 'Creator Growth Tools (HIGH DEMAND)',
+    'monetization-tools': 'Monetization Tools (MAKE PEOPLE MONEY)',
   }
 
   const displaySections =
@@ -74,6 +87,7 @@ function ToolsPageContent() {
           {displaySections.map((section, sectionIdx) => {
             const reverseSlugMap: Record<string, string> = {
               'Creator Growth Tools (HIGH DEMAND)': 'creator-growth-tools',
+              'Monetization Tools (MAKE PEOPLE MONEY)': 'monetization-tools',
             }
             const sectionSlug =
               reverseSlugMap[section.title] ||
