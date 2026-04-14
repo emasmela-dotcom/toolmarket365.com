@@ -38,20 +38,20 @@ const featuredTools = [
 
 export function FeaturedTools() {
   return (
-    <section className="py-20 bg-mono-50">
+    <section className="py-20 bg-gray-50 dark:bg-gray-950">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-mono-950 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-950 dark:text-gray-50 mb-4">
               Featured Essential Tools
             </h2>
-            <p className="text-lg text-mono-600">
+            <p className="text-lg text-gray-700 dark:text-gray-300">
               Tools that outperform competitors and provide unique value.
             </p>
           </div>
           <Link
             href="/tools"
-            className="hidden sm:flex items-center text-accent-600 hover:text-accent-700 font-medium"
+            className="hidden sm:flex items-center text-blue-600 hover:text-blue-700 font-medium"
           >
             View All Tools
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -63,33 +63,33 @@ export function FeaturedTools() {
             <Link
               key={tool.name}
               href={`/tools/${tool.name.toLowerCase().replace(/\s+/g, '-')}`}
-              className="group bg-white border border-mono-200 rounded-lg p-6 hover:border-accent-300 hover:shadow-lg transition-all"
+              className="group bg-white border border-gray-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-lg transition-all"
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs font-medium px-2 py-1 bg-accent-100 text-accent-700 rounded">
+                    <span className="text-xs font-medium px-2 py-1 bg-blue-100 text-blue-700 rounded">
                       {tool.badge}
                     </span>
-                    <span className="text-sm text-mono-500">{tool.category}</span>
+                    <span className="text-sm text-gray-600">{tool.category}</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-mono-950 mb-2 group-hover:text-accent-600 transition-colors">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                     {tool.name}
                   </h3>
                 </div>
               </div>
-              <p className="text-sm text-mono-600 mb-4">
+              <p className="text-sm text-gray-700 mb-4">
                 {tool.description}
               </p>
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4 text-sm text-mono-600">
+                <div className="flex items-center gap-4 text-sm text-gray-700">
                   <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-accent-400 text-accent-400" />
+                    <Star className="h-4 w-4 fill-blue-400 text-blue-400" />
                     <span className="font-medium">{tool.rating}</span>
                   </div>
                   <span>{tool.users} users</span>
                 </div>
-                <ArrowRight className="h-5 w-5 text-mono-400 group-hover:text-accent-600 transition-colors" />
+                <ArrowRight className="h-5 w-5 text-gray-500 group-hover:text-blue-600 transition-colors" />
               </div>
             </Link>
           ))}
