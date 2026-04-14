@@ -59,6 +59,11 @@ export default function HomePage() {
                   Agreement Link Generator
                 </Link>
               </li>
+              <li>
+                <Link href="/tools/invoice-reminder-tool" className="hover:underline">
+                  Invoice + Reminder Tool
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

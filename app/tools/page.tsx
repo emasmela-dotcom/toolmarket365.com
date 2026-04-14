@@ -20,6 +20,7 @@ import {
   MessageSquareQuote,
   Link2,
   FileSignature,
+  Receipt,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -58,6 +59,7 @@ const toolSections = [
     description: '',
     tools: [
       { name: 'Agreement Link Generator', slug: 'agreement-link-generator', icon: FileSignature },
+      { name: 'Invoice + Reminder Tool', slug: 'invoice-reminder-tool', icon: Receipt },
     ],
   },
 ]
