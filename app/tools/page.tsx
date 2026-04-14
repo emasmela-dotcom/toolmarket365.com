@@ -14,6 +14,8 @@ import {
   Wallet,
   Package,
   Calculator,
+  FileText,
+  TrendingUp,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -40,6 +42,8 @@ const toolSections = [
       { name: 'Simple Paywall Link Generator', slug: 'simple-paywall-link-generator', icon: Wallet },
       { name: 'Digital Product Bundle Builder', slug: 'digital-product-bundle-builder', icon: Package },
       { name: 'Pricing Calculator', slug: 'pricing-calculator', icon: Calculator },
+      { name: 'Landing Page Copy Generator', slug: 'landing-copy', icon: FileText },
+      { name: 'Upsell Generator', slug: 'upsell-generator', icon: TrendingUp },
     ],
   },
 ]

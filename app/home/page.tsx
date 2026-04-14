@@ -41,6 +41,8 @@ export default function HomePage() {
               <li><Link href="/tools/simple-paywall-link-generator" className="hover:underline">Simple Paywall Link Generator</Link></li>
               <li><Link href="/tools/digital-product-bundle-builder" className="hover:underline">Digital Product Bundle Builder</Link></li>
               <li><Link href="/tools/pricing-calculator" className="hover:underline">Pricing Calculator</Link></li>
+              <li><Link href="/tools/landing-copy" className="hover:underline">Landing Page Copy Generator</Link></li>
+              <li><Link href="/tools/upsell-generator" className="hover:underline">Upsell Generator</Link></li>
             </ul>
           </div>
         </div>
