@@ -26,6 +26,7 @@ import {
   BellRing,
   FilePenLine,
   HandCoins,
+  ListTodo,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -74,6 +75,11 @@ const toolSections = [
       { name: 'Follow-Up Reminder AI', slug: 'follow-up-reminder-ai', icon: BellRing },
       { name: 'Simple Proposal Builder', slug: 'simple-proposal-builder', icon: FilePenLine },
       { name: 'Late Payment Nudger (auto messages)', slug: 'late-payment-nudger', icon: HandCoins },
+      {
+        name: 'Meeting Summary → Action Items',
+        slug: 'meeting-summary-action-items',
+        icon: ListTodo,
+      },
     ],
   },
 ]

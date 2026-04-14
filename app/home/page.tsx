@@ -89,6 +89,11 @@ export default function HomePage() {
                   Late Payment Nudger (auto messages)
                 </Link>
               </li>
+              <li>
+                <Link href="/tools/meeting-summary-action-items" className="hover:underline">
+                  Meeting Summary → Action Items
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
