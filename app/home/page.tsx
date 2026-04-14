@@ -43,6 +43,8 @@ export default function HomePage() {
               <li><Link href="/tools/pricing-calculator" className="hover:underline">Pricing Calculator</Link></li>
               <li><Link href="/tools/landing-copy" className="hover:underline">Landing Page Copy Generator</Link></li>
               <li><Link href="/tools/upsell-generator" className="hover:underline">Upsell Generator</Link></li>
+              <li><Link href="/tools/checkout-page-optimizer" className="hover:underline">Checkout Page Optimizer</Link></li>
+              <li><Link href="/tools/testimonial-collector-tool" className="hover:underline">Testimonial Collector Tool</Link></li>
             </ul>
           </div>
         </div>

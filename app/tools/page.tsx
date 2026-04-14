@@ -16,6 +16,8 @@ import {
   Calculator,
   FileText,
   TrendingUp,
+  ShoppingCart,
+  MessageSquareQuote,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -44,6 +46,8 @@ const toolSections = [
       { name: 'Pricing Calculator', slug: 'pricing-calculator', icon: Calculator },
       { name: 'Landing Page Copy Generator', slug: 'landing-copy', icon: FileText },
       { name: 'Upsell Generator', slug: 'upsell-generator', icon: TrendingUp },
+      { name: 'Checkout Page Optimizer', slug: 'checkout-page-optimizer', icon: ShoppingCart },
+      { name: 'Testimonial Collector Tool', slug: 'testimonial-collector-tool', icon: MessageSquareQuote },
     ],
   },
 ]
