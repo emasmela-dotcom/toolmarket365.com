@@ -24,6 +24,18 @@ export default function RedditRewriter() {
   return (
     <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-xl font-bold mb-2">Reddit Post Rewriter</h1>
+
+      <section className="mb-6 rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
+        <div>
+          <h2 className="font-semibold mb-1">Instructions</h2>
+          <p>Paste your Reddit post text and click Rewrite Post.</p>
+        </div>
+        <div>
+          <h2 className="font-semibold mb-1">Expected Outcome</h2>
+          <p>You get multiple rewritten variations with adjusted wording and structure.</p>
+        </div>
+      </section>
+
       <p className="text-sm text-mono-600 dark:text-mono-400 mb-4">
         Local rewrites: synonyms, light restructuring, tone tweaks—no external
         API. Use for drafts; always follow subreddit rules.

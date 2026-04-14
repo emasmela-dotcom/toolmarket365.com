@@ -23,6 +23,17 @@ export default function NewsletterGenerator() {
     <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-xl font-bold mb-4">Newsletter Topic Generator</h1>
 
+      <section className="mb-6 rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
+        <div>
+          <h2 className="font-semibold mb-1">Instructions</h2>
+          <p>Fill in niche and audience, add an optional goal, then click Generate Topics.</p>
+        </div>
+        <div>
+          <h2 className="font-semibold mb-1">Expected Outcome</h2>
+          <p>You get a list of newsletter topic ideas aligned to your audience and goal.</p>
+        </div>
+      </section>
+
       <input
         className="border p-2 w-full mb-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
         placeholder="Niche (e.g. Fitness)"

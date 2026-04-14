@@ -27,6 +27,17 @@ export default function HookGenerator() {
     <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Hook Generator</h1>
 
+      <section className="mb-6 rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
+        <div>
+          <h2 className="font-semibold mb-1">Instructions</h2>
+          <p>Enter your niche, audience, pain point, and desire, then click Generate Hooks.</p>
+        </div>
+        <div>
+          <h2 className="font-semibold mb-1">Expected Outcome</h2>
+          <p>You get multiple hook lines you can use for posts, reels, and short-form videos.</p>
+        </div>
+      </section>
+
       <section className="mb-8 space-y-4 text-mono-800 dark:text-mono-200">
         <h2 className="text-lg font-semibold text-mono-950 dark:text-mono-50">What This Does</h2>
         <p className="text-sm">Generates viral hooks for:</p>

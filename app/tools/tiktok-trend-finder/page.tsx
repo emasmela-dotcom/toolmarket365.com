@@ -30,6 +30,18 @@ export default function TikTokTrendFinderPage() {
   return (
     <div className="p-6 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">TikTok Trend Finder</h1>
+
+      <section className="mb-6 rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
+        <div>
+          <h2 className="font-semibold mb-1">Instructions</h2>
+          <p>Enter your niche, select focus type, then click Find trends.</p>
+        </div>
+        <div>
+          <h2 className="font-semibold mb-1">Expected Outcome</h2>
+          <p>You get trend angles with descriptions, suggested formats, momentum labels, and hashtag sets.</p>
+        </div>
+      </section>
+
       <p className="text-sm text-mono-600 dark:text-mono-400 mb-6">
         Angle ideas, formats, and hashtag stacks tailored to your niche—built
         for fast iteration (no live TikTok API; offline templates + your

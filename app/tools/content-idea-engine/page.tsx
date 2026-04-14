@@ -38,6 +38,17 @@ export default function ContentIdeaEnginePage() {
     <div className="p-6 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Content Idea Engine</h1>
 
+      <section className="mb-6 rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
+        <div>
+          <h2 className="font-semibold mb-1">Instructions</h2>
+          <p>Type your niche and click Generate ideas.</p>
+        </div>
+        <div>
+          <h2 className="font-semibold mb-1">Expected Outcome</h2>
+          <p>You get grouped content ideas for viral posts, reels, educational content, authority, and monetization.</p>
+        </div>
+      </section>
+
       <section className="mb-8 space-y-4 text-mono-800 dark:text-mono-200">
         <h2 className="text-lg font-semibold text-mono-950 dark:text-mono-50">What This Does</h2>
         <p className="text-sm font-medium">Input:</p>
