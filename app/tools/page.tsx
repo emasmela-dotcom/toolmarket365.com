@@ -52,6 +52,11 @@ const toolSections = [
       { name: 'Simple Affiliate Link Manager', slug: 'simple-affiliate-link-manager', icon: Link2 },
     ],
   },
+  {
+    title: 'Client / CRM Tools (VERY ALIGNED WITH YOUR "FollowThru")',
+    description: '',
+    tools: [],
+  },
 ]
 
 function ToolsPageContent() {
@@ -61,6 +66,7 @@ function ToolsPageContent() {
   const sectionSlugMap: Record<string, string> = {
     'creator-growth-tools': 'Creator Growth Tools (HIGH DEMAND)',
     'monetization-tools': 'Monetization Tools (MAKE PEOPLE MONEY)',
+    'client-crm-tools': 'Client / CRM Tools (VERY ALIGNED WITH YOUR "FollowThru")',
   }
 
   const displaySections =
@@ -98,6 +104,8 @@ function ToolsPageContent() {
             const reverseSlugMap: Record<string, string> = {
               'Creator Growth Tools (HIGH DEMAND)': 'creator-growth-tools',
               'Monetization Tools (MAKE PEOPLE MONEY)': 'monetization-tools',
+              'Client / CRM Tools (VERY ALIGNED WITH YOUR "FollowThru")':
+                'client-crm-tools',
             }
             const sectionSlug =
               reverseSlugMap[section.title] ||
@@ -112,9 +120,11 @@ function ToolsPageContent() {
                   <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
                     {section.title}
                   </h2>
-                  <p className="text-sm text-mono-600 dark:text-mono-400">
-                    {section.description}
-                  </p>
+                  {section.description ? (
+                    <p className="text-sm text-mono-600 dark:text-mono-400">
+                      {section.description}
+                    </p>
+                  ) : null}
                 </div>
                 <div className="flex flex-col gap-2">
                   {section.tools.map((tool) => {

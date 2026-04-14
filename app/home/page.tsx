@@ -16,7 +16,7 @@ export default function HomePage() {
         <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>
-        <div className="mt-8 -ml-12 flex w-[calc(100%+3rem)] items-start gap-6 self-start">
+        <div className="mt-8 flex w-full max-w-6xl flex-wrap items-start justify-center gap-6 self-center">
           <div className="inline-block w-fit rounded-lg border border-white/30 p-6 text-left">
             <div className="text-2xl font-bold sm:text-3xl">
               <p>Creator Growth Tools</p>
@@ -32,7 +32,7 @@ export default function HomePage() {
               <li><Link href="/tools/cold-dm-personalizer" className="hover:underline">Cold DM Personalizer</Link></li>
             </ul>
           </div>
-          <div className="inline-block w-fit -translate-x-4 rounded-lg border border-white/30 p-6 text-left">
+          <div className="inline-block w-fit rounded-lg border border-white/30 p-6 text-left">
             <div className="text-2xl font-bold sm:text-3xl">
               <p>Monetization Tools</p>
               <p>(MAKE PEOPLE MONEY)</p>
@@ -47,6 +47,12 @@ export default function HomePage() {
               <li><Link href="/tools/testimonial-collector-tool" className="hover:underline">Testimonial Collector Tool</Link></li>
               <li><Link href="/tools/simple-affiliate-link-manager" className="hover:underline">Simple Affiliate Link Manager</Link></li>
             </ul>
+          </div>
+          <div className="inline-block w-fit rounded-lg border border-white/30 p-6 text-left">
+            <div className="text-2xl font-bold sm:text-3xl">
+              <p>Client / CRM Tools</p>
+              <p>(VERY ALIGNED WITH YOUR &quot;FollowThru&quot;)</p>
+            </div>
           </div>
         </div>
       </section>
