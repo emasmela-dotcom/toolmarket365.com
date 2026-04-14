@@ -6,12 +6,6 @@ export function Hero() {
     <section className="relative bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-6xl font-bold text-gray-950 dark:text-gray-50 mb-3">
-            Creator Tools
-          </h1>
-          <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 mb-6">
-            Use the tools you added.
-          </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/tools"
