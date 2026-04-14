@@ -51,7 +51,7 @@ export default function HomePage() {
           <div className="inline-block w-fit rounded-lg border border-white/30 p-6 text-left">
             <div className="text-2xl font-bold sm:text-3xl">
               <p>Client / CRM Tools</p>
-              <p>(VERY ALIGNED WITH YOUR &quot;FollowThru&quot;)</p>
+              <p>(ALIGNED WITH "FollowThru")</p>
             </div>
           </div>
         </div>

@@ -53,7 +53,7 @@ const toolSections = [
     ],
   },
   {
-    title: 'Client / CRM Tools (VERY ALIGNED WITH YOUR "FollowThru")',
+    title: 'Client / CRM Tools (ALIGNED WITH "FollowThru")',
     description: '',
     tools: [],
   },
@@ -66,7 +66,7 @@ function ToolsPageContent() {
   const sectionSlugMap: Record<string, string> = {
     'creator-growth-tools': 'Creator Growth Tools (HIGH DEMAND)',
     'monetization-tools': 'Monetization Tools (MAKE PEOPLE MONEY)',
-    'client-crm-tools': 'Client / CRM Tools (VERY ALIGNED WITH YOUR "FollowThru")',
+    'client-crm-tools': 'Client / CRM Tools (ALIGNED WITH "FollowThru")',
   }
 
   const displaySections =
@@ -104,7 +104,7 @@ function ToolsPageContent() {
             const reverseSlugMap: Record<string, string> = {
               'Creator Growth Tools (HIGH DEMAND)': 'creator-growth-tools',
               'Monetization Tools (MAKE PEOPLE MONEY)': 'monetization-tools',
-              'Client / CRM Tools (VERY ALIGNED WITH YOUR "FollowThru")':
+              'Client / CRM Tools (ALIGNED WITH "FollowThru")':
                 'client-crm-tools',
             }
             const sectionSlug =
