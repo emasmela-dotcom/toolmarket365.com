@@ -6,72 +6,12 @@ export function Hero() {
     <section className="relative bg-mono-50 dark:bg-mono-950 border-b border-mono-200 dark:border-mono-700">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Market Statistic */}
-          <div className="mb-6">
-            <div className="inline-flex items-center justify-center space-x-2 bg-accent-50 dark:bg-accent-950/30 px-4 py-2 rounded-lg border border-accent-200 dark:border-accent-800 mb-4">
-              <span className="text-2xl sm:text-3xl font-bold text-accent-600 dark:text-accent-400">
-                162 Million
-              </span>
-              <span className="text-sm sm:text-base text-mono-700 dark:text-mono-300">
-                content creators in the U.S.
-              </span>
-            </div>
-            <p className="text-lg sm:text-xl font-semibold text-mono-950 dark:text-mono-50 mb-2">
-              Are you one of them?
-            </p>
-            <p className="text-base sm:text-lg font-bold text-accent-600 dark:text-accent-400">
-              Grow with CreatorFlow365
-            </p>
-          </div>
-          
-          <div className="mb-4">
-            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-accent-600 dark:text-accent-400 mb-4">
-              Improve Your Content with CreatorFlow365!
-            </p>
-          </div>
-          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-bold text-mono-950 dark:text-mono-50 mb-3">
-            CreatorFlow<span className="text-accent-600 dark:text-accent-400">365</span>
+          <h1 className="text-4xl sm:text-6xl font-bold text-mono-950 dark:text-mono-50 mb-3">
+            Creator Tools
           </h1>
-          <p className="text-base sm:text-lg text-mono-600 dark:text-mono-400 mb-2 max-w-xl mx-auto font-medium">
-            The Micro-SaaS Marketplace for Content Creators
+          <p className="text-base sm:text-lg text-mono-600 dark:text-mono-400 mb-6">
+            Use the tools you added.
           </p>
-          <p className="text-sm sm:text-base text-mono-600 dark:text-mono-400 mb-3 max-w-xl mx-auto">
-            Build, optimize, and monetize your content with 53+ professional tools—all in one place. Store, organize, and manage all your content in your personal cloud library.
-          </p>
-          <p className="text-base sm:text-lg font-semibold text-accent-600 dark:text-accent-400 mb-6 max-w-2xl mx-auto">
-            Run your entire creator business from one platform—not just schedule posts.
-          </p>
-          
-          {/* Competitive Advantages Banner */}
-          <div className="mb-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border-2 border-green-400 dark:border-green-600 rounded-lg p-4 max-w-3xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-              <div>
-                <div className="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400 mb-1">
-                  Save $159+
-                </div>
-                <div className="text-xs sm:text-sm text-mono-700 dark:text-mono-300">
-                  per month vs buying separately
-                </div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-                  53+ Tools
-                </div>
-                <div className="text-xs sm:text-sm text-mono-700 dark:text-mono-300">
-                  vs competitors' 3-10 tools
-                </div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-bold text-accent-600 dark:text-accent-400 mb-1">
-                  Only We Have
-                </div>
-                <div className="text-xs sm:text-sm text-mono-700 dark:text-mono-300">
-                  Viral Content Predictor ⭐
-                </div>
-              </div>
-            </div>
-          </div>
-          
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/tools"
@@ -82,7 +22,7 @@ export function Hero() {
             </Link>
             <Link
               href="/categories"
-              className="inline-flex items-center justify-center px-6 py-2.5 bg-white dark:bg-mono-800 text-mono-950 dark:text-mono-50 font-medium rounded-lg hover:bg-mono-100 dark:hover:bg-mono-700 transition-colors border border-mono-200 dark:border-mono-700 text-sm"
+              className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-lg border transition-colors bg-white text-mono-950 border-mono-300 hover:bg-mono-100 dark:bg-mono-800 dark:text-white dark:border-mono-600 dark:hover:bg-mono-700"
             >
               View Categories
             </Link>
