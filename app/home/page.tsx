@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <main className="relative min-h-[70vh] overflow-hidden bg-black text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.22),transparent_55%)]" />
-      <section className="mx-auto flex min-h-[70vh] max-w-5xl flex-col items-center justify-start pt-14 px-6 text-center">
+      <section className="mx-auto flex min-h-[70vh] max-w-7xl flex-col items-center justify-start pt-14 px-6 text-center">
         <p className="mb-5 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1 text-xs font-semibold tracking-[0.18em] text-blue-300">
           BUILT TO SHIP
         </p>
@@ -16,7 +16,7 @@ export default function HomePage() {
         <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>
-        <div className="mt-8 flex w-full max-w-6xl flex-wrap items-start justify-center gap-6 self-center">
+        <div className="mt-8 flex w-full max-w-7xl flex-wrap items-start justify-start gap-6 self-start text-left">
           <div className="inline-block w-fit rounded-lg border border-white/30 p-6 text-left">
             <div className="text-2xl font-bold sm:text-3xl">
               <p>Creator Growth Tools</p>
