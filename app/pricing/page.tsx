@@ -232,7 +232,7 @@ const faq = [
     answer: 'Yes, cancel anytime with no penalties. Your access continues until the end of your billing period.',
   },
   {
-    question: 'What makes CreatorFlow365 different?',
+    question: 'What makes ToolMarket365 different?',
     answer: 'We\'re the only platform with Viral Content Predictor, integrated workflow, and 53+ tools in one place. Most competitors have 3-10 tools and charge $200+/month for everything.',
   },
 ]
@@ -315,7 +315,7 @@ export default function PricingPage() {
                   </div>
                   <div className="flex-1 text-left">
                     <p className="text-sm sm:text-base font-semibold text-blue-900 dark:text-blue-200 mb-2">
-                      <strong>Our Promise:</strong> CreatorFlow365 is the all-in-one solution. While each competitor may be stronger in their specialty, CreatorFlow365 offers everything integrated at a better price.
+                      <strong>Our Promise:</strong> ToolMarket365 is the all-in-one solution. While each competitor may be stronger in their specialty, ToolMarket365 offers everything integrated at a better price.
                     </p>
                     <p className="text-xs sm:text-sm text-blue-700 dark:text-blue-400 italic">
                       💡 Verify our claims: Check competitor pricing (Jasper AI, Canva, Analytics tools) and compare features yourself. We stand behind every statement—research and confirm.
@@ -334,7 +334,7 @@ export default function PricingPage() {
                 <div className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                   <p className="text-sm sm:text-base text-mono-50">
                     <span className="font-semibold">
-                      To unlock the full power of CreatorFlow365, complete your interface setup.
+                      To unlock the full power of ToolMarket365, complete your interface setup.
                     </span>{' '}
                     This ensures your tools can run at 100%, and gives every piece of content a dedicated place to be stored,
                     organized, and handled on your behalf.
@@ -432,7 +432,7 @@ export default function PricingPage() {
                       💡 <strong>Why this matters:</strong> You get tools that match your experience level—no confusion, no overwhelm, just the right features for where you are right now.
                     </p>
                     <p className="text-sm text-blue-800 dark:text-blue-300">
-                      🔌 <strong>API Access:</strong> Available to <strong>all plans</strong>. Connect CreatorFlow365 to external services and build custom integrations. You pay for your own API usage—CreatorFlow365 never charges for API access.
+                      🔌 <strong>API Access:</strong> Available to <strong>all plans</strong>. Connect ToolMarket365 to external services and build custom integrations. You pay for your own API usage—ToolMarket365 never charges for API access.
                     </p>
                   </div>
                 </div>
@@ -454,7 +454,7 @@ export default function PricingPage() {
                     Transparency Notice
                   </h3>
                   <p className="text-sm text-blue-800 dark:text-blue-300">
-                    CreatorFlow365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; CreatorFlow365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your CreatorFlow365 subscription cost predictable.
+                    ToolMarket365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; ToolMarket365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your ToolMarket365 subscription cost predictable.
                   </p>
                 </div>
               </div>
@@ -865,7 +865,7 @@ export default function PricingPage() {
               How We Compare to Competitors
             </h2>
             <p className="text-center text-mono-600 dark:text-mono-400 mb-8">
-              See why creators choose CreatorFlow365 over Later, Buffer, Hootsuite, and Jasper AI
+              See why creators choose ToolMarket365 over Later, Buffer, Hootsuite, and Jasper AI
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
               <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border-2 border-green-500 dark:border-green-600 shadow-lg">
@@ -907,7 +907,7 @@ export default function PricingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4 text-center">
-              Why Choose CreatorFlow365?
+              Why Choose ToolMarket365?
             </h2>
             <p className="text-center text-lg text-mono-600 dark:text-mono-400 mb-8">
               More than a scheduler—we provide everything creators need to run their entire business: content creation, analytics, monetization, and growth.

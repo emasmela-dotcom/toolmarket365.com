@@ -8,10 +8,10 @@ export default function AboutPage() {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-              About CreatorFlow<span className="text-accent-600">365</span>
+              About ToolMarket<span className="text-accent-600">365</span>
             </h1>
             <p className="text-lg text-mono-600 dark:text-mono-400">
-              The Micro-SaaS Marketplace for Content Creators
+              ToolMarket365 platform
             </p>
           </div>
 
@@ -19,7 +19,7 @@ export default function AboutPage() {
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">Our Mission</h2>
             <p className="text-mono-700 dark:text-mono-300 mb-4">
-              CreatorFlow365 was built to solve a real problem: content creators need powerful tools, but they're scattered across dozens of platforms, each with its own pricing, learning curve, and limitations.
+              ToolMarket365 was built to solve a real problem: content creators need powerful tools, but they're scattered across dozens of platforms, each with its own pricing, learning curve, and limitations.
             </p>
             <p className="text-mono-700 dark:text-mono-300">
               We've created a unified platform that brings together 53+ professional tools—from content creation and optimization to analytics and monetization—all in one place, with a secure cloud library to store and organize everything you create.
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
           {/* Why Choose Us */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">Why Choose CreatorFlow365?</h2>
+            <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">Why Choose ToolMarket365?</h2>
             <div className="space-y-4">
               <div className="flex items-start space-x-4">
                 <Target className="w-6 h-6 text-accent-600 mt-1 flex-shrink-0" />

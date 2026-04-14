@@ -102,7 +102,7 @@ export default function CreditsPage() {
                 Transparency Notice
               </h3>
               <p className="text-sm text-blue-800 dark:text-blue-300">
-                CreatorFlow365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; CreatorFlow365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your CreatorFlow365 subscription cost predictable.
+                ToolMarket365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; ToolMarket365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your ToolMarket365 subscription cost predictable.
               </p>
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function CreditsPage() {
                 </ul>
               </div>
               <p className="text-sm text-red-800 dark:text-red-300 mb-3">
-                <strong>Don't worry:</strong> You pay the API providers directly (CreatorFlow365 never charges for API usage). We only track usage for analytics purposes.
+                <strong>Don't worry:</strong> You pay the API providers directly (ToolMarket365 never charges for API usage). We only track usage for analytics purposes.
               </p>
               <Link
                 href="/integrations"
@@ -198,7 +198,7 @@ export default function CreditsPage() {
                 How Tools Work With & Without API Setup
               </h2>
               <p className="text-sm text-green-800 dark:text-green-300 mb-4">
-                <strong>Good news:</strong> All CreatorFlow365 tools work immediately without API setup! Some tools show demo/template data, while others have full functionality. API integrations enhance tools with real data and advanced features.
+                <strong>Good news:</strong> All ToolMarket365 tools work immediately without API setup! Some tools show demo/template data, while others have full functionality. API integrations enhance tools with real data and advanced features.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">

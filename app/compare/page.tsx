@@ -190,14 +190,14 @@ export default function ComparePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-mono-950 dark:text-mono-50 mb-6">
-              Why CreatorFlow365 is Different
+              Why ToolMarket365 is Different
             </h1>
             <p className="text-xl text-mono-600 dark:text-mono-400 mb-3">
               See how we compare to Later, Buffer, Hootsuite, and other tools. 
               Discover unique features that actually improve your content quality.
             </p>
             <p className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-8">
-              Not just a scheduler—CreatorFlow365 is where creators run their whole business.
+              Not just a scheduler—ToolMarket365 is where creators run their whole business.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -230,7 +230,7 @@ export default function ComparePage() {
                 <thead>
                   <tr className="border-b border-mono-200 dark:border-mono-700">
                     <th className="px-6 py-4 text-left text-sm font-semibold text-mono-950 dark:text-mono-50">Feature</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-mono-950 dark:text-mono-50 bg-accent-50 dark:bg-accent-900">CreatorFlow365</th>
+                    <th className="px-6 py-4 text-center text-sm font-semibold text-mono-950 dark:text-mono-50 bg-accent-50 dark:bg-accent-900">ToolMarket365</th>
                     {competitors.map((comp) => (
                       <th key={comp.name} className="px-6 py-4 text-center text-sm font-semibold text-mono-950 dark:text-mono-50">
                         {comp.name}
@@ -366,12 +366,12 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* How CreatorFlow365 Influences Your Content */}
+      {/* How ToolMarket365 Influences Your Content */}
       <section className="py-16 bg-mono-50 dark:bg-mono-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4 text-center">
-              How CreatorFlow365 Improves Your Content
+              How ToolMarket365 Improves Your Content
             </h2>
             <p className="text-lg text-mono-600 dark:text-mono-400 mb-12 text-center">
               See the complete workflow that transforms your content creation process
@@ -399,7 +399,7 @@ export default function ComparePage() {
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
                         <p className="text-xs font-semibold text-green-800 dark:text-green-400 mb-1">
-                          ✅ With CreatorFlow365:
+                          ✅ With ToolMarket365:
                         </p>
                         <p className="text-sm text-green-700 dark:text-green-300">
                           {step.improvement}

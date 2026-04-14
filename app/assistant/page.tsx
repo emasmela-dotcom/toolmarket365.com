@@ -70,10 +70,10 @@ export default function AssistantPage() {
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center gap-2 mb-6">
           <MessageSquare className="h-8 w-8 text-accent-600 dark:text-accent-400" />
-          <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">CreatorFlow Assistant</h1>
+          <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">ToolMarket365 Assistant</h1>
         </div>
         <p className="text-mono-600 dark:text-mono-400 mb-2 text-sm">
-          Ask about CreatorFlow365 (plans, credits, tools) or general creator advice. I can&apos;t post, schedule, or connect to external APIs—I&apos;ll point you to the right tool.
+          Ask about ToolMarket365 (plans, credits, tools) or general creator advice. I can&apos;t post, schedule, or connect to external APIs—I&apos;ll point you to the right tool.
         </p>
         <p className="text-mono-500 dark:text-mono-500 mb-6 text-sm">
           <strong>An account is required to use the Assistant.</strong> Sign in or sign up to get started.
@@ -127,7 +127,7 @@ export default function AssistantPage() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about CreatorFlow365 or creator tips..."
+                placeholder="Ask about ToolMarket365 or creator tips..."
                 className="flex-1 px-3 py-2 rounded-lg border border-mono-200 dark:border-mono-700 bg-white dark:bg-mono-950 text-mono-900 dark:text-mono-100 text-sm placeholder:text-mono-400"
                 disabled={loading}
               />

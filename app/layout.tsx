@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Micro SaaS Marketplace",
-  description: "Creator tools marketplace",
+  title: "ToolMarket365",
+  description: "ToolMarket365 platform",
 };
 
 export default function RootLayout({

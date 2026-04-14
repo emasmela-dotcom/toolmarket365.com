@@ -6,9 +6,9 @@ export function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-sm font-semibold text-mono-950 mb-4">CreatorFlow365</h3>
+            <h3 className="text-sm font-semibold text-mono-950 mb-4">ToolMarket365</h3>
             <p className="text-sm text-mono-600">
-              The Micro-SaaS Marketplace for Content Creators
+              ToolMarket365 platform
             </p>
           </div>
           
@@ -99,7 +99,7 @@ export function Footer() {
         
         <div className="mt-8 pt-8 border-t border-mono-200">
           <p className="text-sm text-mono-500 text-center">
-            © 2025 CreatorFlow365. All rights reserved.
+            © 2025 ToolMarket365. All rights reserved.
           </p>
         </div>
       </div>

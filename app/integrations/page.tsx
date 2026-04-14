@@ -200,18 +200,18 @@ function IntegrationsPageContent() {
             </h1>
           </div>
           <p className="text-lg text-mono-600 dark:text-mono-400 max-w-3xl mx-auto mb-4">
-            Connect external services to enhance CreatorFlow365 functionality. You pay these services directly—we just make it easy to connect.
+            Connect external services to enhance ToolMarket365 functionality. You pay these services directly—we just make it easy to connect.
           </p>
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 max-w-3xl mx-auto mb-4">
             <p className="text-sm text-blue-800 dark:text-blue-300">
-              <strong>How it works:</strong> All CreatorFlow365 tools work without integrations. Connect external services to unlock enhanced features—you pay those services directly, not us.
+              <strong>How it works:</strong> All ToolMarket365 tools work without integrations. Connect external services to unlock enhanced features—you pay those services directly, not us.
             </p>
           </div>
           <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-300 dark:border-green-700 rounded-lg p-4 max-w-3xl mx-auto mb-4">
             <div className="flex items-start space-x-2">
               <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
               <p className="text-sm text-green-800 dark:text-green-300">
-                <strong>No Usage Charges:</strong> CreatorFlow365 never charges for integration usage. We only track usage for analytics purposes—you pay third-party services directly for their API costs. Your CreatorFlow365 subscription covers the platform; integrations are optional enhancements you pay for separately.
+                <strong>No Usage Charges:</strong> ToolMarket365 never charges for integration usage. We only track usage for analytics purposes—you pay third-party services directly for their API costs. Your ToolMarket365 subscription covers the platform; integrations are optional enhancements you pay for separately.
               </p>
             </div>
           </div>
@@ -225,7 +225,7 @@ function IntegrationsPageContent() {
                   Transparency Notice
                 </h3>
                 <p className="text-sm text-blue-800 dark:text-blue-300">
-                  CreatorFlow365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; CreatorFlow365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your CreatorFlow365 subscription cost predictable.
+                  ToolMarket365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; ToolMarket365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your ToolMarket365 subscription cost predictable.
                 </p>
               </div>
             </div>
@@ -240,7 +240,7 @@ function IntegrationsPageContent() {
                   How Tools Work With & Without API Setup
                 </h3>
                 <p className="text-sm text-green-800 dark:text-green-300 mb-4">
-                  <strong>Good news:</strong> All CreatorFlow365 tools work immediately without API setup! Some tools show demo/template data, while others have full functionality. API integrations enhance tools with real data and advanced features.
+                  <strong>Good news:</strong> All ToolMarket365 tools work immediately without API setup! Some tools show demo/template data, while others have full functionality. API integrations enhance tools with real data and advanced features.
                 </p>
                 
                 <div className="space-y-4">
@@ -416,7 +416,7 @@ function IntegrationsPageContent() {
                 Need Help Setting Up Integrations?
               </h3>
               <p className="text-sm text-blue-800 dark:text-blue-300 mb-3">
-                Each integration enhances specific CreatorFlow365 tools. After getting your API key from the service:
+                Each integration enhances specific ToolMarket365 tools. After getting your API key from the service:
               </p>
               <ol className="text-sm text-blue-800 dark:text-blue-300 space-y-1 list-decimal list-inside ml-2">
                 <li>Click "Get API Key" to visit the service's website</li>
@@ -426,7 +426,7 @@ function IntegrationsPageContent() {
                 <li>Start using enhanced features!</li>
               </ol>
               <p className="text-sm text-blue-700 dark:text-blue-400 mt-3 italic">
-                <strong>Remember:</strong> You pay these services directly. CreatorFlow365 never charges for API access or integrations.
+                <strong>Remember:</strong> You pay these services directly. ToolMarket365 never charges for API access or integrations.
               </p>
             </div>
           </div>
