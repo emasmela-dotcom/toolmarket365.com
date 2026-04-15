@@ -59,9 +59,7 @@ const toolSections = [
       { name: 'Simple Paywall Link Generator', slug: 'simple-paywall-link-generator', icon: Wallet },
       { name: 'Digital Product Bundle Builder', slug: 'digital-product-bundle-builder', icon: Package },
       { name: 'Pricing Calculator', slug: 'pricing-calculator', icon: Calculator },
-      { name: 'Landing Page Copy Generator', slug: 'landing-copy', icon: FileText },
       { name: 'Upsell Generator', slug: 'upsell-generator', icon: TrendingUp },
-      { name: 'Checkout Page Optimizer', slug: 'checkout-page-optimizer', icon: ShoppingCart },
       { name: 'Testimonial Collector Tool', slug: 'testimonial-collector-tool', icon: MessageSquareQuote },
       { name: 'Simple Affiliate Link Manager', slug: 'simple-affiliate-link-manager', icon: Link2 },
     ],
@@ -108,6 +106,14 @@ const toolSections = [
       },
     ],
   },
+  {
+    title: 'Website & Conversion Tools',
+    description: 'Landing pages, checkout flow, and on-site conversion',
+    tools: [
+      { name: 'Landing Page Copy Generator', slug: 'landing-copy', icon: FileText },
+      { name: 'Checkout Page Optimizer', slug: 'checkout-page-optimizer', icon: ShoppingCart },
+    ],
+  },
 ]
 
 function ToolsPageContent() {
@@ -120,6 +126,7 @@ function ToolsPageContent() {
     'client-crm-tools': 'Client / CRM Tools (ALIGNED WITH "FollowThru")',
     'audience-research-tools':
       'Audience & Research Tools (VERY HOT RIGHT NOW)',
+    'website-conversion-tools': 'Website & Conversion Tools',
   }
 
   const displaySections =
@@ -161,6 +168,7 @@ function ToolsPageContent() {
                 'client-crm-tools',
               'Audience & Research Tools (VERY HOT RIGHT NOW)':
                 'audience-research-tools',
+              'Website & Conversion Tools': 'website-conversion-tools',
             }
             const sectionSlug =
               reverseSlugMap[section.title] ||

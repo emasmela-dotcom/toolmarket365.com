@@ -41,9 +41,7 @@ export default function HomePage() {
               <li><Link href="/tools/simple-paywall-link-generator" className="hover:underline">Simple Paywall Link Generator</Link></li>
               <li><Link href="/tools/digital-product-bundle-builder" className="hover:underline">Digital Product Bundle Builder</Link></li>
               <li><Link href="/tools/pricing-calculator" className="hover:underline">Pricing Calculator</Link></li>
-              <li><Link href="/tools/landing-copy" className="hover:underline">Landing Page Copy Generator</Link></li>
               <li><Link href="/tools/upsell-generator" className="hover:underline">Upsell Generator</Link></li>
-              <li><Link href="/tools/checkout-page-optimizer" className="hover:underline">Checkout Page Optimizer</Link></li>
               <li><Link href="/tools/testimonial-collector-tool" className="hover:underline">Testimonial Collector Tool</Link></li>
               <li><Link href="/tools/simple-affiliate-link-manager" className="hover:underline">Simple Affiliate Link Manager</Link></li>
             </ul>
@@ -136,6 +134,23 @@ export default function HomePage() {
                   className="hover:underline"
                 >
                   Customer Pain Point Extractor
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6 md:col-span-2 xl:col-span-4">
+            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
+              <p>Website &amp; Conversion Tools</p>
+            </div>
+            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
+              <li>
+                <Link href="/tools/landing-copy" className="hover:underline">
+                  Landing Page Copy Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/checkout-page-optimizer" className="hover:underline">
+                  Checkout Page Optimizer
                 </Link>
               </li>
             </ul>
