@@ -107,6 +107,29 @@ export default function HomePage() {
                   Find My Audience
                 </Link>
               </li>
+              <li>
+                <Link href="/tools/niche-validator" className="hover:underline">
+                  Niche Validator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/competitor-scanner" className="hover:underline">
+                  Competitor Scanner
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tools/keyword-opportunity-finder"
+                  className="hover:underline"
+                >
+                  Keyword Opportunity Finder
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/trend-explainer" className="hover:underline">
+                  Trend Explainer
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

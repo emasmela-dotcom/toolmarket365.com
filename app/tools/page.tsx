@@ -28,6 +28,10 @@ import {
   HandCoins,
   ListTodo,
   Users,
+  ScanSearch,
+  Radar,
+  FileSearch,
+  Activity,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -86,7 +90,17 @@ const toolSections = [
   {
     title: 'Audience & Research Tools (VERY HOT RIGHT NOW)',
     description: 'Discover who to target, pain points, channels, and messaging for your niche',
-    tools: [{ name: 'Find My Audience', slug: 'find-my-audience', icon: Users }],
+    tools: [
+      { name: 'Find My Audience', slug: 'find-my-audience', icon: Users },
+      { name: 'Niche Validator', slug: 'niche-validator', icon: ScanSearch },
+      { name: 'Competitor Scanner', slug: 'competitor-scanner', icon: Radar },
+      {
+        name: 'Keyword Opportunity Finder',
+        slug: 'keyword-opportunity-finder',
+        icon: FileSearch,
+      },
+      { name: 'Trend Explainer', slug: 'trend-explainer', icon: Activity },
+    ],
   },
 ]
 
@@ -98,6 +112,8 @@ function ToolsPageContent() {
     'creator-growth-tools': 'Creator Growth Tools (HIGH DEMAND)',
     'monetization-tools': 'Monetization Tools (MAKE PEOPLE MONEY)',
     'client-crm-tools': 'Client / CRM Tools (ALIGNED WITH "FollowThru")',
+    'audience-research-tools':
+      'Audience & Research Tools (VERY HOT RIGHT NOW)',
   }
 
   const displaySections =
