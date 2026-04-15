@@ -27,6 +27,7 @@ import {
   FilePenLine,
   HandCoins,
   ListTodo,
+  Users,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -82,6 +83,11 @@ const toolSections = [
       },
     ],
   },
+  {
+    title: 'Audience & Research Tools (VERY HOT RIGHT NOW)',
+    description: 'Discover who to target, pain points, channels, and messaging for your niche',
+    tools: [{ name: 'Find My Audience', slug: 'find-my-audience', icon: Users }],
+  },
 ]
 
 function ToolsPageContent() {
@@ -117,7 +123,7 @@ function ToolsPageContent() {
           <h1 className="text-4xl sm:text-5xl font-bold text-mono-950 dark:text-mono-50 mb-3">
             {sectionParam && sectionSlugMap[sectionParam]
               ? sectionSlugMap[sectionParam]
-              : 'Creator Growth Tools'}
+              : 'Tool categories'}
           </h1>
           <p className="text-lg text-mono-600 dark:text-mono-400">
             {toolCount} tools in this category
@@ -131,6 +137,8 @@ function ToolsPageContent() {
               'Monetization Tools (MAKE PEOPLE MONEY)': 'monetization-tools',
               'Client / CRM Tools (ALIGNED WITH "FollowThru")':
                 'client-crm-tools',
+              'Audience & Research Tools (VERY HOT RIGHT NOW)':
+                'audience-research-tools',
             }
             const sectionSlug =
               reverseSlugMap[section.title] ||

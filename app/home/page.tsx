@@ -16,7 +16,7 @@ export default function HomePage() {
         <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>
-        <div className="mt-8 grid w-full max-w-[100rem] grid-cols-1 gap-4 self-start text-left sm:gap-5 lg:grid-cols-3 lg:gap-4 xl:gap-6">
+        <div className="mt-8 grid w-full max-w-[100rem] grid-cols-1 gap-4 self-start text-left sm:gap-5 md:grid-cols-2 xl:grid-cols-4 lg:gap-4 xl:gap-6">
           <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6">
             <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
               <p>Creator Growth Tools</p>
@@ -92,6 +92,19 @@ export default function HomePage() {
               <li>
                 <Link href="/tools/meeting-summary-action-items" className="hover:underline">
                   Meeting Summary → Action Items
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6">
+            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
+              <p>Audience &amp; Research Tools</p>
+              <p>(VERY HOT RIGHT NOW)</p>
+            </div>
+            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
+              <li>
+                <Link href="/tools/find-my-audience" className="hover:underline">
+                  Find My Audience
                 </Link>
               </li>
             </ul>
