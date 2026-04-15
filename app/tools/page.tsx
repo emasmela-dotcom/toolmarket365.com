@@ -32,6 +32,7 @@ import {
   Radar,
   FileSearch,
   Activity,
+  CircleAlert,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -100,6 +101,11 @@ const toolSections = [
         icon: FileSearch,
       },
       { name: 'Trend Explainer', slug: 'trend-explainer', icon: Activity },
+      {
+        name: 'Customer Pain Point Extractor',
+        slug: 'customer-pain-point-extractor',
+        icon: CircleAlert,
+      },
     ],
   },
 ]

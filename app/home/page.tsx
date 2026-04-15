@@ -130,6 +130,14 @@ export default function HomePage() {
                   Trend Explainer
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/tools/customer-pain-point-extractor"
+                  className="hover:underline"
+                >
+                  Customer Pain Point Extractor
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
