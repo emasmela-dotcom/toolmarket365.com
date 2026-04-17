@@ -28,7 +28,7 @@ const tutorials: Tutorial[] = [
       {
         title: 'Explore Tools',
         content: 'Browse the Tools page to see all available tools. Each tool is designed for specific content creation tasks.',
-        toolLink: '/tools'
+        toolLink: '/home'
       },
       {
         title: 'Create Your First Content',
@@ -313,7 +313,7 @@ function OnboardingPage() {
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mt-8">
           <h3 className="font-bold text-blue-900 dark:text-blue-200 mb-3">Quick Links</h3>
           <div className="grid md:grid-cols-3 gap-4">
-            <Link href="/tools" className="flex items-center gap-2 text-blue-700 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200">
+            <Link href="/home" className="flex items-center gap-2 text-blue-700 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200">
               <BookOpen className="h-4 w-4" />
               Browse All Tools
             </Link>

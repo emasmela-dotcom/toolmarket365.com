@@ -8,7 +8,7 @@ export function Hero() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              href="/tools"
+              href="/home"
               className="inline-flex items-center justify-center px-6 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm"
             >
               Browse All Tools

@@ -71,7 +71,7 @@ export function Navigation() {
               <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
                 Home
               </Link>
-              <Link href="/tools" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
+              <Link href="/home" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
                 Tools
               </Link>
               <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
@@ -116,7 +116,7 @@ export function Navigation() {
           {/* Right: Search, Account, Sign Out */}
           <div className="flex items-center space-x-4 flex-shrink-0">
             <Link
-              href="/tools"
+              href="/home"
               className="p-2 text-mono-600 hover:text-mono-900 transition-colors"
               aria-label="Search Tools"
               title="Search Tools"

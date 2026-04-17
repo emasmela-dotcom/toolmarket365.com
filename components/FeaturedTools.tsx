@@ -50,7 +50,7 @@ export function FeaturedTools() {
             </p>
           </div>
           <Link
-            href="/tools"
+            href="/home"
             className="hidden sm:flex items-center text-blue-600 hover:text-blue-700 font-medium"
           >
             View All Tools

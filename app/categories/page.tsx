@@ -140,7 +140,7 @@ export default function CategoriesPage() {
               return (
                 <Link
                   key={category.slug}
-                  href={`/tools?section=${category.slug}`}
+                  href="/home"
                   className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700 hover:border-accent-500 dark:hover:border-accent-500 transition-all hover:shadow-lg group"
                 >
                   <div className="flex items-start justify-between mb-4">
@@ -228,7 +228,7 @@ export default function CategoriesPage() {
           {/* Quick Links */}
           <div className="mt-12 text-center">
             <Link
-              href="/tools"
+              href="/home"
               className="inline-flex items-center px-6 py-3 bg-accent-600 text-white font-medium rounded-lg hover:bg-accent-700 transition-colors"
             >
               Browse All Tools

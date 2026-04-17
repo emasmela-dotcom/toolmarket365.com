@@ -16,7 +16,7 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-mono-950 mb-4">Platform</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/tools" className="text-mono-600 hover:text-accent-600 transition-colors">
+                <Link href="/home" className="text-mono-600 hover:text-accent-600 transition-colors">
                   All Tools
                 </Link>
               </li>

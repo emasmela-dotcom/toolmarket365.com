@@ -276,7 +276,7 @@ export default function SelectPlanPage() {
                 </p>
                 <div className="mb-4">
                   <Link
-                    href={`/tools?plan=${plan.name.toLowerCase()}`}
+                    href={`/home?plan=${plan.name.toLowerCase()}`}
                     className="text-sm text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline font-medium"
                   >
                     View All Tools →

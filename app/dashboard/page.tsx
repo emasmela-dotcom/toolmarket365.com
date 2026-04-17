@@ -427,7 +427,7 @@ export default function DashboardPage() {
                   Favorite Tools
                 </h2>
                 <Link
-                  href="/tools"
+                  href="/home"
                   className="text-sm text-accent-600 hover:text-accent-700 dark:text-accent-400 font-medium flex items-center"
                 >
                   Browse All
@@ -465,7 +465,7 @@ export default function DashboardPage() {
                   <Star className="w-12 h-12 text-mono-300 dark:text-mono-700 mx-auto mb-3" />
                   <p className="text-mono-600 dark:text-mono-400 mb-4">No favorite tools yet</p>
                   <Link
-                    href="/tools"
+                    href="/home"
                     className="inline-flex items-center px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors text-sm"
                   >
                     Explore Tools
@@ -589,7 +589,7 @@ export default function DashboardPage() {
           {/* Quick Actions */}
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Link
-              href="/tools"
+              href="/home"
               className="flex items-center justify-between p-4 bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700 hover:border-accent-500 dark:hover:border-accent-500 transition-colors"
             >
               <div className="flex items-center space-x-3">
