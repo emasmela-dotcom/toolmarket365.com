@@ -164,36 +164,34 @@ function ToolsPageContent() {
         )
       : toolSections
 
-  const allTools = new Map<string, (typeof toolSections)[0]['tools'][0]>()
-  displaySections.forEach((section) => {
-    section.tools.forEach((tool) => {
-      if (!allTools.has(tool.slug)) allTools.set(tool.slug, tool)
-    })
-  })
-
-  const toolCount = allTools.size
   const isFiltered = Boolean(sectionParam && sectionSlugMap[sectionParam])
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black text-white">
+    <main className="relative min-h-screen overflow-hidden bg-black text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.22),transparent_55%)]" />
-      <div className="relative mx-auto w-full max-w-[100rem] px-4 py-14 sm:px-6">
-        <div className="mb-8 text-center sm:mb-10">
-          <h1 className="mb-2 text-3xl font-extrabold text-white sm:text-4xl">
-            {isFiltered ? sectionSlugMap[sectionParam!] : 'Tool categories'}
-          </h1>
-          <p className="text-base text-gray-300 sm:text-lg">
-            {isFiltered
-              ? `${toolCount} tools in this category`
-              : `${toolCount} tools across all categories`}
-          </p>
-        </div>
+      <section className="mx-auto flex w-full max-w-[100rem] flex-col items-center justify-start px-4 pt-14 text-center sm:px-6">
+        <p className="mb-5 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1 text-xs font-semibold tracking-[0.18em] text-blue-300">
+          BUILT TO SHIP
+        </p>
+        <h1 className="mb-4 bg-gradient-to-r from-white via-blue-200 to-white bg-clip-text text-5xl font-extrabold leading-tight text-transparent sm:text-7xl">
+          ToolMarket365
+        </h1>
+        <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
+          Your entire business, one tab, built with the toolkit the internet forgot to build.
+        </p>
+        {isFiltered ? (
+          <h2 className="mt-8 max-w-4xl text-xl font-bold leading-snug text-white sm:text-2xl">
+            {sectionSlugMap[sectionParam!]}
+          </h2>
+        ) : null}
+      </section>
 
+      <div className="relative mx-auto w-full max-w-[100rem] px-4 pb-14 sm:px-6">
         <div
           className={
             isFiltered
-              ? 'mx-auto grid w-full max-w-3xl grid-cols-1 gap-4 self-start text-left sm:gap-5'
-              : 'grid w-full max-w-[100rem] grid-cols-1 gap-4 self-start text-left sm:gap-5 md:grid-cols-2 lg:gap-4 xl:grid-cols-4 xl:gap-6'
+              ? 'mx-auto mt-8 grid w-full max-w-3xl grid-cols-1 gap-4 self-start text-left sm:gap-5'
+              : 'mt-8 grid w-full max-w-[100rem] auto-rows-fr grid-cols-1 gap-4 self-start text-left sm:gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-4 xl:gap-6'
           }
         >
           {displaySections.map((section, sectionIdx) => {
@@ -221,7 +219,7 @@ function ToolsPageContent() {
               <div
                 key={sectionIdx}
                 id={sectionSlug}
-                className="min-w-0 scroll-mt-8 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4"
+                className="flex min-h-0 min-w-0 flex-col scroll-mt-8 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4"
               >
                 <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
                   <p className="break-words">{titleMain}</p>
@@ -263,7 +261,7 @@ function ToolsPageContent() {
           })}
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 
