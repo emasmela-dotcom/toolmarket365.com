@@ -16,13 +16,13 @@ export default function HomePage() {
         <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>
-        <div className="mt-8 grid w-full max-w-[100rem] grid-cols-1 gap-4 self-start text-left sm:gap-5 md:grid-cols-2 xl:grid-cols-4 lg:gap-4 xl:gap-6">
-          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6">
-            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
+        <div className="mt-8 grid w-full max-w-[100rem] auto-rows-fr grid-cols-1 gap-4 self-start text-left sm:gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-4 xl:gap-6">
+          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
+            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
               <p>Creator Growth Tools</p>
               <p>(HIGH DEMAND)</p>
             </div>
-            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
+            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
               <li><Link href="/tools/hook-generator" className="hover:underline">Hook Generator</Link></li>
               <li><Link href="/tools/content-idea-engine" className="hover:underline">Content Idea Engine</Link></li>
               <li><Link href="/tools/youtube-title-optimizer" className="hover:underline">YouTube Title Optimizer</Link></li>
@@ -32,12 +32,12 @@ export default function HomePage() {
               <li><Link href="/tools/cold-dm-personalizer" className="hover:underline">Cold DM Personalizer</Link></li>
             </ul>
           </div>
-          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6">
-            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
+          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
+            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
               <p>Monetization Tools</p>
               <p>(MAKE PEOPLE MONEY)</p>
             </div>
-            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
+            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
               <li><Link href="/tools/simple-paywall-link-generator" className="hover:underline">Simple Paywall Link Generator</Link></li>
               <li><Link href="/tools/digital-product-bundle-builder" className="hover:underline">Digital Product Bundle Builder</Link></li>
               <li><Link href="/tools/pricing-calculator" className="hover:underline">Pricing Calculator</Link></li>
@@ -46,12 +46,12 @@ export default function HomePage() {
               <li><Link href="/tools/simple-affiliate-link-manager" className="hover:underline">Simple Affiliate Link Manager</Link></li>
             </ul>
           </div>
-          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6">
-            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
+          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
+            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
               <p className="break-words">Client / CRM Tools</p>
               <p className="break-words text-balance">(ALIGNED WITH &quot;FollowThru&quot;)</p>
             </div>
-            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
+            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
               <li>
                 <Link href="/tools/agreement-link-generator" className="hover:underline">
                   Agreement Link Generator
@@ -94,12 +94,12 @@ export default function HomePage() {
               </li>
             </ul>
           </div>
-          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6">
-            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
+          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
+            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
               <p>Audience &amp; Research Tools</p>
               <p>(VERY HOT RIGHT NOW)</p>
             </div>
-            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
+            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
               <li>
                 <Link href="/tools/find-my-audience" className="hover:underline">
                   Find My Audience
@@ -138,19 +138,83 @@ export default function HomePage() {
               </li>
             </ul>
           </div>
-          <div className="min-w-0 rounded-lg border border-white/30 p-4 text-left sm:p-5 lg:p-4 xl:p-6 md:col-span-2 xl:col-span-4">
-            <div className="text-lg font-bold leading-snug sm:text-xl lg:text-lg xl:text-2xl">
+          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
+            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
               <p>Website &amp; Conversion Tools</p>
             </div>
-            <ul className="mt-4 space-y-1.5 text-sm font-medium text-gray-200 sm:mt-5 sm:space-y-2 sm:text-base lg:text-sm xl:text-base">
+            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
+              <li>
+                <Link href="/tools/seo-meta-tag-generator" className="hover:underline">
+                  SEO Meta Tag Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/privacy-policy-generator" className="hover:underline">
+                  Privacy Policy Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/terms-generator" className="hover:underline">
+                  Terms Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/simple-ab-test-tool" className="hover:underline">
+                  Simple A/B Test Tool
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/website-speed-explainer" className="hover:underline">
+                  Website Speed Explainer
+                </Link>
+              </li>
               <li>
                 <Link href="/tools/landing-copy" className="hover:underline">
                   Landing Page Copy Generator
                 </Link>
               </li>
               <li>
+                <Link href="/tools/landing-page-critiquer" className="hover:underline">
+                  Landing Page Critiquer
+                </Link>
+              </li>
+              <li>
                 <Link href="/tools/checkout-page-optimizer" className="hover:underline">
                   Checkout Page Optimizer
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
+            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
+              <p>Automation Tools</p>
+              <p>(NO-CODE FEEL)</p>
+            </div>
+            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
+              <li>
+                <Link href="/tools/auto-follow-up-sender" className="hover:underline">
+                  Auto Follow-Up Sender
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tools/lead-capture-email-sequence"
+                  className="hover:underline"
+                >
+                  Lead Capture → Email Sequence Tool
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tools/form-google-sheet-email-workflow"
+                  className="hover:underline"
+                >
+                  Form → Google Sheet → Email Workflow
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/dm-crm-capture" className="hover:underline">
+                  DM → CRM Capture Tool
                 </Link>
               </li>
             </ul>
