@@ -33,6 +33,9 @@ import {
   FileSearch,
   Activity,
   CircleAlert,
+  Zap,
+  Table2,
+  Inbox,
 } from 'lucide-react'
 import { getToolCreditCost, requiresCredits } from '@/lib/tool-credit-costs'
 
@@ -110,8 +113,32 @@ const toolSections = [
     title: 'Website & Conversion Tools',
     description: 'Landing pages, checkout flow, and on-site conversion',
     tools: [
+      { name: 'SEO Meta Tag Generator', slug: 'seo-meta-tag-generator', icon: FileText },
+      { name: 'Privacy Policy Generator', slug: 'privacy-policy-generator', icon: FileText },
+      { name: 'Terms Generator', slug: 'terms-generator', icon: FileText },
+      { name: 'Simple A/B Test Tool', slug: 'simple-ab-test-tool', icon: FileText },
+      { name: 'Website Speed Explainer', slug: 'website-speed-explainer', icon: FileText },
       { name: 'Landing Page Copy Generator', slug: 'landing-copy', icon: FileText },
+      { name: 'Landing Page Critiquer', slug: 'landing-page-critiquer', icon: FileText },
       { name: 'Checkout Page Optimizer', slug: 'checkout-page-optimizer', icon: ShoppingCart },
+    ],
+  },
+  {
+    title: 'Automation Tools (NO-CODE FEEL)',
+    description: 'Simple automations you can run without wiring a full backend',
+    tools: [
+      { name: 'Auto Follow-Up Sender', slug: 'auto-follow-up-sender', icon: Zap },
+      {
+        name: 'Lead Capture → Email Sequence Tool',
+        slug: 'lead-capture-email-sequence',
+        icon: Mail,
+      },
+      {
+        name: 'Form → Google Sheet → Email Workflow',
+        slug: 'form-google-sheet-email-workflow',
+        icon: Table2,
+      },
+      { name: 'DM → CRM Capture Tool', slug: 'dm-crm-capture', icon: Inbox },
     ],
   },
 ]
@@ -127,6 +154,7 @@ function ToolsPageContent() {
     'audience-research-tools':
       'Audience & Research Tools (VERY HOT RIGHT NOW)',
     'website-conversion-tools': 'Website & Conversion Tools',
+    'automation-tools': 'Automation Tools (NO-CODE FEEL)',
   }
 
   const displaySections =
@@ -144,22 +172,26 @@ function ToolsPageContent() {
   })
 
   const toolCount = allTools.size
+  const isFiltered = Boolean(sectionParam && sectionSlugMap[sectionParam])
 
   return (
-    <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl sm:text-5xl font-bold text-mono-950 dark:text-mono-50 mb-3">
-            {sectionParam && sectionSlugMap[sectionParam]
-              ? sectionSlugMap[sectionParam]
-              : 'Tool categories'}
+    <div className="relative min-h-screen overflow-hidden bg-black text-white">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.22),transparent_55%)]" />
+      <div className="relative mx-auto w-full max-w-[100rem] px-4 py-14 sm:px-6">
+        <div className="mb-8 text-center sm:mb-10">
+          <h1 className="mb-2 text-3xl font-extrabold text-white sm:text-4xl">
+            {isFiltered ? sectionSlugMap[sectionParam!] : 'Tool categories'}
           </h1>
-          <p className="text-lg text-mono-600 dark:text-mono-400">
-            {toolCount} tools in this category
+          <p className="text-base text-gray-300 sm:text-lg">
+            {isFiltered
+              ? `${toolCount} tools in this category`
+              : `${toolCount} tools across all categories`}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8">
+        <div
+          className={`grid w-full grid-cols-1 gap-4 text-left sm:gap-5 md:grid-cols-2 lg:gap-4 xl:grid-cols-4 xl:gap-6 ${isFiltered ? 'mx-auto max-w-3xl md:grid-cols-1 xl:grid-cols-1' : ''}`}
+        >
           {displaySections.map((section, sectionIdx) => {
             const reverseSlugMap: Record<string, string> = {
               'Creator Growth Tools (HIGH DEMAND)': 'creator-growth-tools',
@@ -169,52 +201,59 @@ function ToolsPageContent() {
               'Audience & Research Tools (VERY HOT RIGHT NOW)':
                 'audience-research-tools',
               'Website & Conversion Tools': 'website-conversion-tools',
+              'Automation Tools (NO-CODE FEEL)': 'automation-tools',
             }
             const sectionSlug =
               reverseSlugMap[section.title] ||
               section.title.toLowerCase().replace(/\s+/g, '-')
+            const parenIdx = section.title.indexOf(' (')
+            const titleMain =
+              parenIdx === -1
+                ? section.title
+                : section.title.slice(0, parenIdx)
+            const titleSub =
+              parenIdx === -1 ? null : section.title.slice(parenIdx + 1)
             return (
               <div
                 key={sectionIdx}
                 id={sectionSlug}
-                className="border border-mono-200 dark:border-mono-700 rounded-lg p-6 scroll-mt-8"
+                className="min-w-0 scroll-mt-8 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4"
               >
-                <div className="mb-4">
-                  <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
-                    {section.title}
-                  </h2>
-                  {section.description ? (
-                    <p className="text-sm text-mono-600 dark:text-mono-400">
-                      {section.description}
-                    </p>
+                <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
+                  <p className="break-words">{titleMain}</p>
+                  {titleSub ? (
+                    <p className="break-words text-balance">{titleSub}</p>
                   ) : null}
                 </div>
-                <div className="flex flex-col gap-2">
+                {section.description ? (
+                  <p className="mt-2 text-xs text-gray-400 sm:text-sm">
+                    {section.description}
+                  </p>
+                ) : null}
+                <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
                   {section.tools.map((tool) => {
                     const needsCredits = requiresCredits(tool.slug)
                     const creditCost = getToolCreditCost(tool.slug)
                     return (
-                      <div
+                      <li
                         key={tool.slug}
-                        className="flex items-center justify-between gap-2"
+                        className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1"
                       >
                         <Link
                           href={`/tools/${tool.slug}`}
-                          className="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline transition-colors text-sm flex-1 text-left"
+                          className="min-w-0 flex-1 hover:underline"
                         >
                           {tool.name}
                         </Link>
                         {needsCredits && creditCost != null && (
-                          <div className="flex items-center space-x-1 ml-2 px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/30 rounded border border-yellow-300 dark:border-yellow-700 shrink-0">
-                            <span className="text-xs font-semibold text-yellow-700 dark:text-yellow-400">
-                              {creditCost} credits/use
-                            </span>
-                          </div>
+                          <span className="shrink-0 rounded border border-yellow-500/50 bg-yellow-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-yellow-200 sm:text-xs">
+                            {creditCost} credits/use
+                          </span>
                         )}
-                      </div>
+                      </li>
                     )
                   })}
-                </div>
+                </ul>
               </div>
             )
           })}
@@ -228,9 +267,9 @@ export default function ToolsPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
-          <div className="max-w-7xl mx-auto text-center">
-            <p className="text-mono-600 dark:text-mono-400">Loading...</p>
+        <div className="min-h-screen bg-black py-12 px-4 text-white">
+          <div className="mx-auto max-w-7xl text-center">
+            <p className="text-gray-400">Loading...</p>
           </div>
         </div>
       }
