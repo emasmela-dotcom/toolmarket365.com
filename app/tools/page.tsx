@@ -190,7 +190,11 @@ function ToolsPageContent() {
         </div>
 
         <div
-          className={`grid w-full grid-cols-1 gap-4 text-left sm:gap-5 md:grid-cols-2 lg:gap-4 xl:grid-cols-4 xl:gap-6 ${isFiltered ? 'mx-auto max-w-3xl md:grid-cols-1 xl:grid-cols-1' : ''}`}
+          className={
+            isFiltered
+              ? 'mx-auto grid w-full max-w-3xl grid-cols-1 gap-4 self-start text-left sm:gap-5'
+              : 'grid w-full max-w-[100rem] grid-cols-1 gap-4 self-start text-left sm:gap-5 md:grid-cols-2 lg:gap-4 xl:grid-cols-4 xl:gap-6'
+          }
         >
           {displaySections.map((section, sectionIdx) => {
             const reverseSlugMap: Record<string, string> = {
