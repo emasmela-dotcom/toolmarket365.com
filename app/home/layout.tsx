@@ -1,7 +1,11 @@
 import type { ReactNode } from 'react'
 
-/* Home styles live in app/globals.css (Tailwind v4 drops separate route CSS imports). */
-
+/** Panel + grid styles ship from /home-panels.css (static) so Tailwind cannot drop them. */
 export default function HomeLayout({ children }: { children: ReactNode }) {
-  return children
+  return (
+    <>
+      <link rel="stylesheet" href="/home-panels.css" />
+      {children}
+    </>
+  )
 }
