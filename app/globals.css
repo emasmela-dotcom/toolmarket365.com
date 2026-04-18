@@ -67,4 +67,4 @@ body {
   }
 }
 
-/* /home panel styles: public/home-panels.css (linked from app/home/layout.tsx) */
+/* /home panel styles: app/home/panels.css (imported from app/home/page.tsx) */
