@@ -1,7 +1,5 @@
 import Link from 'next/link'
 
-import './home.css'
-
 export const dynamic = 'force-dynamic'
 
 export default function HomePage() {
@@ -15,7 +13,7 @@ export default function HomePage() {
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>
         <div className="tm-home__grid">
-          <div className="tm-home__card">
+          <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Creator Growth Tools</p>
               <p>(HIGH DEMAND)</p>
@@ -57,8 +55,8 @@ export default function HomePage() {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div className="tm-home__card">
+          </article>
+          <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Monetization Tools</p>
               <p>(MAKE PEOPLE MONEY)</p>
@@ -95,8 +93,8 @@ export default function HomePage() {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div className="tm-home__card">
+          </article>
+          <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Client / CRM Tools</p>
               <p>(ALIGNED WITH &quot;FollowThru&quot;)</p>
@@ -146,8 +144,8 @@ export default function HomePage() {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div className="tm-home__card">
+          </article>
+          <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Audience &amp; Research Tools</p>
               <p>(VERY HOT RIGHT NOW)</p>
@@ -184,8 +182,8 @@ export default function HomePage() {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div className="tm-home__card">
+          </article>
+          <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Website &amp; Conversion Tools</p>
             </div>
@@ -231,8 +229,8 @@ export default function HomePage() {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div className="tm-home__card">
+          </article>
+          <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Automation Tools</p>
               <p>(NO-CODE FEEL)</p>
@@ -259,7 +257,7 @@ export default function HomePage() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </article>
         </div>
       </section>
     </main>
