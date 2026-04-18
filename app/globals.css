@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./home/home.css";
 
 /* Ensure utilities are generated for App Router + components (Tailwind v4). */
 @source "./**/*.{js,ts,jsx,tsx,mdx}";
@@ -65,4 +66,9 @@ body {
   .dark textarea::placeholder {
     color: color-mix(in oklab, currentcolor 55%, transparent);
   }
+}
+
+body:has(main.tm-home) {
+  background-color: #000000;
+  color: #ffffff;
 }
