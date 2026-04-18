@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { HOME_PANELS_CSS } from "./home/homePanelsCssString";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,6 +31,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <style
+          id="home-panels-css"
+          dangerouslySetInnerHTML={{ __html: HOME_PANELS_CSS }}
+        />
         <Script id="theme-dark-class" strategy="beforeInteractive">
           {`(function(){try{var m=window.matchMedia("(prefers-color-scheme: dark)");function s(){document.documentElement.classList.toggle("dark",m.matches);}s();m.addEventListener("change",s);}catch(e){}})();`}
         </Script>

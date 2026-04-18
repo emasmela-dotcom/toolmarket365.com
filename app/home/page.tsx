@@ -1,7 +1,5 @@
 import Link from 'next/link'
 
-import './panels.css'
-
 export const dynamic = 'force-dynamic'
 
 export default function HomePage() {

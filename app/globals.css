@@ -67,4 +67,4 @@ body {
   }
 }
 
-/* /home panel styles: app/home/panels.css (imported from app/home/page.tsx) */
+/* /home panel styles: injected in app/home/page.tsx (homePanelsCssString) */
