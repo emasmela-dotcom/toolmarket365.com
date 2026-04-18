@@ -1,0 +1,11 @@
+---
+description: Do everything possible that causes no usage (local-only thoroughness)
+alwaysApply: true
+---
+
+# Do Everything Possible — No Usage
+
+- **Goal:** Use **every reasonable step that incurs no usage** (no quota, no API cost, no billable external calls) to answer, fix, or verify the task.
+- **Allowed without extra usage:** reading the repo, searching files, running **local** builds/tests/lint/typecheck, inspecting `.next` or logs on disk, `git` history/diff, and other work that stays on the machine and does not call paid or metered remote services.
+- **Still forbidden:** anything covered by **no-usage-causing-calls** (e.g. web search, URL fetch, external APIs) unless the user **explicitly** asked for live data or deployment.
+- **When blocked by usage:** say what would need a usage-causing call and **stop** there unless the user opts in.
