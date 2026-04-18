@@ -1,219 +1,260 @@
 import Link from 'next/link'
 
+import './home.css'
+
 export const dynamic = 'force-dynamic'
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-[70vh] overflow-hidden bg-black text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.22),transparent_55%)]" />
-      <section className="mx-auto flex min-h-[70vh] w-full max-w-[100rem] flex-col items-center justify-start pt-14 px-4 text-center sm:px-6">
-        <p className="mb-5 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1 text-xs font-semibold tracking-[0.18em] text-blue-300">
-          BUILT TO SHIP
-        </p>
-        <h1 className="mb-4 bg-gradient-to-r from-white via-blue-200 to-white bg-clip-text text-5xl font-extrabold leading-tight text-transparent sm:text-7xl">
-          ToolMarket365
-        </h1>
-        <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
+    <main className="tm-home">
+      <div className="tm-home__glow" aria-hidden />
+      <section className="tm-home__inner">
+        <p className="tm-home__badge">BUILT TO SHIP</p>
+        <h1 className="tm-home__title">ToolMarket365</h1>
+        <p className="tm-home__tagline">
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>
-        <div className="mt-8 grid w-full max-w-[100rem] auto-rows-fr grid-cols-1 gap-4 self-start text-left sm:gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-4 xl:gap-6">
-          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
-            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
+        <div className="tm-home__grid">
+          <div className="tm-home__card">
+            <div className="tm-home__card-head">
               <p>Creator Growth Tools</p>
               <p>(HIGH DEMAND)</p>
             </div>
-            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
-              <li><Link href="/tools/hook-generator" className="hover:underline">Hook Generator</Link></li>
-              <li><Link href="/tools/content-idea-engine" className="hover:underline">Content Idea Engine</Link></li>
-              <li><Link href="/tools/youtube-title-optimizer" className="hover:underline">YouTube Title Optimizer</Link></li>
-              <li><Link href="/tools/tiktok-trend-finder" className="hover:underline">TikTok Trend Finder</Link></li>
-              <li><Link href="/tools/newsletter-topic-generator" className="hover:underline">Newsletter Topic Generator</Link></li>
-              <li><Link href="/tools/reddit-post-rewriter" className="hover:underline">Reddit Post Rewriter</Link></li>
-              <li><Link href="/tools/cold-dm-personalizer" className="hover:underline">Cold DM Personalizer</Link></li>
+            <ul className="tm-home__list">
+              <li>
+                <Link href="/tools/hook-generator" className="tm-home__link">
+                  Hook Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/content-idea-engine" className="tm-home__link">
+                  Content Idea Engine
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/youtube-title-optimizer" className="tm-home__link">
+                  YouTube Title Optimizer
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/tiktok-trend-finder" className="tm-home__link">
+                  TikTok Trend Finder
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/newsletter-topic-generator" className="tm-home__link">
+                  Newsletter Topic Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/reddit-post-rewriter" className="tm-home__link">
+                  Reddit Post Rewriter
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/cold-dm-personalizer" className="tm-home__link">
+                  Cold DM Personalizer
+                </Link>
+              </li>
             </ul>
           </div>
-          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
-            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
+          <div className="tm-home__card">
+            <div className="tm-home__card-head">
               <p>Monetization Tools</p>
               <p>(MAKE PEOPLE MONEY)</p>
             </div>
-            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
-              <li><Link href="/tools/simple-paywall-link-generator" className="hover:underline">Simple Paywall Link Generator</Link></li>
-              <li><Link href="/tools/digital-product-bundle-builder" className="hover:underline">Digital Product Bundle Builder</Link></li>
-              <li><Link href="/tools/pricing-calculator" className="hover:underline">Pricing Calculator</Link></li>
-              <li><Link href="/tools/upsell-generator" className="hover:underline">Upsell Generator</Link></li>
-              <li><Link href="/tools/testimonial-collector-tool" className="hover:underline">Testimonial Collector Tool</Link></li>
-              <li><Link href="/tools/simple-affiliate-link-manager" className="hover:underline">Simple Affiliate Link Manager</Link></li>
+            <ul className="tm-home__list">
+              <li>
+                <Link href="/tools/simple-paywall-link-generator" className="tm-home__link">
+                  Simple Paywall Link Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/digital-product-bundle-builder" className="tm-home__link">
+                  Digital Product Bundle Builder
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/pricing-calculator" className="tm-home__link">
+                  Pricing Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/upsell-generator" className="tm-home__link">
+                  Upsell Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/testimonial-collector-tool" className="tm-home__link">
+                  Testimonial Collector Tool
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/simple-affiliate-link-manager" className="tm-home__link">
+                  Simple Affiliate Link Manager
+                </Link>
+              </li>
             </ul>
           </div>
-          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
-            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
-              <p className="break-words">Client / CRM Tools</p>
-              <p className="break-words text-balance">(ALIGNED WITH &quot;FollowThru&quot;)</p>
+          <div className="tm-home__card">
+            <div className="tm-home__card-head">
+              <p>Client / CRM Tools</p>
+              <p>(ALIGNED WITH &quot;FollowThru&quot;)</p>
             </div>
-            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
+            <ul className="tm-home__list">
               <li>
-                <Link href="/tools/agreement-link-generator" className="hover:underline">
+                <Link href="/tools/agreement-link-generator" className="tm-home__link">
                   Agreement Link Generator
                 </Link>
               </li>
               <li>
-                <Link href="/tools/invoice-reminder-tool" className="hover:underline">
+                <Link href="/tools/invoice-reminder-tool" className="tm-home__link">
                   Invoice + Reminder Tool
                 </Link>
               </li>
               <li>
-                <Link href="/tools/client-onboarding-checklist-generator" className="hover:underline">
+                <Link
+                  href="/tools/client-onboarding-checklist-generator"
+                  className="tm-home__link"
+                >
                   Client Onboarding Checklist Generator
                 </Link>
               </li>
               <li>
-                <Link href="/tools/scope-creep-tracker" className="hover:underline">
+                <Link href="/tools/scope-creep-tracker" className="tm-home__link">
                   Scope Creep Tracker
                 </Link>
               </li>
               <li>
-                <Link href="/tools/follow-up-reminder-ai" className="hover:underline">
+                <Link href="/tools/follow-up-reminder-ai" className="tm-home__link">
                   Follow-Up Reminder AI
                 </Link>
               </li>
               <li>
-                <Link href="/tools/simple-proposal-builder" className="hover:underline">
+                <Link href="/tools/simple-proposal-builder" className="tm-home__link">
                   Simple Proposal Builder
                 </Link>
               </li>
               <li>
-                <Link href="/tools/late-payment-nudger" className="hover:underline">
+                <Link href="/tools/late-payment-nudger" className="tm-home__link">
                   Late Payment Nudger (auto messages)
                 </Link>
               </li>
               <li>
-                <Link href="/tools/meeting-summary-action-items" className="hover:underline">
+                <Link href="/tools/meeting-summary-action-items" className="tm-home__link">
                   Meeting Summary → Action Items
                 </Link>
               </li>
             </ul>
           </div>
-          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
-            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
+          <div className="tm-home__card">
+            <div className="tm-home__card-head">
               <p>Audience &amp; Research Tools</p>
               <p>(VERY HOT RIGHT NOW)</p>
             </div>
-            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
+            <ul className="tm-home__list">
               <li>
-                <Link href="/tools/find-my-audience" className="hover:underline">
+                <Link href="/tools/find-my-audience" className="tm-home__link">
                   Find My Audience
                 </Link>
               </li>
               <li>
-                <Link href="/tools/niche-validator" className="hover:underline">
+                <Link href="/tools/niche-validator" className="tm-home__link">
                   Niche Validator
                 </Link>
               </li>
               <li>
-                <Link href="/tools/competitor-scanner" className="hover:underline">
+                <Link href="/tools/competitor-scanner" className="tm-home__link">
                   Competitor Scanner
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/tools/keyword-opportunity-finder"
-                  className="hover:underline"
-                >
+                <Link href="/tools/keyword-opportunity-finder" className="tm-home__link">
                   Keyword Opportunity Finder
                 </Link>
               </li>
               <li>
-                <Link href="/tools/trend-explainer" className="hover:underline">
+                <Link href="/tools/trend-explainer" className="tm-home__link">
                   Trend Explainer
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/tools/customer-pain-point-extractor"
-                  className="hover:underline"
-                >
+                <Link href="/tools/customer-pain-point-extractor" className="tm-home__link">
                   Customer Pain Point Extractor
                 </Link>
               </li>
             </ul>
           </div>
-          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
-            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
+          <div className="tm-home__card">
+            <div className="tm-home__card-head">
               <p>Website &amp; Conversion Tools</p>
             </div>
-            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
+            <ul className="tm-home__list">
               <li>
-                <Link href="/tools/seo-meta-tag-generator" className="hover:underline">
+                <Link href="/tools/seo-meta-tag-generator" className="tm-home__link">
                   SEO Meta Tag Generator
                 </Link>
               </li>
               <li>
-                <Link href="/tools/privacy-policy-generator" className="hover:underline">
+                <Link href="/tools/privacy-policy-generator" className="tm-home__link">
                   Privacy Policy Generator
                 </Link>
               </li>
               <li>
-                <Link href="/tools/terms-generator" className="hover:underline">
+                <Link href="/tools/terms-generator" className="tm-home__link">
                   Terms Generator
                 </Link>
               </li>
               <li>
-                <Link href="/tools/simple-ab-test-tool" className="hover:underline">
+                <Link href="/tools/simple-ab-test-tool" className="tm-home__link">
                   Simple A/B Test Tool
                 </Link>
               </li>
               <li>
-                <Link href="/tools/website-speed-explainer" className="hover:underline">
+                <Link href="/tools/website-speed-explainer" className="tm-home__link">
                   Website Speed Explainer
                 </Link>
               </li>
               <li>
-                <Link href="/tools/landing-copy" className="hover:underline">
+                <Link href="/tools/landing-copy" className="tm-home__link">
                   Landing Page Copy Generator
                 </Link>
               </li>
               <li>
-                <Link href="/tools/landing-page-critiquer" className="hover:underline">
+                <Link href="/tools/landing-page-critiquer" className="tm-home__link">
                   Landing Page Critiquer
                 </Link>
               </li>
               <li>
-                <Link href="/tools/checkout-page-optimizer" className="hover:underline">
+                <Link href="/tools/checkout-page-optimizer" className="tm-home__link">
                   Checkout Page Optimizer
                 </Link>
               </li>
             </ul>
           </div>
-          <div className="min-w-0 rounded-lg border border-white/30 p-3 text-left sm:p-4 lg:p-3.5 xl:p-4">
-            <div className="text-base font-bold leading-snug sm:text-lg lg:text-base xl:text-xl">
+          <div className="tm-home__card">
+            <div className="tm-home__card-head">
               <p>Automation Tools</p>
               <p>(NO-CODE FEEL)</p>
             </div>
-            <ul className="mt-3.5 space-y-1 text-xs font-medium text-gray-200 sm:mt-4 sm:space-y-1.5 sm:text-sm lg:text-xs xl:text-sm">
+            <ul className="tm-home__list">
               <li>
-                <Link href="/tools/auto-follow-up-sender" className="hover:underline">
+                <Link href="/tools/auto-follow-up-sender" className="tm-home__link">
                   Auto Follow-Up Sender
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/tools/lead-capture-email-sequence"
-                  className="hover:underline"
-                >
+                <Link href="/tools/lead-capture-email-sequence" className="tm-home__link">
                   Lead Capture → Email Sequence Tool
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/tools/form-google-sheet-email-workflow"
-                  className="hover:underline"
-                >
+                <Link href="/tools/form-google-sheet-email-workflow" className="tm-home__link">
                   Form → Google Sheet → Email Workflow
                 </Link>
               </li>
               <li>
-                <Link href="/tools/dm-crm-capture" className="hover:underline">
+                <Link href="/tools/dm-crm-capture" className="tm-home__link">
                   DM → CRM Capture Tool
                 </Link>
               </li>
