@@ -1,0 +1,10 @@
+---
+description: Use thorough local steps before stopping; still no usage-causing calls
+alwaysApply: true
+---
+
+# Exhaust Local Options Before Stopping
+
+- Follow **no-usage-causing-calls**: no web search, URL fetch, or external APIs unless the user explicitly asked for live data or deployment.
+- Within that limit, **prefer thorough local work** over stopping early: read relevant files, trace the pipeline (e.g. built output / route CSS), run **local** `build` / `lint` / `tsc` when they clarify the issue and do not incur paid API usage.
+- If a first local fix fails, **try the next local check or fix** (wrong file, wrong import path, cache/stale `.next`, duplicate CSS sources) before telling the user to “only rebuild” without verifying what the build emitted.
