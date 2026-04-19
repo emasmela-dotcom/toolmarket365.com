@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 const SHARE_TEXT =
   "ToolMarket365 — micro-SaaS tools for creators: content, billing, CRM, analytics, and more in one place."
@@ -11,10 +11,12 @@ export function HomeShareBar() {
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://creatorflow365.com"
   ).replace(/\/$/, "")
 
-  const pageUrl = useMemo(() => {
-    if (typeof window === "undefined") return `${fallbackOrigin}/`
-    return `${window.location.origin}/`
-  }, [fallbackOrigin])
+  /** Must match SSR on first paint; sync real origin after hydrate to avoid href mismatch. */
+  const [pageUrl, setPageUrl] = useState(`${fallbackOrigin}/`)
+
+  useEffect(() => {
+    setPageUrl(`${window.location.origin}/`)
+  }, [])
 
   const twitterHref = useMemo(() => {
     const u = pageUrl || `${fallbackOrigin}/`
@@ -31,9 +33,7 @@ export function HomeShareBar() {
   }, [pageUrl, fallbackOrigin])
 
   const copy = async () => {
-    const u =
-      pageUrl ||
-      `${typeof window !== "undefined" ? window.location.origin : fallbackOrigin}/`
+    const u = pageUrl || `${fallbackOrigin}/`
     try {
       await navigator.clipboard.writeText(u)
       setCopied(true)
