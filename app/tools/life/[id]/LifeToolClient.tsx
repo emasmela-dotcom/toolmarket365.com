@@ -4,7 +4,7 @@ import { useState } from "react"
 import type { LifeToolMeta } from "@/lib/lifeTools/types"
 
 const inputClass =
-  "border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 !text-neutral-900 dark:!text-neutral-100 placeholder:text-neutral-600 dark:placeholder:text-neutral-400"
+  "border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 !text-mono-950 dark:!text-mono-50 !placeholder:text-mono-800 dark:!placeholder:text-mono-400 caret-mono-950 dark:caret-mono-50"
 
 export function LifeToolClient({ meta }: { meta: LifeToolMeta }) {
   const [values, setValues] = useState<Record<string, string>>({})
