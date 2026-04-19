@@ -21,14 +21,12 @@ export const SITE_KEYWORDS = [
   "link in bio",
   "ToolMarket365",
   "CreatorFlow365",
-  "LifePack365",
-  "lifepack365",
 ]
 
-/** Sister product — set `NEXT_PUBLIC_LIFEPACK365_URL` in Vercel when the live URL is final. */
-export function getLifepack365Url(): string {
-  const raw =
-    process.env.NEXT_PUBLIC_LIFEPACK365_URL?.trim() || "https://lifepack365.com"
+/** Sister product base URL — only set when DNS is live. No default (avoids dead links). */
+export function getLifepack365Url(): string | null {
+  const raw = process.env.NEXT_PUBLIC_LIFEPACK365_URL?.trim()
+  if (!raw) return null
   return raw.replace(/\/$/, "")
 }
 

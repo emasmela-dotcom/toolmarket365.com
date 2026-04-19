@@ -33,11 +33,15 @@ export default function RootPage() {
         description: SITE_DESCRIPTION,
         inLanguage: 'en-US',
         publisher: { '@id': `${base}/#org` },
-        mentions: {
-          '@type': 'WebSite',
-          name: 'LifePack365',
-          url: lifepack,
-        },
+        ...(lifepack
+          ? {
+              mentions: {
+                '@type': 'WebSite',
+                name: 'LifePack365',
+                url: lifepack,
+              },
+            }
+          : {}),
       },
       {
         '@type': 'Organization',

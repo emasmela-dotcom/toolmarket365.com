@@ -12,17 +12,19 @@ export function Footer() {
             <p className="text-sm text-mono-600">
               ToolMarket365 platform
             </p>
-            <p className="text-sm text-mono-600 mt-3">
-              Sister product:{' '}
-              <a
-                href={lifepackUrl}
-                className="text-accent-600 hover:text-accent-700 font-medium"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {LIFEPACK365_NAME}
-              </a>
-            </p>
+            {lifepackUrl ? (
+              <p className="text-sm text-mono-600 mt-3">
+                Sister product:{' '}
+                <a
+                  href={lifepackUrl}
+                  className="text-accent-600 hover:text-accent-700 font-medium"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {LIFEPACK365_NAME}
+                </a>
+              </p>
+            ) : null}
           </div>
           
           <div>

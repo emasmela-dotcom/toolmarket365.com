@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { getLifepack365Url, LIFEPACK365_NAME } from "@/lib/siteConfig"
 
 const SHARE_TEXT =
   "ToolMarket365 — micro-SaaS tools for creators: content, billing, CRM, analytics, and more in one place."
@@ -11,7 +10,6 @@ export function HomeShareBar() {
   const fallbackOrigin = (
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://creatorflow365.com"
   ).replace(/\/$/, "")
-  const lifepackUrl = getLifepack365Url()
 
   const pageUrl = useMemo(() => {
     if (typeof window === "undefined") return `${fallbackOrigin}/`
@@ -57,9 +55,6 @@ export function HomeShareBar() {
         </a>
         <a className="tm-home__share-btn" href={linkedInHref} target="_blank" rel="noopener noreferrer">
           Share on LinkedIn
-        </a>
-        <a className="tm-home__share-btn" href={lifepackUrl} target="_blank" rel="noopener noreferrer">
-          {LIFEPACK365_NAME}
         </a>
       </div>
     </div>

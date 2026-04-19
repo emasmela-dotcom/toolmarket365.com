@@ -16,12 +16,14 @@ export default function HomeMarketing() {
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>
         <HomeShareBar />
-        <p className="tm-home__sister">
-          <span className="tm-home__sister-label">Sister product</span>{' '}
-          <a href={lifepackUrl} className="tm-home__sister-link" target="_blank" rel="noopener noreferrer">
-            {LIFEPACK365_NAME}
-          </a>
-        </p>
+        {lifepackUrl ? (
+          <p className="tm-home__sister">
+            <span className="tm-home__sister-label">Sister product</span>{' '}
+            <a href={lifepackUrl} className="tm-home__sister-link" target="_blank" rel="noopener noreferrer">
+              {LIFEPACK365_NAME}
+            </a>
+          </p>
+        ) : null}
         <div className="tm-home__grid">
           <article className="tm-home__card">
             <div className="tm-home__card-head">

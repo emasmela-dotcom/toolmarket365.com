@@ -155,23 +155,36 @@ export default function MarketingKitPage() {
         </Block>
 
         <Block title="LifePack365 cross-promo (sister product)">
-          <p className="text-sm text-mono-700 dark:text-mono-300 mb-2">
-            Public URL: <a className="text-accent-600 hover:underline font-medium" href={lifepack}>{lifepack}</a> (
-            {LIFEPACK365_NAME})
-          </p>
-          <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-            <li>Use separate UTMs on the LifePack365 site when you drive traffic from TM365 emails or banners.</li>
-            <li>Example out-link with UTMs (edit host):</li>
-          </ul>
-          <pre className="mt-2 text-xs break-all bg-mono-100 dark:bg-mono-950 p-3 rounded text-mono-800 dark:text-mono-200">
-            {`${lifepack}/?utm_source=toolmarket365&utm_medium=referral&utm_campaign=sister_footer`}
-          </pre>
-          <div className="mt-2">
-            <CopyTextButton
-              text={`${lifepack}/?utm_source=toolmarket365&utm_medium=referral&utm_campaign=sister_footer`}
-              label="Copy example LP link"
-            />
-          </div>
+          {lifepack ? (
+            <>
+              <p className="text-sm text-mono-700 dark:text-mono-300 mb-2">
+                Public URL:{' '}
+                <a className="text-accent-600 hover:underline font-medium" href={lifepack}>
+                  {lifepack}
+                </a>{' '}
+                ({LIFEPACK365_NAME})
+              </p>
+              <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
+                <li>Use separate UTMs on the LifePack365 site when you drive traffic from TM365 emails or banners.</li>
+                <li>Example out-link with UTMs:</li>
+              </ul>
+              <pre className="mt-2 text-xs break-all bg-mono-100 dark:bg-mono-950 p-3 rounded text-mono-800 dark:text-mono-200">
+                {`${lifepack}/?utm_source=toolmarket365&utm_medium=referral&utm_campaign=sister_footer`}
+              </pre>
+              <div className="mt-2">
+                <CopyTextButton
+                  text={`${lifepack}/?utm_source=toolmarket365&utm_medium=referral&utm_campaign=sister_footer`}
+                  label="Copy example LP link"
+                />
+              </div>
+            </>
+          ) : (
+            <p className="text-sm text-mono-700 dark:text-mono-300">
+              Set <code className="text-xs bg-mono-100 dark:bg-mono-800 px-1 rounded">NEXT_PUBLIC_LIFEPACK365_URL</code>{' '}
+              when the sister site is live. Until then, home and footer do not link to {LIFEPACK365_NAME} (no default
+              domain).
+            </p>
+          )}
         </Block>
       </main>
     </div>
