@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { BarChart3, Search, Video, Palette, TrendingUp, DollarSign, FolderOpen } from 'lucide-react';
+import { BarChart3, Search, Video, Palette, TrendingUp, DollarSign, FolderOpen, Zap } from 'lucide-react';
 
 const categories = [
   {
@@ -115,6 +115,21 @@ const categories = [
       'Social Scheduler',
       'Best Time to Post'
     ]
+  },
+  {
+    title: 'Productivity & Workflow',
+    slug: 'productivity-workflow',
+    description: 'Notion exports, meetings, tasks, digests, and focus analytics',
+    icon: Zap,
+    color: 'bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200',
+    toolCount: 5,
+    tools: [
+      'Notion-to-PDF exporter',
+      'Meeting summarizer',
+      'Recurring task automator',
+      'Email digest builder',
+      'Focus timer with analytics'
+    ]
   }
 ]
 
@@ -200,7 +215,7 @@ export default function CategoriesPage() {
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-accent-600 dark:text-accent-400 mb-2">
-                  7
+                  8
                 </div>
                 <div className="text-sm text-mono-600 dark:text-mono-400">
                   Categories

@@ -256,6 +256,39 @@ export default function HomeMarketing() {
               </li>
             </ul>
           </article>
+          <article className="tm-home__card">
+            <div className="tm-home__card-head">
+              <p>Productivity &amp; Workflow</p>
+              <p>(SHIP FASTER)</p>
+            </div>
+            <ul className="tm-home__list">
+              <li>
+                <Link href="/tools/notion-to-pdf-exporter" className="tm-home__link">
+                  Notion-to-PDF exporter
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/meeting-summarizer" className="tm-home__link">
+                  Meeting summarizer
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/recurring-task-automator" className="tm-home__link">
+                  Recurring task automator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/email-digest-builder" className="tm-home__link">
+                  Email digest builder
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/focus-timer-analytics" className="tm-home__link">
+                  Focus timer with analytics
+                </Link>
+              </li>
+            </ul>
+          </article>
         </div>
       </section>
     </main>
