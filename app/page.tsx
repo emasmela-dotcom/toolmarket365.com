@@ -1,5 +1,7 @@
-import { redirect } from "next/navigation";
+import HomeMarketing from '@/components/HomeMarketing'
+
+export const dynamic = 'force-dynamic'
 
 export default function RootPage() {
-  redirect("/home");
+  return <HomeMarketing />
 }

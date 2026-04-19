@@ -1,4 +1,5 @@
-/* Static /home styles — not processed by Tailwind (avoids missing rules in prod). */
+/** Injected in root layout so / and /home marketing styles are not dropped by the CSS pipeline. */
+export const HOME_PANELS_CSS = `
 body:has(main.tm-home) {
   background-color: #000000;
   color: #ffffff;
@@ -213,3 +214,4 @@ body:has(main.tm-home) {
 .tm-home__link:hover {
   text-decoration: underline;
 }
+`.trim()

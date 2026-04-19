@@ -1,8 +1,6 @@
 import Link from 'next/link'
 
-export const dynamic = 'force-dynamic'
-
-export default function HomePage() {
+export default function HomeMarketing() {
   return (
     <main className="tm-home">
       <div className="tm-home__glow" aria-hidden />

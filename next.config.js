@@ -7,6 +7,9 @@ const nextConfig = {
   images: {
     domains: [],
   },
+  async rewrites() {
+    return [{ source: '/home', destination: '/' }]
+  },
   webpack: (config) => {
     // Use IgnorePlugin to completely ignore these packages
     config.plugins.push(

@@ -1,0 +1,11 @@
+# Start Server Before Sending Local URL
+
+When giving the user a local test URL (for example `http://localhost:3000`), do this first:
+
+1. Check whether the dev server is already running.
+2. If it is not running, start it with the project's dev command.
+3. Wait until the server prints a reachable local URL.
+4. Send the exact running URL/port to the user (for example `http://localhost:3000` or `http://localhost:3001`).
+5. Do not send a localhost URL before confirming the server is live.
+
+If starting the server fails, report the failure and the relevant error output instead of giving a URL.
