@@ -90,6 +90,11 @@ export function Footer() {
                   Feedback & Suggestions 💬
                 </Link>
               </li>
+              <li>
+                <Link href="/marketing-kit" className="text-mono-600 hover:text-accent-600 transition-colors">
+                  Marketing kit
+                </Link>
+              </li>
             </ul>
           </div>
           
