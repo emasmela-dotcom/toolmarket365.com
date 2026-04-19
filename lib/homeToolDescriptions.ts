@@ -1,5 +1,7 @@
+import { lifeToolHomeDescriptions } from '@/lib/lifeTools/metadata'
+
 /** One-line descriptions for home marketing tool links (hover / focus tooltips). */
-export const HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
+const CORE_HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
   '/tools/hook-generator':
     'Generate scroll-stopping hooks for posts, ads, and videos from your topic or offer.',
   '/tools/content-idea-engine':
@@ -146,6 +148,11 @@ export const HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
     'PNG QR from URL or text with custom dark/light hex colors.',
   '/tools/url-shortener':
     'Create short links on this host with in-memory click counts — demo/sandbox, not durable storage.',
+}
+
+export const HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
+  ...CORE_HOME_TOOL_DESCRIPTIONS,
+  ...lifeToolHomeDescriptions(),
 }
 
 export function homeToolTipId(href: string): string {

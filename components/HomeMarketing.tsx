@@ -1,5 +1,6 @@
 import { HomeShareBar } from '@/components/HomeShareBar'
 import { HomeToolTipLink } from '@/components/HomeToolTipLink'
+import { lifeToolSectionsForHome } from '@/lib/lifeTools/homeSections'
 import { getLifepack365Url, LIFEPACK365_NAME } from '@/lib/siteConfig'
 
 export default function HomeMarketing() {
@@ -460,6 +461,23 @@ export default function HomeMarketing() {
               </li>
             </ul>
           </article>
+          {lifeToolSectionsForHome().map((sec) => (
+            <article key={sec.category} className="tm-home__card">
+              <div className="tm-home__card-head">
+                <p>{sec.category}</p>
+                <p>{sec.tag}</p>
+              </div>
+              <ul className="tm-home__list">
+                {sec.tools.map((t) => (
+                  <li key={t.id}>
+                    <HomeToolTipLink href={`/tools/life/${t.id}`} className="tm-home__link">
+                      {t.title}
+                    </HomeToolTipLink>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Integrations &amp; Utilities</p>
