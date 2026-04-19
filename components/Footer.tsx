@@ -1,6 +1,8 @@
 import Link from 'next/link'
+import { getLifepack365Url, LIFEPACK365_NAME } from '@/lib/siteConfig'
 
 export function Footer() {
+  const lifepackUrl = getLifepack365Url()
   return (
     <footer className="border-t border-mono-200 bg-mono-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -9,6 +11,17 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-mono-950 mb-4">ToolMarket365</h3>
             <p className="text-sm text-mono-600">
               ToolMarket365 platform
+            </p>
+            <p className="text-sm text-mono-600 mt-3">
+              Sister product:{' '}
+              <a
+                href={lifepackUrl}
+                className="text-accent-600 hover:text-accent-700 font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {LIFEPACK365_NAME}
+              </a>
             </p>
           </div>
           

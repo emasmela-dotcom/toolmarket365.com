@@ -10,7 +10,8 @@ body:has(main.tm-home) {
   flex: 1;
   min-height: 100vh;
   min-height: 100dvh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   background: #000000;
   color: #ffffff;
   font-family: ui-sans-serif, system-ui, sans-serif;
@@ -41,6 +42,7 @@ body:has(main.tm-home) {
   justify-content: flex-start;
   padding: 3.5rem 1rem 2rem;
   text-align: center;
+  overflow: visible;
 }
 
 @media (min-width: 640px) {
@@ -93,6 +95,76 @@ body:has(main.tm-home) {
   }
 }
 
+.tm-home__share {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tm-home__share-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.tm-home__share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tm-home__share-btn {
+  border-radius: 0.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tm-home__share-btn:hover {
+  background: rgba(59, 130, 246, 0.28);
+  border-color: rgba(147, 197, 253, 0.65);
+  color: #ffffff;
+}
+
+.tm-home__sister {
+  margin: 0.75rem 0 0;
+  max-width: 40rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #d1d5db;
+}
+
+.tm-home__sister-label {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  color: #9ca3af;
+}
+
+.tm-home__sister-link {
+  font-weight: 700;
+  color: #93c5fd;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tm-home__sister-link:hover {
+  color: #bfdbfe;
+}
+
 .tm-home__grid {
   margin-top: 2rem;
   display: grid;
@@ -102,6 +174,7 @@ body:has(main.tm-home) {
   gap: 1rem;
   align-self: stretch;
   text-align: left;
+  overflow: visible;
 }
 
 @media (min-width: 768px) {
@@ -119,6 +192,7 @@ body:has(main.tm-home) {
 
 .tm-home__card {
   min-width: 0;
+  overflow: visible;
   border-radius: 0.5rem;
   border: 1px solid rgba(255, 255, 255, 0.32);
   background: transparent;
@@ -213,5 +287,46 @@ body:has(main.tm-home) {
 
 .tm-home__link:hover {
   text-decoration: underline;
+}
+
+.tm-home-tooltip-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.tm-home-tooltip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(100% + 0.2rem);
+  z-index: 60;
+  width: max-content;
+  max-width: min(18.5rem, 92vw);
+  padding: 0.5rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #f9fafb;
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0.375rem;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.14s ease,
+    visibility 0.14s ease;
+  text-align: left;
+  text-decoration: none;
+}
+
+.tm-home-tooltip-wrap:hover .tm-home-tooltip,
+.tm-home-tooltip-wrap:focus-within .tm-home-tooltip {
+  opacity: 1;
+  visibility: visible;
 }
 `.trim()

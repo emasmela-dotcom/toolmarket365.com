@@ -1,6 +1,10 @@
+import { HomeShareBar } from '@/components/HomeShareBar'
 import { HomeToolTipLink } from '@/components/HomeToolTipLink'
+import { getLifepack365Url, LIFEPACK365_NAME } from '@/lib/siteConfig'
 
 export default function HomeMarketing() {
+  const lifepackUrl = getLifepack365Url()
+
   return (
     <main className="tm-home">
       <div className="tm-home__glow" aria-hidden />
@@ -9,6 +13,13 @@ export default function HomeMarketing() {
         <h1 className="tm-home__title">ToolMarket365</h1>
         <p className="tm-home__tagline">
           Your entire business, one tab, built with the toolkit the internet forgot to build.
+        </p>
+        <HomeShareBar />
+        <p className="tm-home__sister">
+          <span className="tm-home__sister-label">Sister product</span>{' '}
+          <a href={lifepackUrl} className="tm-home__sister-link" target="_blank" rel="noopener noreferrer">
+            {LIFEPACK365_NAME}
+          </a>
         </p>
         <div className="tm-home__grid">
           <article className="tm-home__card">
