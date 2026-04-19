@@ -1,5 +1,19 @@
 import Link from 'next/link'
-import { BarChart3, Search, Video, Palette, TrendingUp, DollarSign, FolderOpen, Zap } from 'lucide-react';
+import {
+  BarChart3,
+  Search,
+  Video,
+  Palette,
+  TrendingUp,
+  DollarSign,
+  FolderOpen,
+  Zap,
+  LineChart,
+  Wallet,
+  Sparkles,
+  Megaphone,
+  UsersRound,
+} from 'lucide-react'
 
 const categories = [
   {
@@ -130,6 +144,80 @@ const categories = [
       'Email digest builder',
       'Focus timer with analytics'
     ]
+  },
+  {
+    title: 'Analytics & Reporting',
+    slug: 'analytics-reporting',
+    description: 'Uptime, SEO audits, GA storytelling, changelogs, and heatmap planning',
+    icon: LineChart,
+    color: 'bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200',
+    toolCount: 5,
+    tools: [
+      'Uptime monitor',
+      'SEO audit tool',
+      'Google Analytics simplifier',
+      'Changelog generator',
+      'Heatmap recorder'
+    ]
+  },
+  {
+    title: 'Finance & Billing',
+    slug: 'finance-billing',
+    description: 'Invoices, expenses, SaaS burn, and revenue narratives',
+    icon: Wallet,
+    color: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200',
+    toolCount: 4,
+    tools: [
+      'Invoice generator',
+      'Expense tracker',
+      'Subscription tracker',
+      'Revenue dashboard'
+    ]
+  },
+  {
+    title: 'AI-Powered Tools',
+    slug: 'ai-powered-tools',
+    description: 'Drafts for blogs, alt text, replies, products, and outreach',
+    icon: Sparkles,
+    color: 'bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900 dark:text-fuchsia-200',
+    toolCount: 5,
+    tools: [
+      'AI blog post writer',
+      'AI image alt-text generator',
+      'AI email reply assistant',
+      'AI product description writer',
+      'AI cold outreach personalizer'
+    ]
+  },
+  {
+    title: 'Marketing & Social',
+    slug: 'marketing-social',
+    description: 'Scheduling, link-in-bio, reviews, threads, and lead magnets',
+    icon: Megaphone,
+    color: 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200',
+    toolCount: 5,
+    tools: [
+      'Social media scheduler',
+      'Link-in-bio builder',
+      'Review request automator',
+      'Twitter/X thread composer',
+      'Lead magnet delivery tool'
+    ]
+  },
+  {
+    title: 'Client & Team Tools',
+    slug: 'client-team-tools',
+    description: 'Portals, proposals, lightweight CRM, feedback, standups',
+    icon: UsersRound,
+    color: 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200',
+    toolCount: 5,
+    tools: [
+      'Client portal builder',
+      'Proposal/contract generator',
+      'Simple CRM',
+      'Feedback widget',
+      'Team standup bot'
+    ]
   }
 ]
 
@@ -215,7 +303,7 @@ export default function CategoriesPage() {
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-accent-600 dark:text-accent-400 mb-2">
-                  8
+                  13
                 </div>
                 <div className="text-sm text-mono-600 dark:text-mono-400">
                   Categories
