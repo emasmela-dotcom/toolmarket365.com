@@ -46,14 +46,14 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
+    <div className="min-h-screen bg-mono-100 dark:bg-mono-100">
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-md mx-auto">
-          <div className="bg-white dark:bg-mono-900 rounded-lg p-8 border border-mono-200 dark:border-mono-700 shadow-lg">
+          <div className="bg-white dark:bg-white rounded-lg p-8 border border-mono-300 dark:border-mono-300 shadow-lg">
             <div className="mb-6">
               <Link
                 href="/login"
-                className="inline-flex items-center text-sm text-mono-600 dark:text-mono-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+                className="inline-flex items-center text-sm text-mono-700 hover:text-accent-700 transition-colors"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Sign In
@@ -61,10 +61,10 @@ export default function ForgotPasswordPage() {
             </div>
 
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+              <h1 className="text-3xl font-bold text-mono-950 mb-2">
                 Forgot Password?
               </h1>
-              <p className="text-mono-600 dark:text-mono-400">
+              <p className="text-mono-700">
                 Enter your email address and we'll send you a link to reset your password.
               </p>
             </div>
@@ -116,7 +116,7 @@ export default function ForgotPasswordPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-mono-950 dark:text-mono-50 mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold text-mono-900 mb-2">
                     Email Address
                   </label>
                   <div className="relative">
@@ -127,7 +127,7 @@ export default function ForgotPasswordPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="w-full pl-10 pr-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
+                      className="w-full pl-10 pr-4 py-2 border border-mono-400 rounded-lg bg-white text-mono-950 placeholder:text-mono-600 focus:outline-none focus:ring-2 focus:ring-accent-500"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -151,11 +151,11 @@ export default function ForgotPasswordPage() {
             )}
 
             <div className="mt-6 text-center">
-              <p className="text-sm text-mono-600 dark:text-mono-400">
+              <p className="text-sm text-mono-700">
                 Remember your password?{' '}
                 <Link
                   href="/login"
-                  className="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium"
+                  className="text-accent-700 hover:text-accent-800 font-medium"
                 >
                   Sign in
                 </Link>

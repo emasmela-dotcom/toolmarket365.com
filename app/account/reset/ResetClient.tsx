@@ -40,11 +40,11 @@ export default function ResetClient() {
   }
 
   return (
-    <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-10 px-4">
+    <div className="min-h-screen bg-mono-100 dark:bg-mono-100 py-10 px-4">
       <div className="max-w-lg mx-auto">
-        <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-6">Reset password</h1>
+        <h1 className="text-3xl font-bold text-mono-950 mb-6">Reset password</h1>
 
-        <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
+        <div className="bg-white dark:bg-white rounded-2xl shadow-xl p-6 border border-mono-300 dark:border-mono-300">
           {err && (
             <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 rounded border border-red-200 dark:border-red-800">
               <p className="text-sm text-red-800 dark:text-red-200">{err}</p>
@@ -58,23 +58,23 @@ export default function ResetClient() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">New password</label>
+              <label className="block text-sm font-semibold mb-2 text-mono-900">New password</label>
               <input
                 value={pw}
                 onChange={(e) => setPw(e.target.value)}
                 type="password"
-                className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
+                className="w-full px-4 py-2 border border-mono-400 rounded bg-white text-mono-950 placeholder:text-mono-600"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">
+              <label className="block text-sm font-semibold mb-2 text-mono-900">
                 Confirm new password
               </label>
               <input
                 value={pw2}
                 onChange={(e) => setPw2(e.target.value)}
                 type="password"
-                className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
+                className="w-full px-4 py-2 border border-mono-400 rounded bg-white text-mono-950 placeholder:text-mono-600"
               />
             </div>
 
@@ -86,9 +86,9 @@ export default function ResetClient() {
               {loading ? 'Working…' : 'Update password'}
             </button>
 
-            <p className="text-xs text-mono-500">
+            <p className="text-xs text-mono-700">
               Back to{' '}
-              <Link href="/account" className="underline">
+              <Link href="/login" className="underline text-accent-700 hover:text-accent-800">
                 account
               </Link>
               .

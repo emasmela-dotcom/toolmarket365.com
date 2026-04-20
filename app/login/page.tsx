@@ -43,15 +43,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
+    <div className="min-h-screen bg-mono-100 dark:bg-mono-100">
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-md mx-auto">
-          <div className="bg-white dark:bg-mono-900 rounded-lg p-8 border border-mono-200 dark:border-mono-700 shadow-lg">
+          <div className="bg-white dark:bg-white rounded-lg p-8 border border-mono-300 dark:border-mono-300 shadow-lg">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+              <h1 className="text-3xl font-bold text-mono-950 mb-2">
                 Sign In
               </h1>
-              <p className="text-mono-600 dark:text-mono-400">
+              <p className="text-mono-700">
                 Welcome back to ToolMarket365
               </p>
             </div>
@@ -65,7 +65,7 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-mono-950 dark:text-mono-50 mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold text-mono-900 mb-2">
                   Email Address
                 </label>
                 <div className="relative">
@@ -76,14 +76,14 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full pl-10 pr-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
+                    className="w-full pl-10 pr-4 py-2 border border-mono-400 rounded-lg bg-white text-mono-950 placeholder:text-mono-600 focus:outline-none focus:ring-2 focus:ring-accent-500"
                     placeholder="your.email@example.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-mono-950 dark:text-mono-50 mb-2">
+                <label htmlFor="password" className="block text-sm font-semibold text-mono-900 mb-2">
                   Password
                 </label>
                 <div className="relative">
@@ -94,13 +94,13 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full pl-10 pr-10 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
+                    className="w-full pl-10 pr-10 py-2 border border-mono-400 rounded-lg bg-white text-mono-950 placeholder:text-mono-600 focus:outline-none focus:ring-2 focus:ring-accent-500"
                     placeholder="Enter your password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-mono-400 hover:text-mono-600 dark:hover:text-mono-300"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-mono-500 hover:text-mono-700"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -113,11 +113,11 @@ export default function LoginPage() {
                     type="checkbox"
                     className="rounded"
                   />
-                  <span className="text-sm text-mono-600 dark:text-mono-400">Remember me</span>
+                  <span className="text-sm text-mono-700">Remember me</span>
                 </label>
                 <Link
                   href="/forgot-password"
-                  className="text-sm text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300"
+                  className="text-sm text-accent-700 hover:text-accent-800 font-medium"
                 >
                   Forgot password?
                 </Link>
@@ -140,19 +140,19 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-6 text-center">
-              <p className="text-sm text-mono-600 dark:text-mono-400">
+              <p className="text-sm text-mono-700">
                 Don't have an account?{' '}
                 <Link
                   href="/signup"
-                  className="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium"
+                  className="text-accent-700 hover:text-accent-800 font-medium"
                 >
                   Sign up
                 </Link>
               </p>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-mono-200 dark:border-mono-700">
-              <p className="text-xs text-center text-mono-500 dark:text-mono-500">
+            <div className="mt-6 pt-6 border-t border-mono-200">
+              <p className="text-xs text-center text-mono-600">
                 You can use all tools without signing in. Sign in to save your work and access advanced features.
               </p>
             </div>
