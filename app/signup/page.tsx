@@ -47,11 +47,7 @@ export default function SignupPage() {
         router.push('/select-plan')
         router.refresh()
       } else {
-        if (data.requiresSetup) {
-          setError('Database not configured. Registration requires database setup. You can still use all tools without signing up.')
-        } else {
-          setError(data.error || 'Registration failed. Please try again.')
-        }
+        setError(data.error || 'Registration failed. Please try again.')
       }
     } catch (error) {
       setError('An error occurred. Please try again.')

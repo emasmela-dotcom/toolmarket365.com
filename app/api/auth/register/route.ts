@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
+import { createLocalSession, createLocalUser } from '@/lib/localAuth'
 import {
   SESSION_COOKIE_NAME,
   SESSION_TTL_DAYS,
@@ -15,14 +16,6 @@ import {
 export const runtime = 'nodejs'
 
 export async function POST(req: NextRequest) {
-  // If database not configured, return helpful message (auth is optional)
-  if (!sql) {
-    return NextResponse.json({ 
-      error: 'Registration requires database setup. Please configure DATABASE_URL in .env.local',
-      requiresSetup: true
-    }, { status: 503 })
-  }
-
   let body: any
   try {
     body = await req.json()
@@ -40,24 +33,41 @@ export async function POST(req: NextRequest) {
 
   try {
     const pwHash = await hashPassword(password)
-    // Extract name from email (part before @) as default name
-    const defaultName = email.split('@')[0] || 'User'
-    
-    const userRows = await sql`
-      INSERT INTO users (email, password_hash, name)
-      VALUES (${email}, ${pwHash}, ${defaultName})
-      RETURNING id, email
-    `
-
-    const user = userRows[0]
     const token = randomToken()
     const tokenHash = sha256Hex(token)
     const expiresAt = nowPlusDays(SESSION_TTL_DAYS).toISOString()
 
-    await sql`
-      INSERT INTO sessions (user_id, token_hash, expires_at)
-      VALUES (${user.id}, ${tokenHash}, ${expiresAt})
-    `
+    let user: { id: string; email: string }
+    if (!sql) {
+      // Local fallback mode for development when DATABASE_URL is absent.
+      const created = await createLocalUser({
+        id: randomToken(),
+        email,
+        passwordHash: pwHash,
+      })
+      if (!created.ok) {
+        return NextResponse.json({ error: 'An account with that email already exists' }, { status: 409 })
+      }
+      user = created.user
+      await createLocalSession({
+        userId: user.id,
+        tokenHash,
+        expiresAt,
+      })
+    } else {
+      // Extract name from email (part before @) as default name
+      const defaultName = email.split('@')[0] || 'User'
+      const userRows = await sql`
+        INSERT INTO users (email, password_hash, name)
+        VALUES (${email}, ${pwHash}, ${defaultName})
+        RETURNING id, email
+      `
+      user = userRows[0]
+      await sql`
+        INSERT INTO sessions (user_id, token_hash, expires_at)
+        VALUES (${user.id}, ${tokenHash}, ${expiresAt})
+      `
+    }
 
     const res = NextResponse.json({ user })
     res.cookies.set(SESSION_COOKIE_NAME, token, {

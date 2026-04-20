@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
+import { createLocalReset, getLocalUserByEmail } from '@/lib/localAuth'
 import { RESET_TTL_MINUTES, isValidEmail, normalizeEmail, nowPlusMinutes, randomToken, sha256Hex } from '@/lib/auth'
 
 export const runtime = 'nodejs'
 
 export async function POST(req: NextRequest) {
-  // If database not configured, return helpful message (auth is optional)
-  if (!sql) {
-    return NextResponse.json({ 
-      error: 'Password reset requires database setup. Please configure DATABASE_URL in .env.local',
-      requiresSetup: true
-    }, { status: 503 })
-  }
-
   let body: any
   try {
     body = await req.json()
@@ -27,18 +20,33 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const users = await sql`SELECT id, email FROM users WHERE email = ${email} LIMIT 1`
-    const user = users[0]
+    let user: { id: string; email: string } | null = null
+    if (!sql) {
+      const localUser = await getLocalUserByEmail(email)
+      if (localUser) user = { id: localUser.id, email: localUser.email }
+    } else {
+      const users = await sql`SELECT id, email FROM users WHERE email = ${email} LIMIT 1`
+      user = users[0] || null
+    }
+
     if (!user) return NextResponse.json({ ok: true })
 
     const token = randomToken()
     const tokenHash = sha256Hex(token)
     const expiresAt = nowPlusMinutes(RESET_TTL_MINUTES).toISOString()
 
-    await sql`
-      INSERT INTO password_resets (user_id, token_hash, expires_at)
-      VALUES (${user.id}, ${tokenHash}, ${expiresAt})
-    `
+    if (!sql) {
+      await createLocalReset({
+        userId: user.id,
+        tokenHash,
+        expiresAt,
+      })
+    } else {
+      await sql`
+        INSERT INTO password_resets (user_id, token_hash, expires_at)
+        VALUES (${user.id}, ${tokenHash}, ${expiresAt})
+      `
+    }
 
     // Use canonical site URL in production so reset links in email work on your .com domain
     const baseUrl =

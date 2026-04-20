@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
+import { createLocalSession, getLocalUserByEmail } from '@/lib/localAuth'
 
 export const runtime = 'nodejs'
 import {
@@ -14,14 +15,6 @@ import {
 } from '@/lib/auth'
 
 export async function POST(req: NextRequest) {
-  // If database not configured, return helpful message (auth is optional)
-  if (!sql) {
-    return NextResponse.json({ 
-      error: 'Authentication requires database setup. Please configure DATABASE_URL in .env.local',
-      requiresSetup: true
-    }, { status: 503 })
-  }
-
   let body: any
   try {
     body = await req.json()
@@ -36,13 +29,26 @@ export async function POST(req: NextRequest) {
   if (!password) return NextResponse.json({ error: 'Password is required' }, { status: 400 })
 
   try {
-    const rows = await sql`
-      SELECT id, email, password_hash
-      FROM users
-      WHERE email = ${email}
-      LIMIT 1
-    `
-    const user = rows[0]
+    let user: { id: string; email: string; password_hash: string } | null = null
+    if (!sql) {
+      const localUser = await getLocalUserByEmail(email)
+      if (localUser) {
+        user = {
+          id: localUser.id,
+          email: localUser.email,
+          password_hash: localUser.passwordHash,
+        }
+      }
+    } else {
+      const rows = await sql`
+        SELECT id, email, password_hash
+        FROM users
+        WHERE email = ${email}
+        LIMIT 1
+      `
+      user = rows[0] || null
+    }
+
     if (!user) return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 })
 
     const ok = await verifyPassword(password, user.password_hash)
@@ -52,10 +58,14 @@ export async function POST(req: NextRequest) {
     const tokenHash = sha256Hex(token)
     const expiresAt = nowPlusDays(SESSION_TTL_DAYS).toISOString()
 
-    await sql`
-      INSERT INTO sessions (user_id, token_hash, expires_at)
-      VALUES (${user.id}, ${tokenHash}, ${expiresAt})
-    `
+    if (!sql) {
+      await createLocalSession({ userId: user.id, tokenHash, expiresAt })
+    } else {
+      await sql`
+        INSERT INTO sessions (user_id, token_hash, expires_at)
+        VALUES (${user.id}, ${tokenHash}, ${expiresAt})
+      `
+    }
 
     const res = NextResponse.json({ user: { id: user.id, email: user.email } })
     res.cookies.set(SESSION_COOKIE_NAME, token, {

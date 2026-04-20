@@ -33,12 +33,8 @@ export default function ForgotPasswordPage() {
           setResetUrl(data.resetUrl)
         }
       } else {
-        if (data.requiresSetup) {
-          setError('Database not configured. Password reset requires database setup.')
-        } else {
-          // Always show success to prevent email enumeration
-          setSuccess(true)
-        }
+        // Always show success to prevent email enumeration
+        setSuccess(true)
       }
     } catch (error) {
       // Always show success to prevent email enumeration

@@ -32,11 +32,7 @@ export default function LoginPage() {
         router.push('/')
         router.refresh()
       } else {
-        if (data.requiresSetup) {
-          setError('Database not configured. Authentication requires database setup. You can still use all tools without signing in.')
-        } else {
-          setError(data.error || 'Login failed. Please check your credentials.')
-        }
+        setError(data.error || 'Login failed. Please check your credentials.')
       }
     } catch (error) {
       setError('An error occurred. Please try again.')

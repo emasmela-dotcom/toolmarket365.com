@@ -2,15 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export const runtime = 'nodejs'
 import { sql } from '@/lib/db'
+import { getLocalUserFromSessionTokenHash } from '@/lib/localAuth'
 import { SESSION_COOKIE_NAME, sha256Hex } from '@/lib/auth'
 import { getUserSubscriptionStatus } from '@/lib/subscription'
 
 export async function GET(req: NextRequest) {
-  // If database not configured, return null user (auth is optional)
-  if (!sql) {
-    return NextResponse.json({ user: null, subscription: null })
-  }
-
   const token = req.cookies.get(SESSION_COOKIE_NAME)?.value || ''
   if (!token) {
     return NextResponse.json({ user: null, subscription: null })
@@ -18,6 +14,20 @@ export async function GET(req: NextRequest) {
 
   try {
     const tokenHash = sha256Hex(token)
+    if (!sql) {
+      const user = await getLocalUserFromSessionTokenHash(tokenHash)
+      if (!user) return NextResponse.json({ user: null, subscription: null })
+      return NextResponse.json({
+        user: {
+          ...user,
+          accountType: 'user',
+          hasBrand: false,
+          hasCreator: false,
+        },
+        subscription: null,
+      })
+    }
+
     const rows = await sql`
       SELECT u.id, u.email
       FROM sessions s
