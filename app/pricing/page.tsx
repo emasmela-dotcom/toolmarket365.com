@@ -174,7 +174,7 @@ export default function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-accent-50 to-white dark:from-mono-900 dark:to-mono-950 py-16 border-b border-mono-200 dark:border-mono-700">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -200,17 +200,17 @@ export default function PricingPage() {
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700 text-mono-950 dark:text-mono-100">
                   <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">79%</div>
-                  <div className="text-xs text-mono-600 dark:text-mono-400">Cheaper</div>
+                  <div className="text-xs font-medium text-mono-800 dark:text-mono-200">Cheaper</div>
                 </div>
-                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700 text-mono-950 dark:text-mono-100">
                   <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">53+</div>
-                  <div className="text-xs text-mono-600 dark:text-mono-400">Tools vs 3-10</div>
+                  <div className="text-xs font-medium text-mono-800 dark:text-mono-200">Tools vs 3-10</div>
                 </div>
-                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
+                <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700 text-mono-950 dark:text-mono-100">
                   <div className="text-lg font-bold text-accent-600 dark:text-accent-400 mb-1">⭐ Only Us</div>
-                  <div className="text-xs text-mono-600 dark:text-mono-400">Viral Predictor</div>
+                  <div className="text-xs font-medium text-mono-800 dark:text-mono-200">Viral Predictor</div>
                 </div>
               </div>
               
@@ -223,18 +223,18 @@ export default function PricingPage() {
                     </svg>
                   </div>
                   <div className="flex-1 text-left">
-                    <p className="text-sm sm:text-base font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                    <p className="text-sm sm:text-base font-semibold text-blue-900 dark:text-blue-100 mb-2">
                       <strong>Our Promise:</strong> ToolMarket365 is the all-in-one solution. While each competitor may be stronger in their specialty, ToolMarket365 offers everything integrated at a better price.
                     </p>
-                    <p className="text-xs sm:text-sm text-blue-700 dark:text-blue-400 italic">
+                    <p className="text-xs sm:text-sm text-blue-900 dark:text-blue-100 leading-relaxed">
                       💡 Verify our claims: Check competitor pricing (Jasper AI, Canva, Analytics tools) and compare features yourself. We stand behind every statement—research and confirm.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <p className="text-lg text-zinc-700 dark:text-zinc-300 mb-6">
-              All new accounts include <span className="font-semibold text-accent-600">5 free tool uses after signup</span>
+            <p className="text-lg text-mono-600 dark:text-mono-400 mb-6">
+              All new accounts include <span className="font-semibold text-accent-600 dark:text-accent-400">5 free tool uses after signup</span>
             </p>
             
             {/* Interface Setup Banner - placed near plan selection */}
@@ -304,7 +304,7 @@ export default function PricingPage() {
                     Credit Plans Built for Usage Level
                   </h2>
                   <p className="text-base text-mono-700 dark:text-mono-300 mb-4 leading-relaxed">
-                    Every tool in each plan is <strong className="text-blue-700 dark:text-blue-300">intentionally selected</strong> to match the sophistication level and needs of creators at that stage. We don't just give you random tools—we give you the <strong className="text-blue-700 dark:text-blue-300">right tools for where you are</strong> in your creator journey.
+                    Every tool in each plan is <strong className="text-blue-700 dark:text-blue-100">intentionally selected</strong> to match the sophistication level and needs of creators at that stage. We don't just give you random tools—we give you the <strong className="text-blue-700 dark:text-blue-100">right tools for where you are</strong> in your creator journey.
                   </p>
                   <div className="space-y-3 mt-4">
                     <div className="flex items-start space-x-3">
@@ -337,10 +337,10 @@ export default function PricingPage() {
                     </div>
                   </div>
                   <div className="mt-6 pt-6 border-t border-blue-200 dark:border-blue-800">
-                    <p className="text-sm text-blue-800 dark:text-blue-300 font-medium mb-3">
+                    <p className="text-sm text-blue-800 dark:text-blue-100 font-medium mb-3">
                       💡 <strong>Why this matters:</strong> You get tools that match your experience level—no confusion, no overwhelm, just the right features for where you are right now.
                     </p>
-                    <p className="text-sm text-blue-800 dark:text-blue-300">
+                    <p className="text-sm text-blue-800 dark:text-blue-100">
                       🔌 <strong>API Access:</strong> Available to <strong>all plans</strong>. Connect ToolMarket365 to external services and build custom integrations. You pay for your own API usage—ToolMarket365 never charges for API access.
                     </p>
                   </div>
@@ -355,14 +355,14 @@ export default function PricingPage() {
       <section className="py-8 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white dark:bg-mono-900 rounded-lg border border-blue-200 dark:border-blue-800 p-6">
+            <div className="rounded-lg border border-blue-200 bg-white p-6 text-mono-950 dark:border-blue-800 dark:bg-mono-900 dark:text-mono-100">
               <div className="flex items-start space-x-3">
                 <Info className="h-6 w-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                  <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
                     Transparency Notice
                   </h3>
-                  <p className="text-sm text-blue-800 dark:text-blue-300">
+                  <p className="text-sm text-blue-800 dark:text-blue-100">
                     ToolMarket365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; ToolMarket365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your ToolMarket365 subscription cost predictable.
                   </p>
                 </div>
@@ -380,10 +380,10 @@ export default function PricingPage() {
               {plans.map((plan) => (
                 <div
                   key={plan.name}
-                  className={`relative bg-white text-zinc-900 rounded-lg border-2 p-6 ${
+                  className={`relative rounded-lg border-2 bg-white p-6 text-mono-950 dark:bg-mono-900 dark:text-mono-100 ${
                     plan.popular
                       ? 'border-accent-500 shadow-lg lg:scale-105'
-                      : 'border-zinc-300'
+                      : 'border-mono-200 dark:border-mono-700'
                   }`}
                 >
                   {plan.popular && (
@@ -395,21 +395,21 @@ export default function PricingPage() {
                   )}
                   
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-zinc-900 mb-1">
+                    <h3 className="text-xl font-bold text-mono-950 dark:text-mono-100 mb-1">
                       {plan.name}
                     </h3>
-                    <p className="text-xs text-zinc-700 mb-3">
+                    <p className="text-xs text-mono-600 dark:text-mono-300 mb-3">
                       {plan.description}
                     </p>
                     <div className="flex items-baseline justify-center">
-                      <span className="text-4xl font-bold text-zinc-900">
+                      <span className="text-4xl font-bold text-mono-950 dark:text-mono-100">
                         {plan.price}
                       </span>
-                      <span className="text-zinc-700 ml-1 text-sm">
+                      <span className="text-mono-600 dark:text-mono-300 ml-1 text-sm">
                         {plan.period}
                       </span>
                     </div>
-                    <p className="text-xs text-zinc-700 mt-1">
+                    <p className="text-xs text-mono-600 dark:text-mono-300 mt-1">
                       {plan.toolCount}
                     </p>
                     {plan.savings && (
@@ -423,7 +423,7 @@ export default function PricingPage() {
                     {plan.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start text-sm">
                         <Check className="h-4 w-4 text-green-600 dark:text-green-400 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-zinc-800 text-xs leading-relaxed">{feature}</span>
+                        <span className="text-mono-800 dark:text-mono-200 text-xs leading-relaxed">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -443,12 +443,12 @@ export default function PricingPage() {
                       className={`block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm transition-colors ${
                         plan.popular
                           ? 'bg-accent-600 text-white hover:bg-accent-700'
-                          : 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200'
+                          : 'bg-mono-100 text-mono-950 hover:bg-mono-200 dark:bg-mono-800 dark:text-mono-50 dark:hover:bg-mono-700'
                       }`}
                     >
                       Choose this plan
                     </Link>
-                    <p className="text-xs text-center text-zinc-700">
+                    <p className="text-xs text-center text-mono-600 dark:text-mono-300">
                       You’ll see Subscribe now or Start trial, plus terms for content during trial
                     </p>
                   </div>
@@ -469,29 +469,29 @@ export default function PricingPage() {
       </section>
 
       {/* Credit-priced tools: credits + $ per use */}
-      <section className="py-16 bg-white dark:bg-zinc-950 border-y border-zinc-200 dark:border-zinc-800">
+      <section className="py-16 bg-mono-50 dark:bg-mono-950 border-y border-mono-200 dark:border-mono-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50 mb-2 text-center">
+            <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2 text-center">
               Price per tool use
             </h2>
-            <p className="text-center text-zinc-800 dark:text-zinc-200 mb-2 max-w-2xl mx-auto">
+            <p className="text-center text-mono-700 dark:text-mono-300 mb-2 max-w-2xl mx-auto">
               Each run of a credit-priced tool spends the credits shown. Dollar amount is an estimate at the
               standard top-up rate: <span className="font-semibold">$10 for 50 credits</span> (
               <span className="font-semibold">${TOPUP_USD_PER_CREDIT.toFixed(2)} per credit</span>).
             </p>
-            <p className="text-center text-sm text-zinc-700 dark:text-zinc-300 mb-8">
+            <p className="text-center text-sm text-mono-600 dark:text-mono-400 mb-8">
               Tools without a credit badge are not charged per run from your credit balance.
             </p>
-            <div className="overflow-x-auto rounded-lg border-2 border-zinc-300 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-900">
-              <table className="w-full text-sm text-left">
+            <div className="overflow-x-auto rounded-lg border-2 border-mono-200 dark:border-mono-700 bg-white dark:bg-mono-900">
+              <table className="w-full text-sm text-left text-mono-950 dark:text-mono-100">
                 <thead>
-                  <tr className="border-b-2 border-zinc-300 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-800">
-                    <th className="p-3 font-semibold text-zinc-900 dark:text-zinc-50">Tool</th>
-                    <th className="p-3 font-semibold text-zinc-900 dark:text-zinc-50 whitespace-nowrap">
+                  <tr className="border-b-2 border-mono-200 dark:border-mono-700 bg-mono-100 dark:bg-mono-800">
+                    <th className="p-3 font-semibold">Tool</th>
+                    <th className="p-3 font-semibold whitespace-nowrap">
                       Credits / use
                     </th>
-                    <th className="p-3 font-semibold text-zinc-900 dark:text-zinc-50 whitespace-nowrap">
+                    <th className="p-3 font-semibold whitespace-nowrap">
                       About $ / use
                     </th>
                   </tr>
@@ -500,18 +500,18 @@ export default function PricingPage() {
                   {creditPricedToolRows.map((row) => (
                     <tr
                       key={row.slug}
-                      className="border-b border-zinc-200 dark:border-zinc-700 last:border-0 bg-white dark:bg-zinc-900"
+                      className="border-b border-mono-200 dark:border-mono-700 last:border-0 bg-white dark:bg-mono-900"
                     >
                       <td className="p-3 align-top">
-                        <div className="font-medium text-zinc-900 dark:text-zinc-50">{row.name}</div>
-                        <div className="text-xs text-zinc-700 dark:text-zinc-300 mt-1 max-w-md">
+                        <div className="font-medium">{row.name}</div>
+                        <div className="text-xs text-mono-600 dark:text-mono-300 mt-1 max-w-md">
                           {row.explanation}
                         </div>
                       </td>
-                      <td className="p-3 align-top font-semibold text-zinc-900 dark:text-zinc-50 whitespace-nowrap">
+                      <td className="p-3 align-top font-semibold whitespace-nowrap">
                         {row.credits}
                       </td>
-                      <td className="p-3 align-top font-semibold text-zinc-900 dark:text-zinc-50 whitespace-nowrap">
+                      <td className="p-3 align-top font-semibold whitespace-nowrap">
                         ${row.usd}
                       </td>
                     </tr>
@@ -519,7 +519,7 @@ export default function PricingPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-6 text-center text-sm text-zinc-800 dark:text-zinc-200">
+            <p className="mt-6 text-center text-sm text-mono-700 dark:text-mono-300">
               <Link
                 href="/credits"
                 className="font-semibold text-accent-600 dark:text-accent-400 underline hover:text-accent-700 dark:hover:text-accent-300"
@@ -543,34 +543,34 @@ export default function PricingPage() {
               <p className="text-lg text-mono-600 dark:text-mono-400 mb-2">
                 All accounts include 5 free tool uses after signup
               </p>
-              <p className="text-base text-zinc-700 dark:text-zinc-300 mb-2">
+              <p className="text-base text-mono-600 dark:text-mono-400 mb-2">
                 <strong>Lower plans:</strong> Premium tools cost credits per use. <strong>Higher plans:</strong> Premium tools included in your plan have unlimited use (no credits needed).
               </p>
-              <p className="text-base text-zinc-700 dark:text-zinc-300">
+              <p className="text-base text-mono-600 dark:text-mono-400">
                 Purchase additional credits to unlock more premium tool uses. Purchased credits roll over month to month.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {/* Starter Bundle */}
-              <div className="bg-white dark:bg-mono-900 rounded-lg border-2 border-mono-200 dark:border-mono-700 p-6 hover:shadow-lg transition-shadow">
+              <div className="rounded-lg border-2 border-mono-200 bg-white p-6 text-mono-950 hover:shadow-lg transition-shadow dark:border-mono-700 dark:bg-mono-900 dark:text-mono-100">
                 <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-100 mb-2">
                     Starter Bundle
                   </h3>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">$10</span>
+                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-100">$10</span>
                   </div>
-                  <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
+                  <p className="text-sm text-mono-700 dark:text-mono-300 mt-1">
                     50 credits
                   </p>
-                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">$0.20 per credit</p>
+                  <p className="text-xs text-mono-600 dark:text-mono-400 mt-1">$0.20 per credit</p>
                 </div>
                 <div className="space-y-2 mb-6 min-h-[120px]">
-                  <p className="text-sm text-mono-600 dark:text-mono-400 text-center">
+                  <p className="text-sm text-mono-700 dark:text-mono-300 text-center">
                     Perfect for trying premium tools
                   </p>
-                  <ul className="text-xs text-mono-600 dark:text-mono-400 space-y-1">
+                  <ul className="text-xs text-mono-700 dark:text-mono-300 space-y-1">
                     <li className="flex items-center">
                       <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
                       <span>5 uses of Viral Predictor</span>
@@ -608,27 +608,27 @@ export default function PricingPage() {
               </div>
 
               {/* Popular Bundle */}
-              <div className="bg-white dark:bg-mono-900 rounded-lg border-2 border-accent-500 shadow-lg p-6 hover:shadow-xl transition-shadow relative">
+              <div className="relative rounded-lg border-2 border-accent-500 bg-white p-6 text-mono-950 shadow-lg hover:shadow-xl transition-shadow dark:bg-mono-900 dark:text-mono-100">
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <span className="bg-accent-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
                     Most Popular
                   </span>
                 </div>
                 <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">Growth Bundle</h3>
+                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-100 mb-2">Growth Bundle</h3>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">$20</span>
+                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-100">$20</span>
                   </div>
-                  <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
+                  <p className="text-sm text-mono-700 dark:text-mono-300 mt-1">
                     100 credits
                   </p>
-                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">$0.20 per credit</p>
+                  <p className="text-xs text-mono-600 dark:text-mono-400 mt-1">$0.20 per credit</p>
                 </div>
                 <div className="space-y-2 mb-6 min-h-[120px]">
-                  <p className="text-sm text-mono-600 dark:text-mono-400 text-center">
+                  <p className="text-sm text-mono-700 dark:text-mono-300 text-center">
                     Best for steady monthly usage
                   </p>
-                  <ul className="text-xs text-mono-600 dark:text-mono-400 space-y-1">
+                  <ul className="text-xs text-mono-700 dark:text-mono-300 space-y-1">
                     <li className="flex items-center">
                       <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
                       <span>20 uses of Viral Predictor (5 credits each)</span>
@@ -654,25 +654,25 @@ export default function PricingPage() {
               </div>
 
               {/* Power Bundle */}
-              <div className="bg-white dark:bg-mono-900 rounded-lg border-2 border-mono-200 dark:border-mono-700 p-6 hover:shadow-lg transition-shadow">
+              <div className="rounded-lg border-2 border-mono-200 bg-white p-6 text-mono-950 hover:shadow-lg transition-shadow dark:border-mono-700 dark:bg-mono-900 dark:text-mono-100">
                 <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-100 mb-2">
                     Power Bundle
                   </h3>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">$45</span>
+                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-100">$45</span>
                   </div>
-                  <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
+                  <p className="text-sm text-mono-700 dark:text-mono-300 mt-1">
                     250 credits
                   </p>
                   <p className="text-xs text-green-600 dark:text-green-400 mt-1 font-semibold">Best bulk value</p>
-                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">$0.18 per credit</p>
+                  <p className="text-xs text-mono-600 dark:text-mono-400 mt-1">$0.18 per credit</p>
                 </div>
                 <div className="space-y-2 mb-6 min-h-[120px]">
-                  <p className="text-sm text-mono-600 dark:text-mono-400 text-center">
+                  <p className="text-sm text-mono-700 dark:text-mono-300 text-center">
                     Best for power users
                   </p>
-                  <ul className="text-xs text-mono-600 dark:text-mono-400 space-y-1">
+                  <ul className="text-xs text-mono-700 dark:text-mono-300 space-y-1">
                     <li className="flex items-center">
                       <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
                       <span>50 uses of Viral Predictor (5 credits each)</span>
@@ -715,10 +715,10 @@ export default function PricingPage() {
               <div className="flex items-start space-x-3">
                 <Zap className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                  <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
                     How Credits Work
                   </h3>
-                  <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1">
+                  <ul className="text-sm text-blue-900 dark:text-blue-100 space-y-1">
                     <li className="flex items-start">
                       <span className="mr-2">•</span>
                       <span><strong>Signup bonus:</strong> 5 free tool uses right after account creation</span>
@@ -744,18 +744,18 @@ export default function PricingPage() {
       </section>
 
       {/* Tool Distribution Guide */}
-      <section className="py-16 bg-white dark:bg-mono-900">
+      <section className="py-16 bg-white text-mono-950 dark:bg-mono-900 dark:text-mono-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4 text-center">
+            <h2 className="text-3xl font-bold mb-4 text-center">
               What Tools Are in Each Plan?
             </h2>
-            <p className="text-center text-mono-600 dark:text-mono-400 mb-8 max-w-3xl mx-auto">
+            <p className="text-center text-mono-700 dark:text-mono-300 mb-8 max-w-3xl mx-auto">
               Each plan includes tools specifically curated for creators at that level. Beginner tools for beginners, advanced tools for advanced creators—no overwhelm, just the right tools for your stage.
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Starter - $19/month</h3>
+              <div className="rounded-lg border border-mono-200 bg-mono-50 p-6 dark:border-mono-700 dark:bg-mono-800">
+                <h3 className="font-bold mb-3">Starter - $19/month</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
                   {toolDistribution.starter.map((tool, idx) => (
                     <li key={idx} className="flex items-start">
@@ -765,8 +765,8 @@ export default function PricingPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Professional - $49/month ⭐</h3>
+              <div className="rounded-lg border border-mono-200 bg-mono-50 p-6 dark:border-mono-700 dark:bg-mono-800">
+                <h3 className="font-bold mb-3">Professional - $49/month ⭐</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
                   {toolDistribution.professional.map((tool, idx) => (
                     <li key={idx} className="flex items-start">
@@ -776,8 +776,8 @@ export default function PricingPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-accent-50 dark:bg-accent-900/20 rounded-lg p-6 border-2 border-accent-200 dark:border-accent-800">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Business - $99/month</h3>
+              <div className="rounded-lg border-2 border-accent-200 bg-accent-50 p-6 dark:border-accent-800 dark:bg-accent-900/20">
+                <h3 className="font-bold mb-3">Business - $99/month</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
                   {toolDistribution.business.map((tool: string, idx: number) => (
                     <li key={idx} className="flex items-start">
@@ -787,8 +787,8 @@ export default function PricingPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Top-up Credits</h3>
+              <div className="rounded-lg border border-mono-200 bg-mono-50 p-6 dark:border-mono-700 dark:bg-mono-800">
+                <h3 className="font-bold mb-3">Top-up Credits</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
                   {toolDistribution.topups.map((tool: string, idx: number) => (
                     <li key={idx} className="flex items-start">
@@ -814,25 +814,25 @@ export default function PricingPage() {
               See why creators choose ToolMarket365 over Later, Buffer, Hootsuite, and Jasper AI
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border-2 border-green-500 dark:border-green-600 shadow-lg">
+              <div className="rounded-lg border-2 border-green-500 bg-white p-6 text-mono-950 shadow-lg dark:border-green-600 dark:bg-mono-900 dark:text-mono-100">
                 <div className="text-4xl font-bold text-green-600 dark:text-green-400 mb-2 text-center">79%</div>
-                <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">Cheaper</div>
-                <div className="text-xs text-mono-600 dark:text-mono-400 text-center">Save $159+/month vs buying separately</div>
+                <div className="text-sm font-semibold mb-2 text-center">Cheaper</div>
+                <div className="text-xs text-mono-700 dark:text-mono-300 text-center">Save $159+/month vs buying separately</div>
               </div>
-              <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border-2 border-blue-500 dark:border-blue-600 shadow-lg">
+              <div className="rounded-lg border-2 border-blue-500 bg-white p-6 text-mono-950 shadow-lg dark:border-blue-600 dark:bg-mono-900 dark:text-mono-100">
                 <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2 text-center">53+</div>
-                <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">Tools</div>
-                <div className="text-xs text-mono-600 dark:text-mono-400 text-center">vs Later (3), Buffer (3), Hootsuite (5)</div>
+                <div className="text-sm font-semibold mb-2 text-center">Tools</div>
+                <div className="text-xs text-mono-700 dark:text-mono-300 text-center">vs Later (3), Buffer (3), Hootsuite (5)</div>
               </div>
-              <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border-2 border-accent-500 dark:border-accent-600 shadow-lg">
+              <div className="rounded-lg border-2 border-accent-500 bg-white p-6 text-mono-950 shadow-lg dark:border-accent-600 dark:bg-mono-900 dark:text-mono-100">
                 <div className="text-xl font-bold text-accent-600 dark:text-accent-400 mb-2 text-center">⭐ Only Us</div>
-                <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">Viral Predictor</div>
-                <div className="text-xs text-mono-600 dark:text-mono-400 text-center">No competitor has this</div>
+                <div className="text-sm font-semibold mb-2 text-center">Viral Predictor</div>
+                <div className="text-xs text-mono-700 dark:text-mono-300 text-center">No competitor has this</div>
               </div>
-              <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border-2 border-purple-500 dark:border-purple-600 shadow-lg">
+              <div className="rounded-lg border-2 border-purple-500 bg-white p-6 text-mono-950 shadow-lg dark:border-purple-600 dark:bg-mono-900 dark:text-mono-100">
                 <div className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2 text-center">🔗 Integrated</div>
-                <div className="text-sm font-semibold text-mono-950 dark:text-mono-50 mb-2 text-center">Workflow</div>
-                <div className="text-xs text-mono-600 dark:text-mono-400 text-center">All tools work together</div>
+                <div className="text-sm font-semibold mb-2 text-center">Workflow</div>
+                <div className="text-xs text-mono-700 dark:text-mono-300 text-center">All tools work together</div>
               </div>
             </div>
             <div className="text-center">
@@ -918,13 +918,13 @@ export default function PricingPage() {
               <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
                 💰 New to Monetization?
               </h3>
-              <p className="text-sm text-blue-800 dark:text-blue-300">
+              <p className="text-sm text-blue-800 dark:text-blue-100">
                 Once you know your rates, you'll need a way to get paid. Many creators use{' '}
                 <a 
                   href="https://stripe.com/payments" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-blue-700 dark:text-blue-300 underline hover:text-blue-800 dark:hover:text-blue-200 font-semibold"
+                  className="text-blue-700 dark:text-blue-100 underline hover:text-blue-800 dark:hover:text-blue-200 font-semibold"
                 >
                   Stripe
                 </a>
