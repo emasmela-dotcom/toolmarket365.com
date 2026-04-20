@@ -118,11 +118,14 @@ const H: Record<string, HFn> = {
   "complaint-letter-writer": (v) =>
     `## Complaint\nTo ${str(v, "company")},\n\nI am writing about: ${str(v, "issue")}\n\nI request: ${str(v, "ask")}\n\nSincerely,\n[Your name & contact]`,
   "bmi-calculator": (v) => {
-    const kg = num(v, "kg")
-    const m = num(v, "m")
-    if (m <= 0) throw new Error("Height (m) required")
-    const bmi = kg / (m * m)
-    return `## BMI\n- **${bmi.toFixed(1)}** (not medical advice)`
+    const feet = Math.max(0, num(v, "feet"))
+    const inchesPart = Math.max(0, num(v, "inches"))
+    const heightIn = feet * 12 + inchesPart
+    const lbs = num(v, "lbs")
+    if (heightIn <= 0) throw new Error("Enter height (feet and optional inches)")
+    if (lbs <= 0) throw new Error("Enter weight in pounds")
+    const bmi = (703 * lbs) / (heightIn * heightIn)
+    return `## BMI\n- **${bmi.toFixed(1)}** (height **${feet} ft ${inchesPart} in** = **${heightIn} in**, weight **${lbs} lb**) — not medical advice`
   },
   "water-intake-calculator": (v) => {
     const kg = num(v, "kg")

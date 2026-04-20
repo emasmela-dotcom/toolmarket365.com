@@ -87,9 +87,10 @@ export const LIFE_TOOLS: LifeToolMeta[] = [
     { key: "issue", label: "Issue summary", type: "textarea" },
     { key: "ask", label: "What you want them to do", type: "textarea" },
   ]),
-  f("bmi-calculator", "Health & Wellness", "BMI calculator", "BMI from height and weight (metric or imperial below).", [
-    { key: "kg", label: "Weight (kg)", type: "number" },
-    { key: "m", label: "Height (meters)", type: "number" },
+  f("bmi-calculator", "Health & Wellness", "BMI calculator", "BMI from height (feet + inches) and weight (pounds).", [
+    { key: "feet", label: "Height (feet)", type: "number" },
+    { key: "inches", label: "Height (inches)", type: "number", optional: true },
+    { key: "lbs", label: "Weight (lbs)", type: "number" },
   ]),
   f("water-intake-calculator", "Health & Wellness", "Water intake calculator", "Rough daily liters from body weight kg.", [
     { key: "kg", label: "Body weight (kg)", type: "number" },
