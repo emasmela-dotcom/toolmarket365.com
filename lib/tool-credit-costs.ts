@@ -1,6 +1,36 @@
 // Tool Credit Costs Mapping
 // This file maps tool slugs to their credit costs per use
 
+/** Human-readable names for credit-priced tools (pricing / credits UI). */
+export const TOOL_CREDIT_DISPLAY_NAMES: Record<string, string> = {
+  'competitor-analyzer': 'Competitor Analyzer',
+  'viral-content-predictor': 'Viral Content Predictor',
+  'rate-calculator': 'Rate Calculator',
+  'content-gap-analyzer': 'Content Gap Analyzer',
+  'trend-tracker': 'Trend Tracker',
+  'advanced-analytics': 'Advanced Analytics',
+  'revenue-tracker': 'Revenue Tracker',
+  'cross-platform-analytics': 'Cross-Platform Analytics',
+  'brand-mention-tracker': 'Brand Mention Tracker',
+  'sentiment-analyzer': 'Sentiment Analyzer',
+  'follower-growth-tracker': 'Follower Growth Tracker',
+  'brand-kit-manager': 'Brand Kit Manager',
+}
+
+export function displayNameForCreditTool(slug: string): string {
+  return (
+    TOOL_CREDIT_DISPLAY_NAMES[slug] ||
+    slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+  )
+}
+
+/** Top-up list price: $10 for 50 credits → $0.20 per credit (used for “about $X per use”). */
+export const TOPUP_USD_PER_CREDIT = 10 / 50
+
+export function usdPerUseFromCredits(credits: number): string {
+  return (credits * TOPUP_USD_PER_CREDIT).toFixed(2)
+}
+
 export const TOOL_CREDIT_COSTS: Record<string, number> = {
   // High-value tools (15 credits)
   'competitor-analyzer': 15,

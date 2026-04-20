@@ -4,159 +4,87 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Check, Sparkles, Zap, ArrowRight, Info, Loader2 } from 'lucide-react';
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
+import {
+  TOOL_CREDIT_COSTS,
+  displayNameForCreditTool,
+  getToolUseExplanation,
+  TOPUP_USD_PER_CREDIT,
+  usdPerUseFromCredits,
+} from '@/lib/tool-credit-costs'
+
+const creditPricedToolRows = Object.entries(TOOL_CREDIT_COSTS)
+  .map(([slug, credits]) => ({
+    slug,
+    name: displayNameForCreditTool(slug),
+    credits,
+    usd: usdPerUseFromCredits(credits),
+    explanation: getToolUseExplanation(slug),
+  }))
+  .sort((a, b) => b.credits - a.credits || a.name.localeCompare(b.name))
 
 const plans = [
   {
     name: 'Starter',
-    price: '$9',
+    price: '$19',
     period: '/month',
-    description: 'Perfect for new creators just getting started',
+    description: 'For individuals getting consistent with publishing and client ops.',
     popular: false,
-    toolCount: '8 essential tools',
+    toolCount: '100 credits included',
     tools: [
-      'AI Caption Generator',
-      'Content Idea Generator',
-      'Hashtag Research',
-      'Content Calendar',
-      'Best Time to Post',
-      'Readability Checker',
-      'Bio Generator',
-      'Content Library (100 items)',
-      'Creator Pricing Guide',
-      'Engagement Ideas Generator',
+      'Core creator, workflow, and client tools',
+      'Credit-priced tools available pay-per-use',
+      'Great for lighter monthly usage',
     ],
     features: [
-      '10 essential tools',
-      '25 welcome credits during first month to try premium tools',
-      'Content library (100 items)',
-      'Basic analytics',
+      '100 monthly credits included',
+      '5 free tool uses right after signup',
+      'Use credits across premium tools',
       'Email support',
-      'Local storage',
     ],
     cta: 'Subscribe Now',
     ctaLink: GUMROAD_LINKS.subscriptions.starter,
     gumroad: true,
   },
   {
-    name: 'Essential',
-    price: '$19',
-    period: '/month',
-    description: 'For creators building their workflow. Tools matched to intermediate level.',
-    popular: false,
-    toolCount: '18 tools',
-    tools: [
-      'Everything in Starter',
-      'Post Scheduler',
-      'Analytics Dashboard',
-      'SEO Optimizer',
-      'Content Repurposer',
-      'Video Script Generator',
-      'Blog Outline Generator',
-      'Engagement Calculator',
-      'Hashtag Analyzer',
-      'Social Media Report Generator',
-      'Content Library (500 items)',
-    ],
-    features: [
-      '20 professional tools',
-      '25 welcome credits during first month to try premium tools',
-      'Content library (500 items)',
-      'Cloud storage',
-      'Basic analytics',
-      'Email support',
-    ],
-    cta: 'Subscribe Now',
-    ctaLink: GUMROAD_LINKS.subscriptions.essential,
-    gumroad: true,
-  },
-  {
-    name: 'Creator',
+    name: 'Professional',
     price: '$49',
     period: '/month',
-    description: 'For serious creators who want everything. Tools matched to advanced level.',
+    description: 'Best value for active creators and operators.',
     popular: true,
-    toolCount: '35+ tools',
+    toolCount: '400 credits included',
     tools: [
-      'Everything in Essential',
-      'Viral Content Predictor ⭐',
-      'All Content Creation tools (9)',
-      'All Brand & Design tools (6)',
-      'Advanced Analytics (8 tools)',
-      'Competitor Analyzer',
-      'Trend Tracker',
-      'Content Gap Analyzer',
-      'All AI-powered tools (7+)',
-      'Content Library (2,000 items)',
-      'Integrated workflow',
+      'Everything in Starter',
+      'Higher monthly usage capacity',
+      'Best price-per-credit for most users',
     ],
     features: [
-      '35+ professional tools',
-      'Viral Content Predictor ⭐',
-      '25 welcome credits during first month to try premium tools',
-      'Content library (2,000 items)',
-      'Cloud storage & sync',
-      'Integrated workflow',
-      'Cross-platform analytics',
-      '7+ AI-powered tools',
+      '400 monthly credits included',
       'Priority support',
+      '5 free tool uses right after signup',
+      'Top-up anytime if needed',
     ],
     cta: 'Subscribe Now',
     ctaLink: GUMROAD_LINKS.subscriptions.professional,
     gumroad: true,
-    savings: 'Save $159/month vs buying separately',
-  },
-  {
-    name: 'Professional',
-    price: '$79',
-    period: '/month',
-    description: 'Complete toolkit for professional creators',
-    popular: false,
-    toolCount: 'All 53+ tools',
-    tools: [
-      'Everything in Creator',
-      'All Business & Monetization tools',
-      'All Engagement & Growth tools',
-      'All remaining Analytics tools',
-      'Unlimited content library',
-      'Advanced features',
-    ],
-    features: [
-      'All 53+ tools (unlimited uses)',
-      'Viral Content Predictor ⭐',
-      'Unlimited content library',
-      'Cloud storage & sync',
-      'Integrated workflow',
-      'Advanced analytics',
-      'All AI-powered tools',
-      'Priority support',
-      'Advanced features',
-    ],
-    cta: 'Start Free Trial',
-    ctaLink: GUMROAD_LINKS.subscriptions.professional,
-    gumroad: true,
+    savings: 'Recommended plan for most users',
   },
   {
     name: 'Business',
-    price: '$149',
+    price: '$99',
     period: '/month',
-    description: 'For teams and agencies. Tools matched to enterprise level.',
+    description: 'For teams, agencies, and heavy monthly usage.',
     popular: false,
-    toolCount: 'All 53+ tools',
+    toolCount: '1,000 credits included',
     tools: [
       'Everything in Professional',
-      'Team collaboration (5 users)',
-      'White-label options',
-      'Custom integrations',
+      'Higher usage ceiling for teams',
+      'Operational headroom for multi-client workflows',
     ],
     features: [
-      'All 53+ tools',
-      'Team collaboration (5 users)',
-      'Unlimited content library',
-      'White-label options',
-      'Custom integrations',
-      'Dedicated support',
-      'Advanced security',
-      'No credits needed - everything included',
+      '1,000 monthly credits included',
+      'Team-oriented usage capacity',
+      'Priority support',
+      '5 free tool uses right after signup',
     ],
     cta: 'Subscribe Now',
     ctaLink: GUMROAD_LINKS.subscriptions.business,
@@ -166,66 +94,47 @@ const plans = [
 
 const toolDistribution = {
   starter: [
-    'AI Caption Generator',
-    'Content Idea Generator',
-    'Hashtag Research',
-    'Content Calendar',
-    'Best Time to Post',
-    'Readability Checker',
-    'Bio Generator',
-    'Content Library',
-  ],
-  essential: [
-    'Everything in Starter',
-    'Post Scheduler',
-    'Analytics Dashboard',
-    'SEO Optimizer',
-    'Content Repurposer',
-    'Video Script Generator',
-    'Blog Outline Generator',
-    'Engagement Calculator',
-    'Hashtag Analyzer',
-    'Social Media Report Generator',
-  ],
-  creator: [
-    'Everything in Essential',
-    'Viral Content Predictor ⭐',
-    'All Content Creation tools (Video Script, Transcript, Thumbnail, Quote Card, Image Alt Text, Podcast Notes)',
-    'All Brand & Design tools (Brand Kit, Color Palette, Font Pairing, Style Guide, Profile Optimizer)',
-    'Advanced Analytics (Competitor Analyzer, Trend Tracker, Content Gap Analyzer, Brand Mention Tracker, Sentiment Analyzer, Follower Growth Tracker, Cross-Platform Analytics)',
-    'All AI-powered tools',
+    '100 credits included',
+    'Good for light monthly usage',
+    '5 free tool uses after signup',
   ],
   professional: [
-    'Everything in Creator',
-    'Business & Monetization (Rate Calculator, Revenue Tracker)',
-    'Engagement & Growth (Poll Generator, Giveaway Manager, Influencer Outreach, Collaboration Manager, Link in Bio tools)',
-    'All remaining tools',
-    'Unlimited everything',
+    '400 credits included',
+    'Best value for active usage',
+    'Includes 5 free tool uses after signup',
   ],
   business: [
-    'Everything in Professional',
-    'Team features',
-    'White-label',
-    'Custom integrations',
+    '1,000 credits included',
+    'Best for teams and heavy usage',
+    'Includes 5 free tool uses after signup',
+  ],
+  topups: [
+    '$10 for 50 credits',
+    'Credits roll over month to month',
+    'Buy anytime if you run out before renewal',
+  ],
+  legacy: [
+    'Everything in Starter',
+    'Legacy keys kept to avoid runtime shape changes',
   ],
 }
 
 const faq = [
   {
     question: 'Is there a free trial?',
-    answer: 'Yes! All plans include a 7-day free trial. No credit card required to start. During trial, you get full access to the plan you select. After trial: Subscribe with credit card to keep all content created during trial, or your account will be restored to pre-trial state.',
+    answer: 'After signup, every account gets 5 free tool uses to test the product. No credit card needed to start.',
   },
   {
-    question: 'Can I change plans after trial?',
-    answer: 'After your free trial, you can upgrade to a higher plan anytime. However, you cannot downgrade from the plan you trialed - this ensures you keep access to features you\'ve already used. You can always upgrade for more features!',
+    question: 'How do credits work?',
+    answer: 'Every tool run consumes credits based on per-use cost. Plans include monthly credits (Starter 100, Professional 400, Business 1,000).',
   },
   {
     question: 'What tools are in each plan?',
-    answer: 'Starter has 8 essential tools, Essential has 18 tools, Creator has 35+ tools including Viral Predictor, Professional has all 53+ tools, and Business adds team features.',
+    answer: 'All plans can access the same marketplace; the difference is included monthly credits and support level.',
   },
   {
-    question: 'Do you offer annual plans?',
-    answer: 'Yes! Save 20% with annual billing. Contact us for annual pricing.',
+    question: 'What if I run out of credits?',
+    answer: 'Buy top-up credits anytime. Top-ups are priced at $10 for 50 credits and roll over.',
   },
   {
     question: 'Can I cancel anytime?',
@@ -265,7 +174,7 @@ export default function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
+    <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-accent-50 to-white dark:from-mono-900 dark:to-mono-950 py-16 border-b border-mono-200 dark:border-mono-700">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -274,7 +183,7 @@ export default function PricingPage() {
               Simple, Affordable Pricing
             </h1>
             <p className="text-xl text-mono-600 dark:text-mono-400 mb-3">
-              Start at $9/month. Grow as you need. No credit card required for trial.
+              Start at $19/month. Grow with predictable per-use credits.
             </p>
             <p className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-4">
               Everything you need to run your creator operation in one place.
@@ -324,8 +233,8 @@ export default function PricingPage() {
                 </div>
               </div>
             </div>
-            <p className="text-lg text-mono-500 dark:text-mono-500 mb-6">
-              All plans include a <span className="font-semibold text-accent-600">7-day free trial</span>
+            <p className="text-lg text-zinc-700 dark:text-zinc-300 mb-6">
+              All new accounts include <span className="font-semibold text-accent-600">5 free tool uses after signup</span>
             </p>
             
             {/* Interface Setup Banner - placed near plan selection */}
@@ -362,7 +271,7 @@ export default function PricingPage() {
                     Important: Your Content During Trial
                   </h3>
                   <p className="text-sm text-yellow-800 dark:text-yellow-300 mb-2">
-                    <strong>During your 7-day free trial:</strong> You'll have full access to the plan you select. All content you create will be saved.
+                    <strong>After signup:</strong> You get 5 free tool uses to test core workflows before paying.
                   </p>
                   <p className="text-sm text-yellow-800 dark:text-yellow-300 mb-2">
                     <strong>After trial ends:</strong>
@@ -381,7 +290,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Tool-to-Creator Level Matching Explanation */}
+      {/* Plan model explanation */}
       <section className="py-12 bg-mono-100 dark:bg-mono-900 border-b border-mono-200 dark:border-mono-700">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
@@ -392,7 +301,7 @@ export default function PricingPage() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-3">
-                    Tools Matched to Your Creator Level
+                    Credit Plans Built for Usage Level
                   </h2>
                   <p className="text-base text-mono-700 dark:text-mono-300 mb-4 leading-relaxed">
                     Every tool in each plan is <strong className="text-blue-700 dark:text-blue-300">intentionally selected</strong> to match the sophistication level and needs of creators at that stage. We don't just give you random tools—we give you the <strong className="text-blue-700 dark:text-blue-300">right tools for where you are</strong> in your creator journey.
@@ -401,29 +310,29 @@ export default function PricingPage() {
                     <div className="flex items-start space-x-3">
                       <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Starter Plan = Beginner Tools</p>
-                        <p className="text-sm text-mono-600 dark:text-mono-400">Simple, one-click tools perfect for new creators learning the basics. No overwhelming features—just what you need to get started.</p>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Starter = 100 credits / month</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">Great for lighter monthly usage and focused tool runs.</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Essential Plan = Workflow Tools</p>
-                        <p className="text-sm text-mono-600 dark:text-mono-400">Automation and insights for creators building consistent workflows. Tools that save time and help you track your progress.</p>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Professional = 400 credits / month</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">Best value for active creators who use tools daily.</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Professional Plan = Advanced Tools</p>
-                        <p className="text-sm text-mono-600 dark:text-mono-400">Sophisticated analytics, AI-powered features, and business insights for serious creators treating content as a business.</p>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Business = 1,000 credits / month</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">Built for teams, agencies, and heavy-volume operations.</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Professional & Business Plans = Professional Tools</p>
-                        <p className="text-sm text-mono-600 dark:text-mono-400">Complete toolkit for professional creators and teams. Growth strategies, monetization optimization, and enterprise features.</p>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Top-up Credits = $10 for 50</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">If you run out before renewal, buy more and keep going.</p>
                       </div>
                     </div>
                   </div>
@@ -467,14 +376,14 @@ export default function PricingPage() {
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {plans.map((plan) => (
                 <div
                   key={plan.name}
-                  className={`relative bg-white dark:bg-mono-900 rounded-lg border-2 p-6 ${
+                  className={`relative bg-white text-zinc-900 rounded-lg border-2 p-6 ${
                     plan.popular
                       ? 'border-accent-500 shadow-lg lg:scale-105'
-                      : 'border-mono-200 dark:border-mono-700'
+                      : 'border-zinc-300'
                   }`}
                 >
                   {plan.popular && (
@@ -486,21 +395,21 @@ export default function PricingPage() {
                   )}
                   
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-1">
+                    <h3 className="text-xl font-bold text-zinc-900 mb-1">
                       {plan.name}
                     </h3>
-                    <p className="text-xs text-mono-600 dark:text-mono-400 mb-3">
+                    <p className="text-xs text-zinc-700 mb-3">
                       {plan.description}
                     </p>
                     <div className="flex items-baseline justify-center">
-                      <span className="text-4xl font-bold text-mono-950 dark:text-mono-50">
+                      <span className="text-4xl font-bold text-zinc-900">
                         {plan.price}
                       </span>
-                      <span className="text-mono-600 dark:text-mono-400 ml-1 text-sm">
+                      <span className="text-zinc-700 ml-1 text-sm">
                         {plan.period}
                       </span>
                     </div>
-                    <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">
+                    <p className="text-xs text-zinc-700 mt-1">
                       {plan.toolCount}
                     </p>
                     {plan.savings && (
@@ -514,7 +423,7 @@ export default function PricingPage() {
                     {plan.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start text-sm">
                         <Check className="h-4 w-4 text-green-600 dark:text-green-400 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-mono-700 dark:text-mono-300 text-xs leading-relaxed">{feature}</span>
+                        <span className="text-zinc-800 text-xs leading-relaxed">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -534,12 +443,12 @@ export default function PricingPage() {
                       className={`block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm transition-colors ${
                         plan.popular
                           ? 'bg-accent-600 text-white hover:bg-accent-700'
-                          : 'bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 hover:bg-mono-200 dark:hover:bg-mono-700'
+                          : 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200'
                       }`}
                     >
                       Choose this plan
                     </Link>
-                    <p className="text-xs text-center text-mono-500 dark:text-mono-500">
+                    <p className="text-xs text-center text-zinc-700">
                       You’ll see Subscribe now or Start trial, plus terms for content during trial
                     </p>
                   </div>
@@ -559,6 +468,70 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* Credit-priced tools: credits + $ per use */}
+      <section className="py-16 bg-white dark:bg-zinc-950 border-y border-zinc-200 dark:border-zinc-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50 mb-2 text-center">
+              Price per tool use
+            </h2>
+            <p className="text-center text-zinc-800 dark:text-zinc-200 mb-2 max-w-2xl mx-auto">
+              Each run of a credit-priced tool spends the credits shown. Dollar amount is an estimate at the
+              standard top-up rate: <span className="font-semibold">$10 for 50 credits</span> (
+              <span className="font-semibold">${TOPUP_USD_PER_CREDIT.toFixed(2)} per credit</span>).
+            </p>
+            <p className="text-center text-sm text-zinc-700 dark:text-zinc-300 mb-8">
+              Tools without a credit badge are not charged per run from your credit balance.
+            </p>
+            <div className="overflow-x-auto rounded-lg border-2 border-zinc-300 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-900">
+              <table className="w-full text-sm text-left">
+                <thead>
+                  <tr className="border-b-2 border-zinc-300 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-800">
+                    <th className="p-3 font-semibold text-zinc-900 dark:text-zinc-50">Tool</th>
+                    <th className="p-3 font-semibold text-zinc-900 dark:text-zinc-50 whitespace-nowrap">
+                      Credits / use
+                    </th>
+                    <th className="p-3 font-semibold text-zinc-900 dark:text-zinc-50 whitespace-nowrap">
+                      About $ / use
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {creditPricedToolRows.map((row) => (
+                    <tr
+                      key={row.slug}
+                      className="border-b border-zinc-200 dark:border-zinc-700 last:border-0 bg-white dark:bg-zinc-900"
+                    >
+                      <td className="p-3 align-top">
+                        <div className="font-medium text-zinc-900 dark:text-zinc-50">{row.name}</div>
+                        <div className="text-xs text-zinc-700 dark:text-zinc-300 mt-1 max-w-md">
+                          {row.explanation}
+                        </div>
+                      </td>
+                      <td className="p-3 align-top font-semibold text-zinc-900 dark:text-zinc-50 whitespace-nowrap">
+                        {row.credits}
+                      </td>
+                      <td className="p-3 align-top font-semibold text-zinc-900 dark:text-zinc-50 whitespace-nowrap">
+                        ${row.usd}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-6 text-center text-sm text-zinc-800 dark:text-zinc-200">
+              <Link
+                href="/credits"
+                className="font-semibold text-accent-600 dark:text-accent-400 underline hover:text-accent-700 dark:hover:text-accent-300"
+              >
+                Credit costs page →
+              </Link>{' '}
+              for bundles, welcome uses, and full notes.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Credit Bundles Section */}
       <section className="py-16 bg-gradient-to-b from-mono-50 to-white dark:from-mono-900 dark:to-mono-950 border-b border-mono-200 dark:border-mono-700">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -568,12 +541,12 @@ export default function PricingPage() {
                 Need More Credits?
               </h2>
               <p className="text-lg text-mono-600 dark:text-mono-400 mb-2">
-                All plans include 25 free credits for first month as a gift to try premium tools
+                All accounts include 5 free tool uses after signup
               </p>
-              <p className="text-base text-mono-500 dark:text-mono-500 mb-2">
+              <p className="text-base text-zinc-700 dark:text-zinc-300 mb-2">
                 <strong>Lower plans:</strong> Premium tools cost credits per use. <strong>Higher plans:</strong> Premium tools included in your plan have unlimited use (no credits needed).
               </p>
-              <p className="text-base text-mono-500 dark:text-mono-500">
+              <p className="text-base text-zinc-700 dark:text-zinc-300">
                 Purchase additional credits to unlock more premium tool uses. Purchased credits roll over month to month.
               </p>
             </div>
@@ -586,16 +559,12 @@ export default function PricingPage() {
                     Starter Bundle
                   </h3>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">
-                      $5
-                    </span>
+                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">$10</span>
                   </div>
                   <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
                     50 credits
                   </p>
-                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">
-                    $0.10 per credit
-                  </p>
+                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">$0.20 per credit</p>
                 </div>
                 <div className="space-y-2 mb-6 min-h-[120px]">
                   <p className="text-sm text-mono-600 dark:text-mono-400 text-center">
@@ -646,37 +615,31 @@ export default function PricingPage() {
                   </span>
                 </div>
                 <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
-                    Popular Bundle
-                  </h3>
+                  <h3 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">Growth Bundle</h3>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">
-                      $10
-                    </span>
+                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">$20</span>
                   </div>
                   <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
                     100 credits
                   </p>
-                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">
-                    $0.10 per credit
-                  </p>
+                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">$0.20 per credit</p>
                 </div>
                 <div className="space-y-2 mb-6 min-h-[120px]">
                   <p className="text-sm text-mono-600 dark:text-mono-400 text-center">
-                    Best value for regular users
+                    Best for steady monthly usage
                   </p>
                   <ul className="text-xs text-mono-600 dark:text-mono-400 space-y-1">
                     <li className="flex items-center">
                       <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
-                      <span>10 uses of Viral Predictor</span>
+                      <span>20 uses of Viral Predictor (5 credits each)</span>
                     </li>
                     <li className="flex items-center">
                       <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
-                      <span>20 uses of Brand Kit Manager</span>
+                      <span>20 uses of Brand Kit Manager (5 credits each)</span>
                     </li>
                     <li className="flex items-center">
                       <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
-                      <span>12 uses of Advanced Analytics</span>
+                      <span>12 uses of Advanced Analytics (8 credits each)</span>
                     </li>
                   </ul>
                 </div>
@@ -697,19 +660,13 @@ export default function PricingPage() {
                     Power Bundle
                   </h3>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">
-                      $20
-                    </span>
+                    <span className="text-3xl font-bold text-mono-950 dark:text-mono-50">$45</span>
                   </div>
                   <p className="text-sm text-mono-600 dark:text-mono-400 mt-1">
                     250 credits
                   </p>
-                  <p className="text-xs text-green-600 dark:text-green-400 mt-1 font-semibold">
-                    Save $5 (20% off)
-                  </p>
-                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">
-                    $0.08 per credit
-                  </p>
+                  <p className="text-xs text-green-600 dark:text-green-400 mt-1 font-semibold">Best bulk value</p>
+                  <p className="text-xs text-mono-500 dark:text-mono-500 mt-1">$0.18 per credit</p>
                 </div>
                 <div className="space-y-2 mb-6 min-h-[120px]">
                   <p className="text-sm text-mono-600 dark:text-mono-400 text-center">
@@ -718,15 +675,15 @@ export default function PricingPage() {
                   <ul className="text-xs text-mono-600 dark:text-mono-400 space-y-1">
                     <li className="flex items-center">
                       <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
-                      <span>25 uses of Viral Predictor</span>
+                      <span>50 uses of Viral Predictor (5 credits each)</span>
                     </li>
                     <li className="flex items-center">
                       <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
-                      <span>50 uses of Brand Kit Manager</span>
+                      <span>50 uses of Brand Kit Manager (5 credits each)</span>
                     </li>
                     <li className="flex items-center">
                       <Check className="h-3 w-3 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
-                      <span>31 uses of Advanced Analytics</span>
+                      <span>31 uses of Advanced Analytics (8 credits each)</span>
                     </li>
                   </ul>
                 </div>
@@ -764,7 +721,7 @@ export default function PricingPage() {
                   <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1">
                     <li className="flex items-start">
                       <span className="mr-2">•</span>
-                      <span><strong>Free credits:</strong> 25 credits during your first month only (one-time trial credits)</span>
+                      <span><strong>Signup bonus:</strong> 5 free tool uses right after account creation</span>
                     </li>
                     <li className="flex items-start">
                       <span className="mr-2">•</span>
@@ -772,7 +729,7 @@ export default function PricingPage() {
                     </li>
                     <li className="flex items-start">
                       <span className="mr-2">•</span>
-                      <span><strong>Tool access:</strong> Tools in your plan = unlimited use. Tools not in your plan = access via credits (5-15 credits per use). This gives you flexibility to try premium tools beyond your plan.</span>
+                      <span><strong>Per-use pricing:</strong> each tool run consumes credits based on that tool’s cost per use.</span>
                     </li>
                     <li className="flex items-start">
                       <span className="mr-2">•</span>
@@ -798,7 +755,7 @@ export default function PricingPage() {
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Starter - $9/month</h3>
+                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Starter - $19/month</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
                   {toolDistribution.starter.map((tool, idx) => (
                     <li key={idx} className="flex items-start">
@@ -809,9 +766,9 @@ export default function PricingPage() {
                 </ul>
               </div>
               <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Essential - $19/month</h3>
+                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Professional - $49/month ⭐</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.essential.map((tool, idx) => (
+                  {toolDistribution.professional.map((tool, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-accent-600 mr-2">•</span>
                       <span>{tool}</span>
@@ -820,9 +777,9 @@ export default function PricingPage() {
                 </ul>
               </div>
               <div className="bg-accent-50 dark:bg-accent-900/20 rounded-lg p-6 border-2 border-accent-200 dark:border-accent-800">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Creator - $49/month ⭐</h3>
+                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Business - $99/month</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.creator.map((tool: string, idx: number) => (
+                  {toolDistribution.business.map((tool: string, idx: number) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-accent-600 mr-2">•</span>
                       <span>{tool}</span>
@@ -831,20 +788,9 @@ export default function PricingPage() {
                 </ul>
               </div>
               <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Professional - $79/month</h3>
+                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Top-up Credits</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.professional.map((tool: string, idx: number) => (
-                    <li key={idx} className="flex items-start">
-                      <span className="text-accent-600 mr-2">•</span>
-                      <span>{tool}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-mono-50 dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
-                <h3 className="font-bold text-mono-950 dark:text-mono-50 mb-3">Business - $149/month</h3>
-                <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.business.map((tool, idx) => (
+                  {toolDistribution.topups.map((tool: string, idx: number) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-accent-600 mr-2">•</span>
                       <span>{tool}</span>
@@ -922,7 +868,7 @@ export default function PricingPage() {
                     Viral Content Predictor
                   </h3>
                   <p className="text-sm text-mono-600 dark:text-mono-400">
-                    Unique feature - predict viral potential before posting. Available in Creator+ plans.
+                    Unique feature - predict viral potential before posting. Available in Professional+ plans.
                   </p>
                 </div>
               </div>
@@ -945,7 +891,7 @@ export default function PricingPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">
-                    Start at $9/month
+                    Start at $19/month
                   </h3>
                   <p className="text-sm text-mono-600 dark:text-mono-400">
                     Affordable entry point for new creators. Upgrade as you grow.

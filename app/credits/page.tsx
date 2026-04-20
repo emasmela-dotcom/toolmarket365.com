@@ -3,26 +3,16 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Info, Coins, Zap, ArrowRight, X, MessageSquare, Loader2 } from 'lucide-react';
-import { TOOL_CREDIT_COSTS, getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
+import {
+  TOOL_CREDIT_COSTS,
+  TOOL_CREDIT_DISPLAY_NAMES,
+  getToolCreditCost,
+  requiresCredits,
+  getToolUseExplanation,
+} from '@/lib/tool-credit-costs'
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 
 const useStripe = !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-
-// Tool display names mapping
-const toolDisplayNames: Record<string, string> = {
-  'competitor-analyzer': 'Competitor Analyzer',
-  'viral-content-predictor': 'Viral Content Predictor',
-  'rate-calculator': 'Rate Calculator',
-  'content-gap-analyzer': 'Content Gap Analyzer',
-  'trend-tracker': 'Trend Tracker',
-  'advanced-analytics': 'Advanced Analytics',
-  'revenue-tracker': 'Revenue Tracker',
-  'cross-platform-analytics': 'Cross-Platform Analytics',
-  'brand-mention-tracker': 'Brand Mention Tracker',
-  'sentiment-analyzer': 'Sentiment Analyzer',
-  'follower-growth-tracker': 'Follower Growth Tracker',
-  'brand-kit-manager': 'Brand Kit Manager',
-}
 
 // Group tools by credit cost
 const toolsByCost = Object.entries(TOOL_CREDIT_COSTS).reduce((acc, [slug, cost]) => {
@@ -31,7 +21,9 @@ const toolsByCost = Object.entries(TOOL_CREDIT_COSTS).reduce((acc, [slug, cost])
   }
   acc[cost].push({
     slug,
-    name: toolDisplayNames[slug] || slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+    name:
+      TOOL_CREDIT_DISPLAY_NAMES[slug] ||
+      slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
     cost,
     explanation: getToolUseExplanation(slug),
   })
