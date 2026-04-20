@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { discoverToolRoutes } from '@/lib/discoverToolRoutes'
 import { allLifeToolIds } from '@/lib/lifeTools/metadata'
+import { allLocalServiceToolIds } from '@/lib/localServiceTools/metadata'
 import { getSiteUrl } from '@/lib/siteConfig'
 
 const baseUrl = getSiteUrl()
@@ -53,7 +54,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lifePaths = []
   }
 
-  const all = [...new Set([...routes, ...toolPaths, ...lifePaths])].sort((a, b) => {
+  let localServicePaths: string[] = []
+  try {
+    localServicePaths = allLocalServiceToolIds().map((id) => `/tools/local/${id}`)
+  } catch {
+    localServicePaths = []
+  }
+
+  const all = [...new Set([...routes, ...toolPaths, ...lifePaths, ...localServicePaths])].sort((a, b) => {
     if (a === '') return -1
     if (b === '') return 1
     return a.localeCompare(b)

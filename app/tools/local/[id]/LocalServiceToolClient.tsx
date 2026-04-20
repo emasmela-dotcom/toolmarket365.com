@@ -6,7 +6,7 @@ import type { LifeToolMeta } from "@/lib/lifeTools/types"
 const inputClass =
   "border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white text-mono-950 placeholder:text-mono-600 dark:bg-mono-900 dark:text-mono-50 dark:placeholder:text-mono-400"
 
-export function LifeToolClient({ meta }: { meta: LifeToolMeta }) {
+export function LocalServiceToolClient({ meta }: { meta: LifeToolMeta }) {
   const [values, setValues] = useState<Record<string, string>>({})
   const [out, setOut] = useState("")
   const [err, setErr] = useState("")
@@ -17,7 +17,7 @@ export function LifeToolClient({ meta }: { meta: LifeToolMeta }) {
     setErr("")
     setOut("")
     try {
-      const res = await fetch(`/api/life-tool/${meta.id}`, {
+      const res = await fetch(`/api/local-service-tool/${meta.id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -40,7 +40,8 @@ export function LifeToolClient({ meta }: { meta: LifeToolMeta }) {
       data-light-fields
       className="max-w-xl mx-auto p-6 space-y-4 text-mono-900 dark:text-mono-100"
     >
-      <p className="text-xs uppercase tracking-wide text-mono-500">{meta.category}</p>
+      <p className="text-xs uppercase tracking-wide text-mono-500">Local & service business</p>
+      <p className="text-xs text-mono-500 dark:text-mono-400">{meta.category}</p>
       <h1 className="text-2xl font-bold">{meta.title}</h1>
       <p className="text-sm text-mono-600 dark:text-mono-400">{meta.description}</p>
       <div className="space-y-3">

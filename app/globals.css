@@ -65,6 +65,21 @@ body {
   .dark textarea::placeholder {
     color: color-mix(in oklab, currentcolor 55%, transparent);
   }
+
+  /* White (light) tool fields under .dark: inherit would match body (#ededed) → invisible on white. */
+  .dark [data-light-fields] input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+      [type="range"]
+    ):not([type="hidden"]),
+  .dark [data-light-fields] textarea,
+  .dark [data-light-fields] select {
+    color: #171717 !important;
+  }
+
+  .dark [data-light-fields] input::placeholder,
+  .dark [data-light-fields] textarea::placeholder {
+    color: #525252 !important;
+    opacity: 1 !important;
+  }
 }
 
 /* /home panel styles: injected in app/home/page.tsx (homePanelsCssString) */

@@ -1,4 +1,5 @@
 import { lifeToolHomeDescriptions } from '@/lib/lifeTools/metadata'
+import { localServiceToolHomeDescriptions } from '@/lib/localServiceTools/metadata'
 
 /** One-line descriptions for home marketing tool links (hover / focus tooltips). */
 const CORE_HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
@@ -152,6 +153,7 @@ const CORE_HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
 
 export const HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
   ...CORE_HOME_TOOL_DESCRIPTIONS,
+  ...localServiceToolHomeDescriptions(),
   ...lifeToolHomeDescriptions(),
 }
 
