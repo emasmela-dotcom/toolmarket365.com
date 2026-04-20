@@ -28,8 +28,8 @@ export default function HomeMarketing() {
         <div className="tm-home__grid">
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Creator Growth Tools</p>
-              <p>(HIGH DEMAND)</p>
+              <p>Content Creator</p>
+              <p>(FOR CONTENT CREATORS)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -72,7 +72,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Monetization Tools</p>
-              <p>(MAKE PEOPLE MONEY)</p>
+              <p>(FOR SELLING OFFERS)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -110,7 +110,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Client / CRM Tools</p>
-              <p>(ALIGNED WITH &quot;FollowThru&quot;)</p>
+              <p>(FOR CLIENT WORKFLOWS)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -161,7 +161,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Audience &amp; Research Tools</p>
-              <p>(VERY HOT RIGHT NOW)</p>
+              <p>(FOR FINDING DEMAND)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -199,6 +199,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Website &amp; Conversion Tools</p>
+              <p>(FOR WEBSITE CONVERSIONS)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -246,7 +247,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Automation Tools</p>
-              <p>(NO-CODE FEEL)</p>
+              <p>(FOR REPEATABLE TASKS)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -274,7 +275,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Productivity &amp; Workflow</p>
-              <p>(SHIP FASTER)</p>
+              <p>(FOR FASTER EXECUTION)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -307,7 +308,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Analytics &amp; Reporting</p>
-              <p>(SEE WHAT MATTERS)</p>
+              <p>(FOR PERFORMANCE TRACKING)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -340,7 +341,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Finance &amp; Billing</p>
-              <p>(GET PAID)</p>
+              <p>(FOR CASH FLOW CONTROL)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -368,7 +369,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>AI-Powered Tools</p>
-              <p>(FAST DRAFTS)</p>
+              <p>(FOR QUICK DRAFTING)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -401,7 +402,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Marketing &amp; Social</p>
-              <p>(GROW REACH)</p>
+              <p>(FOR REACH &amp; ENGAGEMENT)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -434,7 +435,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Client &amp; Team Tools</p>
-              <p>(SHIP WITH CLIENTS)</p>
+              <p>(FOR CLIENTS &amp; TEAMS)</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -501,7 +502,7 @@ export default function HomeMarketing() {
           <article className="tm-home__card">
             <div className="tm-home__card-head">
               <p>Integrations &amp; Utilities</p>
-              <p>(SHIP &amp; CONNECT)</p>
+              <p>(FOR CONNECTING SYSTEMS)</p>
             </div>
             <ul className="tm-home__list">
               <li>
