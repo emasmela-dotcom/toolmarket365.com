@@ -86,6 +86,59 @@ body:has(main.tm-home) {
   }
 }
 
+.tm-home__auth {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tm-home__auth-primary,
+.tm-home__auth-secondary,
+.tm-home__auth-link {
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tm-home__auth-primary {
+  border-radius: 0.5rem;
+  border: 1px solid #1d4ed8;
+  background: #1d4ed8;
+  color: #ffffff;
+  padding: 0.46rem 0.85rem;
+}
+
+.tm-home__auth-primary:hover {
+  background: #1e40af;
+  border-color: #1e40af;
+}
+
+.tm-home__auth-secondary {
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #1f2937;
+  padding: 0.46rem 0.85rem;
+}
+
+.tm-home__auth-secondary:hover {
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+.tm-home__auth-link {
+  color: #1d4ed8;
+  padding: 0.46rem 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tm-home__auth-link:hover {
+  color: #1e3a8a;
+}
+
 .tm-home__share {
   margin-top: 1.1rem;
   display: flex;

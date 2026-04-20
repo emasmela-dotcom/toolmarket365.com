@@ -1,5 +1,6 @@
 import { HomeShareBar } from '@/components/HomeShareBar'
 import { HomeToolTipLink } from '@/components/HomeToolTipLink'
+import Link from 'next/link'
 import { lifeToolSectionsForHome } from '@/lib/lifeTools/homeSections'
 import { localServiceSectionsForHome } from '@/lib/localServiceTools/homeSections'
 import { getLifepack365Url, LIFEPACK365_NAME } from '@/lib/siteConfig'
@@ -16,6 +17,17 @@ export default function HomeMarketing() {
         <p className="tm-home__tagline">
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>
+        <div className="tm-home__auth">
+          <Link href="/signup" className="tm-home__auth-primary">
+            Sign Up
+          </Link>
+          <Link href="/login" className="tm-home__auth-secondary">
+            Sign In
+          </Link>
+          <Link href="/forgot-password" className="tm-home__auth-link">
+            Forgot password
+          </Link>
+        </div>
         <HomeShareBar />
         {lifepackUrl ? (
           <p className="tm-home__sister">
