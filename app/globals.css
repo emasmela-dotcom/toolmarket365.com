@@ -44,26 +44,15 @@ body {
     ):not([type="hidden"]),
   textarea,
   select {
-    color: #171717;
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    caret-color: #171717 !important;
   }
 
   input::placeholder,
   textarea::placeholder {
-    color: #525252;
-    opacity: 1;
-  }
-
-  .dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
-      [type="range"]
-    ):not([type="hidden"]),
-  .dark textarea,
-  .dark select {
-    color: inherit;
-  }
-
-  .dark input::placeholder,
-  .dark textarea::placeholder {
-    color: color-mix(in oklab, currentcolor 55%, transparent);
+    color: #525252 !important;
+    opacity: 1 !important;
   }
 
   /* White (light) tool fields under .dark: inherit would match body (#ededed) → invisible on white. */
