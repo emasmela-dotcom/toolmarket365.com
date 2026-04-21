@@ -137,8 +137,8 @@ export function PlanConfirmation({
         </label>
       </div>
 
-      {/* Trial content terms (when Subscribe now + Trial options are shown) */}
-      {subscribeNowHref && (
+      {/* Trial content terms (when Subscribe now + Trial options are shown — Stripe or Gumroad) */}
+      {(subscribeNowHref || (useStripe && planIdForStripe)) && (
         <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
           <h3 className="font-semibold text-amber-900 dark:text-amber-200 mb-2">Content created during trial</h3>
           <p className="text-sm text-amber-800 dark:text-amber-300 mb-2">

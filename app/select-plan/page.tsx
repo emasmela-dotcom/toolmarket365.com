@@ -195,9 +195,13 @@ export default function SelectPlanPage() {
     const includedTools = included.length > 0 
       ? included.map(slug => slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '))
       : ['All 53+ tools', 'Unlimited use of all tools', 'Unlimited content library']
-    const planKey = selectedPlan.name.toLowerCase() as keyof typeof GUMROAD_LINKS.subscriptions
-    const subscribeNowHref = GUMROAD_LINKS.subscriptions[planKey] ?? undefined
+    const planKey = selectedPlan.name.toLowerCase()
     const useStripe = !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+    const gumroadKey = planKey as keyof typeof GUMROAD_LINKS.subscriptions
+    const subscribeNowHref =
+      useStripe || !GUMROAD_LINKS.subscriptions[gumroadKey]
+        ? undefined
+        : GUMROAD_LINKS.subscriptions[gumroadKey]
 
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
