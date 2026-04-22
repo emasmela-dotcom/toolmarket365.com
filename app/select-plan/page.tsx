@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Check, Sparkles, Zap, ArrowRight, Loader2 } from 'lucide-react';
 import { PlanConfirmation } from '@/components/PlanConfirmation'
-import { GUMROAD_LINKS } from '@/lib/gumroad-config'
+import { stripePlanIdForDbPlanName } from '@/lib/subscriptionTiers'
 
 interface Plan {
   id: string
@@ -122,7 +122,7 @@ export default function SelectPlanPage() {
     )
   }
 
-  const planOrder = ['starter', 'essential', 'creator', 'professional', 'business']
+  const planOrder = ['essential', 'professional']
   const sortedPlans = [...plans].sort((a, b) => {
     const indexA = planOrder.indexOf(a.name)
     const indexB = planOrder.indexOf(b.name)
@@ -197,11 +197,7 @@ export default function SelectPlanPage() {
       : ['All 53+ tools', 'Unlimited use of all tools', 'Unlimited content library']
     const planKey = selectedPlan.name.toLowerCase()
     const useStripe = !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-    const gumroadKey = planKey as keyof typeof GUMROAD_LINKS.subscriptions
-    const subscribeNowHref =
-      useStripe || !GUMROAD_LINKS.subscriptions[gumroadKey]
-        ? undefined
-        : GUMROAD_LINKS.subscriptions[gumroadKey]
+    const stripePlanId = stripePlanIdForDbPlanName(planKey)
 
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
@@ -212,9 +208,9 @@ export default function SelectPlanPage() {
             excludedTools={excluded.length > 0 ? ['Tools marked with credit badge', 'Tools from higher-tier plans'] : []}
             onConfirm={handleConfirmTrial}
             onCancel={handleCancelConfirmation}
-            subscribeNowHref={subscribeNowHref}
+            subscribeNowHref={undefined}
             useStripe={useStripe}
-            planIdForStripe={planKey}
+            planIdForStripe={stripePlanId ?? undefined}
           />
         </div>
       </div>
@@ -246,7 +242,7 @@ export default function SelectPlanPage() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {sortedPlans.map((plan) => {
             const toolCount = plan.tool_slugs?.length || 0
             const isStarting = startingTrial === plan.name

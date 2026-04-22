@@ -24,88 +24,61 @@ const creditPricedToolRows = Object.entries(TOOL_CREDIT_COSTS)
 
 const plans = [
   {
-    name: 'Starter',
+    name: 'Creator',
     price: '$19',
     period: '/month',
-    description: 'For individuals getting consistent with publishing and client ops.',
+    description: 'Basic creator tools for consistent publishing and workflow.',
     popular: false,
-    toolCount: '100 credits included',
+    toolCount: 'Core creator toolkit',
     tools: [
-      'Core creator, workflow, and client tools',
-      'Credit-priced tools available pay-per-use',
-      'Great for lighter monthly usage',
+      'Foundational creator workflow tools',
+      'Built for consistent creation and planning',
+      'Clean starting point with real utility',
     ],
     features: [
-      '100 monthly credits included',
+      'Basic creator tool access',
       '5 free tool uses right after signup',
-      'Use credits across premium tools',
+      'Structured creator workflow foundation',
       'Email support',
     ],
     cta: 'Subscribe Now',
-    ctaLink: GUMROAD_LINKS.subscriptions.starter,
+    ctaLink: GUMROAD_LINKS.subscriptions.essential,
     gumroad: true,
   },
   {
-    name: 'Professional',
+    name: 'Full Creator',
     price: '$49',
     period: '/month',
-    description: 'Best value for active creators and operators.',
+    description: 'Stronger all-in creator stack with higher capability.',
     popular: true,
-    toolCount: '400 credits included',
+    toolCount: 'Full creator experience',
     tools: [
-      'Everything in Starter',
-      'Higher monthly usage capacity',
-      'Best price-per-credit for most users',
+      'Everything in Creator',
+      'Full creator workflow access',
+      'For creators running this as their core stack',
     ],
     features: [
-      '400 monthly credits included',
+      'All creator tools unlocked',
       'Priority support',
       '5 free tool uses right after signup',
-      'Top-up anytime if needed',
+      'No compromises creator setup',
     ],
     cta: 'Subscribe Now',
     ctaLink: GUMROAD_LINKS.subscriptions.professional,
     gumroad: true,
-    savings: 'Recommended plan for most users',
-  },
-  {
-    name: 'Business',
-    price: '$99',
-    period: '/month',
-    description: 'For teams, agencies, and heavy monthly usage.',
-    popular: false,
-    toolCount: '1,000 credits included',
-    tools: [
-      'Everything in Professional',
-      'Higher usage ceiling for teams',
-      'Operational headroom for multi-client workflows',
-    ],
-    features: [
-      '1,000 monthly credits included',
-      'Team-oriented usage capacity',
-      'Priority support',
-      '5 free tool uses right after signup',
-    ],
-    cta: 'Subscribe Now',
-    ctaLink: GUMROAD_LINKS.subscriptions.business,
-    gumroad: true,
+    savings: 'Full creator tier',
   },
 ]
 
 const toolDistribution = {
-  starter: [
-    '100 credits included',
-    'Good for light monthly usage',
+  creator: [
+    'Basic creator tools',
+    'Good for steady creation workflow',
     '5 free tool uses after signup',
   ],
-  professional: [
-    '400 credits included',
-    'Best value for active usage',
-    'Includes 5 free tool uses after signup',
-  ],
-  business: [
-    '1,000 credits included',
-    'Best for teams and heavy usage',
+  fullCreator: [
+    'Everything in Creator',
+    'Full creator capability set',
     'Includes 5 free tool uses after signup',
   ],
   topups: [
@@ -126,7 +99,7 @@ const faq = [
   },
   {
     question: 'How do credits work?',
-    answer: 'Every tool run consumes credits based on per-use cost. Plans include monthly credits (Starter 100, Professional 400, Business 1,000).',
+    answer: 'Every tool run consumes credits based on per-use cost.',
   },
   {
     question: 'What tools are in each plan?',
@@ -310,22 +283,15 @@ export default function PricingPage() {
                     <div className="flex items-start space-x-3">
                       <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Starter = 100 credits / month</p>
-                        <p className="text-sm text-mono-600 dark:text-mono-400">Great for lighter monthly usage and focused tool runs.</p>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Creator = Basic creator tools</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">For creators building consistency and workflow foundations.</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Professional = 400 credits / month</p>
-                        <p className="text-sm text-mono-600 dark:text-mono-400">Best value for active creators who use tools daily.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Business = 1,000 credits / month</p>
-                        <p className="text-sm text-mono-600 dark:text-mono-400">Built for teams, agencies, and heavy-volume operations.</p>
+                        <p className="text-sm font-semibold text-mono-950 dark:text-mono-50">Full Creator = All-in creator stack</p>
+                        <p className="text-sm text-mono-600 dark:text-mono-400">For creators running their operation at full capability.</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -753,11 +719,11 @@ export default function PricingPage() {
             <p className="text-center text-mono-700 dark:text-mono-300 mb-8 max-w-3xl mx-auto">
               Each plan includes tools specifically curated for creators at that level. Beginner tools for beginners, advanced tools for advanced creators—no overwhelm, just the right tools for your stage.
             </p>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               <div className="rounded-lg border border-mono-200 bg-mono-50 p-6 dark:border-mono-700 dark:bg-mono-800">
-                <h3 className="font-bold mb-3">Starter - $19/month</h3>
+                <h3 className="font-bold mb-3">Creator</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.starter.map((tool, idx) => (
+                  {toolDistribution.creator.map((tool, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-accent-600 mr-2">•</span>
                       <span>{tool}</span>
@@ -766,31 +732,9 @@ export default function PricingPage() {
                 </ul>
               </div>
               <div className="rounded-lg border border-mono-200 bg-mono-50 p-6 dark:border-mono-700 dark:bg-mono-800">
-                <h3 className="font-bold mb-3">Professional - $49/month ⭐</h3>
+                <h3 className="font-bold mb-3">Full Creator ⭐</h3>
                 <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.professional.map((tool, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <span className="text-accent-600 mr-2">•</span>
-                      <span>{tool}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="rounded-lg border-2 border-accent-200 bg-accent-50 p-6 dark:border-accent-800 dark:bg-accent-900/20">
-                <h3 className="font-bold mb-3">Business - $99/month</h3>
-                <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.business.map((tool: string, idx: number) => (
-                    <li key={idx} className="flex items-start">
-                      <span className="text-accent-600 mr-2">•</span>
-                      <span>{tool}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="rounded-lg border border-mono-200 bg-mono-50 p-6 dark:border-mono-700 dark:bg-mono-800">
-                <h3 className="font-bold mb-3">Top-up Credits</h3>
-                <ul className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                  {toolDistribution.topups.map((tool: string, idx: number) => (
+                  {toolDistribution.fullCreator.map((tool, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-accent-600 mr-2">•</span>
                       <span>{tool}</span>

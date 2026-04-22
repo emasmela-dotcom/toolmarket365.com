@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export const runtime = 'nodejs'
 import { sql } from '@/lib/db'
+import { PUBLIC_TIER_PLAN_NAMES } from '@/lib/subscriptionTiers'
 
 export async function GET(req: NextRequest) {
   if (!sql) {
@@ -23,6 +24,7 @@ export async function GET(req: NextRequest) {
         tool_slugs,
         features
       FROM plans
+      WHERE name = ANY(${PUBLIC_TIER_PLAN_NAMES}::text[])
       ORDER BY price_monthly ASC
     `
 
