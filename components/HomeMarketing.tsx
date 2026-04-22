@@ -24,6 +24,9 @@ export default function HomeMarketing() {
           <Link href="/login" className="tm-home__auth-secondary">
             Sign In
           </Link>
+          <Link href="/pricing" className="tm-home__auth-link">
+            Pricing
+          </Link>
           <Link href="/forgot-password" className="tm-home__auth-link">
             Forgot password
           </Link>
