@@ -87,8 +87,8 @@ const faq = [
     answer: 'Start your 7-day trial to test workflows before committing. No credit card needed to start.',
   },
   {
-    question: 'Do you use credits?',
-    answer: 'No. Plans are structured by included tool sets, and the AI Power Pack is a separate add-on package.',
+    question: 'How is pricing structured?',
+    answer: 'Pricing is plan-based: Basic, Full Creator, and an optional AI Power Pack add-on.',
   },
   {
     question: 'What tools are in each plan?',
@@ -392,12 +392,10 @@ export default function PricingPage() {
                 ))}
               </ul>
               <a
-                href={GUMROAD_LINKS.credits.bundle100}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/contact?type=feedback"
                 className="mt-6 block w-full rounded-lg bg-accent-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-accent-700"
               >
-                Add AI Power Pack (Preview Offer)
+                Request AI Power Pack
               </a>
             </div>
             <div className="mt-8 rounded-lg border border-blue-200 bg-blue-50 p-6 dark:border-blue-300 dark:bg-blue-100">
