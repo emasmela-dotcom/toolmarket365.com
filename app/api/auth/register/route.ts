@@ -15,6 +15,11 @@ import {
 
 export const runtime = 'nodejs'
 
+type RegisterUserRow = {
+  id: string
+  email: string
+}
+
 export async function POST(req: NextRequest) {
   let body: any
   try {
@@ -57,11 +62,11 @@ export async function POST(req: NextRequest) {
     } else {
       // Extract name from email (part before @) as default name
       const defaultName = email.split('@')[0] || 'User'
-      const userRows = await sql`
+      const userRows = (await sql`
         INSERT INTO users (email, password_hash, name)
         VALUES (${email}, ${pwHash}, ${defaultName})
         RETURNING id, email
-      `
+      `) as RegisterUserRow[]
       user = userRows[0]
       await sql`
         INSERT INTO sessions (user_id, token_hash, expires_at)

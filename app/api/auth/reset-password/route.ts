@@ -5,6 +5,13 @@ import { hashPassword, isStrongEnoughPassword, sha256Hex } from '@/lib/auth'
 
 export const runtime = 'nodejs'
 
+type PasswordResetRow = {
+  id: string
+  user_id: string
+  expires_at: string
+  used_at: string | null
+}
+
 export async function POST(req: NextRequest) {
   let body: any
   try {
@@ -37,12 +44,12 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid or expired reset token' }, { status: 400 })
       }
     } else {
-      const rows = await sql`
+      const rows = (await sql`
         SELECT id, user_id, expires_at, used_at
         FROM password_resets
         WHERE token_hash = ${tokenHash}
         LIMIT 1
-      `
+      `) as PasswordResetRow[]
       const pr = rows[0]
       if (!pr) return NextResponse.json({ error: 'Invalid or expired reset token' }, { status: 400 })
       if (pr.used_at) return NextResponse.json({ error: 'Reset token already used' }, { status: 400 })
