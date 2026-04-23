@@ -1,6 +1,6 @@
 /** Canonical public site URL (no trailing slash). */
 export function getSiteUrl(): string {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://creatorflow365.com"
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://toolmarket365.com"
   return raw.replace(/\/$/, "")
 }
 
@@ -20,7 +20,6 @@ export const SITE_KEYWORDS = [
   "newsletter",
   "link in bio",
   "ToolMarket365",
-  "CreatorFlow365",
 ]
 
 /** Sister product base URL — only set when DNS is live. No default (avoids dead links). */

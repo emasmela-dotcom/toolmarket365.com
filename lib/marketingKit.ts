@@ -50,7 +50,7 @@ export const UTM_PRESETS: UtmPreset[] = [
       utm_campaign: "brand_search",
       utm_content: "rsa_primary",
     },
-    note: "Use for exact / phrase match on ToolMarket365, CreatorFlow365, etc.",
+    note: "Use for exact / phrase match on ToolMarket365 and related brand terms.",
   },
   {
     id: "google-tools-nonbrand",
