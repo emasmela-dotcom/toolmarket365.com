@@ -14,6 +14,12 @@ import {
   verifyPassword,
 } from '@/lib/auth'
 
+type LoginUserRow = {
+  id: string
+  email: string
+  password_hash: string
+}
+
 export async function POST(req: NextRequest) {
   let body: any
   try {
@@ -40,12 +46,12 @@ export async function POST(req: NextRequest) {
         }
       }
     } else {
-      const rows = await sql`
+      const rows = (await sql`
         SELECT id, email, password_hash
         FROM users
         WHERE email = ${email}
         LIMIT 1
-      `
+      `) as LoginUserRow[]
       user = rows[0] || null
     }
 
