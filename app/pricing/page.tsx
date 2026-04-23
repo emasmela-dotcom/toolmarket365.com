@@ -25,6 +25,8 @@ const creditPricedToolRows = Object.entries(TOOL_CREDIT_COSTS)
 const plans = [
   {
     name: 'Creator',
+    /** DB / Gumroad tier key — matches `plans.name` and `/api/plans`. */
+    planDbName: 'essential' as const,
     price: '$19',
     period: '/month',
     description: 'Basic creator tools for consistent publishing and workflow.',
@@ -47,6 +49,7 @@ const plans = [
   },
   {
     name: 'Full Creator',
+    planDbName: 'professional' as const,
     price: '$49',
     period: '/month',
     description: 'Stronger all-in creator stack with higher capability.',
@@ -360,16 +363,16 @@ export default function PricingPage() {
 
                   <div className="mb-4">
                     <Link
-                      href={`/home?plan=${plan.name.toLowerCase()}`}
+                      href={`/plan-tools?plan=${plan.planDbName}`}
                       className="flex items-center justify-center text-sm font-medium text-accent-700 underline-offset-2 hover:text-accent-800 hover:underline dark:text-accent-700 dark:hover:text-accent-800"
                     >
-                      View All Tools →
+                      Tools in this plan →
                     </Link>
                   </div>
 
                   <div className="space-y-2">
                     <Link
-                      href={`/select-plan?plan=${plan.name.toLowerCase()}`}
+                      href={`/select-plan?plan=${plan.planDbName}`}
                       className={`block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm transition-colors ${
                         plan.popular
                           ? 'bg-accent-600 text-white hover:bg-accent-700'
