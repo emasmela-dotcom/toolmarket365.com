@@ -5,6 +5,11 @@ import { RESET_TTL_MINUTES, isValidEmail, normalizeEmail, nowPlusMinutes, random
 
 export const runtime = 'nodejs'
 
+type UserLookupRow = {
+  id: string
+  email: string
+}
+
 export async function POST(req: NextRequest) {
   let body: any
   try {
@@ -25,7 +30,12 @@ export async function POST(req: NextRequest) {
       const localUser = await getLocalUserByEmail(email)
       if (localUser) user = { id: localUser.id, email: localUser.email }
     } else {
-      const users = await sql`SELECT id, email FROM users WHERE email = ${email} LIMIT 1`
+      const users = (await sql`
+        SELECT id, email
+        FROM users
+        WHERE email = ${email}
+        LIMIT 1
+      `) as UserLookupRow[]
       user = users[0] || null
     }
 
