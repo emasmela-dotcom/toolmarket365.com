@@ -357,16 +357,15 @@ function PostSchedulerContent() {
 }
 
 export default function PostScheduler() {
-  const toolDescription = "Schedule social media posts with calendar view. Plan posts for specific dates and times, edit scheduled content, and export your schedule to calendar formats."
+  const toolDescription =
+    'Local calendar for planning posts and exporting .ics. Does not connect to Instagram, X, TikTok, LinkedIn, or YouTube APIs—copy content out or import the export into your own calendar or scheduler.'
   const howToUse = (
     <div>
       <ol className="list-decimal list-inside space-y-1 ml-2">
         <li><strong>Navigate calendar:</strong> Use arrows to move between months</li>
-        <li><strong>Click date:</strong> Select a date to schedule a post</li>
-        <li><strong>Enter content:</strong> Add title and body text for your post</li>
-        <li><strong>Set time:</strong> Choose a posting time (best times are suggested)</li>
-        <li><strong>Save:</strong> Click "Save" to schedule the post</li>
-        <li><strong>Edit/Delete:</strong> Click on scheduled posts to edit or delete them</li>
+        <li><strong>Click a cell:</strong> Add or edit a planned post (title/body) for that slot</li>
+        <li><strong>Queue:</strong> Optionally queue a draft into the next suggested slot</li>
+        <li><strong>Export .ics:</strong> Download and import into Google Calendar, Outlook, or another tool you use to post</li>
       </ol>
     </div>
   )

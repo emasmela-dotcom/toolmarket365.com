@@ -84,9 +84,11 @@ const differentiators = [
   {
     icon: Workflow,
     title: 'Integrated Workflow',
-    description: 'All tools work together seamlessly. Content flows from creation → optimization → scheduling → analytics automatically. No manual copying or switching between tools.',
+    description:
+      'All tools live in one place. Content moves from creation → optimization → planning and exports you can paste or import elsewhere—without implying native posting to every social network from ToolMarket365.',
     competitorStatus: '❌ Competitors require manual work between separate tools',
-    howItImproves: 'Save 10-15 hours per week. Content automatically flows through your workflow. Everything connected, nothing gets lost.',
+    howItImproves:
+      'Save time with one workspace: draft and refine here, then copy or export to wherever you actually publish. Nothing claims a single ToolMarket365 login posts to every network for you.',
     impact: '10x faster content creation process',
   },
   {
@@ -161,9 +163,9 @@ const workflowSteps = [
   },
   {
     step: 6,
-    title: 'Schedule & Post',
-    tool: 'Post Scheduler',
-    improvement: 'Schedule optimized content at predicted best times',
+    title: 'Plan when to post',
+    tool: 'Post Scheduler / Social Scheduler',
+    improvement: 'Block times, draft captions, and export or copy into your own posting flow',
     competitor: '✅ Similar, but no integration with creation tools',
   },
   {

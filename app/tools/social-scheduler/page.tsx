@@ -462,15 +462,15 @@ function SocialSchedulerContent() {
 }
 
 export default function SocialScheduler() {
-  const toolDescription = "Schedule social media posts across multiple platforms. Create, edit, and manage scheduled posts with calendar view, status tracking, and bulk operations for efficient content planning."
+  const toolDescription =
+    'Plan and track posts in your own list (Neon when configured). Copy content into each network yourself—ToolMarket365 does not publish to Instagram, X, TikTok, LinkedIn, or YouTube APIs from this tool.'
   const howToUse = (
     <div>
       <ol className="list-decimal list-inside space-y-1 ml-2">
-        <li><strong>Create post:</strong> Click "New Post" to add a scheduled post</li>
-        <li><strong>Enter details:</strong> Add title, body text, scheduled date/time, and media URLs</li>
-        <li><strong>Set status:</strong> Choose draft, scheduled, published, or canceled</li>
-        <li><strong>View calendar:</strong> See all scheduled posts in calendar view</li>
-        <li><strong>Manage posts:</strong> Edit, delete, or change status of scheduled posts</li>
+        <li><strong>Create post:</strong> Click &quot;New Post&quot; to add a row (platform label, body, optional schedule time).</li>
+        <li><strong>Enter details:</strong> Add title, body text, optional schedule time, and optional media URLs for your notes.</li>
+        <li><strong>Set status:</strong> Choose draft, scheduled, published, or canceled (your workflow labels).</li>
+        <li><strong>Manage posts:</strong> Edit, delete, or change status; copy text out to paste where you post.</li>
       </ol>
     </div>
   )

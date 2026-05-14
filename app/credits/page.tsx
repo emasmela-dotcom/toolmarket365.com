@@ -162,9 +162,9 @@ export default function CreditsPage() {
                 <p className="text-sm font-semibold text-red-900 dark:text-red-200 mb-2">Tools with limited functionality without API setup:</p>
                 <ul className="text-sm text-red-800 dark:text-red-300 space-y-2 ml-4">
                   <li>• <strong>Competitor Analyzer</strong> - Works with demo data; requires social media API for real competitor analysis</li>
-                  <li>• <strong>Instagram Scheduler</strong> - Can plan/schedule posts; requires Instagram API for automatic posting</li>
+                  <li>• <strong>Instagram Scheduler</strong> - Plan and draft in-app; optional auto-post only with your own Meta/Graph app and infra (not a built-in “connect Instagram” product feature)</li>
                   <li>• <strong>AI-Enhanced Tools</strong> - Work with templates; optional OpenAI/Anthropic/Google API keys enhance results</li>
-                  <li>• <strong>Social Media Analytics</strong> - Show mock data; require platform APIs for real-time analytics</li>
+                  <li>• <strong>Social Media Analytics</strong> - Manual or demo data in ToolMarket365; no live account connections for Instagram, X, TikTok, LinkedIn, or YouTube from this hub</li>
                 </ul>
               </div>
               <p className="text-sm text-red-800 dark:text-red-300 mb-3">
@@ -205,8 +205,8 @@ export default function CreditsPage() {
                 <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
                   <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">2. Instagram Scheduler</h4>
                   <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
-                    <li>• <strong>Without API:</strong> Can plan, schedule, and manage posts in the calendar</li>
-                    <li>• <strong>With API:</strong> Posts automatically publish to Instagram at scheduled times</li>
+                    <li>• <strong>Default:</strong> Plan and draft in the app; copy or export content to post manually in Instagram.</li>
+                    <li>• <strong>Optional auto-post:</strong> Only if you supply your own Meta/Instagram Graph app, tokens, and cron/infra—ToolMarket365 does not ship one-click “connect all social accounts.”</li>
                   </ul>
                 </div>
 
@@ -224,8 +224,8 @@ export default function CreditsPage() {
                 <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
                   <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">4. Social Media Analytics</h4>
                   <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
-                    <li>• <strong>Without API:</strong> Show mock/demo data</li>
-                    <li>• <strong>With API:</strong> Real-time analytics from platform APIs</li>
+                    <li>• <strong>In product:</strong> Manual entry, templates, or demo data—useful for planning and reporting layouts.</li>
+                    <li>• <strong>Not included:</strong> Live account linking for Instagram, X, TikTok, LinkedIn, or YouTube from this hub.</li>
                   </ul>
                 </div>
               </div>

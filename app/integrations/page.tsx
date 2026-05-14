@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { CheckCircle, XCircle, ExternalLink, Key, Zap, Info, Sparkles, Image, BarChart3, Video, MessageSquare, Settings, ArrowRight } from 'lucide-react';
+import { CheckCircle, ExternalLink, Key, Zap, Info, Sparkles, Image, BarChart3, Settings, ArrowRight } from 'lucide-react';
 import Link from 'next/link'
 
 interface Integration {
@@ -56,63 +56,16 @@ const integrations: Integration[] = [
   },
   {
     id: 'instagram',
-    name: 'Instagram API',
-    description: 'Connect Instagram for automatic posting',
+    name: 'Instagram Graph (BYOK)',
+    description: 'Optional credentials for Instagram Scheduler only',
     category: 'social',
     icon: <Image className="h-6 w-6" />,
     status: 'available',
     getKeyUrl: 'https://developers.facebook.com/apps',
     docsUrl: 'https://developers.facebook.com/docs/instagram-api',
-    whatItDoes: 'Enables automatic posting to Instagram via Instagram Scheduler tool',
-    costInfo: 'Free for basic posting. Requires Facebook Developer account.',
-  },
-  {
-    id: 'twitter',
-    name: 'Twitter / X API',
-    description: 'Connect Twitter for automated posting',
-    category: 'social',
-    icon: <MessageSquare className="h-6 w-6" />,
-    status: 'available',
-    getKeyUrl: 'https://developer.twitter.com/en/portal/dashboard',
-    docsUrl: 'https://developer.twitter.com/en/docs',
-    whatItDoes: 'Enables automated posting and engagement tracking on Twitter/X',
-    costInfo: 'Free tier available, paid plans start at $100/month for higher limits.',
-  },
-  {
-    id: 'facebook',
-    name: 'Facebook API',
-    description: 'Connect Facebook for posting and analytics',
-    category: 'social',
-    icon: <MessageSquare className="h-6 w-6" />,
-    status: 'available',
-    getKeyUrl: 'https://developers.facebook.com/apps',
-    docsUrl: 'https://developers.facebook.com/docs',
-    whatItDoes: 'Enables posting and analytics for Facebook pages and groups',
-    costInfo: 'Free for basic features. Requires Facebook Developer account.',
-  },
-  {
-    id: 'linkedin',
-    name: 'LinkedIn API',
-    description: 'Connect LinkedIn for professional content',
-    category: 'social',
-    icon: <MessageSquare className="h-6 w-6" />,
-    status: 'available',
-    getKeyUrl: 'https://www.linkedin.com/developers/apps',
-    docsUrl: 'https://learn.microsoft.com/en-us/linkedin',
-    whatItDoes: 'Enables automated posting and engagement tracking on LinkedIn',
-    costInfo: 'Free for basic features. Requires LinkedIn Developer account.',
-  },
-  {
-    id: 'youtube',
-    name: 'YouTube API',
-    description: 'Connect YouTube for video management',
-    category: 'social',
-    icon: <Video className="h-6 w-6" />,
-    status: 'available',
-    getKeyUrl: 'https://console.cloud.google.com/apis/credentials',
-    docsUrl: 'https://developers.google.com/youtube/v3',
-    whatItDoes: 'Enables video upload, scheduling, and analytics for YouTube',
-    costInfo: 'Free quota available. Additional usage may incur costs.',
+    whatItDoes:
+      'ToolMarket365 does not auto-connect Instagram for you. Instagram Scheduler can publish only when you configure your own Meta app, tokens, and hosting/cron—see that tool’s setup docs.',
+    costInfo: 'Meta’s policies and quotas apply; you pay Meta/Google hosting costs directly, not ToolMarket365.',
   },
   {
     id: 'google-analytics',
@@ -255,8 +208,8 @@ function IntegrationsPageContent() {
                   <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
                     <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">2. Instagram Scheduler</h4>
                     <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
-                      <li>• <strong>Without API:</strong> Can plan, schedule, and manage posts in the calendar</li>
-                      <li>• <strong>With API:</strong> Posts automatically publish to Instagram at scheduled times</li>
+                      <li>• <strong>Default:</strong> Plan and draft in the app; copy or export content to post manually in Instagram.</li>
+                      <li>• <strong>Optional auto-post:</strong> Only if you supply your own Meta/Instagram Graph app, tokens, and cron/infra—ToolMarket365 does not ship one-click “connect all social accounts.”</li>
                     </ul>
                   </div>
 
@@ -274,8 +227,8 @@ function IntegrationsPageContent() {
                   <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
                     <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">4. Social Media Analytics</h4>
                     <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
-                      <li>• <strong>Without API:</strong> Show mock/demo data (Cross-Platform Analytics, Brand Mention Tracker, etc.)</li>
-                      <li>• <strong>With API:</strong> Real-time analytics from platform APIs</li>
+                      <li>• <strong>In product:</strong> Manual entry, templates, or demo data—useful for planning and reporting layouts.</li>
+                      <li>• <strong>Not included:</strong> Live account linking for Instagram, X, TikTok, LinkedIn, or YouTube from this hub.</li>
                     </ul>
                   </div>
                 </div>
