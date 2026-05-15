@@ -207,7 +207,7 @@ export default function GrowthSuitePage() {
         <div className="max-w-4xl mx-auto px-4 py-12">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-              Welcome to ToolMarket365 Growth Suite
+              Welcome to CreatorFlow365 Growth Suite
             </h1>
             <p className="text-xl text-mono-600 dark:text-mono-400 max-w-2xl mx-auto">
               Connect creators with brands for authentic collaborations. Choose your path to get started.

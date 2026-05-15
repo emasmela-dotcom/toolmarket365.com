@@ -52,7 +52,7 @@ function ConnectInstagramAccountContent() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50">Connect Instagram Account</h1>
-          <p className="text-mono-600 dark:text-mono-400 mt-1">Authorize ToolMarket365 to post to your Instagram account</p>
+          <p className="text-mono-600 dark:text-mono-400 mt-1">Authorize CreatorFlow365 to post to your Instagram account</p>
         </div>
         <button
           onClick={() => router.push('/tools/instagram-scheduler')}
@@ -116,7 +116,7 @@ function ConnectInstagramAccountContent() {
           </h2>
           
           <p className="text-mono-600 dark:text-mono-400 mb-6 max-w-md mx-auto">
-            Authorize ToolMarket365 to schedule and publish posts to your Instagram account.
+            Authorize CreatorFlow365 to schedule and publish posts to your Instagram account.
             You'll be redirected to Instagram to authorize the connection.
           </p>
 
@@ -139,7 +139,7 @@ function ConnectInstagramAccountContent() {
           </button>
 
           <p className="text-xs text-mono-500 dark:text-mono-500 mt-6">
-            By connecting, you authorize ToolMarket365 to access your Instagram account for posting scheduled content.
+            By connecting, you authorize CreatorFlow365 to access your Instagram account for posting scheduled content.
             You can revoke access at any time from your Instagram settings.
           </p>
         </div>
@@ -174,7 +174,7 @@ function ConnectInstagramAccountContent() {
 }
 
 export default function ConnectInstagramAccountPage() {
-  const toolDescription = "Connect your Instagram account to enable automatic posting of scheduled content. Authorize ToolMarket365 to post on your behalf."
+  const toolDescription = "Connect your Instagram account to enable automatic posting of scheduled content. Authorize CreatorFlow365 to post on your behalf."
   const howToUse = "1. Click 'Connect Instagram Account'. 2. You'll be redirected to Instagram to authorize. 3. After authorization, you'll be redirected back. 4. Your account will be connected and ready to use."
 
   return (

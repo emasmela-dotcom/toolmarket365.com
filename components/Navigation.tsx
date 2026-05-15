@@ -53,7 +53,7 @@ export function Navigation() {
           {/* Left: Logo + Compare Button */}
           <div className="flex flex-col items-start flex-shrink-0">
             <Link href="/" className="flex items-center space-x-1 mb-1">
-              <span className="text-xl font-bold text-mono-950">ToolMarket</span>
+              <span className="text-xl font-bold text-mono-950">CreatorFlow</span>
               <span className="text-xl font-bold text-accent-600">365</span>
             </Link>
             <Link 

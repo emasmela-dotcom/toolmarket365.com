@@ -228,7 +228,7 @@ function InstagramSchedulerContent() {
               </ul>
             </div>
             <p className="text-sm text-red-800 dark:text-red-300 mb-3">
-              <strong>You pay API providers directly</strong> - ToolMarket365 never charges for API usage. We only track usage for analytics.
+              <strong>You pay API providers directly</strong> - CreatorFlow365 never charges for API usage. We only track usage for analytics.
             </p>
             <Link
               href="/integrations"

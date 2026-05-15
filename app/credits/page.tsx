@@ -94,7 +94,7 @@ export default function CreditsPage() {
                 Transparency Notice
               </h3>
               <p className="text-sm text-blue-800 dark:text-blue-300">
-                ToolMarket365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; ToolMarket365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your ToolMarket365 subscription cost predictable.
+                CreatorFlow365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; CreatorFlow365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your CreatorFlow365 subscription cost predictable.
               </p>
             </div>
           </div>
@@ -164,11 +164,11 @@ export default function CreditsPage() {
                   <li>• <strong>Competitor Analyzer</strong> - Works with demo data; requires social media API for real competitor analysis</li>
                   <li>• <strong>Instagram Scheduler</strong> - Plan and draft in-app; optional auto-post only with your own Meta/Graph app and infra (not a built-in “connect Instagram” product feature)</li>
                   <li>• <strong>AI-Enhanced Tools</strong> - Work with templates; optional OpenAI/Anthropic/Google API keys enhance results</li>
-                  <li>• <strong>Social Media Analytics</strong> - Manual or demo data in ToolMarket365; no live account connections for Instagram, X, TikTok, LinkedIn, or YouTube from this hub</li>
+                  <li>• <strong>Social Media Analytics</strong> - Manual or demo data in CreatorFlow365; no live account connections for Instagram, X, TikTok, LinkedIn, or YouTube from this hub</li>
                 </ul>
               </div>
               <p className="text-sm text-red-800 dark:text-red-300 mb-3">
-                <strong>Don't worry:</strong> You pay the API providers directly (ToolMarket365 never charges for API usage). We only track usage for analytics purposes.
+                <strong>Don't worry:</strong> You pay the API providers directly (CreatorFlow365 never charges for API usage). We only track usage for analytics purposes.
               </p>
               <Link
                 href="/integrations"
@@ -190,7 +190,7 @@ export default function CreditsPage() {
                 How Tools Work With & Without API Setup
               </h2>
               <p className="text-sm text-green-800 dark:text-green-300 mb-4">
-                <strong>Good news:</strong> All ToolMarket365 tools work immediately without API setup! Some tools show demo/template data, while others have full functionality. API integrations enhance tools with real data and advanced features.
+                <strong>Good news:</strong> All CreatorFlow365 tools work immediately without API setup! Some tools show demo/template data, while others have full functionality. API integrations enhance tools with real data and advanced features.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -206,7 +206,7 @@ export default function CreditsPage() {
                   <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">2. Instagram Scheduler</h4>
                   <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
                     <li>• <strong>Default:</strong> Plan and draft in the app; copy or export content to post manually in Instagram.</li>
-                    <li>• <strong>Optional auto-post:</strong> Only if you supply your own Meta/Instagram Graph app, tokens, and cron/infra—ToolMarket365 does not ship one-click “connect all social accounts.”</li>
+                    <li>• <strong>Optional auto-post:</strong> Only if you supply your own Meta/Instagram Graph app, tokens, and cron/infra—CreatorFlow365 does not ship one-click “connect all social accounts.”</li>
                   </ul>
                 </div>
 

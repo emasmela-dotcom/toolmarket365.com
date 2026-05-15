@@ -3,7 +3,7 @@
  * Manages user preferences with localStorage fallback
  */
 
-const PREFERENCES_KEY = 'toolmarket365_preferences'
+const PREFERENCES_KEY = 'creatorflow365_preferences'
 
 export interface UserPreferences {
   saveToLibraryEnabled: boolean

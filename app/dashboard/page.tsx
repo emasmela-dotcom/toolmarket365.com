@@ -309,7 +309,7 @@ export default function DashboardPage() {
                   }`}>
                     {trialStatus.daysRemaining <= 3
                       ? 'Subscribe now to keep all content created during your trial. If you don\'t subscribe, your account will be restored to its pre-trial state.'
-                      : 'Subscribe anytime during your trial to lock in your content. You can continue using ToolMarket365 or subscribe now to secure your work.'
+                      : 'Subscribe anytime during your trial to lock in your content. You can continue using CreatorFlow365 or subscribe now to secure your work.'
                     }
                   </p>
                 </div>
@@ -341,7 +341,7 @@ export default function DashboardPage() {
                     Data Stored Locally in Your Browser
                   </h3>
                   <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-3">
-                    <strong>Good news:</strong> All tools work instantly with local storage—no setup required! <strong>However:</strong> Your dashboard data (favorites, tool usage, activity) is currently stored in your browser's local storage, which means your data is only on this device, won't sync across devices, and may be lost if you clear browser data. <strong>For full benefits and full functionality</strong> (cloud sync, cross-device access, data backup), set up a database connection. <strong>One database setup works for all tools</strong>—configure it once and enjoy cloud storage across your entire ToolMarket365 toolkit.
+                    <strong>Good news:</strong> All tools work instantly with local storage—no setup required! <strong>However:</strong> Your dashboard data (favorites, tool usage, activity) is currently stored in your browser's local storage, which means your data is only on this device, won't sync across devices, and may be lost if you clear browser data. <strong>For full benefits and full functionality</strong> (cloud sync, cross-device access, data backup), set up a database connection. <strong>One database setup works for all tools</strong>—configure it once and enjoy cloud storage across your entire CreatorFlow365 toolkit.
                   </p>
                   <div className="mt-3">
                     <a

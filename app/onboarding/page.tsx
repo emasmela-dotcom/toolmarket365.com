@@ -16,14 +16,14 @@ interface Tutorial {
 const tutorials: Tutorial[] = [
   {
     id: 'getting-started',
-    title: 'Getting Started with ToolMarket365',
-    description: 'Learn the basics of using ToolMarket365 to create and manage your content',
+    title: 'Getting Started with CreatorFlow365',
+    description: 'Learn the basics of using CreatorFlow365 to create and manage your content',
     duration: '5 min',
     category: 'Basics',
     steps: [
       {
-        title: 'Welcome to ToolMarket365',
-        content: 'ToolMarket365 is your all-in-one platform for content creation. You have access to 53+ tools to help you create, optimize, and schedule content.'
+        title: 'Welcome to CreatorFlow365',
+        content: 'CreatorFlow365 is your all-in-one platform for content creation. You have access to 53+ tools to help you create, optimize, and schedule content.'
       },
       {
         title: 'Explore Tools',
@@ -266,9 +266,9 @@ function OnboardingPage() {
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-8 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4">ToolMarket365 Tutorials</h1>
+          <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4">CreatorFlow365 Tutorials</h1>
           <p className="text-mono-600 dark:text-mono-400">
-            Learn how to use ToolMarket365 to create amazing content. All tutorials are interactive and guide you step-by-step.
+            Learn how to use CreatorFlow365 to create amazing content. All tutorials are interactive and guide you step-by-step.
           </p>
         </div>
 

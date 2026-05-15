@@ -178,8 +178,8 @@ export default function CheckoutPage() {
             {isTrialExpired 
               ? 'Your trial has ended. Subscribe now to regain access and keep all your content.'
               : daysRemaining !== null && daysRemaining > 0
-                ? `Your trial ends in ${daysRemaining} day${daysRemaining !== 1 ? 's' : ''}. Subscribe now to lock in your content and continue using ToolMarket365.`
-                : 'Subscribe now to keep all content created during your trial and continue using ToolMarket365.'
+                ? `Your trial ends in ${daysRemaining} day${daysRemaining !== 1 ? 's' : ''}. Subscribe now to lock in your content and continue using CreatorFlow365.`
+                : 'Subscribe now to keep all content created during your trial and continue using CreatorFlow365.'
             }
           </p>
         </div>
@@ -211,7 +211,7 @@ export default function CheckoutPage() {
               }`}>
                 {isTrialExpired
                   ? 'Your trial has ended. All content created during your trial will be lost if you do not subscribe. Subscribe now to regain access and keep your content.'
-                  : 'If you do not subscribe before your trial ends, all content created during the trial will be restored to your pre-trial state. Subscribe now to lock in your work and continue using ToolMarket365.'
+                  : 'If you do not subscribe before your trial ends, all content created during the trial will be restored to your pre-trial state. Subscribe now to lock in your work and continue using CreatorFlow365.'
                 }
               </p>
             </div>

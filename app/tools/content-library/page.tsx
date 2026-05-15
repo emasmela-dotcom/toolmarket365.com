@@ -534,7 +534,7 @@ export default function ContentLibraryPage() {
                   Data Stored Locally in Your Browser
                 </h3>
                 <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-3">
-                  <strong>Good news:</strong> All tools work instantly with local storage—no setup required! <strong>However:</strong> Your content is currently stored in your browser's local storage, which means your data is only on this device, won't sync across devices, and may be lost if you clear browser data. <strong>For full benefits and full functionality</strong> (cloud sync, cross-device access, data backup), set up a database connection. <strong>One database setup works for all tools</strong>—configure it once and enjoy cloud storage across your entire ToolMarket365 toolkit.
+                  <strong>Good news:</strong> All tools work instantly with local storage—no setup required! <strong>However:</strong> Your content is currently stored in your browser's local storage, which means your data is only on this device, won't sync across devices, and may be lost if you clear browser data. <strong>For full benefits and full functionality</strong> (cloud sync, cross-device access, data backup), set up a database connection. <strong>One database setup works for all tools</strong>—configure it once and enjoy cloud storage across your entire CreatorFlow365 toolkit.
                 </p>
                 <div className="mt-3">
                   <a

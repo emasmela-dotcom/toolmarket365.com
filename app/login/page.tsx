@@ -52,7 +52,7 @@ export default function LoginPage() {
                 Sign In
               </h1>
               <p className="text-mono-700">
-                Welcome back to ToolMarket365
+                Welcome back to CreatorFlow365
               </p>
             </div>
 

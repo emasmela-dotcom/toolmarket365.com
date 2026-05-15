@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Privacy Policy | ToolMarket365',
-  description: 'Privacy Policy for ToolMarket365 - How we collect, use, and protect your data.',
+  title: 'Privacy Policy | CreatorFlow365',
+  description: 'Privacy Policy for CreatorFlow365 - How we collect, use, and protect your data.',
 }
 
 export default function PrivacyPage() {

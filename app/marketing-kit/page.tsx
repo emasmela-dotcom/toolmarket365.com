@@ -169,11 +169,11 @@ export default function MarketingKitPage() {
                 <li>Example out-link with UTMs:</li>
               </ul>
               <pre className="mt-2 text-xs break-all bg-mono-100 dark:bg-mono-950 p-3 rounded text-mono-800 dark:text-mono-200">
-                {`${lifepack}/?utm_source=toolmarket365&utm_medium=referral&utm_campaign=sister_footer`}
+                {`${lifepack}/?utm_source=creatorflow365&utm_medium=referral&utm_campaign=sister_footer`}
               </pre>
               <div className="mt-2">
                 <CopyTextButton
-                  text={`${lifepack}/?utm_source=toolmarket365&utm_medium=referral&utm_campaign=sister_footer`}
+                  text={`${lifepack}/?utm_source=creatorflow365&utm_medium=referral&utm_campaign=sister_footer`}
                   label="Copy example LP link"
                 />
               </div>

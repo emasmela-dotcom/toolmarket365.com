@@ -463,7 +463,7 @@ function SocialSchedulerContent() {
 
 export default function SocialScheduler() {
   const toolDescription =
-    'Plan and track posts in your own list (Neon when configured). Copy content into each network yourself—ToolMarket365 does not publish to Instagram, X, TikTok, LinkedIn, or YouTube APIs from this tool.'
+    'Plan and track posts in your own list (Neon when configured). Copy content into each network yourself—CreatorFlow365 does not publish to Instagram, X, TikTok, LinkedIn, or YouTube APIs from this tool.'
   const howToUse = (
     <div>
       <ol className="list-decimal list-inside space-y-1 ml-2">

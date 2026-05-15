@@ -3,12 +3,12 @@
 import { useEffect, useMemo, useState } from "react"
 
 const SHARE_TEXT =
-  "ToolMarket365 — micro-SaaS tools for creators: content, billing, CRM, analytics, and more in one place."
+  "CreatorFlow365 — micro-SaaS tools for creators: content, billing, CRM, analytics, and more in one place."
 
 export function HomeShareBar() {
   const [copied, setCopied] = useState(false)
   const fallbackOrigin = (
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://toolmarket365.com"
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://creatorflow365.com"
   ).replace(/\/$/, "")
 
   /** Must match SSR on first paint; sync real origin after hydrate to avoid href mismatch. */
