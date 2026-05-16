@@ -270,9 +270,9 @@ export default function BotFarmArchived() {
                 All Bots Are Template-Based
               </h3>
               <p className="text-blue-800 dark:text-blue-300">
-                <strong>All bots work immediately with zero cost to you or CreatorFlow365.</strong> No external API calls,
+                <strong>All bots work immediately with zero cost to you or ToolMarket365.</strong> No external API calls,
                 no setup fees, no usage charges. Bots can be enhanced with external integrations that provide additional
-                functionality, but at the creator&apos;s cost—CreatorFlow365 never charges for API usage.
+                functionality, but at the creator&apos;s cost—ToolMarket365 never charges for API usage.
               </p>
             </div>
           </div>

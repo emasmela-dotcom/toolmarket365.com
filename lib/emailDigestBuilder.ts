@@ -37,7 +37,7 @@ _${introBlurb}_
 ${blocks || '_Add at least one newsletter line above._'}
 
 ---
-*Built with CreatorFlow365 — tweak tone before sending.*
+*Built with ToolMarket365 — tweak tone before sending.*
 `
 
   return { subjectLine, digestMarkdown, introBlurb }

@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Terms of Service | CreatorFlow365',
-  description: 'Terms of Service for CreatorFlow365 - The rules and guidelines for using our platform.',
+  title: 'Terms of Service | ToolMarket365',
+  description: 'Terms of Service for ToolMarket365 - The rules and guidelines for using our platform.',
 }
 
 export default function TermsPage() {
@@ -23,7 +23,7 @@ export default function TermsPage() {
               1. Acceptance of Terms
             </h2>
             <p className="text-mono-700 dark:text-mono-300 mb-4">
-              By accessing and using CreatorFlow365 ("the Service"), you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service.
+              By accessing and using ToolMarket365 ("the Service"), you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service.
             </p>
           </section>
 
@@ -32,7 +32,7 @@ export default function TermsPage() {
               2. Description of Service
             </h2>
             <p className="text-mono-700 dark:text-mono-300 mb-4">
-              CreatorFlow365 provides a comprehensive suite of tools and services for content creators, including but not limited to:
+              ToolMarket365 provides a comprehensive suite of tools and services for content creators, including but not limited to:
             </p>
             <ul className="list-disc pl-6 text-mono-700 dark:text-mono-300 mb-4 space-y-2">
               <li>Content creation and optimization tools</li>
@@ -118,7 +118,7 @@ export default function TermsPage() {
               7. Intellectual Property
             </h2>
             <p className="text-mono-700 dark:text-mono-300 mb-4">
-              The Service, including all software, design, text, graphics, and other materials, is owned by CreatorFlow365 and protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, or create derivative works without our written permission.
+              The Service, including all software, design, text, graphics, and other materials, is owned by ToolMarket365 and protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, or create derivative works without our written permission.
             </p>
           </section>
 

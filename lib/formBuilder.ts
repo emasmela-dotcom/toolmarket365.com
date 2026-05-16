@@ -48,7 +48,7 @@ export function buildEmbeddableForm(input: FormBuilderInput): FormBuilderResult 
     return `  <label class="tm-fb-row">\n    <span>${label}</span>\n    <input type="${t}" name="${name}"${req} />\n  </label>\n`
   })
 
-  const html = `<!-- CreatorFlow365 — embeddable form (set action to your handler) -->\n<form class="tm-fb-form" action="${action}" method="${method}"${netlifyAttr}>\n  <fieldset>\n    <legend>${title}</legend>\n${rows.join('')}  </fieldset>\n  <button type="submit">Send</button>\n</form>\n<style>\n.tm-fb-form { max-width: 28rem; font-family: system-ui, sans-serif; }\n.tm-fb-row { display: block; margin-bottom: 0.75rem; }\n.tm-fb-row span { display: block; font-size: 0.875rem; margin-bottom: 0.25rem; }\n.tm-fb-row input, .tm-fb-row textarea { width: 100%; padding: 0.5rem; box-sizing: border-box; }\n</style>\n`
+  const html = `<!-- ToolMarket365 — embeddable form (set action to your handler) -->\n<form class="tm-fb-form" action="${action}" method="${method}"${netlifyAttr}>\n  <fieldset>\n    <legend>${title}</legend>\n${rows.join('')}  </fieldset>\n  <button type="submit">Send</button>\n</form>\n<style>\n.tm-fb-form { max-width: 28rem; font-family: system-ui, sans-serif; }\n.tm-fb-row { display: block; margin-bottom: 0.75rem; }\n.tm-fb-row span { display: block; font-size: 0.875rem; margin-bottom: 0.25rem; }\n.tm-fb-row input, .tm-fb-row textarea { width: 100%; padding: 0.5rem; box-sizing: border-box; }\n</style>\n`
 
   const checklist = [
     'Point action to a real endpoint: Formspree (`https://formspree.io/f/...`), Netlify Forms, or your own server that sends email.',

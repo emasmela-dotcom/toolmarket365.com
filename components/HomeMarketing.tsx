@@ -13,7 +13,7 @@ export default function HomeMarketing() {
       <div className="tm-home__glow" aria-hidden />
       <section className="tm-home__inner">
         <p className="tm-home__badge">BUILT TO SHIP</p>
-        <h1 className="tm-home__title">CreatorFlow365</h1>
+        <h1 className="tm-home__title">ToolMarket365</h1>
         <p className="tm-home__tagline">
           Your entire business, one tab, built with the toolkit the internet forgot to build.
         </p>

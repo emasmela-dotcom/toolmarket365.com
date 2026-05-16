@@ -50,7 +50,7 @@ export const UTM_PRESETS: UtmPreset[] = [
       utm_campaign: "brand_search",
       utm_content: "rsa_primary",
     },
-    note: "Use for exact / phrase match on CreatorFlow365 and related brand terms.",
+    note: "Use for exact / phrase match on ToolMarket365 and related brand terms.",
   },
   {
     id: "google-tools-nonbrand",
@@ -128,7 +128,7 @@ export const UTM_PRESETS: UtmPreset[] = [
 
 export const HEADLINES: string[] = [
   "One tab. 120+ tools. Built for creators who are tired of tab soup.",
-  "Stop duct-taping ten SaaS products together — CreatorFlow365 is the toolkit layer.",
+  "Stop duct-taping ten SaaS products together — ToolMarket365 is the toolkit layer.",
   "Invoices, hooks, CRM lite, and SEO helpers — without another $200/mo subscription stack.",
   "Ship content, get paid, and stay organized — micro-tools that actually load.",
 ]
@@ -149,11 +149,11 @@ export const CTAS: string[] = [
 export const SOCIAL_SNIPPETS: { platform: string; text: string }[] = [
   {
     platform: "X (Twitter)",
-    text: "If your \"stack\" is 14 browser tabs of half-broken free tools, same. I’ve been using CreatorFlow365 as one place for hooks, invoices, and dumb little utilities that should exist. {{BASE}}",
+    text: "If your \"stack\" is 14 browser tabs of half-broken free tools, same. I’ve been using ToolMarket365 as one place for hooks, invoices, and dumb little utilities that should exist. {{BASE}}",
   },
   {
     platform: "LinkedIn",
-    text: "Creators run a business, not just a channel. CreatorFlow365 bundles the boring ops (invoicing, reminders, CRM-lite) with the creative layer (hooks, schedulers, repurposing helpers). Worth a scroll: {{BASE}}/home",
+    text: "Creators run a business, not just a channel. ToolMarket365 bundles the boring ops (invoicing, reminders, CRM-lite) with the creative layer (hooks, schedulers, repurposing helpers). Worth a scroll: {{BASE}}/home",
   },
   {
     platform: "Short ad primary text",
@@ -162,7 +162,7 @@ export const SOCIAL_SNIPPETS: { platform: string; text: string }[] = [
 ]
 
 export const EMAIL_SUBJECTS: string[] = [
-  "Tools for the week: invoice nudges + hook ideas (CreatorFlow365)",
+  "Tools for the week: invoice nudges + hook ideas (ToolMarket365)",
   "Your creator ops stack is probably too expensive — here’s one alternative",
   "New in the kit: life tools + integrations (if you missed them)",
 ]

@@ -5,13 +5,13 @@ import { getUserAPIKey } from '@/lib/services/external-ai-service'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const CREATORFLOW_KNOWLEDGE = `CreatorFlow365 is a Micro-SaaS marketplace for content creators with 53+ tools.
+const CREATORFLOW_KNOWLEDGE = `ToolMarket365 is a Micro-SaaS marketplace for content creators with 53+ tools.
 
 Plans: Starter, Essential, Professional, Creator, Business. Pricing and features on /pricing.
 Credits: Premium tools use credits per use. Plans include monthly credits. See /credits.
 Tools: Organized by platform (Instagram, TikTok, YouTube, Twitter, LinkedIn, Facebook). Main areas: Tools (/tools), Content Library (/tools/content-library), Growth Suite (/growth-suite), Dashboard (/dashboard).
 You cannot: schedule posts, post to social, connect APIs, or perform actions that require external services. Direct users to the right tool or page (e.g. "Use the Instagram Scheduler under Tools" or "Go to Dashboard").
-You can: answer questions about CreatorFlow365, explain plans/credits/tools, give general creator advice, and suggest which tool to use for a task.`
+You can: answer questions about ToolMarket365, explain plans/credits/tools, give general creator advice, and suggest which tool to use for a task.`
 
 export async function POST(req: NextRequest) {
   try {
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
 
     const systemContent = `${CREATORFLOW_KNOWLEDGE}
 
-Be concise. If the user asks you to do something that requires an API or external action (post, schedule, connect, etc.), say you can't do that and point them to the right CreatorFlow365 tool or page.`
+Be concise. If the user asks you to do something that requires an API or external action (post, schedule, connect, etc.), say you can't do that and point them to the right ToolMarket365 tool or page.`
 
     const chatMessages: { role: 'system' | 'user' | 'assistant'; content: string }[] = [
       { role: 'system', content: systemContent },

@@ -111,7 +111,7 @@ function CompetitorAnalyzerContent() {
                 <strong>This tool works immediately with demo data, but requires external API integrations for real competitor analysis.</strong> You can use it right now to see how it works, but to get actual competitor data, you must connect your social media platform APIs (Instagram, Twitter, etc.) in the Integrations Hub.
               </p>
               <p className="text-sm text-red-800 dark:text-red-300 mb-3">
-                <strong>Without API setup:</strong> Shows demo data (random numbers for comparison). <strong>With API setup:</strong> Shows real competitor metrics and analysis. <strong>You pay API providers directly</strong> - CreatorFlow365 never charges for API usage.
+                <strong>Without API setup:</strong> Shows demo data (random numbers for comparison). <strong>With API setup:</strong> Shows real competitor metrics and analysis. <strong>You pay API providers directly</strong> - ToolMarket365 never charges for API usage.
               </p>
               <Link
                 href="/integrations"

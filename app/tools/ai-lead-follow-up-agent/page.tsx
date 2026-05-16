@@ -333,7 +333,7 @@ function AILeadFollowUpAgentContent() {
               <CheckCircle2 className="h-6 w-6 text-accent-600 dark:text-accent-400 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">
-                  What You Get Straight From CreatorFlow365
+                  What You Get Straight From ToolMarket365
                 </h2>
                 <p className="text-mono-700 dark:text-mono-300 mb-4">
                   This tool works immediately with zero setup. Here's what you can do right now:
@@ -377,10 +377,10 @@ function AILeadFollowUpAgentContent() {
                   How This Tool Works
                 </h2>
                 <p className="text-blue-800 dark:text-blue-300 mb-3">
-                  <strong>All CreatorFlow365 tools are fully template-based and work immediately with zero cost to you or us.</strong> No external API calls, no setup fees, no usage charges.
+                  <strong>All ToolMarket365 tools are fully template-based and work immediately with zero cost to you or us.</strong> No external API calls, no setup fees, no usage charges.
                 </p>
                 <p className="text-blue-800 dark:text-blue-300">
-                  <strong>Optional Enhancement:</strong> You can connect your own external services (Twilio, OpenAI, Gmail, etc.) to add advanced automation and capabilities, but <strong>you pay those providers directly</strong> - CreatorFlow365 never charges for API usage.
+                  <strong>Optional Enhancement:</strong> You can connect your own external services (Twilio, OpenAI, Gmail, etc.) to add advanced automation and capabilities, but <strong>you pay those providers directly</strong> - ToolMarket365 never charges for API usage.
                 </p>
               </div>
             </div>
