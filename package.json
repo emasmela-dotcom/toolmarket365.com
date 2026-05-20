@@ -6,7 +6,8 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "smoke:prod": "PRODUCTION_URL=https://www.toolmarket365.com node scripts/smoke-burn-checklist.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
