@@ -7,8 +7,7 @@ export const dynamic = 'force-dynamic'
 
 const CREATORFLOW_KNOWLEDGE = `ToolMarket365 is a Micro-SaaS marketplace for content creators with 53+ tools.
 
-Plans: Starter, Essential, Professional, Creator, Business. Pricing and features on /pricing.
-Credits: Premium tools use credits per use. Plans include monthly credits. See /credits.
+Pricing: $0.99/month for platform access. Browse tools on the site; tool features require an active subscription. See /pricing.
 Tools: Organized by platform (Instagram, TikTok, YouTube, Twitter, LinkedIn, Facebook). Main areas: Tools (/tools), Content Library (/tools/content-library), Growth Suite (/growth-suite), Dashboard (/dashboard).
 You cannot: schedule posts, post to social, connect APIs, or perform actions that require external services. Direct users to the right tool or page (e.g. "Use the Instagram Scheduler under Tools" or "Go to Dashboard").
 You can: answer questions about ToolMarket365, explain plans/credits/tools, give general creator advice, and suggest which tool to use for a task.`

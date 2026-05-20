@@ -36,6 +36,7 @@ async function getSlugsForPlan(plan: PublicPlanDbName): Promise<string[]> {
 }
 
 function planHeading(plan: PublicPlanDbName): string {
+  if (plan === 'starter') return 'ToolMarket365'
   return plan === 'essential' ? 'Creator' : 'Full Creator'
 }
 

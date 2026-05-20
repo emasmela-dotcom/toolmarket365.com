@@ -122,7 +122,7 @@ export default function SelectPlanPage() {
     )
   }
 
-  const planOrder = ['starter', 'essential', 'professional']
+  const planOrder = ['starter']
   const sortedPlans = [...plans].sort((a, b) => {
     const indexA = planOrder.indexOf(a.name)
     const indexB = planOrder.indexOf(b.name)
@@ -222,18 +222,11 @@ export default function SelectPlanPage() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-            Choose Your Plan
+            Subscribe
           </h1>
           <p className="text-xl text-mono-600 dark:text-mono-400 mb-6">
-            Start your 7-day free trial. No credit card required.
+            $0.99/month — browse tools free, unlock features with subscription.
           </p>
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-400 dark:border-yellow-600 rounded-lg p-4 max-w-2xl mx-auto">
-            <p className="text-sm text-yellow-900 dark:text-yellow-200">
-              <strong>Important:</strong> After your trial, subscribe to keep all content created during trial. 
-              If you don't subscribe, your account will be restored to its pre-trial state. 
-              You can upgrade anytime, but cannot downgrade from your selected plan.
-            </p>
-          </div>
         </div>
 
         {error && (
@@ -246,7 +239,7 @@ export default function SelectPlanPage() {
           {sortedPlans.map((plan) => {
             const toolCount = plan.tool_slugs?.length || 0
             const isStarting = startingTrial === plan.name
-            const isPopular = plan.name === 'professional'
+            const isPopular = plan.name === 'starter'
 
             return (
               <div

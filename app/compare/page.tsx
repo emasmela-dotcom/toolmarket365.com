@@ -120,7 +120,7 @@ const differentiators = [
     title: '53+ Professional Tools',
     description: 'Content creation, analytics, brand management, SEO, scheduling, repurposing, monetization - everything creators need in one platform.',
     competitorStatus: '⚠️ Competitors combined offer ~18 tools across multiple subscriptions equaling $434/month',
-    howItImproves: 'We offer comparable tools plus 35+ other content creator tools in one subscription. 53+ tools for $79/month.',
+    howItImproves: 'We offer comparable tools plus 35+ other content creator tools in one subscription. 53+ tools for $0.99/month.',
     impact: 'One platform, one price—save $355+/month vs buying separately',
   },
 ]
@@ -297,7 +297,7 @@ export default function ComparePage() {
                   </tr>
                   <tr className="bg-mono-50 dark:bg-mono-800">
                     <td className="px-6 py-4 text-sm font-semibold text-mono-950 dark:text-mono-50">Monthly Price</td>
-                    <td className="px-6 py-4 text-center text-sm font-semibold text-accent-600">$79</td>
+                    <td className="px-6 py-4 text-center text-sm font-semibold text-accent-600">$0.99</td>
                     {competitors.map((comp) => (
                       <td key={comp.name} className="px-6 py-4 text-center text-sm text-mono-600">
                         {comp.price}

@@ -175,18 +175,6 @@ export async function canUserAccessTool(userId: string, toolSlug: string): Promi
     }
 
     const plan = subRows[0]
-    
-    // Check if tool is in plan's tool_slugs array
-    const toolSlugs = plan.tool_slugs || []
-    const hasTool = toolSlugs.includes(toolSlug)
-
-    if (!hasTool) {
-      return {
-        canAccess: false,
-        reason: `Tool "${toolSlug}" is not included in your ${plan.display_name} plan`,
-        planName: plan.name
-      }
-    }
 
     // Check if trial/subscription is still valid
     const statusRows = await sql`
