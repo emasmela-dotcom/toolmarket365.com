@@ -6,6 +6,9 @@ export function getSiteUrl(): string {
 
 export const SITE_NAME = "ToolMarket365"
 
+/** Browser tab / window title */
+export const SITE_WINDOW_TITLE = "toolmarket365.com"
+
 export const SITE_DESCRIPTION =
   "Micro-SaaS tools for creators and solo operators: content, monetization, client work, analytics, finance, and integrations — one marketplace to ship faster."
 

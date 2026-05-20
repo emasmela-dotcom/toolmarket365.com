@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import HomeMarketing from '@/components/HomeMarketing'
-import { getLifepack365Url, getSiteUrl, SITE_DESCRIPTION, SITE_NAME } from '@/lib/siteConfig'
+import { getLifepack365Url, getSiteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_WINDOW_TITLE } from '@/lib/siteConfig'
 
 export const dynamic = 'force-dynamic'
 
 const base = getSiteUrl()
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} — 120+ tools for creators, freelancers & small teams`,
+  title: SITE_WINDOW_TITLE,
   description: SITE_DESCRIPTION,
   alternates: {
     canonical: `${base}/`,

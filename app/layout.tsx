@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { HOME_PANELS_CSS } from "@/lib/homePanelsCssString";
-import { getSiteUrl, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME } from "@/lib/siteConfig";
+import { getSiteUrl, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_WINDOW_TITLE } from "@/lib/siteConfig";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -20,8 +20,8 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${SITE_NAME} — micro-SaaS tools for creators & solopreneurs`,
-    template: `%s | ${SITE_NAME}`,
+    default: SITE_WINDOW_TITLE,
+    template: `%s | ${SITE_WINDOW_TITLE}`,
   },
   description: SITE_DESCRIPTION,
   keywords: [...SITE_KEYWORDS],
