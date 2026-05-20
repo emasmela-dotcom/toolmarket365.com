@@ -16,19 +16,11 @@ export type PublicSubscriptionTier = {
 export const PUBLIC_SUBSCRIPTION_TIERS: PublicSubscriptionTier[] = [
   {
     id: 'creator',
-    planName: 'essential',
-    headline: 'Creator',
+    planName: 'starter',
+    headline: 'Starter',
     positioning:
-      'A real toolkit for creators who are getting consistent—everything you need to start without going all-in yet.',
-    stripePlanId: 'essential',
-  },
-  {
-    id: 'pro',
-    planName: 'professional',
-    headline: 'Pro',
-    positioning:
-      'The all-in version for when this stack is core to how you work—not a longer feature list, fewer limits in your head.',
-    stripePlanId: 'professional',
+      'Low-friction paid access to unlock tool features after signup.',
+    stripePlanId: 'starter',
   },
 ]
 

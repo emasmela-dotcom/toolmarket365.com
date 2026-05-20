@@ -6,52 +6,29 @@ import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 
 const plans = [
   {
-    name: 'Basic',
+    name: 'Starter',
     /** DB / Gumroad tier key — matches `plans.name` and `/api/plans`. */
-    planDbName: 'essential' as const,
-    price: '$19',
+    planDbName: 'starter' as const,
+    price: '$0.99',
     period: '/month',
-    description: 'Everyday tools + foundational creator tools for consistent execution.',
-    popular: false,
-    toolCount: 'Core creator toolkit',
-    tools: [
-      'Foundational creator workflow tools',
-      'Built for consistent creation and planning',
-      'Clean starting point with real utility',
-    ],
-    features: [
-      'Everyday operations toolkit included',
-      'Core creator workflow tools included',
-      'Strong starting stack without overwhelm',
-      'Email support',
-    ],
-    cta: 'Subscribe Now',
-    ctaLink: GUMROAD_LINKS.subscriptions.essential,
-    gumroad: true,
-  },
-  {
-    name: 'Full Creator',
-    planDbName: 'professional' as const,
-    price: '$49',
-    period: '/month',
-    description: 'Everything in Basic plus advanced creator and higher AI tools.',
+    description: 'See all tools, then unlock feature access with an active subscription.',
     popular: true,
-    toolCount: 'Full creator experience',
+    toolCount: 'Paid access to tool features',
     tools: [
-      'Everything in Creator',
-      'Full creator workflow access',
-      'For creators running this as their core stack',
+      'Browse all available tools on the site',
+      'Use tool features after subscribing',
+      'Simple entry pricing to activate access',
     ],
     features: [
-      'Everything in Basic',
-      'Advanced creator tools unlocked',
-      'Higher AI toolset for scaling output',
-      'Priority support',
+      'Feature access unlocked while subscribed',
+      'Subscription check enforced across tool pages',
+      'Simple monthly pricing',
+      'Cancel anytime',
     ],
     cta: 'Subscribe Now',
-    ctaLink: GUMROAD_LINKS.subscriptions.professional,
+    ctaLink: GUMROAD_LINKS.subscriptions.starter,
     gumroad: true,
-    savings: 'Full creator tier',
+    savings: 'Starter access',
   },
 ]
 
@@ -119,14 +96,14 @@ export default function PricingPage() {
               Simple, Affordable Pricing
             </h1>
             <p className="text-xl text-mono-600 dark:text-mono-400 mb-3">
-              Start with Basic. Scale into Full Creator when you need more power.
+              Users can browse available tools, but feature access requires subscription.
             </p>
             <p className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-4">
               Everything you need to run your creator operation in one place.
             </p>
             
             <p className="text-lg text-mono-600 dark:text-mono-400 mb-6">
-              Two core tiers, plus an optional AI Power Pack add-on.
+              One simple plan: $0.99/month.
             </p>
             
             {/* Interface Setup Banner - placed near plan selection */}
@@ -263,10 +240,10 @@ export default function PricingPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2">
-                Choose 1 of 2 pricing tiers
+                Choose your plan
               </h2>
               <p className="text-mono-700 dark:text-mono-300">
-                Tier 1: Basic ($19/month) or Tier 2: Full Creator ($49/month).
+                Starter ($0.99/month).
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

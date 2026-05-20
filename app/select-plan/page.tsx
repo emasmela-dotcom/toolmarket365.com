@@ -122,7 +122,7 @@ export default function SelectPlanPage() {
     )
   }
 
-  const planOrder = ['essential', 'professional']
+  const planOrder = ['starter', 'essential', 'professional']
   const sortedPlans = [...plans].sort((a, b) => {
     const indexA = planOrder.indexOf(a.name)
     const indexB = planOrder.indexOf(b.name)

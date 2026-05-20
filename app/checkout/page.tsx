@@ -51,7 +51,7 @@ export default function CheckoutPage() {
         // Get plan price
         if (data.status.planName) {
         const planPrices: Record<string, number> = {
-          starter: 9,
+          starter: 0.99,
           essential: 19,
           creator: 49,
           professional: 79,
