@@ -94,7 +94,7 @@ export default function PricingPage() {
                 </ul>
 
                 <Link
-                  href={`/select-plan?plan=${plan.planDbName}`}
+                  href="/select-plan"
                   className="block w-full text-center py-2.5 px-4 rounded-lg font-semibold text-sm bg-accent-600 text-white hover:bg-accent-700 transition-colors"
                 >
                   Subscribe

@@ -9,7 +9,6 @@ import {
 } from '@/lib/single-plan-marketplace'
 
 interface PlanConfirmationProps {
-  onConfirm: () => void
   onCancel?: () => void
   subscribeNowHref?: string
   useStripe?: boolean
@@ -17,7 +16,6 @@ interface PlanConfirmationProps {
 }
 
 export function PlanConfirmation({
-  onConfirm,
   onCancel,
   subscribeNowHref,
   useStripe = false,
@@ -27,28 +25,30 @@ export function PlanConfirmation({
   const [stripeLoading, setStripeLoading] = useState(false)
 
   const handleSubscribeNow = async () => {
-    if (!planIdForStripe) return
-    setStripeLoading(true)
-    try {
-      const res = await fetch('/api/stripe/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'subscription', planId: planIdForStripe }),
-      })
-      const data = await res.json()
-      if (data.url) {
-        window.location.href = data.url as string
+    if (!confirmed) return
+    if (useStripe && planIdForStripe) {
+      setStripeLoading(true)
+      try {
+        const res = await fetch('/api/stripe/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'subscription', planId: planIdForStripe }),
+        })
+        const data = await res.json()
+        if (data.url) {
+          window.location.href = data.url as string
+        }
+      } finally {
+        setStripeLoading(false)
       }
-    } finally {
-      setStripeLoading(false)
+      return
+    }
+    if (subscribeNowHref) {
+      window.location.href = subscribeNowHref
     }
   }
 
-  const handleConfirm = () => {
-    if (confirmed) onConfirm()
-  }
-
-  const showPaidSubscribe = subscribeNowHref || (useStripe && planIdForStripe)
+  const canPay = !!(subscribeNowHref || (useStripe && planIdForStripe))
 
   return (
     <div className="max-w-2xl mx-auto bg-white dark:bg-mono-900 rounded-lg border-2 border-mono-200 dark:border-mono-700 p-6 shadow-lg">
@@ -94,73 +94,25 @@ export function PlanConfirmation({
         </label>
       </div>
 
-      {showPaidSubscribe && (
-        <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
-          <h3 className="font-semibold text-amber-900 dark:text-amber-200 mb-2">Free trial (optional)</h3>
-          <p className="text-sm text-amber-800 dark:text-amber-300">
-            You can start a free trial instead of paying now. Tool access works the same during an active trial
-            or paid subscription.
-          </p>
-        </div>
-      )}
-
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3">
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
-            className="px-6 py-2 text-sm font-medium text-mono-700 dark:text-mono-300 bg-mono-100 dark:bg-mono-800 rounded-lg hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors order-3 sm:order-1"
+            className="px-6 py-2 text-sm font-medium text-mono-700 dark:text-mono-300 bg-mono-100 dark:bg-mono-800 rounded-lg hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors order-2 sm:order-1"
           >
             Cancel
           </button>
         )}
-        {showPaidSubscribe ? (
-          <>
-            {useStripe && planIdForStripe ? (
-              <button
-                type="button"
-                onClick={handleSubscribeNow}
-                disabled={stripeLoading}
-                className="px-6 py-2.5 text-sm font-semibold rounded-lg bg-accent-600 text-white hover:bg-accent-700 transition-colors text-center inline-flex items-center justify-center gap-2 disabled:opacity-70"
-              >
-                {stripeLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-                Pay ${MARKETPLACE_PLAN_PRICE_MONTHLY}/month
-              </button>
-            ) : (
-              <a
-                href={subscribeNowHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2.5 text-sm font-semibold rounded-lg bg-accent-600 text-white hover:bg-accent-700 transition-colors text-center"
-              >
-                Pay ${MARKETPLACE_PLAN_PRICE_MONTHLY}/month
-              </a>
-            )}
-            <button
-              type="button"
-              onClick={handleConfirm}
-              disabled={!confirmed}
-              className={`px-6 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
-                confirmed
-                  ? 'bg-mono-200 dark:bg-mono-700 text-mono-950 dark:text-mono-50 hover:bg-mono-300 dark:hover:bg-mono-600'
-                  : 'bg-mono-300 dark:bg-mono-700 text-mono-500 dark:text-mono-400 cursor-not-allowed'
-              }`}
-            >
-              Start free trial
-            </button>
-          </>
-        ) : (
+        {canPay && (
           <button
             type="button"
-            onClick={handleConfirm}
-            disabled={!confirmed}
-            className={`px-6 py-2 text-sm font-semibold rounded-lg transition-colors ${
-              confirmed
-                ? 'bg-accent-600 text-white hover:bg-accent-700'
-                : 'bg-mono-300 dark:bg-mono-700 text-mono-500 dark:text-mono-400 cursor-not-allowed'
-            }`}
+            onClick={handleSubscribeNow}
+            disabled={!confirmed || stripeLoading}
+            className="px-6 py-2.5 text-sm font-semibold rounded-lg bg-accent-600 text-white hover:bg-accent-700 transition-colors text-center inline-flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed order-1 sm:order-2"
           >
-            Confirm & continue
+            {stripeLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+            Subscribe — ${MARKETPLACE_PLAN_PRICE_MONTHLY}/month
           </button>
         )}
       </div>

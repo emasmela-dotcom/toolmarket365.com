@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Check, Sparkles, ArrowRight, Loader2 } from 'lucide-react'
+import { Check, ArrowRight, Loader2 } from 'lucide-react'
 import { PlanConfirmation } from '@/components/PlanConfirmation'
 import { stripePlanIdForDbPlanName } from '@/lib/subscriptionTiers'
 import {
@@ -19,21 +19,14 @@ interface Plan {
   name: string
   display_name: string
   price_monthly: number
-  price_yearly: number | null
-  trial_days: number
-  tool_slugs: string[]
-  features: unknown
 }
 
 export default function SelectPlanPage() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const [plans, setPlans] = useState<Plan[]>([])
   const [loading, setLoading] = useState(true)
-  const [startingTrial, setStartingTrial] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [showConfirmation, setShowConfirmation] = useState(false)
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null)
   const hasAutoOpenedFromQuery = useRef(false)
 
   useEffect(() => {
@@ -46,7 +39,6 @@ export default function SelectPlanPage() {
     const match = plans.find((p) => p.name.toLowerCase() === planParam.toLowerCase())
     if (match) {
       hasAutoOpenedFromQuery.current = true
-      setSelectedPlan(match)
       setShowConfirmation(true)
     }
   }, [planParam, plans])
@@ -65,45 +57,6 @@ export default function SelectPlanPage() {
     } finally {
       setLoading(false)
     }
-  }
-
-  const handlePlanSelect = (plan: Plan) => {
-    setSelectedPlan(plan)
-    setShowConfirmation(true)
-  }
-
-  const handleConfirmTrial = async () => {
-    if (!selectedPlan) return
-
-    setShowConfirmation(false)
-    setStartingTrial(selectedPlan.name)
-    setError(null)
-
-    try {
-      const res = await fetch('/api/subscriptions/start-trial', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planName: selectedPlan.name }),
-      })
-
-      const data = await res.json()
-
-      if (res.ok) {
-        router.push('/dashboard')
-        router.refresh()
-      } else {
-        setError(data.error || 'Failed to start trial')
-        setStartingTrial(null)
-      }
-    } catch {
-      setError('Failed to start trial. Please try again.')
-      setStartingTrial(null)
-    }
-  }
-
-  const handleCancelConfirmation = () => {
-    setShowConfirmation(false)
-    setSelectedPlan(null)
   }
 
   if (loading) {
@@ -138,8 +91,7 @@ export default function SelectPlanPage() {
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <PlanConfirmation
-            onConfirm={handleConfirmTrial}
-            onCancel={handleCancelConfirmation}
+            onCancel={() => setShowConfirmation(false)}
             useStripe={useStripe}
             planIdForStripe={stripePlanId ?? undefined}
           />
@@ -147,8 +99,6 @@ export default function SelectPlanPage() {
       </div>
     )
   }
-
-  const isStarting = startingTrial === MARKETPLACE_PLAN_DB_NAME
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
@@ -185,24 +135,13 @@ export default function SelectPlanPage() {
             </ul>
             <button
               type="button"
-              onClick={() => handlePlanSelect(marketplacePlan)}
-              disabled={isStarting || !!startingTrial}
-              className="w-full py-3 px-6 rounded-lg font-semibold bg-accent-600 text-white hover:bg-accent-700 transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => setShowConfirmation(true)}
+              className="w-full py-3 px-6 rounded-lg font-semibold bg-accent-600 text-white hover:bg-accent-700 transition-colors"
             >
-              {isStarting ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  <span>Starting trial...</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="h-5 w-5" />
-                  <span>Continue</span>
-                </>
-              )}
+              Continue to checkout
             </button>
             <p className="text-xs text-mono-500 dark:text-mono-500 mt-3 text-center">
-              {marketplacePlan.trial_days || 7} day free trial available • Cancel anytime
+              Cancel anytime
             </p>
           </div>
         ) : (

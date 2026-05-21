@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Check, AlertCircle, Lock, Loader2, ArrowLeft } from 'lucide-react';
 import { PlanConfirmation } from '@/components/PlanConfirmation'
-import { GUMROAD_LINKS } from '@/lib/gumroad-config'
 import { MARKETPLACE_PLAN_DB_NAME, MARKETPLACE_PLAN_PRICE_MONTHLY } from '@/lib/single-plan-marketplace'
 import { stripePlanIdForDbPlanName } from '@/lib/subscriptionTiers'
 
@@ -71,30 +70,6 @@ export default function CheckoutPage() {
     setShowConfirmation(true)
   }
 
-  const handleConfirmCheckout = async () => {
-    if (!planName) return
-    const planKey = planName.toLowerCase() as keyof typeof GUMROAD_LINKS.subscriptions
-    const gumroadLink = GUMROAD_LINKS.subscriptions[planKey]
-
-    if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-      try {
-        const res = await fetch('/api/stripe/create-checkout-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'subscription', planId: planKey }),
-        })
-        const data = await res.json()
-        if (data?.url) {
-          window.location.href = data.url
-          return
-        }
-      } catch (e) {
-        console.error('Stripe checkout failed:', e)
-      }
-    }
-    if (gumroadLink) window.location.href = gumroadLink
-  }
-
   const handleCancelConfirmation = () => {
     setShowConfirmation(false)
   }
@@ -115,7 +90,6 @@ export default function CheckoutPage() {
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <PlanConfirmation
-            onConfirm={handleConfirmCheckout}
             onCancel={handleCancelConfirmation}
             useStripe={!!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
             planIdForStripe={stripePlanId ?? undefined}
@@ -133,16 +107,16 @@ export default function CheckoutPage() {
           <div className="bg-white dark:bg-mono-900 rounded-lg border-2 border-mono-200 dark:border-mono-700 p-8 text-center">
             <AlertCircle className="h-12 w-12 text-mono-400 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-              No Active Trial
+              Subscribe to ToolMarket365
             </h1>
             <p className="text-mono-600 dark:text-mono-400 mb-6">
-              You need to start a trial first before you can subscribe.
+              $0.99/month for full access to every tool.
             </p>
             <Link
               href="/select-plan"
               className="inline-flex items-center px-6 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors"
             >
-              Choose a Plan
+              Subscribe
             </Link>
           </div>
         </div>
