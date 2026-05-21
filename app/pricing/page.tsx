@@ -12,8 +12,9 @@ const plans = [
     period: '/month',
     description: 'Browse all tools on the site. Use tool features with an active subscription.',
     features: [
-      'Browse the full tools catalog',
-      'Unlock tool features while subscribed',
+      'Every tool on ToolMarket365 (120+ tools)',
+      'Browse the full catalog anytime',
+      'Use all tool features while subscribed',
       'Cancel anytime',
     ],
     ctaLink: GUMROAD_LINKS.subscriptions.starter,

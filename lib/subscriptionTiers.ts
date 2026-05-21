@@ -17,9 +17,9 @@ export const PUBLIC_SUBSCRIPTION_TIERS: PublicSubscriptionTier[] = [
   {
     id: 'creator',
     planName: 'starter',
-    headline: 'Starter',
+    headline: 'ToolMarket365',
     positioning:
-      'Low-friction paid access to unlock tool features after signup.',
+      '$0.99/month for full access to every tool on the marketplace.',
     stripePlanId: 'starter',
   },
 ]

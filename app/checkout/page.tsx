@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { Check, AlertCircle, Lock, Loader2, ArrowLeft } from 'lucide-react';
 import { PlanConfirmation } from '@/components/PlanConfirmation'
 import { GUMROAD_LINKS } from '@/lib/gumroad-config'
+import { MARKETPLACE_PLAN_DB_NAME, MARKETPLACE_PLAN_PRICE_MONTHLY } from '@/lib/single-plan-marketplace'
+import { stripePlanIdForDbPlanName } from '@/lib/subscriptionTiers'
 
 interface SubscriptionStatus {
   status: 'trial' | 'expired' | 'active' | 'none'
@@ -50,14 +52,11 @@ export default function CheckoutPage() {
         
         // Get plan price
         if (data.status.planName) {
-        const planPrices: Record<string, number> = {
-          starter: 0.99,
-          essential: 19,
-          creator: 49,
-          professional: 79,
-          business: 149,
-        }
-          setPlanPrice(planPrices[data.status.planName.toLowerCase()] || null)
+          setPlanPrice(
+            data.status.planName?.toLowerCase() === MARKETPLACE_PLAN_DB_NAME
+              ? MARKETPLACE_PLAN_PRICE_MONTHLY
+              : MARKETPLACE_PLAN_PRICE_MONTHLY
+          )
         }
       }
     } catch (error) {
@@ -110,25 +109,16 @@ export default function CheckoutPage() {
 
   // Show confirmation modal
   if (showConfirmation && planName && planPrice) {
-    const planToolSlugs: Record<string, string[]> = {
-      starter: ['AI Caption Generator', 'Content Idea Generator', 'Hashtag Research', 'Content Calendar', 'Best Time to Post', 'Readability Checker', 'Bio Generator', 'Content Library', 'Creator Pricing Guide', 'Engagement Ideas Generator'],
-      essential: ['Everything in Starter', 'Post Scheduler', 'Analytics Dashboard', 'SEO Optimizer', 'Content Repurposer', 'Video Script Generator', 'Blog Outline Generator', 'Engagement Calculator', 'Hashtag Analyzer', 'Social Media Report Generator', 'Social Graphics', 'Multi-Platform Generator'],
-      professional: ['Everything in Essential', 'Viral Content Predictor', 'All Content Creation tools', 'All Brand & Design tools', 'Advanced Analytics', 'Competitor Analyzer', 'Trend Tracker', 'All AI-powered tools'],
-      creator: ['All 53+ tools', 'Unlimited use of all tools', 'Unlimited content library'],
-      business: ['All 53+ tools', 'Team collaboration', 'White-label options', 'Custom integrations'],
-    }
-    
-    const includedTools = planToolSlugs[planName.toLowerCase()] || ['All tools in your plan']
-    
+    const stripePlanId = stripePlanIdForDbPlanName(MARKETPLACE_PLAN_DB_NAME)
+
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <PlanConfirmation
-            planName={subscriptionStatus?.planDisplayName || planName}
-            includedTools={includedTools}
-            excludedTools={planName === 'professional' || planName === 'business' ? [] : ['Tools marked with credit badge', 'Tools from higher-tier plans']}
             onConfirm={handleConfirmCheckout}
             onCancel={handleCancelConfirmation}
+            useStripe={!!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+            planIdForStripe={stripePlanId ?? undefined}
           />
         </div>
       </div>

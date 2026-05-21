@@ -3,9 +3,16 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Check, Sparkles, Zap, ArrowRight, Loader2 } from 'lucide-react';
+import { Check, Sparkles, ArrowRight, Loader2 } from 'lucide-react'
 import { PlanConfirmation } from '@/components/PlanConfirmation'
 import { stripePlanIdForDbPlanName } from '@/lib/subscriptionTiers'
+import {
+  MARKETPLACE_PLAN_DB_NAME,
+  MARKETPLACE_PLAN_DISPLAY_NAME,
+  MARKETPLACE_PLAN_INCLUDES,
+  MARKETPLACE_PLAN_PRICE_MONTHLY,
+  MARKETPLACE_PLAN_TAGLINE,
+} from '@/lib/single-plan-marketplace'
 
 interface Plan {
   id: string
@@ -15,7 +22,7 @@ interface Plan {
   price_yearly: number | null
   trial_days: number
   tool_slugs: string[]
-  features: any
+  features: unknown
 }
 
 export default function SelectPlanPage() {
@@ -33,7 +40,6 @@ export default function SelectPlanPage() {
     fetchPlans()
   }, [])
 
-  // Pre-select plan from ?plan= query (e.g. from pricing "Choose this plan") — once per load
   const planParam = searchParams.get('plan')
   useEffect(() => {
     if (!planParam || plans.length === 0 || hasAutoOpenedFromQuery.current) return
@@ -54,7 +60,7 @@ export default function SelectPlanPage() {
       } else {
         setError(data.error || 'Failed to load plans')
       }
-    } catch (err) {
+    } catch {
       setError('Failed to load plans')
     } finally {
       setLoading(false)
@@ -68,7 +74,7 @@ export default function SelectPlanPage() {
 
   const handleConfirmTrial = async () => {
     if (!selectedPlan) return
-    
+
     setShowConfirmation(false)
     setStartingTrial(selectedPlan.name)
     setError(null)
@@ -77,20 +83,19 @@ export default function SelectPlanPage() {
       const res = await fetch('/api/subscriptions/start-trial', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planName: selectedPlan.name })
+        body: JSON.stringify({ planName: selectedPlan.name }),
       })
 
       const data = await res.json()
 
       if (res.ok) {
-        // Redirect to dashboard or tools page
         router.push('/dashboard')
         router.refresh()
       } else {
         setError(data.error || 'Failed to start trial')
         setStartingTrial(null)
       }
-    } catch (err) {
+    } catch {
       setError('Failed to start trial. Please try again.')
       setStartingTrial(null)
     }
@@ -122,93 +127,19 @@ export default function SelectPlanPage() {
     )
   }
 
-  const planOrder = ['starter']
-  const sortedPlans = [...plans].sort((a, b) => {
-    const indexA = planOrder.indexOf(a.name)
-    const indexB = planOrder.indexOf(b.name)
-    return indexA - indexB
-  })
+  const marketplacePlan =
+    plans.find((p) => p.name === MARKETPLACE_PLAN_DB_NAME) ?? plans[0] ?? null
 
-  // Get plan tool lists for confirmation
-  const getPlanTools = (planName: string): { included: string[], excluded: string[] } => {
-    const planToolNames: Record<string, string[]> = {
-      starter: [
-        'AI Caption Generator',
-        'Content Idea Generator',
-        'Hashtag Research',
-        'Content Calendar',
-        'Best Time to Post',
-        'Readability Checker',
-        'Bio Generator',
-        'Content Library',
-        'Creator Pricing Guide',
-        'Engagement Ideas Generator',
-      ],
-      essential: [
-        'Everything in Starter',
-        'Post Scheduler',
-        'Analytics Dashboard',
-        'SEO Optimizer',
-        'Content Repurposer',
-        'Video Script Generator',
-        'Blog Outline Generator',
-        'Engagement Calculator',
-        'Hashtag Analyzer',
-        'Social Media Report Generator',
-        'Social Graphics',
-        'Multi-Platform Generator',
-      ],
-      creator: [
-        'Everything in Essential',
-        'Viral Content Predictor',
-        'All Content Creation tools',
-        'All Brand & Design tools',
-        'Advanced Analytics',
-        'Competitor Analyzer',
-        'Trend Tracker',
-        'All AI-powered tools',
-      ],
-      professional: [
-        'All 53+ tools',
-        'Unlimited use of all tools',
-        'Unlimited content library',
-      ],
-      business: [
-        'All 53+ tools',
-        'Team collaboration (5 users)',
-        'White-label options',
-        'Custom integrations',
-      ],
-    }
-    
-    const included = planToolNames[planName.toLowerCase()] || []
-    const excluded = planName.toLowerCase() === 'professional' || planName.toLowerCase() === 'business' 
-      ? [] 
-      : ['Tools marked with credit badge', 'Tools from higher-tier plans']
-    
-    return { included, excluded }
-  }
-
-  // Show confirmation: Subscribe now (Gumroad) or Start free trial, plus trial content terms
-  if (showConfirmation && selectedPlan) {
-    const { included, excluded } = getPlanTools(selectedPlan.name.toLowerCase())
-    const includedTools = included.length > 0 
-      ? included.map(slug => slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '))
-      : ['All 53+ tools', 'Unlimited use of all tools', 'Unlimited content library']
-    const planKey = selectedPlan.name.toLowerCase()
+  if (showConfirmation && marketplacePlan) {
     const useStripe = !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-    const stripePlanId = stripePlanIdForDbPlanName(planKey)
+    const stripePlanId = stripePlanIdForDbPlanName(MARKETPLACE_PLAN_DB_NAME)
 
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <PlanConfirmation
-            planName={selectedPlan.display_name}
-            includedTools={includedTools}
-            excludedTools={excluded.length > 0 ? ['Tools marked with credit badge', 'Tools from higher-tier plans'] : []}
             onConfirm={handleConfirmTrial}
             onCancel={handleCancelConfirmation}
-            subscribeNowHref={undefined}
             useStripe={useStripe}
             planIdForStripe={stripePlanId ?? undefined}
           />
@@ -217,99 +148,73 @@ export default function SelectPlanPage() {
     )
   }
 
+  const isStarting = startingTrial === MARKETPLACE_PLAN_DB_NAME
+
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-            Subscribe
-          </h1>
-          <p className="text-xl text-mono-600 dark:text-mono-400 mb-6">
-            $0.99/month — browse tools free, unlock features with subscription.
-          </p>
+      <div className="max-w-lg mx-auto">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">Subscribe</h1>
+          <p className="text-xl text-mono-600 dark:text-mono-400">{MARKETPLACE_PLAN_TAGLINE}</p>
         </div>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-600 rounded-lg p-4 mb-6 max-w-2xl mx-auto">
+          <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-600 rounded-lg p-4 mb-6">
             <p className="text-red-900 dark:text-red-200">{error}</p>
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {sortedPlans.map((plan) => {
-            const toolCount = plan.tool_slugs?.length || 0
-            const isStarting = startingTrial === plan.name
-            const isPopular = plan.name === 'starter'
+        {marketplacePlan ? (
+          <div className="bg-white dark:bg-mono-900 rounded-lg border-2 border-accent-500 p-6 shadow-lg">
+            <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-2">
+              {MARKETPLACE_PLAN_DISPLAY_NAME}
+            </h2>
+            <div className="mb-4">
+              <span className="text-4xl font-bold text-mono-950 dark:text-mono-50">
+                ${MARKETPLACE_PLAN_PRICE_MONTHLY}
+              </span>
+              <span className="text-mono-600 dark:text-mono-400">/month</span>
+            </div>
+            <ul className="space-y-2 mb-6 text-sm text-mono-700 dark:text-mono-300">
+              {MARKETPLACE_PLAN_INCLUDES.map((line) => (
+                <li key={line} className="flex items-start">
+                  <Check className="h-4 w-4 mr-2 text-green-600 flex-shrink-0 mt-0.5" />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              onClick={() => handlePlanSelect(marketplacePlan)}
+              disabled={isStarting || !!startingTrial}
+              className="w-full py-3 px-6 rounded-lg font-semibold bg-accent-600 text-white hover:bg-accent-700 transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isStarting ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <span>Starting trial...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="h-5 w-5" />
+                  <span>Continue</span>
+                </>
+              )}
+            </button>
+            <p className="text-xs text-mono-500 dark:text-mono-500 mt-3 text-center">
+              {marketplacePlan.trial_days || 7} day free trial available • Cancel anytime
+            </p>
+          </div>
+        ) : (
+          <p className="text-center text-mono-600 dark:text-mono-400">Plan not available. Try again later.</p>
+        )}
 
-            return (
-              <div
-                key={plan.id}
-                className={`bg-white dark:bg-mono-900 rounded-lg border-2 p-6 ${
-                  isPopular
-                    ? 'border-accent-500 shadow-lg scale-105'
-                    : 'border-mono-200 dark:border-mono-700'
-                }`}
-              >
-                {isPopular && (
-                  <div className="bg-accent-600 text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-4">
-                    Most Popular
-                  </div>
-                )}
-                <h3 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-2">
-                  {plan.display_name}
-                </h3>
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-mono-950 dark:text-mono-50">
-                    ${plan.price_monthly}
-                  </span>
-                  <span className="text-mono-600 dark:text-mono-400">/month</span>
-                </div>
-                <p className="text-mono-600 dark:text-mono-400 mb-4">
-                  {toolCount} tools included
-                </p>
-                <div className="mb-4">
-                  <Link
-                    href={`/home?plan=${plan.name.toLowerCase()}`}
-                    className="text-sm text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline font-medium"
-                  >
-                    View All Tools →
-                  </Link>
-                </div>
-                <button
-                  onClick={() => handlePlanSelect(plan)}
-                  disabled={isStarting || !!startingTrial}
-                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 ${
-                    isPopular
-                      ? 'bg-accent-600 text-white hover:bg-accent-700'
-                      : 'bg-mono-200 dark:bg-mono-700 text-mono-950 dark:text-mono-50 hover:bg-mono-300 dark:hover:bg-mono-600'
-                  } disabled:opacity-50 disabled:cursor-not-allowed`}
-                >
-                  {isStarting ? (
-                    <>
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                      <span>Starting Trial...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="h-5 w-5" />
-                      <span>Start Free Trial</span>
-                    </>
-                  )}
-                </button>
-                <p className="text-xs text-mono-500 dark:text-mono-500 mt-3 text-center">
-                  {plan.trial_days || 7} days free • No credit card
-                </p>
-              </div>
-            )
-          })}
-        </div>
-
-        <div className="text-center">
+        <div className="text-center mt-8">
           <Link
             href="/pricing"
             className="text-accent-600 dark:text-accent-400 hover:underline inline-flex items-center space-x-2"
           >
-            <span>View detailed pricing and features</span>
+            <span>Back to pricing</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

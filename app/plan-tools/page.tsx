@@ -54,9 +54,8 @@ export default async function PlanToolsPage({
         <div className="mx-auto max-w-lg rounded-lg border border-mono-200 bg-white p-8 dark:border-mono-600 dark:bg-white dark:text-mono-950">
           <h1 className="mb-2 text-xl font-bold text-mono-950 dark:text-mono-950">Plan not found</h1>
           <p className="mb-6 text-sm text-mono-700 dark:text-mono-700">
-            Open this page from a pricing tier link, or choose{' '}
-            <code className="rounded bg-mono-100 px-1 text-mono-900">?plan=essential</code> or{' '}
-            <code className="rounded bg-mono-100 px-1 text-mono-900">?plan=professional</code>.
+            Open this page from pricing, or use{' '}
+            <code className="rounded bg-mono-100 px-1 text-mono-900">?plan=starter</code> for ToolMarket365.
           </p>
           <Link
             href="/pricing"
@@ -81,12 +80,20 @@ export default async function PlanToolsPage({
           </Link>
         </p>
         <h1 className="mb-2 text-3xl font-bold text-mono-950 dark:text-mono-50">
-          Tools in the <span className="text-accent-600 dark:text-accent-400">{title}</span> plan
+          <span className="text-accent-600 dark:text-accent-400">{title}</span> — all tools
         </h1>
-        <p className="mb-8 text-mono-700 dark:text-mono-300">
-          {slugs.length} tools included with this subscription tier. Credit-priced tools may still show a credit
-          badge elsewhere; see the plan disclaimer on pricing.
+        <p className="mb-4 text-mono-700 dark:text-mono-300">
+          {planKey === 'starter'
+            ? 'Your subscription includes every tool on ToolMarket365 (120+). Browse the full catalog on the homepage or open any tool below.'
+            : `${slugs.length} tools listed for this plan.`}
         </p>
+        {planKey === 'starter' && (
+          <p className="mb-8">
+            <Link href="/tools" className="font-semibold text-accent-700 hover:underline dark:text-accent-400">
+              View full tools catalog →
+            </Link>
+          </p>
+        )}
         <ul className="divide-y divide-mono-200 rounded-lg border border-mono-200 bg-white dark:divide-mono-600 dark:border-mono-600 dark:bg-white">
           {slugs.map((slug) => (
             <li key={slug}>
