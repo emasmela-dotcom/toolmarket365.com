@@ -150,7 +150,7 @@ export function ToolAccessGate({
                   </p>
                 ) : (
                   <p className="text-sm text-yellow-800 dark:text-yellow-300 mb-4">
-                    Start a free 7-day trial to access this tool and all features in your selected plan.
+                    Subscribe for $0.99/month to use this tool and every tool on ToolMarket365.
                   </p>
                 )}
                 <Link
@@ -158,7 +158,7 @@ export function ToolAccessGate({
                   className="inline-flex items-center space-x-2 px-6 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors"
                 >
                   <Sparkles className="h-5 w-5" />
-                  <span>{planName ? 'Upgrade Plan' : 'View Plans & Start Trial'}</span>
+                  <span>{planName ? 'Upgrade Plan' : 'Subscribe — $0.99/month'}</span>
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </div>

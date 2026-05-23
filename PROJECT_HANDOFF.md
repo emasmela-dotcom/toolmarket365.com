@@ -19,8 +19,7 @@
 ## Pricing model (current)
 
 - **One plan:** $0.99/month (`starter` in DB).
-- Browse tools on homepage; **using tool features** requires active subscription/trial.
-- `/tools/*` gated in `app/tools/layout.tsx` → redirect to `/pricing` if not subscribed.
+- Browse tool pages free on `/tools/*`; **using** gated tools requires active subscription (per-tool `ToolAccessGate` / APIs).
 - Removed from `/pricing`: AI Power Pack ($15), Basic/Full Creator tiers, multi-tier marketing.
 
 ## Payments (Stripe)
