@@ -2,7 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import type { LegalToolId } from '@/lib/legalTools/metadata'
+import Link from 'next/link'
+import {
+  LEGAL_SUITE_DESCRIPTION,
+  LEGAL_TOOLS,
+  type LegalToolId,
+} from '@/lib/legalTools/metadata'
 import '@/app/tools/legal-plain-language-tools/legal-tools.css'
 
 const TABS: { id: LegalToolId; label: string }[] = [
@@ -396,6 +401,23 @@ Retain all copies for your records.`)
         ⚠️ <strong>Not legal advice.</strong> These tools provide general information and document templates
         only. For legal matters, consult a licensed attorney in your state.
       </div>
+
+      <section className="legal-suite__intro" aria-label="Choose a legal tool">
+        <p>{LEGAL_SUITE_DESCRIPTION}</p>
+        <ul className="legal-suite__intro-list">
+          {LEGAL_TOOLS.map((tool) => (
+            <li key={tool.id}>
+              <Link
+                href={`/tools/legal-plain-language-tools?tab=${tool.id}`}
+                className={`legal-suite__intro-link${active === tool.id ? ' legal-suite__intro-link--active' : ''}`}
+              >
+                <strong>{tool.title}</strong>
+                <span>{tool.description}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <nav className="legal-suite__nav" aria-label="Legal tools">
         {TABS.map((t) => (

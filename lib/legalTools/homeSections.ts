@@ -3,13 +3,17 @@ import { LEGAL_TOOLS } from './metadata'
 export function legalToolSectionsForHome(): {
   category: string
   tag: string
-  tools: { id: string; title: string }[]
+  tools: { id: string; title: string; description: string }[]
 }[] {
   return [
     {
       category: 'Legal Plain-Language',
       tag: '(LEGAL)',
-      tools: LEGAL_TOOLS.map((t) => ({ id: t.id, title: t.title })),
+      tools: LEGAL_TOOLS.map((t) => ({
+        id: t.id,
+        title: t.title,
+        description: t.description,
+      })),
     },
   ]
 }

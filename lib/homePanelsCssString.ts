@@ -317,6 +317,35 @@ body:has(main.tm-home) {
   text-decoration: underline;
 }
 
+.tm-home__link--legal {
+  display: block;
+  padding: 0.35rem 0;
+  line-height: 1.35;
+}
+
+.tm-home__link--legal:hover .tm-home__link-title {
+  text-decoration: underline;
+}
+
+.tm-home__link-title {
+  display: block;
+  font-weight: 600;
+  color: #111827;
+}
+
+.tm-home__link-desc {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #4b5563;
+  line-height: 1.4;
+}
+
+.tm-home__list--legal li {
+  margin-bottom: 0.35rem;
+}
+
 .tm-home-tooltip-wrap {
   position: relative;
   display: inline-block;

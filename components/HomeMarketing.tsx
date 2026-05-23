@@ -487,14 +487,26 @@ export default function HomeMarketing() {
                 <p>{sec.category}</p>
                 <p>{sec.tag}</p>
               </div>
-              <ul className="tm-home__list">
+              <ul className="tm-home__list tm-home__list--legal">
+                <li>
+                  <HomeToolTipLink
+                    href="/tools/legal-plain-language-tools"
+                    className="tm-home__link tm-home__link--legal"
+                  >
+                    <span className="tm-home__link-title">Legal Plain-Language Tools (all 3)</span>
+                    <span className="tm-home__link-desc">
+                      Demand letters, employment rights, and employee vs. contractor — plain English.
+                    </span>
+                  </HomeToolTipLink>
+                </li>
                 {sec.tools.map((t) => (
                   <li key={t.id}>
                     <HomeToolTipLink
                       href={`/tools/legal-plain-language-tools?tab=${t.id}`}
-                      className="tm-home__link"
+                      className="tm-home__link tm-home__link--legal"
                     >
-                      {t.title}
+                      <span className="tm-home__link-title">{t.title}</span>
+                      <span className="tm-home__link-desc">{t.description}</span>
                     </HomeToolTipLink>
                   </li>
                 ))}
