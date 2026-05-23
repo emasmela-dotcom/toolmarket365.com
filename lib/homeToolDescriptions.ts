@@ -1,3 +1,4 @@
+import { legalToolHomeDescriptions } from '@/lib/legalTools/metadata'
 import { lifeToolHomeDescriptions } from '@/lib/lifeTools/metadata'
 import { localServiceToolHomeDescriptions } from '@/lib/localServiceTools/metadata'
 
@@ -153,6 +154,7 @@ const CORE_HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
 
 export const HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
   ...CORE_HOME_TOOL_DESCRIPTIONS,
+  ...legalToolHomeDescriptions(),
   ...localServiceToolHomeDescriptions(),
   ...lifeToolHomeDescriptions(),
 }

@@ -1,6 +1,7 @@
 import { HomeShareBar } from '@/components/HomeShareBar'
 import { HomeToolTipLink } from '@/components/HomeToolTipLink'
 import Link from 'next/link'
+import { legalToolSectionsForHome } from '@/lib/legalTools/homeSections'
 import { lifeToolSectionsForHome } from '@/lib/lifeTools/homeSections'
 import { localServiceSectionsForHome } from '@/lib/localServiceTools/homeSections'
 import { getLifepack365Url, LIFEPACK365_NAME } from '@/lib/siteConfig'
@@ -480,6 +481,26 @@ export default function HomeMarketing() {
               </li>
             </ul>
           </article>
+          {legalToolSectionsForHome().map((sec) => (
+            <article key={sec.category} className="tm-home__card">
+              <div className="tm-home__card-head">
+                <p>{sec.category}</p>
+                <p>{sec.tag}</p>
+              </div>
+              <ul className="tm-home__list">
+                {sec.tools.map((t) => (
+                  <li key={t.id}>
+                    <HomeToolTipLink
+                      href={`/tools/legal-plain-language-tools?tab=${t.id}`}
+                      className="tm-home__link"
+                    >
+                      {t.title}
+                    </HomeToolTipLink>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
           {localServiceSectionsForHome().map((sec) => (
             <article key={sec.category} className="tm-home__card">
               <div className="tm-home__card-head">
