@@ -1,19 +1,34 @@
-import { LEGAL_TOOLS } from './metadata'
+import { LEGAL_TOOLS, type LegalToolId } from './metadata'
+import type { TranslationKey } from '@/lib/i18n/translations'
+
+export const LEGAL_TOOL_I18N: Record<
+  LegalToolId,
+  { title: TranslationKey; description: TranslationKey }
+> = {
+  demand: {
+    title: 'homeLegalToolDemandTitle',
+    description: 'homeLegalToolDemandDescription',
+  },
+  rights: {
+    title: 'homeLegalToolRightsTitle',
+    description: 'homeLegalToolRightsDescription',
+  },
+  classify: {
+    title: 'homeLegalToolClassifyTitle',
+    description: 'homeLegalToolClassifyDescription',
+  },
+}
 
 export function legalToolSectionsForHome(): {
-  category: string
-  tag: string
-  tools: { id: string; title: string; description: string }[]
+  categoryKey: TranslationKey
+  tagKey: TranslationKey
+  tools: { id: LegalToolId }[]
 }[] {
   return [
     {
-      category: 'Legal Plain-Language',
-      tag: '(LEGAL)',
-      tools: LEGAL_TOOLS.map((t) => ({
-        id: t.id,
-        title: t.title,
-        description: t.description,
-      })),
+      categoryKey: 'homeLegalCategory',
+      tagKey: 'homeLegalTag',
+      tools: LEGAL_TOOLS.map((t) => ({ id: t.id })),
     },
   ]
 }

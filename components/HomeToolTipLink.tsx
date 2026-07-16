@@ -1,9 +1,13 @@
+'use client'
+
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import {
   HOME_TOOL_DESCRIPTIONS,
   homeToolTipId,
+  legalHomeTooltipDescription,
 } from '@/lib/homeToolDescriptions'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 type Props = {
   href: string
@@ -12,7 +16,9 @@ type Props = {
 }
 
 export function HomeToolTipLink({ href, className, children }: Props) {
-  const description = HOME_TOOL_DESCRIPTIONS[href]
+  const { t } = useLanguage()
+  const legalDescription = legalHomeTooltipDescription(href, t)
+  const description = legalDescription ?? HOME_TOOL_DESCRIPTIONS[href]
   if (!description) {
     return (
       <Link href={href} className={className}>

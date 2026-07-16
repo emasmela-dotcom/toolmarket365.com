@@ -3,7 +3,7 @@
 import { HomeShareBar } from '@/components/HomeShareBar'
 import { HomeToolTipLink } from '@/components/HomeToolTipLink'
 import Link from 'next/link'
-import { legalToolSectionsForHome } from '@/lib/legalTools/homeSections'
+import { legalToolSectionsForHome, LEGAL_TOOL_I18N } from '@/lib/legalTools/homeSections'
 import { lifeToolSectionsForHome } from '@/lib/lifeTools/homeSections'
 import { localServiceSectionsForHome } from '@/lib/localServiceTools/homeSections'
 import { useLanguage } from '@/lib/i18n/LanguageContext'
@@ -486,10 +486,10 @@ export default function HomeMarketing() {
             </ul>
           </article>
           {legalToolSectionsForHome().map((sec) => (
-            <article key={sec.category} className="tm-home__card">
+            <article key={sec.categoryKey} className="tm-home__card">
               <div className="tm-home__card-head">
-                <p>{sec.category}</p>
-                <p>{sec.tag}</p>
+                <p>{t(sec.categoryKey)}</p>
+                <p>{t(sec.tagKey)}</p>
               </div>
               <ul className="tm-home__list tm-home__list--legal">
                 <li>
@@ -503,14 +503,18 @@ export default function HomeMarketing() {
                     </span>
                   </HomeToolTipLink>
                 </li>
-                {sec.tools.map((t) => (
-                  <li key={t.id}>
+                {sec.tools.map((tool) => (
+                  <li key={tool.id}>
                     <HomeToolTipLink
-                      href={`/tools/legal-plain-language-tools?tab=${t.id}`}
+                      href={`/tools/legal-plain-language-tools?tab=${tool.id}`}
                       className="tm-home__link tm-home__link--legal"
                     >
-                      <span className="tm-home__link-title">{t.title}</span>
-                      <span className="tm-home__link-desc">{t.description}</span>
+                      <span className="tm-home__link-title">
+                        {t(LEGAL_TOOL_I18N[tool.id].title)}
+                      </span>
+                      <span className="tm-home__link-desc">
+                        {t(LEGAL_TOOL_I18N[tool.id].description)}
+                      </span>
                     </HomeToolTipLink>
                   </li>
                 ))}

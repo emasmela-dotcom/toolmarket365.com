@@ -1,6 +1,24 @@
 import { legalToolHomeDescriptions } from '@/lib/legalTools/metadata'
+import { LEGAL_TOOL_I18N } from '@/lib/legalTools/homeSections'
+import type { TranslationKey } from '@/lib/i18n/translations'
 import { lifeToolHomeDescriptions } from '@/lib/lifeTools/metadata'
 import { localServiceToolHomeDescriptions } from '@/lib/localServiceTools/metadata'
+
+const LEGAL_BASE = '/tools/legal-plain-language-tools'
+
+export function legalHomeTooltipDescription(
+  href: string,
+  t: (key: TranslationKey) => string
+): string | null {
+  if (href === LEGAL_BASE) return t('homeLegalSuiteDescription')
+  if (href.startsWith(`${LEGAL_BASE}?tab=`)) {
+    const tab = href.split('tab=')[1]
+    if (tab && tab in LEGAL_TOOL_I18N) {
+      return t(LEGAL_TOOL_I18N[tab as keyof typeof LEGAL_TOOL_I18N].description)
+    }
+  }
+  return null
+}
 
 /** One-line descriptions for home marketing tool links (hover / focus tooltips). */
 const CORE_HOME_TOOL_DESCRIPTIONS: Record<string, string> = {

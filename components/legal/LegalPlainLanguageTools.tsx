@@ -3,18 +3,37 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import {
-  LEGAL_SUITE_DESCRIPTION,
-  LEGAL_TOOLS,
-  type LegalToolId,
-} from '@/lib/legalTools/metadata'
+import { LEGAL_TOOLS, type LegalToolId } from '@/lib/legalTools/metadata'
+import { LEGAL_TOOL_I18N } from '@/lib/legalTools/homeSections'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+import type { TranslationKey } from '@/lib/i18n/translations'
 import '@/app/tools/legal-plain-language-tools/legal-tools.css'
 
-const TABS: { id: LegalToolId; label: string }[] = [
-  { id: 'demand', label: '📄 Demand Letter Generator' },
-  { id: 'rights', label: '⚖️ Employment Rights Checker' },
-  { id: 'classify', label: '🔍 Employee vs. Contractor' },
-]
+const CLASSIFY_QUESTION_IDS = [
+  'q1',
+  'q2',
+  'q3',
+  'q4',
+  'q5',
+  'q6',
+  'q7',
+  'q8',
+  'q9',
+  'q10',
+] as const
+
+const CLASSIFY_QUESTION_KEYS: Record<(typeof CLASSIFY_QUESTION_IDS)[number], TranslationKey> = {
+  q1: 'legalClassifyQ1',
+  q2: 'legalClassifyQ2',
+  q3: 'legalClassifyQ3',
+  q4: 'legalClassifyQ4',
+  q5: 'legalClassifyQ5',
+  q6: 'legalClassifyQ6',
+  q7: 'legalClassifyQ7',
+  q8: 'legalClassifyQ8',
+  q9: 'legalClassifyQ9',
+  q10: 'legalClassifyQ10',
+}
 
 const disputeIntros: Record<string, (facts: string) => string> = {
   deposit: (facts) => `I am writing to formally demand the return of my security deposit in the amount stated below. ${facts}`,
@@ -39,19 +58,6 @@ const disputeWarnings: Record<string, string> = {
   debt: 'I expect prompt repayment of this debt. If necessary, I am prepared to pursue recovery through the appropriate legal channels.',
 }
 
-const CLASSIFY_QUESTIONS = [
-  { id: 'q1', text: 'Does the company control WHEN and WHERE you work?' },
-  { id: 'q2', text: 'Does the company supply your tools, equipment, or software?' },
-  { id: 'q3', text: 'Is this your primary or only source of income from this company?' },
-  { id: 'q4', text: 'Do you receive benefits (health insurance, PTO, 401k)?' },
-  { id: 'q5', text: 'Does the company have the right to fire you without cause?' },
-  { id: 'q6', text: "Is the work you do a core part of the company's regular business?" },
-  { id: 'q7', text: 'Do you work with other clients or companies simultaneously?' },
-  { id: 'q8', text: 'Do you set your own rates and negotiate your own contracts?' },
-  { id: 'q9', text: 'Can you profit or lose money based on how you manage the work (e.g., bid projects)?' },
-  { id: 'q10', text: 'Did the company train you on how to do the job (vs. you being an expert they hired)?' },
-]
-
 const EMP_YES = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q10']
 const CON_YES = ['q7', 'q8', 'q9']
 
@@ -61,10 +67,45 @@ function parseTab(raw: string | null): LegalToolId {
 }
 
 export function LegalPlainLanguageTools() {
+  const { t } = useLanguage()
   const searchParams = useSearchParams()
   const router = useRouter()
   const tab = parseTab(searchParams.get('tab'))
   const [active, setActive] = useState<LegalToolId>(tab)
+
+  const tabs = useMemo(
+    () =>
+      [
+        { id: 'demand' as const, label: t('legalTabDemand') },
+        { id: 'rights' as const, label: t('legalTabRights') },
+        { id: 'classify' as const, label: t('legalTabClassify') },
+      ] satisfies { id: LegalToolId; label: string }[],
+    [t]
+  )
+
+  const classifyQuestions = useMemo(
+    () =>
+      CLASSIFY_QUESTION_IDS.map((id) => ({
+        id,
+        text: t(CLASSIFY_QUESTION_KEYS[id]),
+      })),
+    [t]
+  )
+
+  const rightsChecks = useMemo(
+    () =>
+      [
+        ['fired', t('legalCheckFired')],
+        ['harass', t('legalCheckHarass')],
+        ['wages', t('legalCheckWages')],
+        ['discrim', t('legalCheckDiscrim')],
+        ['fmla', t('legalCheckFmla')],
+        ['retaliate', t('legalCheckRetaliate')],
+        ['noncompete', t('legalCheckNoncompete')],
+        ['safety', t('legalCheckSafety')],
+      ] as const,
+    [t]
+  )
 
   useEffect(() => {
     setActive(tab)
@@ -277,7 +318,9 @@ Retain all copies for your records.`)
     }
 
     if (sections.length === 0) {
-      setRightsHtml('<div class="legal-suite__result"><p>Please select at least one situation that applies to you.</p></div>')
+      setRightsHtml(
+        `<div class="legal-suite__result"><p>${t('legalRightsEmpty')}</p></div>`
+      )
     } else {
       const body = sections
         .map(
@@ -317,7 +360,9 @@ Retain all copies for your records.`)
     let answered = 0
     const details: { text: string; result: 'emp' | 'con' | 'na' }[] = []
 
-    CLASSIFY_QUESTIONS.forEach((q) => {
+    CLASSIFY_QUESTION_IDS.forEach((qId) => {
+      const q = classifyQuestions.find((item) => item.id === qId)
+      if (!q) return
       const val = answers[q.id]
       if (!val || val === 'na') {
         details.push({ text: q.text, result: 'na' })
@@ -336,7 +381,7 @@ Retain all copies for your records.`)
     })
 
     if (answered < 5) {
-      window.alert('Please answer at least 5 questions for an accurate result.')
+      window.alert(t('legalClassifyMinAnswers'))
       return
     }
 
@@ -362,7 +407,7 @@ Retain all copies for your records.`)
     <div class="legal-suite__factor">
       <div class="legal-suite__dot ${d.result === 'emp' ? 'legal-suite__dot-emp' : d.result === 'con' ? 'legal-suite__dot-con' : 'legal-suite__dot-na'}"></div>
       <span style="flex:1">${d.text}</span>
-      <span class="legal-suite__badge ${d.result === 'emp' ? 'legal-suite__badge-emp' : d.result === 'con' ? 'legal-suite__badge-con' : ''}">${d.result === 'emp' ? '→ Employee' : d.result === 'con' ? '→ Contractor' : 'Not answered'}</span>
+      <span class="legal-suite__badge ${d.result === 'emp' ? 'legal-suite__badge-emp' : d.result === 'con' ? 'legal-suite__badge-con' : ''}">${d.result === 'emp' ? t('legalBadgeEmployee') : d.result === 'con' ? t('legalBadgeContractor') : t('legalBadgeNotAnswered')}</span>
     </div>`
         )
         .join('')
@@ -375,35 +420,19 @@ Retain all copies for your records.`)
     await navigator.clipboard.writeText(letter)
   }, [letter])
 
-  const rightsChecks = useMemo(
-    () =>
-      [
-        ['fired', 'Recently fired / laid off'],
-        ['harass', 'Experiencing harassment'],
-        ['wages', 'Unpaid wages / overtime'],
-        ['discrim', 'Discrimination concerns'],
-        ['fmla', 'Need medical / family leave'],
-        ['retaliate', 'Retaliation for complaints'],
-        ['noncompete', 'Signed a non-compete'],
-        ['safety', 'Unsafe working conditions'],
-      ] as const,
-    []
-  )
-
   return (
     <div className="legal-suite">
       <header className="legal-suite__header">
-        <div className="legal-suite__eyebrow">ToolMarket365 · Legal Tools</div>
-        <h1>Legal Plain-Language Tools</h1>
-        <p>Understand your rights and generate professional documents — in plain English.</p>
+        <div className="legal-suite__eyebrow">{t('legalSuiteEyebrow')}</div>
+        <h1>{t('legalSuiteTitle')}</h1>
+        <p>{t('legalSuiteSubtitle')}</p>
       </header>
       <div className="legal-suite__disclaimer">
-        ⚠️ <strong>Not legal advice.</strong> These tools provide general information and document templates
-        only. For legal matters, consult a licensed attorney in your state.
+        ⚠️ <strong>{t('legalSuiteDisclaimerBold')}</strong> {t('legalSuiteDisclaimer')}
       </div>
 
-      <section className="legal-suite__intro" aria-label="Choose a legal tool">
-        <p>{LEGAL_SUITE_DESCRIPTION}</p>
+      <section className="legal-suite__intro" aria-label={t('legalChooseToolAria')}>
+        <p>{t('legalSuiteDescription')}</p>
         <ul className="legal-suite__intro-list">
           {LEGAL_TOOLS.map((tool) => (
             <li key={tool.id}>
@@ -411,23 +440,23 @@ Retain all copies for your records.`)
                 href={`/tools/legal-plain-language-tools?tab=${tool.id}`}
                 className={`legal-suite__intro-link${active === tool.id ? ' legal-suite__intro-link--active' : ''}`}
               >
-                <strong>{tool.title}</strong>
-                <span>{tool.description}</span>
+                <strong>{t(LEGAL_TOOL_I18N[tool.id].title)}</strong>
+                <span>{t(LEGAL_TOOL_I18N[tool.id].description)}</span>
               </Link>
             </li>
           ))}
         </ul>
       </section>
 
-      <nav className="legal-suite__nav" aria-label="Legal tools">
-        {TABS.map((t) => (
+      <nav className="legal-suite__nav" aria-label={t('legalToolsNavAria')}>
+        {tabs.map((tabItem) => (
           <button
-            key={t.id}
+            key={tabItem.id}
             type="button"
-            className={active === t.id ? 'active' : ''}
-            onClick={() => setTab(t.id)}
+            className={active === tabItem.id ? 'active' : ''}
+            onClick={() => setTab(tabItem.id)}
           >
-            {t.label}
+            {tabItem.label}
           </button>
         ))}
       </nav>
@@ -435,69 +464,66 @@ Retain all copies for your records.`)
       <main className="legal-suite__main">
         <div className={`legal-suite__panel ${active === 'demand' ? 'active' : ''}`} id="demand">
           <div className="legal-suite__card">
-            <h2>Demand Letter Generator</h2>
-            <p className="legal-suite__sub">
-              Generate a professional demand letter for disputes, security deposits, small claims, or unpaid
-              amounts.
-            </p>
+            <h2>{t('legalDemandTitle')}</h2>
+            <p className="legal-suite__sub">{t('legalDemandSub')}</p>
             <div className="legal-suite__grid-2">
               <div className="legal-suite__field">
-                <label className="field-label">Your Full Name</label>
+                <label className="field-label">{t('legalYourFullName')}</label>
                 <input
                   value={demand.yourName}
                   onChange={(e) => setDemand({ ...demand, yourName: e.target.value })}
-                  placeholder="Jane Smith"
+                  placeholder={t('legalPlaceholderYourName')}
                 />
               </div>
               <div className="legal-suite__field">
-                <label className="field-label">Your Address</label>
+                <label className="field-label">{t('legalYourAddress')}</label>
                 <input
                   value={demand.yourAddr}
                   onChange={(e) => setDemand({ ...demand, yourAddr: e.target.value })}
-                  placeholder="123 Main St, City, ST 00000"
+                  placeholder={t('legalPlaceholderYourAddress')}
                 />
               </div>
               <div className="legal-suite__field">
-                <label className="field-label">Recipient&apos;s Name / Company</label>
+                <label className="field-label">{t('legalRecipientName')}</label>
                 <input
                   value={demand.theirName}
                   onChange={(e) => setDemand({ ...demand, theirName: e.target.value })}
-                  placeholder="John Doe / Acme Property Mgmt"
+                  placeholder={t('legalPlaceholderRecipientName')}
                 />
               </div>
               <div className="legal-suite__field">
-                <label className="field-label">Recipient&apos;s Address</label>
+                <label className="field-label">{t('legalRecipientAddress')}</label>
                 <input
                   value={demand.theirAddr}
                   onChange={(e) => setDemand({ ...demand, theirAddr: e.target.value })}
-                  placeholder="456 Oak Ave, City, ST 00000"
+                  placeholder={t('legalPlaceholderRecipientAddress')}
                 />
               </div>
             </div>
             <div className="legal-suite__field">
-              <label className="field-label">Type of Dispute</label>
+              <label className="field-label">{t('legalDisputeType')}</label>
               <select value={demand.type} onChange={(e) => setDemand({ ...demand, type: e.target.value })}>
-                <option value="deposit">Security Deposit Not Returned</option>
-                <option value="unpaid">Unpaid Wages / Freelance Payment</option>
-                <option value="damage">Property Damage</option>
-                <option value="contract">Breach of Contract</option>
-                <option value="refund">Refund / Defective Product</option>
-                <option value="debt">Personal Debt Owed</option>
+                <option value="deposit">{t('legalDisputeDeposit')}</option>
+                <option value="unpaid">{t('legalDisputeUnpaid')}</option>
+                <option value="damage">{t('legalDisputeDamage')}</option>
+                <option value="contract">{t('legalDisputeContract')}</option>
+                <option value="refund">{t('legalDisputeRefund')}</option>
+                <option value="debt">{t('legalDisputeDebt')}</option>
               </select>
             </div>
             <div className="legal-suite__grid-2">
               <div className="legal-suite__field">
-                <label className="field-label">Amount Owed ($)</label>
+                <label className="field-label">{t('legalAmountOwed')}</label>
                 <input
                   type="number"
                   min={0}
                   value={demand.amount}
                   onChange={(e) => setDemand({ ...demand, amount: e.target.value })}
-                  placeholder="e.g. 1500"
+                  placeholder={t('legalPlaceholderAmount')}
                 />
               </div>
               <div className="legal-suite__field">
-                <label className="field-label">Response Deadline (days)</label>
+                <label className="field-label">{t('legalResponseDeadline')}</label>
                 <input
                   type="number"
                   min={5}
@@ -508,32 +534,31 @@ Retain all copies for your records.`)
               </div>
             </div>
             <div className="legal-suite__field">
-              <label className="field-label">Brief Description of the Dispute</label>
+              <label className="field-label">{t('legalDisputeDescription')}</label>
               <textarea
                 value={demand.facts}
                 onChange={(e) => setDemand({ ...demand, facts: e.target.value })}
-                placeholder="Describe what happened..."
+                placeholder={t('legalPlaceholderDispute')}
               />
             </div>
             <div className="legal-suite__field">
-              <label className="field-label">Prior Attempts to Resolve (optional)</label>
+              <label className="field-label">{t('legalPriorAttempts')}</label>
               <textarea
                 value={demand.prior}
                 onChange={(e) => setDemand({ ...demand, prior: e.target.value })}
               />
             </div>
             <button type="button" className="legal-suite__btn" onClick={genDemand}>
-              Generate Demand Letter
+              {t('legalGenerateDemand')}
             </button>
             <div className={`legal-suite__output ${showLetter ? 'show' : ''}`}>
               <div className="legal-suite__letter">{letter}</div>
               <button type="button" className="legal-suite__copy" onClick={copyLetter}>
-                📋 Copy Letter
+                {t('legalCopyLetter')}
               </button>
               <div className="legal-suite__note">
-                <strong style={{ color: 'var(--legal-navy)' }}>Next Steps:</strong> Send via certified mail
-                (return receipt requested) and email. Keep copies. If no response by the deadline, consider small
-                claims court.
+                <strong style={{ color: 'var(--legal-navy)' }}>{t('legalNextStepsBold')}</strong>{' '}
+                {t('legalNextStepsText')}
               </div>
             </div>
           </div>
@@ -541,35 +566,33 @@ Retain all copies for your records.`)
 
         <div className={`legal-suite__panel ${active === 'rights' ? 'active' : ''}`} id="rights">
           <div className="legal-suite__card">
-            <h2>Employment Rights Checker</h2>
-            <p className="legal-suite__sub">
-              Describe your situation and get a plain-language primer on what rights may apply to you.
-            </p>
+            <h2>{t('legalRightsTitle')}</h2>
+            <p className="legal-suite__sub">{t('legalRightsSub')}</p>
             <div className="legal-suite__grid-2">
               <div className="legal-suite__field">
-                <label className="field-label">Employment Status</label>
+                <label className="field-label">{t('legalEmploymentStatus')}</label>
                 <select
                   value={rights.status}
                   onChange={(e) => setRights({ ...rights, status: e.target.value })}
                 >
-                  <option value="fulltime">Full-time employee (W-2)</option>
-                  <option value="parttime">Part-time employee (W-2)</option>
-                  <option value="contractor">Independent contractor (1099)</option>
-                  <option value="gig">Gig/app worker</option>
+                  <option value="fulltime">{t('legalStatusFulltime')}</option>
+                  <option value="parttime">{t('legalStatusParttime')}</option>
+                  <option value="contractor">{t('legalStatusContractor')}</option>
+                  <option value="gig">{t('legalStatusGig')}</option>
                 </select>
               </div>
               <div className="legal-suite__field">
-                <label className="field-label">Company Size (approx. employees)</label>
+                <label className="field-label">{t('legalCompanySize')}</label>
                 <select value={rights.size} onChange={(e) => setRights({ ...rights, size: e.target.value })}>
-                  <option value="small">1–14 employees</option>
-                  <option value="mid">15–49 employees</option>
-                  <option value="large">50–499 employees</option>
-                  <option value="enterprise">500+ employees</option>
+                  <option value="small">{t('legalSizeSmall')}</option>
+                  <option value="mid">{t('legalSizeMid')}</option>
+                  <option value="large">{t('legalSizeLarge')}</option>
+                  <option value="enterprise">{t('legalSizeEnterprise')}</option>
                 </select>
               </div>
             </div>
             <div className="legal-suite__field">
-              <label className="field-label">Your Situation (check all that apply)</label>
+              <label className="field-label">{t('legalYourSituation')}</label>
               <div className="legal-suite__check-grid">
                 {rightsChecks.map(([key, label]) => (
                   <label key={key} className="legal-suite__check">
@@ -586,7 +609,7 @@ Retain all copies for your records.`)
               </div>
             </div>
             <button type="button" className="legal-suite__btn" onClick={checkRights}>
-              Check My Rights
+              {t('legalCheckRightsBtn')}
             </button>
             <div className={`legal-suite__output ${showRights ? 'show' : ''}`}>
               <div dangerouslySetInnerHTML={{ __html: rightsHtml }} />
@@ -596,15 +619,12 @@ Retain all copies for your records.`)
 
         <div className={`legal-suite__panel ${active === 'classify' ? 'active' : ''}`} id="classify">
           <div className="legal-suite__card">
-            <h2>Employee vs. Independent Contractor Classifier</h2>
-            <p className="legal-suite__sub">
-              Answer these questions about your work arrangement to see how the IRS and labor law typically
-              classify your role.
-            </p>
+            <h2>{t('legalClassifyTitle')}</h2>
+            <p className="legal-suite__sub">{t('legalClassifySub')}</p>
             <p style={{ fontSize: '0.85rem', color: 'var(--legal-muted)', marginBottom: '1.25rem' }}>
-              Answer based on your actual working situation, not your job title or what you signed.
+              {t('legalClassifyHint')}
             </p>
-            {CLASSIFY_QUESTIONS.map((q, i) => (
+            {classifyQuestions.map((q, i) => (
               <div key={q.id} className="legal-suite__field">
                 <span className="legal-suite__q-label">
                   {i + 1}. {q.text}
@@ -619,25 +639,24 @@ Retain all copies for your records.`)
                         checked={answers[q.id] === v}
                         onChange={() => setAnswers({ ...answers, [q.id]: v })}
                       />
-                      {v === 'na' ? 'Not sure' : v === 'yes' ? 'Yes' : 'No'}
+                      {v === 'na' ? t('legalNotSure') : v === 'yes' ? t('legalYes') : t('legalNo')}
                     </label>
                   ))}
                 </div>
               </div>
             ))}
             <button type="button" className="legal-suite__btn" onClick={classifyWorker}>
-              Classify My Work Arrangement
+              {t('legalClassifyBtn')}
             </button>
             <div className={`legal-suite__output ${showClassify ? 'show' : ''}`}>
               <div dangerouslySetInnerHTML={{ __html: classifyVerdict }} />
               <div className="legal-suite__result" style={{ marginTop: '1rem' }}>
-                <h3>Factor-by-Factor Analysis</h3>
+                <h3>{t('legalFactorAnalysis')}</h3>
                 <div dangerouslySetInnerHTML={{ __html: classifyFactors }} />
               </div>
               <div className="legal-suite__note">
-                <strong style={{ color: 'var(--legal-navy)' }}>Why This Matters:</strong> Misclassification
-                can cost you benefits, overtime, and workers&apos; comp. Consider IRS Form SS-8 or an employment
-                attorney if unsure.
+                <strong style={{ color: 'var(--legal-navy)' }}>{t('legalWhyMattersBold')}</strong>{' '}
+                {t('legalWhyMattersText')}
               </div>
             </div>
           </div>
