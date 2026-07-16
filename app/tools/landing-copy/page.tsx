@@ -1,11 +1,64 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const inputClass =
   "w-full border p-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400";
 
+const copy = {
+  en: {
+    title: "Landing Page Copy Generator",
+    instructions: "Instructions",
+    instructionsBody:
+      "Fill product, audience, problem, benefit, pick tone, then click Generate Copy.",
+    expectedOutcome: "Expected Outcome",
+    expectedOutcomeBody:
+      "You get headline, subheadline, value props, features, CTA, testimonials, and FAQ blocks.",
+    product: "Product",
+    audience: "Audience",
+    problem: "Problem",
+    benefit: "Benefit",
+    toneBold: "Bold",
+    toneCasual: "Casual",
+    toneProfessional: "Professional",
+    generating: "Generating...",
+    generate: "Generate Copy",
+    valueProps: "Value Props",
+    features: "Features",
+    cta: "CTA",
+    testimonials: "Testimonials",
+    faq: "FAQ",
+  },
+  es: {
+    title: "Generador de copy para landing",
+    instructions: "Instrucciones",
+    instructionsBody:
+      "Completa producto, audiencia, problema y beneficio, elige el tono y haz clic en Generar copy.",
+    expectedOutcome: "Resultado esperado",
+    expectedOutcomeBody:
+      "Obtienes titular, subtítulo, propuestas de valor, funciones, CTA, testimonios y bloques de preguntas frecuentes.",
+    product: "Producto",
+    audience: "Audiencia",
+    problem: "Problema",
+    benefit: "Beneficio",
+    toneBold: "Audaz",
+    toneCasual: "Casual",
+    toneProfessional: "Profesional",
+    generating: "Generando...",
+    generate: "Generar copy",
+    valueProps: "Propuestas de valor",
+    features: "Funciones",
+    cta: "CTA",
+    testimonials: "Testimonios",
+    faq: "Preguntas frecuentes",
+  },
+} as const;
+
 export default function LandingCopyPage() {
+  const { language } = useLanguage();
+  const t = copy[language];
+
   const [form, setForm] = useState({
     product: "",
     audience: "",
@@ -37,28 +90,28 @@ export default function LandingCopyPage() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-4">
-      <h1 className="text-2xl font-bold">Landing Page Copy Generator</h1>
+      <h1 className="text-2xl font-bold">{t.title}</h1>
 
       <section className="mb-4 rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
         <div>
-          <h2 className="font-semibold mb-1">Instructions</h2>
-          <p>Fill product, audience, problem, benefit, pick tone, then click Generate Copy.</p>
+          <h2 className="font-semibold mb-1">{t.instructions}</h2>
+          <p>{t.instructionsBody}</p>
         </div>
         <div>
-          <h2 className="font-semibold mb-1">Expected Outcome</h2>
-          <p>You get headline, subheadline, value props, features, CTA, testimonials, and FAQ blocks.</p>
+          <h2 className="font-semibold mb-1">{t.expectedOutcome}</h2>
+          <p>{t.expectedOutcomeBody}</p>
         </div>
       </section>
 
-      <input name="product" placeholder="Product" onChange={handleChange} className={inputClass} />
-      <input name="audience" placeholder="Audience" onChange={handleChange} className={inputClass} />
-      <input name="problem" placeholder="Problem" onChange={handleChange} className={inputClass} />
-      <input name="benefit" placeholder="Benefit" onChange={handleChange} className={inputClass} />
+      <input name="product" placeholder={t.product} onChange={handleChange} className={inputClass} />
+      <input name="audience" placeholder={t.audience} onChange={handleChange} className={inputClass} />
+      <input name="problem" placeholder={t.problem} onChange={handleChange} className={inputClass} />
+      <input name="benefit" placeholder={t.benefit} onChange={handleChange} className={inputClass} />
 
       <select name="tone" value={form.tone} onChange={handleChange} className={inputClass}>
-        <option value="bold">Bold</option>
-        <option value="casual">Casual</option>
-        <option value="professional">Professional</option>
+        <option value="bold">{t.toneBold}</option>
+        <option value="casual">{t.toneCasual}</option>
+        <option value="professional">{t.toneProfessional}</option>
       </select>
 
       <button
@@ -66,7 +119,7 @@ export default function LandingCopyPage() {
         onClick={generate}
         className="bg-black dark:bg-mono-100 text-white dark:text-mono-950 px-4 py-2 rounded w-full"
       >
-        {loading ? "Generating..." : "Generate Copy"}
+        {loading ? t.generating : t.generate}
       </button>
 
       {result && (
@@ -75,7 +128,7 @@ export default function LandingCopyPage() {
           <p>{result.subheadline}</p>
 
           <div>
-            <h3 className="font-bold">Value Props</h3>
+            <h3 className="font-bold">{t.valueProps}</h3>
             <ul>
               {result.valueProps.map((v: string, i: number) => (
                 <li key={i}>• {v}</li>
@@ -84,7 +137,7 @@ export default function LandingCopyPage() {
           </div>
 
           <div>
-            <h3 className="font-bold">Features</h3>
+            <h3 className="font-bold">{t.features}</h3>
             <ul>
               {result.features.map((f: string, i: number) => (
                 <li key={i}>• {f}</li>
@@ -93,21 +146,21 @@ export default function LandingCopyPage() {
           </div>
 
           <div>
-            <h3 className="font-bold">CTA</h3>
+            <h3 className="font-bold">{t.cta}</h3>
             <p>{result.cta}</p>
           </div>
 
           <div>
-            <h3 className="font-bold">Testimonials</h3>
+            <h3 className="font-bold">{t.testimonials}</h3>
             <ul>
-              {result.testimonials.map((t: string, i: number) => (
-                <li key={i}>{t}</li>
+              {result.testimonials.map((tItem: string, i: number) => (
+                <li key={i}>{tItem}</li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h3 className="font-bold">FAQ</h3>
+            <h3 className="font-bold">{t.faq}</h3>
             {result.faq.map((f: { q: string; a: string }, i: number) => (
               <div key={i}>
                 <p className="font-semibold">{f.q}</p>

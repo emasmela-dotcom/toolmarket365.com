@@ -1,11 +1,50 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const inputClass =
   "w-full border p-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400";
 
+const copy = {
+  en: {
+    title: "Testimonial Collector Tool",
+    instructions: "Instructions",
+    instructionsBody:
+      "Fill out customer details and testimonial copy, then submit the form.",
+    expectedOutcome: "Expected Outcome",
+    expectedOutcomeBody:
+      "Your testimonial is stored via API and available through the GET endpoint.",
+    success: "Thanks! Your testimonial was submitted.",
+    name: "Your Name",
+    role: "Your Role (optional)",
+    company: "Company (optional)",
+    content: "Your testimonial...",
+    submitting: "Submitting...",
+    submit: "Submit Testimonial",
+  },
+  es: {
+    title: "Herramienta para recopilar testimonios",
+    instructions: "Instrucciones",
+    instructionsBody:
+      "Completa los datos del cliente y el texto del testimonio, luego envía el formulario.",
+    expectedOutcome: "Resultado esperado",
+    expectedOutcomeBody:
+      "Tu testimonio se guarda por la API y queda disponible a través del endpoint GET.",
+    success: "¡Gracias! Tu testimonio fue enviado.",
+    name: "Tu nombre",
+    role: "Tu cargo (opcional)",
+    company: "Empresa (opcional)",
+    content: "Tu testimonio...",
+    submitting: "Enviando...",
+    submit: "Enviar testimonio",
+  },
+} as const;
+
 export default function TestimonialCollectorToolPage() {
+  const { language } = useLanguage();
+  const t = copy[language];
+
   const [form, setForm] = useState({
     name: "",
     role: "",
@@ -50,29 +89,29 @@ export default function TestimonialCollectorToolPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Testimonial Collector Tool</h1>
+      <h1 className="text-2xl font-bold">{t.title}</h1>
 
       <section className="mb-4 rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
         <div>
-          <h2 className="font-semibold mb-1">Instructions</h2>
-          <p>Fill out customer details and testimonial copy, then submit the form.</p>
+          <h2 className="font-semibold mb-1">{t.instructions}</h2>
+          <p>{t.instructionsBody}</p>
         </div>
         <div>
-          <h2 className="font-semibold mb-1">Expected Outcome</h2>
-          <p>Your testimonial is stored via API and available through the GET endpoint.</p>
+          <h2 className="font-semibold mb-1">{t.expectedOutcome}</h2>
+          <p>{t.expectedOutcomeBody}</p>
         </div>
       </section>
 
       {success && (
         <p className="text-green-700 dark:text-green-400 mb-2">
-          Thanks! Your testimonial was submitted.
+          {t.success}
         </p>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="name"
-          placeholder="Your Name"
+          placeholder={t.name}
           value={form.name}
           onChange={handleChange}
           className={inputClass}
@@ -80,21 +119,21 @@ export default function TestimonialCollectorToolPage() {
         />
         <input
           name="role"
-          placeholder="Your Role (optional)"
+          placeholder={t.role}
           value={form.role}
           onChange={handleChange}
           className={inputClass}
         />
         <input
           name="company"
-          placeholder="Company (optional)"
+          placeholder={t.company}
           value={form.company}
           onChange={handleChange}
           className={inputClass}
         />
         <textarea
           name="content"
-          placeholder="Your testimonial..."
+          placeholder={t.content}
           value={form.content}
           onChange={handleChange}
           className={`${inputClass} h-32`}
@@ -118,7 +157,7 @@ export default function TestimonialCollectorToolPage() {
           disabled={loading}
           className="w-full bg-black dark:bg-mono-100 text-white dark:text-mono-950 py-2 rounded"
         >
-          {loading ? "Submitting..." : "Submit Testimonial"}
+          {loading ? t.submitting : t.submit}
         </button>
       </form>
     </div>

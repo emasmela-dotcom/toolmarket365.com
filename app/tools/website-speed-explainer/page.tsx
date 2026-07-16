@@ -2,11 +2,38 @@
 
 import { useState } from "react";
 import type { SpeedIssue } from "@/lib/speedExplainer";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const inputClass =
   "border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400";
 
+const copy = {
+  en: {
+    title: "Website Speed Explainer",
+    loadTime: "Load Time (seconds)",
+    imageSize: "Image Size (MB)",
+    numRequests: "Number of Requests",
+    usesCdn: "Uses CDN",
+    renderBlocking: "Render Blocking Resources",
+    analyzing: "Analyzing...",
+    analyze: "Analyze",
+  },
+  es: {
+    title: "Explicador de velocidad del sitio",
+    loadTime: "Tiempo de carga (segundos)",
+    imageSize: "Tamaño de imágenes (MB)",
+    numRequests: "Número de solicitudes",
+    usesCdn: "Usa CDN",
+    renderBlocking: "Recursos que bloquean el renderizado",
+    analyzing: "Analizando...",
+    analyze: "Analizar",
+  },
+} as const;
+
 export default function WebsiteSpeedExplainerPage() {
+  const { language } = useLanguage();
+  const t = copy[language];
+
   const [form, setForm] = useState({
     loadTime: "",
     imageSizeMB: "",
@@ -40,23 +67,23 @@ export default function WebsiteSpeedExplainerPage() {
   return (
     <div className="p-6 max-w-xl mx-auto space-y-4">
       <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">
-        Website Speed Explainer
+        {t.title}
       </h1>
 
       <input
-        placeholder="Load Time (seconds)"
+        placeholder={t.loadTime}
         className={inputClass}
         onChange={(e) => setForm({ ...form, loadTime: e.target.value })}
       />
 
       <input
-        placeholder="Image Size (MB)"
+        placeholder={t.imageSize}
         className={inputClass}
         onChange={(e) => setForm({ ...form, imageSizeMB: e.target.value })}
       />
 
       <input
-        placeholder="Number of Requests"
+        placeholder={t.numRequests}
         className={inputClass}
         onChange={(e) => setForm({ ...form, numRequests: e.target.value })}
       />
@@ -67,7 +94,7 @@ export default function WebsiteSpeedExplainerPage() {
           className="mr-2"
           onChange={(e) => setForm({ ...form, usesCDN: e.target.checked })}
         />
-        Uses CDN
+        {t.usesCdn}
       </label>
 
       <label className="block text-mono-900 dark:text-mono-100">
@@ -78,7 +105,7 @@ export default function WebsiteSpeedExplainerPage() {
             setForm({ ...form, renderBlocking: e.target.checked })
           }
         />
-        Render Blocking Resources
+        {t.renderBlocking}
       </label>
 
       <button
@@ -87,7 +114,7 @@ export default function WebsiteSpeedExplainerPage() {
         disabled={loading}
         className="bg-black text-white dark:bg-mono-100 dark:text-mono-950 px-4 py-2 rounded"
       >
-        {loading ? "Analyzing..." : "Analyze"}
+        {loading ? t.analyzing : t.analyze}
       </button>
 
       <div className="mt-6 space-y-4">
