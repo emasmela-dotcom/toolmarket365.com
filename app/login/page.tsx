@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 export default function LoginPage() {
   const router = useRouter()
+  const { t } = useLanguage()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -28,14 +30,13 @@ export default function LoginPage() {
       const data = await response.json()
 
       if (response.ok) {
-        // Success - redirect to home or dashboard
         router.push('/')
         router.refresh()
       } else {
-        setError(data.error || 'Login failed. Please check your credentials.')
+        setError(data.error || t('loginFailed'))
       }
     } catch (error) {
-      setError('An error occurred. Please try again.')
+      setError(t('signupErrorGeneric'))
       console.error('Login error:', error)
     } finally {
       setIsLoading(false)
@@ -49,10 +50,10 @@ export default function LoginPage() {
           <div className="bg-white dark:bg-white rounded-lg p-8 border border-mono-300 dark:border-mono-300 shadow-lg">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-mono-950 mb-2">
-                Sign In
+                {t('loginTitle')}
               </h1>
               <p className="text-mono-700">
-                Welcome back to ToolMarket365
+                {t('loginWelcome')}
               </p>
             </div>
 
@@ -66,7 +67,7 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm font-semibold text-mono-900 mb-2">
-                  Email Address
+                  {t('signupEmail')}
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-5 h-5" />
@@ -77,14 +78,14 @@ export default function LoginPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     className="w-full pl-10 pr-4 py-2 border border-mono-400 rounded-lg bg-white text-mono-950 placeholder:text-mono-600 focus:outline-none focus:ring-2 focus:ring-accent-500"
-                    placeholder="your.email@example.com"
+                    placeholder={t('signupEmailPlaceholder')}
                   />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="password" className="block text-sm font-semibold text-mono-900 mb-2">
-                  Password
+                  {t('signupPassword')}
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-5 h-5" />
@@ -95,7 +96,7 @@ export default function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     className="w-full pl-10 pr-10 py-2 border border-mono-400 rounded-lg bg-white text-mono-950 placeholder:text-mono-600 focus:outline-none focus:ring-2 focus:ring-accent-500"
-                    placeholder="Enter your password"
+                    placeholder={t('loginPasswordPlaceholder')}
                   />
                   <button
                     type="button"
@@ -113,13 +114,13 @@ export default function LoginPage() {
                     type="checkbox"
                     className="rounded"
                   />
-                  <span className="text-sm text-mono-700">Remember me</span>
+                  <span className="text-sm text-mono-700">{t('loginRememberMe')}</span>
                 </label>
                 <Link
                   href="/forgot-password"
                   className="text-sm text-accent-700 hover:text-accent-800 font-medium"
                 >
-                  Forgot password?
+                  {t('loginForgotPassword')}
                 </Link>
               </div>
 
@@ -131,29 +132,29 @@ export default function LoginPage() {
                 {isLoading ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    <span>Signing in...</span>
+                    <span>{t('loginSigningIn')}</span>
                   </>
                 ) : (
-                  <span>Sign In</span>
+                  <span>{t('loginSubmit')}</span>
                 )}
               </button>
             </form>
 
             <div className="mt-6 text-center">
               <p className="text-sm text-mono-700">
-                Don't have an account?{' '}
+                {t('loginNoAccount')}{' '}
                 <Link
                   href="/signup"
                   className="text-accent-700 hover:text-accent-800 font-medium"
                 >
-                  Sign up
+                  {t('loginSignUpLink')}
                 </Link>
               </p>
             </div>
 
             <div className="mt-6 pt-6 border-t border-mono-200">
               <p className="text-xs text-center text-mono-600">
-                You can use all tools without signing in. Sign in to save your work and access advanced features.
+                {t('loginFooterNote')}
               </p>
             </div>
           </div>

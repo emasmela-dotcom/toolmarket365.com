@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { HOME_PANELS_CSS } from "@/lib/homePanelsCssString";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
+import { LanguageToggleBar } from "@/components/LanguageToggleBar";
 import { getSiteUrl, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_WINDOW_TITLE } from "@/lib/siteConfig";
 import "./globals.css";
 
@@ -81,7 +83,10 @@ export default function RootLayout({
         <Script id="theme-dark-class" strategy="beforeInteractive">
           {`(function(){try{var m=window.matchMedia("(prefers-color-scheme: dark)");function s(){document.documentElement.classList.toggle("dark",m.matches);}s();m.addEventListener("change",s);}catch(e){}})();`}
         </Script>
-        {children}
+        <LanguageProvider>
+          <LanguageToggleBar />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

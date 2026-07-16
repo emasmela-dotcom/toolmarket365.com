@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { CheckCircle, ExternalLink, Key, Zap, Info, Sparkles, Image, BarChart3, Settings, ArrowRight } from 'lucide-react';
+import { CheckCircle, ExternalLink, Key, Zap, Info, Sparkles, Image, BarChart3, Settings } from 'lucide-react'
 import Link from 'next/link'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 interface Integration {
   id: string
@@ -82,6 +83,7 @@ const integrations: Integration[] = [
 ]
 
 function IntegrationsPageContent() {
+  const { t } = useLanguage()
   const [connectedIntegrations, setConnectedIntegrations] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
 
@@ -129,10 +131,10 @@ function IntegrationsPageContent() {
   }
 
   const categories = [
-    { id: 'all', label: 'All Integrations' },
-    { id: 'ai', label: 'AI Services' },
-    { id: 'social', label: 'Social Media' },
-    { id: 'analytics', label: 'Analytics' },
+    { id: 'all', label: t('integrationsAll') },
+    { id: 'ai', label: t('integrationsAi') },
+    { id: 'social', label: t('integrationsSocial') },
+    { id: 'analytics', label: t('integrationsAnalytics') },
   ]
 
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
@@ -149,93 +151,81 @@ function IntegrationsPageContent() {
           <div className="flex items-center justify-center space-x-3 mb-4">
             <Settings className="h-10 w-10 text-accent-600 dark:text-accent-400" />
             <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50">
-              Integrations Hub
+              {t('integrationsTitle')}
             </h1>
           </div>
           <p className="text-lg text-mono-600 dark:text-mono-400 max-w-3xl mx-auto mb-4">
-            Connect external services to enhance ToolMarket365 functionality. You pay these services directly—we just make it easy to connect.
+            {t('integrationsSubtitle')}
           </p>
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 max-w-3xl mx-auto mb-4">
-            <p className="text-sm text-blue-800 dark:text-blue-300">
-              <strong>How it works:</strong> All ToolMarket365 tools work without integrations. Connect external services to unlock enhanced features—you pay those services directly, not us.
-            </p>
+            <p className="text-sm text-blue-800 dark:text-blue-300">{t('integrationsHowItWorks')}</p>
           </div>
           <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-300 dark:border-green-700 rounded-lg p-4 max-w-3xl mx-auto mb-4">
             <div className="flex items-start space-x-2">
               <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-green-800 dark:text-green-300">
-                <strong>No Usage Charges:</strong> ToolMarket365 never charges for integration usage. We only track usage for analytics purposes—you pay third-party services directly for their API costs. Your ToolMarket365 subscription covers the platform; integrations are optional enhancements you pay for separately.
-              </p>
+              <p className="text-sm text-green-800 dark:text-green-300">{t('integrationsNoUsageCharges')}</p>
             </div>
           </div>
 
-          {/* Transparency Notice */}
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 max-w-4xl mx-auto mb-6">
             <div className="flex items-start space-x-3">
               <Info className="h-6 w-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
-                  Transparency Notice
+                  {t('transparencyTitle')}
                 </h3>
-                <p className="text-sm text-blue-800 dark:text-blue-300">
-                  ToolMarket365 provides everything we can offer at no extra cost beyond your subscription fee. Some advanced tools, however, need external API integrations (e.g. Instagram API, OpenAI) to run at full capacity—beyond what we provide as standard. Those services charge their own fees, which you pay directly to them; ToolMarket365 never marks up or charges for third-party API usage. We only track usage for analytics purposes. This setup gives you flexibility to choose which external services you want to use, while keeping your ToolMarket365 subscription cost predictable.
-                </p>
+                <p className="text-sm text-blue-800 dark:text-blue-300">{t('transparencyBody')}</p>
               </div>
             </div>
           </div>
 
-          {/* How Tools Work With/Without API Setup */}
           <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 max-w-4xl mx-auto">
             <div className="flex items-start space-x-3">
               <Zap className="h-6 w-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <h3 className="font-semibold text-green-900 dark:text-green-200 mb-3">
-                  How Tools Work With & Without API Setup
+                  {t('apiToolsWorkTitle')}
                 </h3>
-                <p className="text-sm text-green-800 dark:text-green-300 mb-4">
-                  <strong>Good news:</strong> All ToolMarket365 tools work immediately without API setup! Some tools show demo/template data, while others have full functionality. API integrations enhance tools with real data and advanced features.
-                </p>
-                
+                <p className="text-sm text-green-800 dark:text-green-300 mb-4">{t('apiToolsWorkIntro')}</p>
+
                 <div className="space-y-4">
                   <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
-                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">1. Competitor Analyzer</h4>
+                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">{t('apiCompetitorTitle')}</h4>
                     <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
-                      <li>• <strong>Without API:</strong> Works with demo data (random numbers for comparison)</li>
-                      <li>• <strong>With API:</strong> Shows real competitor metrics and analysis</li>
+                      <li>• {t('apiCompetitorWithout')}</li>
+                      <li>• {t('apiCompetitorWith')}</li>
                     </ul>
                   </div>
 
                   <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
-                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">2. Instagram Scheduler</h4>
+                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">{t('apiInstagramTitle')}</h4>
                     <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
-                      <li>• <strong>Default:</strong> Plan and draft in the app; copy or export content to post manually in Instagram.</li>
-                      <li>• <strong>Optional auto-post:</strong> Only if you supply your own Meta/Instagram Graph app, tokens, and cron/infra—ToolMarket365 does not ship one-click “connect all social accounts.”</li>
+                      <li>• {t('apiInstagramDefault')}</li>
+                      <li>• {t('apiInstagramOptional')}</li>
                     </ul>
                   </div>
 
                   <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
-                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">3. AI-Enhanced Tools</h4>
+                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">{t('apiAiTitle')}</h4>
                     <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
-                      <li>• <strong>Without API:</strong> Work with template-based generation</li>
-                      <li className="ml-4">- Blog Outline Generator: Generates template outlines</li>
-                      <li className="ml-4">- AI Caption Generator: Uses template pools</li>
-                      <li className="ml-4">- AI Lead Follow-Up Agent: 100% template-based</li>
-                      <li>• <strong>With API:</strong> Enhanced, more personalized results</li>
+                      <li>• {t('apiAiWithout')}</li>
+                      <li className="ml-4">- {t('apiAiBlogOutline')}</li>
+                      <li className="ml-4">- {t('apiAiCaption')}</li>
+                      <li className="ml-4">- {t('apiAiLeadFollowUp')}</li>
+                      <li>• {t('apiAiWith')}</li>
                     </ul>
                   </div>
 
                   <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
-                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">4. Social Media Analytics</h4>
+                    <h4 className="font-semibold text-green-900 dark:text-green-200 mb-2">{t('apiSocialTitle')}</h4>
                     <ul className="text-sm text-green-800 dark:text-green-300 space-y-1 ml-4">
-                      <li>• <strong>In product:</strong> Manual entry, templates, or demo data—useful for planning and reporting layouts.</li>
-                      <li>• <strong>Not included:</strong> Live account linking for Instagram, X, TikTok, LinkedIn, or YouTube from this hub.</li>
+                      <li>• {t('apiSocialInProduct')}</li>
+                      <li>• {t('apiSocialNotIncluded')}</li>
                     </ul>
                   </div>
                 </div>
 
-                <p className="text-sm text-green-800 dark:text-green-300 mt-4 font-medium">
-                  💡 <strong>Bottom line:</strong> You can use all tools immediately. API setup unlocks real data and advanced features, but isn't required to get started!
-                </p>
+                <p className="text-sm text-green-800 dark:text-green-300 mt-4 font-medium">💡 {t('apiBottomLine')}</p>
               </div>
             </div>
           </div>
@@ -300,26 +290,24 @@ function IntegrationsPageContent() {
                   {status === 'connected' ? (
                     <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">
                       <CheckCircle className="h-3 w-3 mr-1" />
-                      Connected
+                      {t('integrationsConnected')}
                     </span>
                   ) : (
                     <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-mono-100 dark:bg-mono-800 text-mono-600 dark:text-mono-400">
-                      Available
+                      {t('integrationsAvailable')}
                     </span>
                   )}
                 </div>
 
-                {/* What It Does */}
                 <div className="mb-4">
                   <p className="text-sm text-mono-600 dark:text-mono-400 mb-2">
-                    <strong className="text-mono-900 dark:text-mono-100">What it does:</strong> {integration.whatItDoes}
+                    <strong className="text-mono-900 dark:text-mono-100">{t('integrationsWhatItDoes')}</strong> {integration.whatItDoes}
                   </p>
                   <p className="text-xs text-mono-500 dark:text-mono-500">
-                    <strong>Cost:</strong> {integration.costInfo}
+                    <strong>{t('integrationsCost')}</strong> {integration.costInfo}
                   </p>
                 </div>
 
-                {/* Actions */}
                 <div className="space-y-2">
                   {status === 'connected' ? (
                     <Link
@@ -327,7 +315,7 @@ function IntegrationsPageContent() {
                       className="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
                     >
                       <Settings className="h-4 w-4 mr-2" />
-                      Manage Connection
+                      {t('integrationsManageConnection')}
                     </Link>
                   ) : (
                     <>
@@ -338,7 +326,7 @@ function IntegrationsPageContent() {
                         className="w-full flex items-center justify-center px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors text-sm font-medium"
                       >
                         <Key className="h-4 w-4 mr-2" />
-                        Get API Key
+                        {t('integrationsGetApiKey')}
                         <ExternalLink className="h-3 w-3 ml-2" />
                       </a>
                       {integration.docsUrl && (
@@ -348,7 +336,7 @@ function IntegrationsPageContent() {
                           rel="noopener noreferrer"
                           className="w-full flex items-center justify-center px-4 py-2 bg-mono-100 dark:bg-mono-800 text-mono-700 dark:text-mono-300 rounded-lg hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-sm"
                         >
-                          View Docs
+                          {t('integrationsViewDocs')}
                           <ExternalLink className="h-3 w-3 ml-2" />
                         </a>
                       )}
@@ -366,21 +354,17 @@ function IntegrationsPageContent() {
             <Info className="h-6 w-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
             <div>
               <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
-                Need Help Setting Up Integrations?
+                {t('integrationsHelpTitle')}
               </h3>
-              <p className="text-sm text-blue-800 dark:text-blue-300 mb-3">
-                Each integration enhances specific ToolMarket365 tools. After getting your API key from the service:
-              </p>
+              <p className="text-sm text-blue-800 dark:text-blue-300 mb-3">{t('integrationsHelpIntro')}</p>
               <ol className="text-sm text-blue-800 dark:text-blue-300 space-y-1 list-decimal list-inside ml-2">
-                <li>Click "Get API Key" to visit the service's website</li>
-                <li>Create an account and generate an API key</li>
-                <li>Return to the tool that uses this integration</li>
-                <li>Enter your API key in the tool's settings</li>
-                <li>Start using enhanced features!</li>
+                <li>{t('integrationsHelp1')}</li>
+                <li>{t('integrationsHelp2')}</li>
+                <li>{t('integrationsHelp3')}</li>
+                <li>{t('integrationsHelp4')}</li>
+                <li>{t('integrationsHelp5')}</li>
               </ol>
-              <p className="text-sm text-blue-700 dark:text-blue-400 mt-3 italic">
-                <strong>Remember:</strong> You pay these services directly. ToolMarket365 never charges for API access or integrations.
-              </p>
+              <p className="text-sm text-blue-700 dark:text-blue-400 mt-3 italic">{t('integrationsHelpRemember')}</p>
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Check, X, Sparkles, Zap, Cloud, TrendingUp, Workflow, Target, ArrowRight } from 'lucide-react';
+import { Check, X, Sparkles, Zap, Cloud, TrendingUp, Workflow, Target, ArrowRight } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 const competitors = [
   {
@@ -185,6 +186,8 @@ const workflowSteps = [
 ]
 
 export default function ComparePage() {
+  const { t } = useLanguage()
+
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
       {/* Hero Section */}
@@ -192,28 +195,27 @@ export default function ComparePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-mono-950 dark:text-mono-50 mb-6">
-              Why ToolMarket365 is Different
+              {t('compareTitle')}
             </h1>
             <p className="text-xl text-mono-600 dark:text-mono-400 mb-3">
-              See how we compare to Later, Buffer, Hootsuite, and other tools. 
-              Discover unique features that actually improve your content quality.
+              {t('compareSubtitle')}
             </p>
             <p className="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-8">
-              Not just a scheduler—ToolMarket365 is where creators run their whole business.
+              {t('compareHeroTagline')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/signup"
                 className="inline-flex items-center justify-center px-8 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors"
               >
-                Start Free Trial
+                {t('compareStartFreeTrial')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 href="/pricing"
                 className="inline-flex items-center justify-center px-8 py-3 bg-white dark:bg-mono-800 text-mono-950 dark:text-mono-50 font-semibold rounded-lg hover:bg-mono-100 dark:hover:bg-mono-700 transition-colors border border-mono-200 dark:border-mono-700"
               >
-                View Pricing
+                {t('compareViewPricing')}
               </Link>
             </div>
           </div>
@@ -225,13 +227,13 @@ export default function ComparePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-8 text-center">
-              Feature Comparison
+              {t('compareFeatureComparison')}
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700">
                 <thead>
                   <tr className="border-b border-mono-200 dark:border-mono-700">
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-mono-950 dark:text-mono-50">Feature</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-mono-950 dark:text-mono-50">{t('compareTableFeature')}</th>
                     <th className="px-6 py-4 text-center text-sm font-semibold text-mono-950 dark:text-mono-50 bg-accent-50 dark:bg-accent-900">ToolMarket365</th>
                     {competitors.map((comp) => (
                       <th key={comp.name} className="px-6 py-4 text-center text-sm font-semibold text-mono-950 dark:text-mono-50">
@@ -242,7 +244,7 @@ export default function ComparePage() {
                 </thead>
                 <tbody className="divide-y divide-mono-200 dark:divide-mono-700">
                   <tr>
-                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">Viral Content Predictor</td>
+                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">{t('compareTableViralPredictor')}</td>
                     <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-600 mx-auto" /></td>
                     {competitors.map((comp) => (
                       <td key={comp.name} className="px-6 py-4 text-center">
@@ -251,7 +253,7 @@ export default function ComparePage() {
                     ))}
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">Integrated Workflow</td>
+                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">{t('compareTableIntegratedWorkflow')}</td>
                     <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-600 mx-auto" /></td>
                     {competitors.map((comp) => (
                       <td key={comp.name} className="px-6 py-4 text-center">
@@ -260,7 +262,7 @@ export default function ComparePage() {
                     ))}
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">Cloud Content Library</td>
+                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">{t('compareTableCloudLibrary')}</td>
                     <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-600 mx-auto" /></td>
                     {competitors.map((comp) => (
                       <td key={comp.name} className="px-6 py-4 text-center">
@@ -269,16 +271,16 @@ export default function ComparePage() {
                     ))}
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">AI-Powered Tools (7+)</td>
+                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">{t('compareTableAITools')}</td>
                     <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-600 mx-auto" /></td>
                     {competitors.map((comp) => (
                       <td key={comp.name} className="px-6 py-4 text-center">
-                        {comp.hasAITools ? <span className="text-sm text-mono-600">Limited</span> : <X className="h-5 w-5 text-red-600 mx-auto" />}
+                        {comp.hasAITools ? <span className="text-sm text-mono-600">{t('compareLimited')}</span> : <X className="h-5 w-5 text-red-600 mx-auto" />}
                       </td>
                     ))}
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">Cross-Platform Analytics</td>
+                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">{t('compareTableCrossPlatform')}</td>
                     <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-600 mx-auto" /></td>
                     {competitors.map((comp) => (
                       <td key={comp.name} className="px-6 py-4 text-center">
@@ -287,7 +289,7 @@ export default function ComparePage() {
                     ))}
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">Number of Tools</td>
+                    <td className="px-6 py-4 text-sm font-medium text-mono-950 dark:text-mono-50">{t('compareTableNumberOfTools')}</td>
                     <td className="px-6 py-4 text-center text-sm font-semibold text-accent-600">53+</td>
                     {competitors.map((comp) => (
                       <td key={comp.name} className="px-6 py-4 text-center text-sm text-mono-600">
@@ -296,7 +298,7 @@ export default function ComparePage() {
                     ))}
                   </tr>
                   <tr className="bg-mono-50 dark:bg-mono-800">
-                    <td className="px-6 py-4 text-sm font-semibold text-mono-950 dark:text-mono-50">Monthly Price</td>
+                    <td className="px-6 py-4 text-sm font-semibold text-mono-950 dark:text-mono-50">{t('compareTableMonthlyPrice')}</td>
                     <td className="px-6 py-4 text-center text-sm font-semibold text-accent-600">$0.99</td>
                     {competitors.map((comp) => (
                       <td key={comp.name} className="px-6 py-4 text-center text-sm text-mono-600">
@@ -316,10 +318,10 @@ export default function ComparePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4 text-center">
-              What Makes Us Different
+              {t('compareWhatMakesDifferent')}
             </h2>
             <p className="text-lg text-mono-600 dark:text-mono-400 mb-12 text-center">
-              Features you can't get anywhere else that actually improve your content
+              {t('compareDifferentiatorsSubtitle')}
             </p>
             
             <div className="space-y-8">
@@ -347,7 +349,7 @@ export default function ComparePage() {
                         </div>
                         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 mb-4">
                           <p className="text-sm font-semibold text-green-800 dark:text-green-400 mb-1">
-                            How It Improves Your Content:
+                            {t('compareHowItImprovesLabel')}
                           </p>
                           <p className="text-sm text-green-700 dark:text-green-300">
                             {diff.howItImproves}
@@ -355,7 +357,7 @@ export default function ComparePage() {
                         </div>
                         <div className="bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-lg p-4">
                           <p className="text-sm font-semibold text-accent-800 dark:text-accent-400">
-                            Impact: {diff.impact}
+                            {t('compareImpactLabel')} {diff.impact}
                           </p>
                         </div>
                       </div>
@@ -373,10 +375,10 @@ export default function ComparePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-4 text-center">
-              How ToolMarket365 Improves Your Content
+              {t('compareImprovesTitle')}
             </h2>
             <p className="text-lg text-mono-600 dark:text-mono-400 mb-12 text-center">
-              See the complete workflow that transforms your content creation process
+              {t('compareWorkflowSubtitle')}
             </p>
 
             <div className="space-y-6">
@@ -401,7 +403,7 @@ export default function ComparePage() {
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
                         <p className="text-xs font-semibold text-green-800 dark:text-green-400 mb-1">
-                          ✅ With ToolMarket365:
+                          {t('compareWithToolMarket365')}
                         </p>
                         <p className="text-sm text-green-700 dark:text-green-300">
                           {step.improvement}
@@ -412,7 +414,7 @@ export default function ComparePage() {
                           {step.competitor}
                         </p>
                         <p className="text-sm text-red-700 dark:text-red-300">
-                          Manual work, separate tools, or missing features
+                          {t('compareManualWork')}
                         </p>
                       </div>
                     </div>
@@ -429,28 +431,28 @@ export default function ComparePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-6">
-              The Result: Better Content, Faster
+              {t('compareResultTitle')}
             </h2>
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
                 <div className="text-3xl font-bold text-accent-600 mb-2">2-5x</div>
-                <p className="text-mono-700 dark:text-mono-300">Higher Engagement</p>
+                <p className="text-mono-700 dark:text-mono-300">{t('compareHigherEngagement')}</p>
                 <p className="text-sm text-mono-500 dark:text-mono-500 mt-2">
-                  Post only high-scoring content with Viral Predictor
+                  {t('compareHigherEngagementDesc')}
                 </p>
               </div>
               <div className="bg-white dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
                 <div className="text-3xl font-bold text-accent-600 mb-2">10-15hrs</div>
-                <p className="text-mono-700 dark:text-mono-300">Time Saved Per Week</p>
+                <p className="text-mono-700 dark:text-mono-300">{t('compareTimeSaved')}</p>
                 <p className="text-sm text-mono-500 dark:text-mono-500 mt-2">
-                  Integrated workflow eliminates manual work
+                  {t('compareTimeSavedDesc')}
                 </p>
               </div>
               <div className="bg-white dark:bg-mono-800 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
                 <div className="text-3xl font-bold text-accent-600 mb-2">$159</div>
-                <p className="text-mono-700 dark:text-mono-300">Saved Per Month</p>
+                <p className="text-mono-700 dark:text-mono-300">{t('compareSavedPerMonth')}</p>
                 <p className="text-sm text-mono-500 dark:text-mono-500 mt-2">
-                  One platform vs 10+ separate subscriptions
+                  {t('compareSavedPerMonthDesc')}
                 </p>
               </div>
             </div>
@@ -458,7 +460,7 @@ export default function ComparePage() {
               href="/signup"
               className="inline-flex items-center justify-center px-8 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors"
             >
-              Start Your Free Trial
+              {t('compareStartYourFreeTrial')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>

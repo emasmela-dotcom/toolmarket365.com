@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Lock, ArrowRight, Sparkles, Info } from 'lucide-react';
 import { getToolCreditCost, requiresCredits, getToolUseExplanation } from '@/lib/tool-credit-costs'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 interface ToolAccessGateProps {
   children: ReactNode
@@ -21,6 +22,7 @@ export function ToolAccessGate({
   toolDescription,
   howToUse 
 }: ToolAccessGateProps) {
+  const { t } = useLanguage()
   const [hasAccess, setHasAccess] = useState<boolean | null>(null)
   const [loading, setLoading] = useState(true)
   const [reason, setReason] = useState<string>('')
@@ -45,7 +47,7 @@ export function ToolAccessGate({
       if (res.status === 401) {
         // Not authenticated - redirect handled by middleware
         setHasAccess(false)
-        setReason('Please sign in to access this tool')
+        setReason(t('toolGatePleaseSignIn'))
       } else {
         setHasAccess(data.canAccess || false)
         setReason(data.reason || '')
@@ -54,18 +56,23 @@ export function ToolAccessGate({
       }
     } catch (error) {
       setHasAccess(false)
-      setReason('Error checking access')
+      setReason(t('toolGateErrorChecking'))
     } finally {
       setLoading(false)
     }
   }
+
+  const creditCostLabel = creditCost
+    ? t('toolGateCostPerUse').replace('{n}', String(creditCost))
+    : ''
+  const exampleTimes = creditCost ? String(Math.floor(25 / creditCost)) : '0'
 
   if (loading) {
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-600 mx-auto mb-4"></div>
-          <p className="text-mono-600 dark:text-mono-400">Checking access...</p>
+          <p className="text-mono-600 dark:text-mono-400">{t('toolGateCheckingAccess')}</p>
         </div>
       </div>
     )
@@ -87,7 +94,7 @@ export function ToolAccessGate({
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl font-semibold text-mono-950 dark:text-mono-50 mb-2">
-                  What This Tool Does
+                  {t('toolGateWhatToolDoes')}
                 </h2>
                 <p className="text-mono-700 dark:text-mono-300">
                   {toolDescription}
@@ -96,7 +103,7 @@ export function ToolAccessGate({
 
               <div>
                 <h2 className="text-xl font-semibold text-mono-950 dark:text-mono-50 mb-2">
-                  How to Use This Tool
+                  {t('toolGateHowToUse')}
                 </h2>
                 <div className="text-mono-700 dark:text-mono-300">
                   {typeof howToUse === 'string' ? (
@@ -114,17 +121,17 @@ export function ToolAccessGate({
                     <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">
                       <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
-                        Cost Per Use: {creditCost} Credits
+                        {creditCostLabel}
                       </h3>
                       <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
-                        <strong>What this means:</strong> {useExplanation}
+                        <strong>{t('toolGateWhatThisMeans')}</strong> {useExplanation}
                       </p>
                       <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
-                        <strong>How credits work:</strong> Each plan includes 25 free credits during your first month only (one-time trial). 
-                        After that, purchase credits for $10 per 100 credits. Purchased credits roll over month to month and never expire.
+                        <strong>{t('toolGateHowCreditsWork')}</strong> {t('toolGateCreditsWorkBody')}
                       </p>
                       <p className="text-xs text-blue-700 dark:text-blue-400 mt-2">
-                        💡 <strong>Example:</strong> With 25 free credits (first month), you can try this tool {Math.floor(25 / creditCost)} time(s). After that, purchase credits to continue using it.
+                        💡 <strong>{t('toolGateExampleLabel')}</strong>{' '}
+                        {t('toolGateExample').replace('{n}', exampleTimes)}
                       </p>
                     </div>
                   </div>
@@ -139,18 +146,18 @@ export function ToolAccessGate({
               <Lock className="h-6 w-6 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <h3 className="font-bold text-yellow-900 dark:text-yellow-200 mb-2">
-                  {planName ? 'Upgrade Required' : 'Subscription Required'}
+                  {planName ? t('toolGateUpgradeRequired') : t('toolGateSubscriptionRequired')}
                 </h3>
                 <p className="text-yellow-800 dark:text-yellow-300 mb-4">
-                  {reason || 'This tool requires an active subscription or trial.'}
+                  {reason || t('toolGateDefaultReason')}
                 </p>
                 {planName ? (
                   <p className="text-sm text-yellow-800 dark:text-yellow-300 mb-4">
-                    This tool is available in higher plans. Upgrade to unlock access.
+                    {t('toolGateHigherPlans')}
                   </p>
                 ) : (
                   <p className="text-sm text-yellow-800 dark:text-yellow-300 mb-4">
-                    Subscribe for $0.99/month to use this tool and every tool on ToolMarket365.
+                    {t('toolGateSubscribePrompt')}
                   </p>
                 )}
                 <Link
@@ -158,7 +165,7 @@ export function ToolAccessGate({
                   className="inline-flex items-center space-x-2 px-6 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors"
                 >
                   <Sparkles className="h-5 w-5" />
-                  <span>{planName ? 'Upgrade Plan' : 'Subscribe — $0.99/month'}</span>
+                  <span>{planName ? t('toolGateUpgradePlan') : t('toolGateSubscribeButton')}</span>
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </div>
@@ -179,26 +186,26 @@ export function ToolAccessGate({
             <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
-                Cost Per Use: {creditCost} Credits
+                {creditCostLabel}
               </h3>
               <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
-                <strong>What this means:</strong> {useExplanation}
+                <strong>{t('toolGateWhatThisMeans')}</strong> {useExplanation}
               </p>
               <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
-                <strong>How credits work:</strong> Each plan includes 25 free credits during your first month only (one-time trial). 
-                After that, purchase credits for $10 per 100 credits. Purchased credits roll over month to month and never expire.
+                <strong>{t('toolGateHowCreditsWork')}</strong> {t('toolGateCreditsWorkBody')}
               </p>
               {userCredits !== null && (
                 <div className="mb-2">
                   <p className="text-sm text-blue-800 dark:text-blue-300 mb-2">
-                    <strong>Your credits:</strong> {userCredits} credits available
+                    <strong>{t('toolGateYourCredits')}</strong>{' '}
+                    {t('toolGateCreditsAvailable').replace('{n}', String(userCredits))}
                     {userCredits >= creditCost ? (
                       <span className="text-green-600 dark:text-green-400 font-semibold ml-2">
-                        ✓ You can use this tool {Math.floor(userCredits / creditCost)} time(s)
+                        {t('toolGateCanUse').replace('{n}', String(Math.floor(userCredits / creditCost)))}
                       </span>
                     ) : (
                       <span className="text-red-600 dark:text-red-400 font-semibold ml-2">
-                        ⚠ You need {creditCost - userCredits} more credits
+                        {t('toolGateNeedMoreCredits').replace('{n}', String(creditCost - userCredits))}
                       </span>
                     )}
                   </p>
@@ -207,13 +214,14 @@ export function ToolAccessGate({
                       href="/account/credits"
                       className="inline-flex items-center text-sm text-blue-700 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200 font-medium underline"
                     >
-                      Buy Credits →
+                      {t('toolGateBuyCredits')}
                     </Link>
                   )}
                 </div>
               )}
               <p className="text-xs text-blue-700 dark:text-blue-400 mt-2">
-                💡 <strong>Example:</strong> With 25 free credits (first month only), you can try this tool {Math.floor(25 / creditCost)} time(s). After that, purchase credits to continue using it.
+                💡 <strong>{t('toolGateExampleLabel')}</strong>{' '}
+                {t('toolGateExampleFirstMonthOnly').replace('{n}', exampleTimes)}
               </p>
             </div>
           </div>

@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Mail, Lock, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 export default function SignupPage() {
   const router = useRouter()
+  const { t } = useLanguage()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -15,19 +17,17 @@ export default function SignupPage() {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const passwordStrength = password.length >= 8 ? 'strong' : password.length >= 4 ? 'medium' : 'weak'
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match')
+      setError(t('signupPasswordsNoMatch'))
       return
     }
 
     if (password.length < 8) {
-      setError('Password must be at least 8 characters')
+      setError(t('signupPasswordTooShort'))
       return
     }
 
@@ -43,14 +43,13 @@ export default function SignupPage() {
       const data = await response.json()
 
       if (response.ok) {
-        // Success - redirect to plan selection
         router.push('/select-plan')
         router.refresh()
       } else {
-        setError(data.error || 'Registration failed. Please try again.')
+        setError(data.error || t('signupFailed'))
       }
     } catch (error) {
-      setError('An error occurred. Please try again.')
+      setError(t('signupErrorGeneric'))
       console.error('Signup error:', error)
     } finally {
       setIsLoading(false)
@@ -64,7 +63,7 @@ export default function SignupPage() {
           <div className="bg-white dark:bg-white rounded-lg p-8 border border-mono-300 dark:border-mono-300 shadow-lg">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-mono-950 mb-2">
-                Create Account
+                {t('signupTitle')}
               </h1>
             </div>
 
@@ -78,7 +77,7 @@ export default function SignupPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm font-semibold text-mono-900 mb-2">
-                  Email Address
+                  {t('signupEmail')}
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-5 h-5" />
@@ -89,14 +88,14 @@ export default function SignupPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     className="w-full pl-10 pr-4 py-2 border border-mono-400 rounded-lg bg-white text-mono-950 placeholder:text-mono-600 focus:outline-none focus:ring-2 focus:ring-accent-500"
-                    placeholder="your.email@example.com"
+                    placeholder={t('signupEmailPlaceholder')}
                   />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="password" className="block text-sm font-semibold text-mono-900 mb-2">
-                  Password
+                  {t('signupPassword')}
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-5 h-5" />
@@ -107,7 +106,7 @@ export default function SignupPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     className="w-full pl-10 pr-10 py-2 border border-mono-400 rounded-lg bg-white text-mono-950 placeholder:text-mono-600 focus:outline-none focus:ring-2 focus:ring-accent-500"
-                    placeholder="At least 8 characters"
+                    placeholder={t('signupPasswordPlaceholder')}
                   />
                   <button
                     type="button"
@@ -128,7 +127,9 @@ export default function SignupPage() {
                       <span className={`${
                         password.length >= 8 ? 'text-green-600' : 'text-yellow-600'
                       }`}>
-                        {password.length >= 8 ? 'Strong password' : `At least ${8 - password.length} more characters needed`}
+                        {password.length >= 8
+                          ? t('signupStrongPassword')
+                          : t('signupCharsNeeded').replace('{n}', String(8 - password.length))}
                       </span>
                     </div>
                   </div>
@@ -137,7 +138,7 @@ export default function SignupPage() {
 
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-semibold text-mono-900 mb-2">
-                  Confirm Password
+                  {t('signupConfirmPassword')}
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-5 h-5" />
@@ -148,7 +149,7 @@ export default function SignupPage() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                     className="w-full pl-10 pr-10 py-2 border border-mono-400 rounded-lg bg-white text-mono-950 placeholder:text-mono-600 focus:outline-none focus:ring-2 focus:ring-accent-500"
-                    placeholder="Confirm your password"
+                    placeholder={t('signupConfirmPlaceholder')}
                   />
                   <button
                     type="button"
@@ -159,7 +160,7 @@ export default function SignupPage() {
                   </button>
                 </div>
                 {confirmPassword && password !== confirmPassword && (
-                  <p className="mt-2 text-xs text-red-600">Passwords do not match</p>
+                  <p className="mt-2 text-xs text-red-600">{t('signupPasswordsNoMatch')}</p>
                 )}
               </div>
 
@@ -171,22 +172,22 @@ export default function SignupPage() {
                 {isLoading ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    <span>Creating account...</span>
+                    <span>{t('signupCreating')}</span>
                   </>
                 ) : (
-                  <span>Create Account</span>
+                  <span>{t('signupSubmit')}</span>
                 )}
               </button>
             </form>
 
             <div className="mt-6 text-center space-y-2">
               <p className="text-sm text-mono-700">
-                Already have an account?{' '}
+                {t('signupAlreadyHave')}{' '}
                 <Link
                   href="/login"
                   className="text-accent-700 hover:text-accent-800 font-medium"
                 >
-                  Sign in
+                  {t('signupSignInLink')}
                 </Link>
               </p>
               <p className="text-sm text-mono-700">
@@ -194,14 +195,14 @@ export default function SignupPage() {
                   href="/forgot-password"
                   className="text-accent-700 hover:text-accent-800 font-medium"
                 >
-                  Forgot your password?
+                  {t('signupForgotLink')}
                 </Link>
               </p>
             </div>
 
             <div className="mt-6 pt-6 border-t border-mono-200">
               <p className="text-xs text-center text-mono-600">
-                By creating an account, you agree to our Terms of Service and Privacy Policy.
+                {t('signupAgreeTerms')}
               </p>
             </div>
           </div>

@@ -1,41 +1,45 @@
+'use client'
+
 import { HomeShareBar } from '@/components/HomeShareBar'
 import { HomeToolTipLink } from '@/components/HomeToolTipLink'
 import Link from 'next/link'
 import { legalToolSectionsForHome } from '@/lib/legalTools/homeSections'
 import { lifeToolSectionsForHome } from '@/lib/lifeTools/homeSections'
 import { localServiceSectionsForHome } from '@/lib/localServiceTools/homeSections'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 import { getLifepack365Url, LIFEPACK365_NAME } from '@/lib/siteConfig'
 
 export default function HomeMarketing() {
   const lifepackUrl = getLifepack365Url()
+  const { t } = useLanguage()
 
   return (
     <main className="tm-home">
       <div className="tm-home__glow" aria-hidden />
       <section className="tm-home__inner">
-        <p className="tm-home__badge">BUILT TO SHIP</p>
+        <p className="tm-home__badge">{t('homeBadge')}</p>
         <h1 className="tm-home__title">ToolMarket365</h1>
         <p className="tm-home__tagline">
-          Your entire business, one tab, built with the toolkit the internet forgot to build.
+          {t('homeTagline')}
         </p>
         <div className="tm-home__auth">
           <Link href="/signup" className="tm-home__auth-primary">
-            Sign Up
+            {t('navSignUp')}
           </Link>
           <Link href="/login" className="tm-home__auth-secondary">
-            Sign In
+            {t('navSignIn')}
           </Link>
           <Link href="/pricing" className="tm-home__auth-link">
-            Pricing
+            {t('navPricing')}
           </Link>
           <Link href="/forgot-password" className="tm-home__auth-link">
-            Forgot password
+            {t('homeForgotPassword')}
           </Link>
         </div>
         <HomeShareBar />
         {lifepackUrl ? (
           <p className="tm-home__sister">
-            <span className="tm-home__sister-label">Sister product</span>{' '}
+            <span className="tm-home__sister-label">{t('homeSisterProduct')}</span>{' '}
             <a href={lifepackUrl} className="tm-home__sister-link" target="_blank" rel="noopener noreferrer">
               {LIFEPACK365_NAME}
             </a>
@@ -44,8 +48,8 @@ export default function HomeMarketing() {
         <div className="tm-home__grid">
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Content Creator</p>
-              <p>(FOR CONTENT CREATORS)</p>
+              <p>{t('homeContentCreator')}</p>
+              <p>{t('homeForContentCreators')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -87,8 +91,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Monetization Tools</p>
-              <p>(FOR SELLING OFFERS)</p>
+              <p>{t('homeMonetizationTools')}</p>
+              <p>{t('homeForSellingOffers')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -125,8 +129,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Client / CRM Tools</p>
-              <p>(FOR CLIENT WORKFLOWS)</p>
+              <p>{t('homeClientCrmTools')}</p>
+              <p>{t('homeForClientWorkflows')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -176,8 +180,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Audience &amp; Research Tools</p>
-              <p>(FOR FINDING DEMAND)</p>
+              <p>{t('homeAudienceResearchTools')}</p>
+              <p>{t('homeForFindingDemand')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -214,8 +218,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Website &amp; Conversion Tools</p>
-              <p>(FOR WEBSITE CONVERSIONS)</p>
+              <p>{t('homeWebsiteConversionTools')}</p>
+              <p>{t('homeForWebsiteConversions')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -262,8 +266,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Automation Tools</p>
-              <p>(FOR REPEATABLE TASKS)</p>
+              <p>{t('homeAutomationTools')}</p>
+              <p>{t('homeForRepeatableTasks')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -290,8 +294,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Productivity &amp; Workflow</p>
-              <p>(FOR FASTER EXECUTION)</p>
+              <p>{t('homeProductivityWorkflow')}</p>
+              <p>{t('homeForFasterExecution')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -323,8 +327,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Analytics &amp; Reporting</p>
-              <p>(FOR PERFORMANCE TRACKING)</p>
+              <p>{t('homeAnalyticsReporting')}</p>
+              <p>{t('homeForPerformanceTracking')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -356,8 +360,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Finance &amp; Billing</p>
-              <p>(FOR CASH FLOW CONTROL)</p>
+              <p>{t('homeFinanceBilling')}</p>
+              <p>{t('homeForCashFlowControl')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -384,8 +388,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>AI-Powered Tools</p>
-              <p>(FOR QUICK DRAFTING)</p>
+              <p>{t('homeAiPoweredTools')}</p>
+              <p>{t('homeForQuickDrafting')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -417,8 +421,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Marketing &amp; Social</p>
-              <p>(FOR REACH &amp; ENGAGEMENT)</p>
+              <p>{t('homeMarketingSocial')}</p>
+              <p>{t('homeForReachEngagement')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -450,8 +454,8 @@ export default function HomeMarketing() {
           </article>
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Client &amp; Team Tools</p>
-              <p>(FOR CLIENTS &amp; TEAMS)</p>
+              <p>{t('homeClientTeamTools')}</p>
+              <p>{t('homeForClientsTeams')}</p>
             </div>
             <ul className="tm-home__list">
               <li>
@@ -493,9 +497,9 @@ export default function HomeMarketing() {
                     href="/tools/legal-plain-language-tools"
                     className="tm-home__link tm-home__link--legal"
                   >
-                    <span className="tm-home__link-title">Legal Plain-Language Tools (all 3)</span>
+                    <span className="tm-home__link-title">{t('homeLegalSuiteTitle')}</span>
                     <span className="tm-home__link-desc">
-                      Demand letters, employment rights, and employee vs. contractor — plain English.
+                      {t('homeLegalSuiteDescription')}
                     </span>
                   </HomeToolTipLink>
                 </li>
@@ -549,8 +553,8 @@ export default function HomeMarketing() {
           ))}
           <article className="tm-home__card">
             <div className="tm-home__card-head">
-              <p>Integrations &amp; Utilities</p>
-              <p>(FOR CONNECTING SYSTEMS)</p>
+              <p>{t('homeIntegrationsUtilities')}</p>
+              <p>{t('homeForConnectingSystems')}</p>
             </div>
             <ul className="tm-home__list">
               <li>

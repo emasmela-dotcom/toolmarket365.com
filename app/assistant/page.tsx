@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { MessageSquare, Send, Loader2 } from 'lucide-react';
+import Link from 'next/link'
+import { MessageSquare, Send, Loader2 } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 interface ChatMessage {
   role: 'user' | 'assistant'
@@ -10,6 +12,7 @@ interface ChatMessage {
 }
 
 export default function AssistantPage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
@@ -38,8 +41,11 @@ export default function AssistantPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: [...messages, { role: 'user', content: text }].map((m) => ({ role: m.role, content: m.content }))
-        })
+          messages: [...messages, { role: 'user', content: text }].map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
+        }),
       })
       const data = await res.json().catch(() => ({}))
 
@@ -49,7 +55,7 @@ export default function AssistantPage() {
           return
         }
         if (data.needsKey) setNeedsKey(true)
-        setError(data.error || 'Something went wrong.')
+        setError(data.error || t('assistantErrorGeneric'))
         setMessages((prev) => prev.slice(0, -1))
         setInput(text)
         return
@@ -57,7 +63,7 @@ export default function AssistantPage() {
 
       setMessages((prev) => [...prev, { role: 'assistant', content: data.reply || '' }])
     } catch {
-      setError('Network error. Try again.')
+      setError(t('assistantNetworkError'))
       setMessages((prev) => prev.slice(0, -1))
       setInput(text)
     } finally {
@@ -70,25 +76,20 @@ export default function AssistantPage() {
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center gap-2 mb-6">
           <MessageSquare className="h-8 w-8 text-accent-600 dark:text-accent-400" />
-          <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">ToolMarket365 Assistant</h1>
+          <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">{t('assistantTitle')}</h1>
         </div>
-        <p className="text-mono-600 dark:text-mono-400 mb-2 text-sm">
-          Ask about ToolMarket365 (plans, credits, tools) or general creator advice. I can&apos;t post, schedule, or connect to external APIs—I&apos;ll point you to the right tool.
-        </p>
+        <p className="text-mono-600 dark:text-mono-400 mb-2 text-sm">{t('assistantSubtitle')}</p>
         <p className="text-mono-500 dark:text-mono-500 mb-6 text-sm">
-          <strong>An account is required to use the Assistant.</strong> Sign in or sign up to get started.
+          <strong>{t('assistantAccountRequired')}</strong> {t('assistantAccountRequiredSuffix')}
         </p>
 
         <div className="border border-mono-200 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-900 min-h-[320px] flex flex-col">
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 && !loading && (
-              <p className="text-mono-500 dark:text-mono-400 text-sm">Ask a question to get started.</p>
+              <p className="text-mono-500 dark:text-mono-400 text-sm">{t('assistantEmpty')}</p>
             )}
             {messages.map((m, i) => (
-              <div
-                key={i}
-                className={m.role === 'user' ? 'text-right' : 'text-left'}
-              >
+              <div key={i} className={m.role === 'user' ? 'text-right' : 'text-left'}>
                 <span
                   className={
                     m.role === 'user'
@@ -103,7 +104,7 @@ export default function AssistantPage() {
             {loading && (
               <div className="flex items-center gap-2 text-mono-500 dark:text-mono-400 text-sm">
                 <Loader2 className="h-4 w-4 animate-spin" />
-                <span>Thinking…</span>
+                <span>{t('assistantThinking')}</span>
               </div>
             )}
             <div ref={bottomRef} />
@@ -115,7 +116,11 @@ export default function AssistantPage() {
               {needsKey && (
                 <span>
                   {' '}
-                  Add your OpenAI key in <a href="/integrations" className="underline">Integrations</a> (API Keys), or set OPENAI_API_KEY in env.
+                  {t('assistantNeedsKeyPrefix')}{' '}
+                  <Link href="/integrations" className="underline">
+                    {t('assistantNeedsKeyLink')}
+                  </Link>{' '}
+                  {t('assistantNeedsKeySuffix')}
                 </span>
               )}
             </div>
@@ -127,7 +132,7 @@ export default function AssistantPage() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about ToolMarket365 or creator tips..."
+                placeholder={t('assistantPlaceholder')}
                 className="flex-1 px-3 py-2 rounded-lg border border-mono-200 dark:border-mono-700 bg-white dark:bg-mono-950 text-mono-900 dark:text-mono-100 text-sm placeholder:text-mono-400"
                 disabled={loading}
               />
@@ -137,7 +142,7 @@ export default function AssistantPage() {
                 className="px-4 py-2 rounded-lg bg-accent-600 text-white hover:bg-accent-700 disabled:opacity-50 flex items-center gap-1"
               >
                 <Send className="h-4 w-4" />
-                Send
+                {t('assistantSend')}
               </button>
             </div>
           </form>

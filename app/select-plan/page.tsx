@@ -5,13 +5,13 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Check, ArrowRight, Loader2 } from 'lucide-react'
 import { PlanConfirmation } from '@/components/PlanConfirmation'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+import { translatedPlanFeatures } from '@/lib/i18n/translations'
 import { stripePlanIdForDbPlanName } from '@/lib/subscriptionTiers'
 import {
   MARKETPLACE_PLAN_DB_NAME,
   MARKETPLACE_PLAN_DISPLAY_NAME,
-  MARKETPLACE_PLAN_INCLUDES,
   MARKETPLACE_PLAN_PRICE_MONTHLY,
-  MARKETPLACE_PLAN_TAGLINE,
 } from '@/lib/single-plan-marketplace'
 
 interface Plan {
@@ -23,6 +23,7 @@ interface Plan {
 
 export default function SelectPlanPage() {
   const searchParams = useSearchParams()
+  const { language, t } = useLanguage()
   const [plans, setPlans] = useState<Plan[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -73,7 +74,7 @@ export default function SelectPlanPage() {
         <div className="text-center">
           <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
           <Link href="/" className="text-accent-600 dark:text-accent-400 hover:underline">
-            Go to Homepage
+            {t('selectGoHome')}
           </Link>
         </div>
       </div>
@@ -104,8 +105,8 @@ export default function SelectPlanPage() {
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-12 px-4">
       <div className="max-w-lg mx-auto">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">Subscribe</h1>
-          <p className="text-xl text-mono-600 dark:text-mono-400">{MARKETPLACE_PLAN_TAGLINE}</p>
+          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">{t('selectTitle')}</h1>
+          <p className="text-xl text-mono-600 dark:text-mono-400">{t('pricingSubtitle')}</p>
         </div>
 
         {error && (
@@ -123,10 +124,10 @@ export default function SelectPlanPage() {
               <span className="text-4xl font-bold text-mono-950 dark:text-mono-50">
                 ${MARKETPLACE_PLAN_PRICE_MONTHLY}
               </span>
-              <span className="text-mono-600 dark:text-mono-400">/month</span>
+              <span className="text-mono-600 dark:text-mono-400">{t('selectMonth')}</span>
             </div>
             <ul className="space-y-2 mb-6 text-sm text-mono-700 dark:text-mono-300">
-              {MARKETPLACE_PLAN_INCLUDES.map((line) => (
+              {translatedPlanFeatures[language].map((line) => (
                 <li key={line} className="flex items-start">
                   <Check className="h-4 w-4 mr-2 text-green-600 flex-shrink-0 mt-0.5" />
                   <span>{line}</span>
@@ -138,14 +139,14 @@ export default function SelectPlanPage() {
               onClick={() => setShowConfirmation(true)}
               className="w-full py-3 px-6 rounded-lg font-semibold bg-accent-600 text-white hover:bg-accent-700 transition-colors"
             >
-              Continue to checkout
+              {t('selectContinue')}
             </button>
             <p className="text-xs text-mono-500 dark:text-mono-500 mt-3 text-center">
-              Cancel anytime
+              {t('selectCancelAnytime')}
             </p>
           </div>
         ) : (
-          <p className="text-center text-mono-600 dark:text-mono-400">Plan not available. Try again later.</p>
+          <p className="text-center text-mono-600 dark:text-mono-400">{t('selectPlanUnavailable')}</p>
         )}
 
         <div className="text-center mt-8">
@@ -153,7 +154,7 @@ export default function SelectPlanPage() {
             href="/pricing"
             className="text-accent-600 dark:text-accent-400 hover:underline inline-flex items-center space-x-2"
           >
-            <span>Back to pricing</span>
+            <span>{t('selectBackToPricing')}</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

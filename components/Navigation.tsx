@@ -3,10 +3,13 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Search, User } from 'lucide-react';
+import { Search } from 'lucide-react'
+import { LanguageToggle } from '@/components/LanguageToggle'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 export function Navigation() {
   const router = useRouter()
+  const { t } = useLanguage()
   const [user, setUser] = useState<{ id: string; email: string } | null>(null)
   const [isLoading, setIsLoading] = useState(false) // Start as false so page renders immediately
 
@@ -60,7 +63,7 @@ export function Navigation() {
               href="/compare" 
               className="text-xs font-semibold text-accent-600 hover:text-accent-700 transition-colors bg-accent-50 dark:bg-accent-900/30 px-2 py-1 rounded border border-accent-200 dark:border-accent-800 whitespace-nowrap"
             >
-              Compare ⭐
+              {t('navCompare')}
             </Link>
           </div>
           
@@ -69,57 +72,58 @@ export function Navigation() {
             {/* Row 1 */}
             <div className="flex items-center justify-center gap-x-4 gap-y-1 flex-wrap">
               <Link href="/" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Home
+                {t('navHome')}
               </Link>
               <Link href="/home" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Tools
+                {t('navTools')}
               </Link>
               <Link href="/tools/content-library" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Content Library
+                {t('navContentLibrary')}
               </Link>
               <Link href="/growth-suite" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Growth Suite
+                {t('navGrowthSuite')}
               </Link>
               <Link href="/dashboard" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Dashboard
+                {t('navDashboard')}
               </Link>
             </div>
             {/* Row 2 */}
             <div className="flex items-center justify-center gap-x-4 gap-y-1 flex-wrap">
               <Link href="/dashboard/content-performance" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Performance Dashboard
+                {t('navPerformanceDashboard')}
               </Link>
               <Link href="/dashboard/verification" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Verification
+                {t('navVerification')}
               </Link>
               <Link href="/categories" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Categories
+                {t('navCategories')}
               </Link>
               <Link href="/pricing" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Pricing
+                {t('navPricing')}
               </Link>
               <Link href="/credits" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Credit Costs
+                {t('navCreditCosts')}
               </Link>
               <Link href="/integrations" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Integrations
+                {t('navIntegrations')}
               </Link>
-              <Link href="/assistant" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap" title="Assistant (account required)">
-                Assistant
+              <Link href="/assistant" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap" title={t('navAssistantTitle')}>
+                {t('navAssistant')}
               </Link>
               <Link href="/contact?type=feedback" className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors whitespace-nowrap">
-                Feedback 💬
+                {t('navFeedback')}
               </Link>
             </div>
           </div>
           
           {/* Right: Search, Account, Sign Out */}
           <div className="flex items-center space-x-4 flex-shrink-0">
+            <LanguageToggle />
             <Link
               href="/home"
               className="p-2 text-mono-600 hover:text-mono-900 transition-colors"
-              aria-label="Search Tools"
-              title="Search Tools"
+              aria-label={t('navSearchTools')}
+              title={t('navSearchTools')}
             >
               <Search className="h-5 w-5" />
             </Link>
@@ -130,13 +134,13 @@ export function Navigation() {
                   className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
                   title={user.email}
                 >
-                  Account
+                  {t('navAccount')}
                 </Link>
                 <button
                   onClick={handleLogout}
                   className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
                 >
-                  Sign Out
+                  {t('navSignOut')}
                 </button>
               </div>
             ) : (
@@ -145,13 +149,13 @@ export function Navigation() {
                   href="/login"
                   className="text-sm font-medium text-mono-700 hover:text-accent-600 transition-colors"
                 >
-                  Sign In
+                  {t('navSignIn')}
                 </Link>
                 <Link
                   href="/signup"
                   className="px-4 py-2 bg-accent-600 text-white text-sm font-medium rounded-lg hover:bg-accent-700 transition-colors"
                 >
-                  Sign Up
+                  {t('navSignUp')}
                 </Link>
               </div>
             )}

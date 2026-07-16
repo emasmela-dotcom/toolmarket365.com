@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 type User = { id: string; email: string } | null
 
 export default function AccountPage() {
+  const { t } = useLanguage()
   const [mode, setMode] = useState<'login' | 'register'>('login')
   const [user, setUser] = useState<User>(null)
   const [email, setEmail] = useState('')
@@ -38,11 +40,11 @@ export default function AccountPage() {
         body: JSON.stringify({ email, password }),
       })
       const data = await res.json().catch(() => null)
-      if (!res.ok) throw new Error(data?.error || 'Failed')
+      if (!res.ok) throw new Error(data?.error || t('signupFailed'))
       setPassword('')
       await loadMe()
     } catch (e) {
-      setError((e as Error)?.message || 'Failed')
+      setError((e as Error)?.message || t('signupErrorGeneric'))
     } finally {
       setLoading(false)
     }
@@ -64,13 +66,13 @@ export default function AccountPage() {
         body: JSON.stringify({ email: forgotEmail }),
       })
       const data = await res.json().catch(() => null)
-      if (!res.ok) throw new Error(data?.error || 'Failed')
+      if (!res.ok) throw new Error(data?.error || t('signupErrorGeneric'))
       const msg = data?.resetUrl
         ? `Reset link (dev): ${data.resetUrl}`
-        : 'If an account exists for that email, you’ll receive a password reset link.'
+        : t('accountForgotResetMsg')
       setForgotMsg(msg)
     } catch (e) {
-      setError((e as Error)?.message || 'Failed')
+      setError((e as Error)?.message || t('signupErrorGeneric'))
     } finally {
       setLoading(false)
     }
@@ -79,26 +81,26 @@ export default function AccountPage() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-10 px-4">
       <div className="max-w-lg mx-auto">
-        <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-6">Account</h1>
+        <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-6">{t('accountTitle')}</h1>
 
         <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
           {user ? (
             <>
               <p className="text-mono-700 dark:text-mono-300 text-sm mb-4">
-                Signed in as <span className="font-semibold">{user.email}</span>
+                {t('accountSignedInAs')} <span className="font-semibold">{user.email}</span>
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={logout}
                   className="px-4 py-2 bg-mono-100 dark:bg-mono-800 hover:bg-mono-200 dark:hover:bg-mono-700 rounded text-mono-700 dark:text-mono-300 text-sm"
                 >
-                  Sign out
+                  {t('navSignOut')}
                 </button>
                 <Link
                   href="/tools/social-scheduler"
                   className="px-4 py-2 bg-accent-600 text-white rounded hover:opacity-90 text-sm"
                 >
-                  Go to Social Scheduler
+                  {t('accountGoScheduler')}
                 </Link>
               </div>
             </>
@@ -113,7 +115,7 @@ export default function AccountPage() {
                       : 'bg-mono-50 dark:bg-mono-900 border-mono-200 dark:border-mono-700 text-mono-700 dark:text-mono-300'
                   }`}
                 >
-                  Sign in
+                  {t('navSignIn')}
                 </button>
                 <button
                   onClick={() => setMode('register')}
@@ -123,7 +125,7 @@ export default function AccountPage() {
                       : 'bg-mono-50 dark:bg-mono-900 border-mono-200 dark:border-mono-700 text-mono-700 dark:text-mono-300'
                   }`}
                 >
-                  Create account
+                  {t('signupSubmit')}
                 </button>
               </div>
 
@@ -136,7 +138,7 @@ export default function AccountPage() {
               <div className="space-y-4">
                 {mode === 'register' && (
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">Full Name</label>
+                    <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">{t('accountFullName')}</label>
                     <input
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
@@ -146,7 +148,7 @@ export default function AccountPage() {
                   </div>
                 )}
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">Email</label>
+                  <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">{t('signupEmail')}</label>
                   <input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -155,14 +157,14 @@ export default function AccountPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">Password</label>
+                  <label className="block text-sm font-medium mb-2 text-mono-700 dark:text-mono-300">{t('signupPassword')}</label>
                   <input
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     type="password"
                     className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   />
-                  <p className="mt-1 text-xs text-mono-500">Minimum 8 characters.</p>
+                  <p className="mt-1 text-xs text-mono-500">{t('accountMinPassword')}</p>
                 </div>
 
                 <button
@@ -170,18 +172,18 @@ export default function AccountPage() {
                   disabled={loading}
                   className="w-full px-4 py-2 bg-accent-600 text-white rounded hover:opacity-90 disabled:opacity-50"
                 >
-                  {loading ? 'Working…' : mode === 'login' ? 'Sign in' : 'Create account'}
+                  {loading ? t('accountWorking') : mode === 'login' ? t('navSignIn') : t('signupSubmit')}
                 </button>
               </div>
 
               <div className="mt-8 pt-6 border-t border-mono-200 dark:border-mono-700">
-                <h2 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-3">Forgot password</h2>
+                <h2 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-3">{t('homeForgotPassword')}</h2>
                 <div className="flex gap-2">
                   <input
                     value={forgotEmail}
                     onChange={(e) => setForgotEmail(e.target.value)}
                     type="email"
-                    placeholder="you@example.com"
+                    placeholder={t('signupEmailPlaceholder')}
                     className="flex-1 px-4 py-2 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   />
                   <button
@@ -189,7 +191,7 @@ export default function AccountPage() {
                     disabled={loading}
                     className="px-4 py-2 bg-mono-100 dark:bg-mono-800 hover:bg-mono-200 dark:hover:bg-mono-700 rounded text-mono-700 dark:text-mono-300 text-sm disabled:opacity-50"
                   >
-                    Send link
+                    {t('accountSendLink')}
                   </button>
                 </div>
                 {forgotMsg && <p className="mt-2 text-xs text-mono-500 whitespace-pre-line">{forgotMsg}</p>}
@@ -201,4 +203,3 @@ export default function AccountPage() {
     </div>
   )
 }
-
