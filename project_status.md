@@ -14,6 +14,7 @@ ToolMarket365 is a micro-SaaS marketplace (120+ tools) for creators and solo ope
 - Single plan: **$0.99/month** on `/pricing`, `/compare`, select-plan
 - Tool pages browsable; subscription gates on individual tools / APIs
 - SEO: dynamic `sitemap.xml` + `robots.ts`, `llms.txt` for AI crawlers
+- **Spanish:** EN/ES language button sitewide; main pages + tool access gate translated
 
 ### Payments (Stripe) — May 2026
 - Stripe product **ToolMarket365 Starter** — $0.99/month recurring
