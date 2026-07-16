@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { getSiteUrl } from '@/lib/siteConfig'
 
+export const dynamic = 'force-static'
+
 const site = getSiteUrl()
 
 /**
@@ -47,6 +49,5 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${site}/sitemap.xml`,
-    host: site.replace(/^https?:\/\//, ''),
   }
 }

@@ -4,6 +4,9 @@ import { allLifeToolIds } from '@/lib/lifeTools/metadata'
 import { allLocalServiceToolIds } from '@/lib/localServiceTools/metadata'
 import { getSiteUrl } from '@/lib/siteConfig'
 
+/** Always ship a static sitemap at build time for crawlers (GSC, Googlebot). */
+export const dynamic = 'force-static'
+
 const baseUrl = getSiteUrl()
 
 /** Public marketing / catalog pages (no auth-only app shells). */
