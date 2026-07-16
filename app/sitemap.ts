@@ -6,39 +6,48 @@ import { getSiteUrl } from '@/lib/siteConfig'
 
 const baseUrl = getSiteUrl()
 
+/** Public marketing / catalog pages (no auth-only app shells). */
+const STATIC_ROUTES = [
+  '',
+  '/about',
+  '/assistant',
+  '/categories',
+  '/compare',
+  '/contact',
+  '/credits',
+  '/growth-suite',
+  '/integrations',
+  '/login',
+  '/marketing-kit',
+  '/onboarding',
+  '/plan-tools',
+  '/pricing',
+  '/privacy',
+  '/select-plan',
+  '/signup',
+  '/templates',
+  '/terms',
+  '/tools',
+] as const
+
 function priorityFor(path: string): number {
   if (path === '') return 1
-  if (path === '/home' || path === '/pricing' || path === '/categories') return 0.9
-  if (path.startsWith('/tools')) return 0.65
+  if (path === '/pricing' || path === '/compare' || path === '/categories' || path === '/tools')
+    return 0.9
+  if (path === '/select-plan' || path === '/marketing-kit') return 0.85
+  if (path.startsWith('/tools/legal')) return 0.8
+  if (path.startsWith('/tools')) return 0.7
   return 0.75
 }
 
 function changeFreq(path: string): 'weekly' | 'monthly' | 'daily' {
-  if (path === '' || path === '/pricing' || path === '/home') return 'weekly'
+  if (path === '' || path === '/pricing' || path === '/compare' || path === '/tools') return 'weekly'
   if (path.startsWith('/tools')) return 'weekly'
   return 'monthly'
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    '',
-    '/about',
-    '/contact',
-    '/pricing',
-    '/home',
-    '/assistant',
-    '/templates',
-    '/categories',
-    '/login',
-    '/signup',
-    '/privacy',
-    '/terms',
-    '/credits',
-    '/growth-suite',
-    '/integrations',
-    '/compare',
-    '/onboarding',
-  ]
+  const now = new Date()
 
   let toolPaths: string[] = []
   try {
@@ -61,7 +70,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     localServicePaths = []
   }
 
-  const all = [...new Set([...routes, ...toolPaths, ...lifePaths, ...localServicePaths])].sort((a, b) => {
+  const all = [
+    ...new Set([...STATIC_ROUTES, ...toolPaths, ...lifePaths, ...localServicePaths]),
+  ].sort((a, b) => {
     if (a === '') return -1
     if (b === '') return 1
     return a.localeCompare(b)
@@ -69,7 +80,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return all.map((path) => ({
     url: `${baseUrl}${path}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: changeFreq(path),
     priority: priorityFor(path),
   }))

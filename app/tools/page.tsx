@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-/** Listing at `/tools` was removed; categories and hero live on `/home`. */
+/** `/tools` index redirects to the homepage catalog (canonical tool list). */
 export default function ToolsIndexPage() {
-  redirect('/home')
+  redirect('/')
 }

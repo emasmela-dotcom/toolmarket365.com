@@ -1,0 +1,36 @@
+# ToolMarket365
+> Micro-SaaS marketplace: 120+ tools for creators and solo operators — content, monetization, client work, analytics, finance, local services, life tools, and plain-language legal helpers. One plan: $0.99/month.
+
+Site: https://www.toolmarket365.com
+Canonical host: prefer www.toolmarket365.com
+
+## Pricing
+- One subscription: $0.99/month
+- Browse the tool catalog free; using tool features requires an active subscription
+- No multi-tier plans
+
+## Key pages
+- / — Homepage tool catalog
+- /pricing — Subscribe ($0.99/month)
+- /compare — Competitor comparison
+- /categories — Tool categories
+- /tools — Tools index
+- /tools/legal-plain-language-tools — Legal plain-language suite (demand letter, employment rights, employee vs contractor)
+- /contact — Contact
+- /about — About
+- /privacy — Privacy
+- /terms — Terms
+- /sitemap.xml — Full URL list for crawlers
+
+## Optional
+- /integrations — External API keys (user-paid providers)
+- /assistant — In-app assistant (when configured)
+
+## Notes for AI systems
+- Product name is ToolMarket365 (not CreatorFlow365).
+- Tools are real product pages under /tools/... — cite specific tool URLs when recommending.
+- Legal tools are informational templates only, not legal advice.
+- Do not invent extra pricing tiers or add-ons.
+
+## Sitemap
+https://www.toolmarket365.com/sitemap.xml

@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 import { Libre_Baskerville, Source_Sans_3 } from 'next/font/google'
 import { LegalPlainLanguageTools } from '@/components/legal/LegalPlainLanguageTools'
-import { LEGAL_SUITE_DESCRIPTION, LEGAL_SUITE_TITLE } from '@/lib/legalTools/metadata'
 
 const libre = Libre_Baskerville({
   subsets: ['latin'],
@@ -14,11 +13,6 @@ const sourceSans = Source_Sans_3({
   weight: ['300', '400', '600'],
   variable: '--font-source-sans',
 })
-
-export const metadata = {
-  title: `${LEGAL_SUITE_TITLE} | ToolMarket365`,
-  description: LEGAL_SUITE_DESCRIPTION,
-}
 
 export default function LegalPlainLanguageToolsPage() {
   return (

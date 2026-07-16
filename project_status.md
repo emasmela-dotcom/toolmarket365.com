@@ -1,6 +1,6 @@
 # ToolMarket365 — Project Status
 
-**Last Updated:** May 20, 2026
+**Last Updated:** July 16, 2026
 
 ## Project overview
 
@@ -12,7 +12,8 @@ ToolMarket365 is a micro-SaaS marketplace (120+ tools) for creators and solo ope
 - ToolMarket365 branding sitewide (not CreatorFlow365)
 - Tab title: `toolmarket365.com`
 - Single plan: **$0.99/month** on `/pricing`, `/compare`, select-plan
-- `/tools/*` subscription gate (`app/tools/layout.tsx`)
+- Tool pages browsable; subscription gates on individual tools / APIs
+- SEO: dynamic `sitemap.xml` + `robots.ts`, `llms.txt` for AI crawlers
 
 ### Payments (Stripe) — May 2026
 - Stripe product **ToolMarket365 Starter** — $0.99/month recurring

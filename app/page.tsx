@@ -49,6 +49,23 @@ export default function RootPage() {
         name: SITE_NAME,
         url: base,
         description: SITE_DESCRIPTION,
+        logo: `${base}/favicon.svg`,
+      },
+      {
+        '@type': 'SoftwareApplication',
+        '@id': `${base}/#app`,
+        name: SITE_NAME,
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        url: base,
+        description: SITE_DESCRIPTION,
+        offers: {
+          '@type': 'Offer',
+          price: '0.99',
+          priceCurrency: 'USD',
+          url: `${base}/pricing`,
+        },
+        publisher: { '@id': `${base}/#org` },
       },
     ],
   }
