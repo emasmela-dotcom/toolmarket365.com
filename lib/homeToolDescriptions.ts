@@ -168,6 +168,22 @@ const CORE_HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
     'PNG QR from URL or text with custom dark/light hex colors.',
   '/tools/url-shortener':
     'Create short links on this host with in-memory click counts — demo/sandbox, not durable storage.',
+  '/tools/writing':
+    'Turn a topic and notes into a writing outline and starter draft.',
+  '/tools/coding':
+    'Turn a coding goal into a plan, checklist, and starter stub.',
+  '/tools/research':
+    'Turn a research question into a brief, source checklist, and findings template.',
+  '/tools/images':
+    'Turn an image need into a prompt, layout notes, and alt-text draft.',
+  '/tools/video':
+    'Turn a video topic into a hook, beats, spoken draft, and shoot notes.',
+  '/tools/meetings':
+    'Turn a meeting purpose into an agenda and notes template.',
+  '/tools/office':
+    'Turn an office task into a memo/email document starter.',
+  '/tools/automation':
+    'Turn an outcome into a trigger → steps → result automation plan.',
 }
 
 export const HOME_TOOL_DESCRIPTIONS: Record<string, string> = {

@@ -54,6 +54,8 @@ export const translations = {
       'Demand letters, employment rights, and employee vs. contractor — plain English.',
     homeIntegrationsUtilities: 'Integrations & Utilities',
     homeForConnectingSystems: '(FOR CONNECTING SYSTEMS)',
+    homeStackCategories: 'Stack Categories',
+    homeForStackCoverage: '(ONE TOOL PER JOB TYPE)',
     pricingTitle: 'Pricing',
     pricingSubtitle: 'One plan: $0.99/month. Browse tools free; features unlock with subscription.',
     pricingPlanDescription:
@@ -763,6 +765,8 @@ export const translations = {
       'Cartas de demanda, derechos laborales y empleado vs. contratista — en lenguaje claro.',
     homeIntegrationsUtilities: 'Integraciones y utilidades',
     homeForConnectingSystems: '(PARA CONECTAR SISTEMAS)',
+    homeStackCategories: 'Categorías del stack',
+    homeForStackCoverage: '(UNA HERRAMIENTA POR TIPO DE TRABAJO)',
     pricingTitle: 'Precio',
     pricingSubtitle:
       'Un solo plan: $0.99/mes. Explora las herramientas gratis; las funciones se desbloquean con suscripción.',

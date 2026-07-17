@@ -48,6 +48,54 @@ export default function HomeMarketing() {
         <div className="tm-home__grid">
           <article className="tm-home__card">
             <div className="tm-home__card-head">
+              <p>{t('homeStackCategories')}</p>
+              <p>{t('homeForStackCoverage')}</p>
+            </div>
+            <ul className="tm-home__list">
+              <li>
+                <HomeToolTipLink href="/tools/writing" className="tm-home__link">
+                  Writing
+                </HomeToolTipLink>
+              </li>
+              <li>
+                <HomeToolTipLink href="/tools/coding" className="tm-home__link">
+                  Coding
+                </HomeToolTipLink>
+              </li>
+              <li>
+                <HomeToolTipLink href="/tools/research" className="tm-home__link">
+                  Research
+                </HomeToolTipLink>
+              </li>
+              <li>
+                <HomeToolTipLink href="/tools/images" className="tm-home__link">
+                  Images
+                </HomeToolTipLink>
+              </li>
+              <li>
+                <HomeToolTipLink href="/tools/video" className="tm-home__link">
+                  Video
+                </HomeToolTipLink>
+              </li>
+              <li>
+                <HomeToolTipLink href="/tools/meetings" className="tm-home__link">
+                  Meetings
+                </HomeToolTipLink>
+              </li>
+              <li>
+                <HomeToolTipLink href="/tools/office" className="tm-home__link">
+                  Office
+                </HomeToolTipLink>
+              </li>
+              <li>
+                <HomeToolTipLink href="/tools/automation" className="tm-home__link">
+                  Automation
+                </HomeToolTipLink>
+              </li>
+            </ul>
+          </article>
+          <article className="tm-home__card">
+            <div className="tm-home__card-head">
               <p>{t('homeContentCreator')}</p>
               <p>{t('homeForContentCreators')}</p>
             </div>
