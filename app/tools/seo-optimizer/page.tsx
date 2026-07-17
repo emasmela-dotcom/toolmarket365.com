@@ -3,13 +3,103 @@
 import { useState } from 'react'
 import { Search, Hash, TrendingUp } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 interface Keyword {
   word: string
   count: number
 }
 
+const copy = {
+  en: {
+    toolName: 'SEO Optimizer',
+    toolDescription:
+      'Optimizes content for search engines by analyzing keywords, density, and SEO best practices. Provides keyword suggestions, density analysis, and recommendations to improve search visibility.',
+    howToUse: [
+      { label: 'Enter content:', text: 'Paste your text content to analyze' },
+      { label: 'Click "Analyze":', text: 'Get SEO analysis and keyword insights' },
+      { label: 'Review keywords:', text: 'See most frequent keywords and their counts' },
+      { label: 'Check density:', text: 'Review keyword density percentages' },
+      { label: 'Get suggestions:', text: 'Use recommendations to improve SEO' },
+    ],
+    title: 'SEO Optimizer',
+    subtitle: 'Analyze keywords in your content',
+    howToUseTitle: 'How to Use This Tool',
+    whatItDoes: 'What It Does',
+    whatItDoesBody:
+      'Analyzes your content to find the most frequently used keywords. Helps identify which words appear most often in your text, useful for SEO optimization and keyword research.',
+    howToUseInner: 'How to Use',
+    howToUseSteps: [
+      { label: 'Paste your content:', text: 'Copy and paste your article, blog post, or any text (can be any length)' },
+      { label: 'Click "Analyze"', text: 'to process your content' },
+      { label: 'Review top keywords:', text: 'See top 10 keywords ranked by frequency, view how many times each keyword appears. Keywords are filtered (stop words removed)' },
+    ],
+    expectedOutcome: 'Expected Outcome',
+    expectedOutcomes: [
+      'Top 10 Keywords - Most frequently used words',
+      'Frequency count - How many times each keyword appears',
+      'Ranked list - Keywords sorted by usage',
+      'Keyword insights - Summary statistics',
+    ],
+    yourContent: 'Your Content',
+    contentPlaceholder: 'Paste your article or content here...',
+    analyze: 'Analyze',
+    topKeywords: 'Top Keywords',
+    times: (count: number) => `${count} times`,
+    keywordInsights: 'Keyword Insights',
+    topKeywordAppears: (count: number) => `Top keyword appears ${count} times`,
+    top5Keywords: (words: string) => `Top 5 keywords: ${words}`,
+    totalUniqueKeywords: (count: number) => `Total unique keywords analyzed: ${count}`,
+    readyToAnalyze: 'Ready to Analyze?',
+    readyHint: 'Paste your content and click "Analyze" to find top keywords',
+  },
+  es: {
+    toolName: 'Optimizador SEO',
+    toolDescription:
+      'Optimiza contenido para motores de búsqueda analizando palabras clave, densidad y mejores prácticas SEO. Proporciona sugerencias de palabras clave, análisis de densidad y recomendaciones para mejorar la visibilidad en búsquedas.',
+    howToUse: [
+      { label: 'Ingresa contenido:', text: 'Pega tu contenido de texto para analizar' },
+      { label: 'Haz clic en "Analizar":', text: 'Obtén análisis SEO e insights de palabras clave' },
+      { label: 'Revisa palabras clave:', text: 'Ve las palabras clave más frecuentes y sus conteos' },
+      { label: 'Revisa densidad:', text: 'Consulta porcentajes de densidad de palabras clave' },
+      { label: 'Obtén sugerencias:', text: 'Usa recomendaciones para mejorar el SEO' },
+    ],
+    title: 'Optimizador SEO',
+    subtitle: 'Analiza palabras clave en tu contenido',
+    howToUseTitle: 'Cómo usar esta herramienta',
+    whatItDoes: 'Qué hace',
+    whatItDoesBody:
+      'Analiza tu contenido para encontrar las palabras clave más usadas. Ayuda a identificar qué palabras aparecen con más frecuencia en tu texto, útil para optimización SEO e investigación de palabras clave.',
+    howToUseInner: 'Cómo usar',
+    howToUseSteps: [
+      { label: 'Pega tu contenido:', text: 'Copia y pega tu artículo, post de blog o cualquier texto (puede ser de cualquier longitud)' },
+      { label: 'Haz clic en "Analizar"', text: 'para procesar tu contenido' },
+      { label: 'Revisa palabras clave principales:', text: 'Ve las 10 palabras clave principales ordenadas por frecuencia, cuántas veces aparece cada una. Las palabras clave están filtradas (stop words eliminadas)' },
+    ],
+    expectedOutcome: 'Resultado esperado',
+    expectedOutcomes: [
+      'Top 10 palabras clave - Palabras más usadas',
+      'Conteo de frecuencia - Cuántas veces aparece cada palabra clave',
+      'Lista ordenada - Palabras clave ordenadas por uso',
+      'Insights de palabras clave - Estadísticas resumidas',
+    ],
+    yourContent: 'Tu contenido',
+    contentPlaceholder: 'Pega tu artículo o contenido aquí...',
+    analyze: 'Analizar',
+    topKeywords: 'Palabras clave principales',
+    times: (count: number) => `${count} veces`,
+    keywordInsights: 'Insights de palabras clave',
+    topKeywordAppears: (count: number) => `La palabra clave principal aparece ${count} veces`,
+    top5Keywords: (words: string) => `Top 5 palabras clave: ${words}`,
+    totalUniqueKeywords: (count: number) => `Total de palabras clave únicas analizadas: ${count}`,
+    readyToAnalyze: '¿Listo para analizar?',
+    readyHint: 'Pega tu contenido y haz clic en "Analizar" para encontrar palabras clave principales',
+  },
+}
+
 function SEOOptimizerContent() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [text, setText] = useState('')
   const [keywords, setKeywords] = useState<Keyword[]>([])
 
@@ -28,7 +118,6 @@ function SEOOptimizerContent() {
     const freq: Record<string, number> = {}
 
     words.forEach(word => {
-      // Filter out stop words and short words
       if (!stopWords.has(word) && word.length > 3) {
         freq[word] = (freq[word] || 0) + 1
       }
@@ -51,47 +140,44 @@ function SEOOptimizerContent() {
               <Search className="text-white" size={48} />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">SEO Optimizer</h1>
-          <p className="text-xl text-mono-600 dark:text-mono-400">Analyze keywords in your content</p>
+          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">{c.title}</h1>
+          <p className="text-xl text-mono-600 dark:text-mono-400">{c.subtitle}</p>
         </div>
 
-        {/* Documentation Section */}
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
-          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.howToUseTitle}</h2>
           <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
-              <p>Analyzes your content to find the most frequently used keywords. Helps identify which words appear most often in your text, useful for SEO optimization and keyword research.</p>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.whatItDoes}</h3>
+              <p>{c.whatItDoesBody}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.howToUseInner}</h3>
               <ol className="list-decimal list-inside space-y-1 ml-2">
-                <li><strong>Paste your content:</strong> Copy and paste your article, blog post, or any text (can be any length)</li>
-                <li><strong>Click "Analyze"</strong> to process your content</li>
-                <li><strong>Review top keywords:</strong> See top 10 keywords ranked by frequency, view how many times each keyword appears. Keywords are filtered (stop words removed)</li>
+                {c.howToUseSteps.map((step, i) => (
+                  <li key={i}><strong>{step.label}</strong> {step.text}</li>
+                ))}
               </ol>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.expectedOutcome}</h3>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Top 10 Keywords - Most frequently used words</li>
-                <li>Frequency count - How many times each keyword appears</li>
-                <li>Ranked list - Keywords sorted by usage</li>
-                <li>Keyword insights - Summary statistics</li>
+                {c.expectedOutcomes.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Input Section */}
           <div className="space-y-6">
             <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-              <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">Your Content</h2>
+              <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">{c.yourContent}</h2>
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="Paste your article or content here..."
+                placeholder={c.contentPlaceholder}
                 rows={12}
                 className="w-full px-4 py-3 border-2 border-mono-200 dark:border-mono-700 rounded-lg focus:border-accent-500 focus:outline-none resize-y bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
               />
@@ -101,19 +187,18 @@ function SEOOptimizerContent() {
                 className="w-full mt-4 px-6 py-4 bg-accent-600 text-white rounded-xl font-bold text-lg hover:bg-accent-700 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 <Search size={24} />
-                Analyze
+                {c.analyze}
               </button>
             </div>
           </div>
 
-          {/* Results Section */}
           <div className="space-y-6">
             {keywords.length > 0 ? (
               <>
                 <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
                   <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4 flex items-center gap-2">
                     <Hash size={20} />
-                    Top Keywords
+                    {c.topKeywords}
                   </h2>
                   <div className="space-y-3">
                     {keywords.map((kw, idx) => (
@@ -129,7 +214,7 @@ function SEOOptimizerContent() {
                         </div>
                         <div className="flex items-center gap-2">
                           <TrendingUp size={18} className="text-accent-600" />
-                          <span className="text-mono-700 dark:text-mono-300 font-medium">{kw.count} times</span>
+                          <span className="text-mono-700 dark:text-mono-300 font-medium">{c.times(kw.count)}</span>
                         </div>
                       </div>
                     ))}
@@ -137,20 +222,20 @@ function SEOOptimizerContent() {
                 </div>
 
                 <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-                  <h3 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-3">Keyword Insights</h3>
+                  <h3 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-3">{c.keywordInsights}</h3>
                   <div className="space-y-2 text-sm text-mono-700 dark:text-mono-300">
-                    <p>• Top keyword appears <strong>{keywords[0]?.count}</strong> times</p>
-                    <p>• Top 5 keywords: <strong>{keywords.slice(0, 5).map(k => k.word).join(', ')}</strong></p>
-                    <p>• Total unique keywords analyzed: <strong>{keywords.length}</strong></p>
+                    <p>• {c.topKeywordAppears(keywords[0]?.count ?? 0)}</p>
+                    <p>• {c.top5Keywords(keywords.slice(0, 5).map(k => k.word).join(', '))}</p>
+                    <p>• {c.totalUniqueKeywords(keywords.length)}</p>
                   </div>
                 </div>
               </>
             ) : (
               <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-12 text-center h-full flex flex-col justify-center border border-mono-200 dark:border-mono-700">
                 <Search className="mx-auto text-mono-300 dark:text-mono-700 mb-4" size={64} />
-                <h3 className="text-2xl font-bold text-mono-700 dark:text-mono-300 mb-3">Ready to Analyze?</h3>
-                <p className="text-mono-500">
-                  Paste your content and click "Analyze" to find top keywords
+                <h3 className="text-2xl font-bold text-mono-700 dark:text-mono-300 mb-3">{c.readyToAnalyze}</h3>
+                <p className="text-mono-500 dark:text-mono-400">
+                  {c.readyHint}
                 </p>
               </div>
             )}
@@ -162,15 +247,15 @@ function SEOOptimizerContent() {
 }
 
 export default function SEOOptimizer() {
-  const toolDescription = "Optimizes content for search engines by analyzing keywords, density, and SEO best practices. Provides keyword suggestions, density analysis, and recommendations to improve search visibility."
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const howToUse = (
     <div>
       <ol className="list-decimal list-inside space-y-1 ml-2">
-        <li><strong>Enter content:</strong> Paste your text content to analyze</li>
-        <li><strong>Click "Analyze":</strong> Get SEO analysis and keyword insights</li>
-        <li><strong>Review keywords:</strong> See most frequent keywords and their counts</li>
-        <li><strong>Check density:</strong> Review keyword density percentages</li>
-        <li><strong>Get suggestions:</strong> Use recommendations to improve SEO</li>
+        {c.howToUse.map((step, i) => (
+          <li key={i}><strong>{step.label}</strong> {step.text}</li>
+        ))}
       </ol>
     </div>
   )
@@ -178,8 +263,8 @@ export default function SEOOptimizer() {
   return (
     <ToolAccessGate
       toolSlug="seo-optimizer"
-      toolName="SEO Optimizer"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
       <SEOOptimizerContent />

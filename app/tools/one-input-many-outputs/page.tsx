@@ -2,7 +2,8 @@
 
 import { useState, useRef } from 'react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
-import { Copy, Check, Globe, Music } from 'lucide-react';
+import { Copy, Check, Globe, Music } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 interface PlatformOutput {
   platform: string
@@ -20,7 +21,114 @@ const platformLimits: Record<string, number> = {
   facebook: 63206,
 }
 
+const copy = {
+  en: {
+    toolName: 'One Input → Many Outputs',
+    toolDescription:
+      'One input → many outputs. Paste or drop one piece of content and get platform-ready copy for Instagram, TikTok, YouTube, Twitter, LinkedIn, and Facebook in one go.',
+    howToUse: [
+      { label: 'Add your content (paste or drop a file)', text: '' },
+      { label: 'Choose tone and platforms', text: '' },
+      { label: 'Click Generate to get one output per platform', text: '' },
+      { label: 'Copy per platform, copy all, or download as markdown', text: '' },
+    ],
+    title: 'One Input → Many Outputs',
+    subtitle: 'Paste or drop one piece of content. Get platform-ready copy for every channel you choose.',
+    howToUseTitle: 'How to Use',
+    howToUseSteps: [
+      'Add your content: paste text or drag & drop a file (blog, article, transcript, etc.)',
+      'Pick tone and which platforms you want',
+      'Click Generate — you get one output per platform',
+      'Copy per platform, copy all, or download as markdown',
+    ],
+    tone: 'Tone',
+    toneProfessional: 'Professional',
+    toneCasual: 'Casual',
+    toneInspirational: 'Inspirational',
+    yourContent: 'Your content (one input)',
+    dropFile: 'Drop a file here or click to browse',
+    contentPlaceholder: 'Paste your content here… (blog, article, transcript, idea…)',
+    characters: 'characters',
+    platforms: 'Platforms (select all you want)',
+    generating: 'Generating…',
+    generateFor: (n: number) => `Generate for ${n} platform${n !== 1 ? 's' : ''}`,
+    outputs: 'Outputs',
+    copyAll: 'Copy all',
+    downloadMd: 'Download .md',
+    overLimit: 'Over limit',
+    withinLimit: 'Within limit',
+    copied: 'Copied',
+    copy: 'Copy',
+    alertAddContent: 'Add your content first (paste text or drop a file)',
+    alertSelectPlatform: 'Select at least one platform',
+    alertCopiedAll: 'All content copied.',
+    pdfHint: (name: string) => `[PDF] ${name} — Paste text manually`,
+    audioHint: (name: string) => `[Audio] ${name} — Paste transcript manually`,
+    platformLabels: {
+      instagram: 'Instagram',
+      tiktok: 'TikTok',
+      youtube: 'YouTube',
+      twitter: 'Twitter / X',
+      linkedin: 'LinkedIn',
+      facebook: 'Facebook',
+    } as Record<string, string>,
+  },
+  es: {
+    toolName: 'Una entrada → Muchas salidas',
+    toolDescription:
+      'Una entrada → muchas salidas. Pega o suelta un contenido y obtén textos listos para Instagram, TikTok, YouTube, Twitter, LinkedIn y Facebook de una sola vez.',
+    howToUse: [
+      { label: 'Añade tu contenido (pega o suelta un archivo)', text: '' },
+      { label: 'Elige tono y plataformas', text: '' },
+      { label: 'Haz clic en Generar para obtener una salida por plataforma', text: '' },
+      { label: 'Copia por plataforma, copia todo o descarga como markdown', text: '' },
+    ],
+    title: 'Una entrada → Muchas salidas',
+    subtitle: 'Pega o suelta un contenido. Obtén textos listos para cada canal que elijas.',
+    howToUseTitle: 'Cómo usar',
+    howToUseSteps: [
+      'Añade tu contenido: pega texto o arrastra y suelta un archivo (blog, artículo, transcripción, etc.)',
+      'Elige tono y plataformas',
+      'Haz clic en Generar — obtienes una salida por plataforma',
+      'Copia por plataforma, copia todo o descarga como markdown',
+    ],
+    tone: 'Tono',
+    toneProfessional: 'Profesional',
+    toneCasual: 'Informal',
+    toneInspirational: 'Inspirador',
+    yourContent: 'Tu contenido (una entrada)',
+    dropFile: 'Suelta un archivo aquí o haz clic para buscar',
+    contentPlaceholder: 'Pega tu contenido aquí… (blog, artículo, transcripción, idea…)',
+    characters: 'caracteres',
+    platforms: 'Plataformas (selecciona las que quieras)',
+    generating: 'Generando…',
+    generateFor: (n: number) => `Generar para ${n} plataforma${n !== 1 ? 's' : ''}`,
+    outputs: 'Salidas',
+    copyAll: 'Copiar todo',
+    downloadMd: 'Descargar .md',
+    overLimit: 'Supera el límite',
+    withinLimit: 'Dentro del límite',
+    copied: 'Copiado',
+    copy: 'Copiar',
+    alertAddContent: 'Añade tu contenido primero (pega texto o suelta un archivo)',
+    alertSelectPlatform: 'Selecciona al menos una plataforma',
+    alertCopiedAll: 'Todo el contenido copiado.',
+    pdfHint: (name: string) => `[PDF] ${name} — Pega el texto manualmente`,
+    audioHint: (name: string) => `[Audio] ${name} — Pega la transcripción manualmente`,
+    platformLabels: {
+      instagram: 'Instagram',
+      tiktok: 'TikTok',
+      youtube: 'YouTube',
+      twitter: 'Twitter / X',
+      linkedin: 'LinkedIn',
+      facebook: 'Facebook',
+    } as Record<string, string>,
+  },
+}
+
 function OneInputManyOutputsContent() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [input, setInput] = useState('')
   const [tone, setTone] = useState('professional')
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([
@@ -43,9 +151,9 @@ function OneInputManyOutputsContent() {
     reader.onload = (e) => {
       let text = ''
       if (file.type === 'application/pdf') {
-        text = '[PDF] ' + file.name + ' — Paste text manually'
+        text = c.pdfHint(file.name)
       } else if (file.type.startsWith('audio/')) {
-        text = '[Audio] ' + file.name + ' — Paste transcript manually'
+        text = c.audioHint(file.name)
       } else {
         text = (e.target?.result as string) || ''
       }
@@ -95,11 +203,11 @@ function OneInputManyOutputsContent() {
   const handleGenerate = () => {
     const raw = input.trim()
     if (!raw) {
-      alert('Add your content first (paste text or drop a file)')
+      alert(c.alertAddContent)
       return
     }
     if (selectedPlatforms.length === 0) {
-      alert('Select at least one platform')
+      alert(c.alertSelectPlatform)
       return
     }
 
@@ -135,7 +243,7 @@ function OneInputManyOutputsContent() {
   const handleCopyAll = async () => {
     const all = outputs.map((o) => `=== ${o.platform.toUpperCase()} ===\n\n${o.content}\n\n`).join('\n')
     await navigator.clipboard.writeText(all)
-    alert('All content copied.')
+    alert(c.alertCopiedAll)
   }
 
   const handleDownload = () => {
@@ -148,7 +256,6 @@ function OneInputManyOutputsContent() {
   }
 
   const getPlatformIcon = (platform: string) => {
-    // lucide-react has no brand icons; use Globe for generic “platform”
     const icons: Record<string, typeof Copy> = {
       instagram: Globe,
       tiktok: Music,
@@ -172,52 +279,38 @@ function OneInputManyOutputsContent() {
     return colors[platform] ?? 'bg-mono-500'
   }
 
-  const platformLabels: Record<string, string> = {
-    instagram: 'Instagram',
-    tiktok: 'TikTok',
-    youtube: 'YouTube',
-    twitter: 'Twitter / X',
-    linkedin: 'LinkedIn',
-    facebook: 'Facebook',
-  }
-
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 p-4 max-w-5xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2">One Input → Many Outputs</h1>
-        <p className="text-mono-600 dark:text-mono-400">
-          Paste or drop one piece of content. Get platform-ready copy for every channel you choose.
-        </p>
+        <h1 className="text-3xl font-bold mb-2">{c.title}</h1>
+        <p className="text-mono-600 dark:text-mono-400">{c.subtitle}</p>
       </div>
 
-      {/* How to use */}
       <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
-        <h2 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-3">How to Use</h2>
+        <h2 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-3">{c.howToUseTitle}</h2>
         <ol className="list-decimal list-inside space-y-1 text-sm text-mono-700 dark:text-mono-300">
-          <li>Add your content: paste text or drag & drop a file (blog, article, transcript, etc.)</li>
-          <li>Pick tone and which platforms you want</li>
-          <li>Click <strong>Generate</strong> — you get one output per platform</li>
-          <li>Copy per platform, copy all, or download as markdown</li>
+          {c.howToUseSteps.map((step, i) => (
+            <li key={i}>{step}</li>
+          ))}
         </ol>
       </div>
 
-      {/* Input */}
       <div className="bg-white dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Tone</label>
+          <label className="block text-sm font-medium mb-2">{c.tone}</label>
           <select
             value={tone}
             onChange={(e) => setTone(e.target.value)}
             className="w-full max-w-xs p-2 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-800 text-mono-950 dark:text-mono-50"
           >
-            <option value="professional">Professional</option>
-            <option value="casual">Casual</option>
-            <option value="inspirational">Inspirational</option>
+            <option value="professional">{c.toneProfessional}</option>
+            <option value="casual">{c.toneCasual}</option>
+            <option value="inspirational">{c.toneInspirational}</option>
           </select>
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Your content (one input)</label>
+          <label className="block text-sm font-medium mb-2">{c.yourContent}</label>
           <div
             onClick={() => fileInputRef.current?.click()}
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
@@ -231,7 +324,7 @@ function OneInputManyOutputsContent() {
               isDragging ? 'border-accent-500 bg-accent-50 dark:bg-accent-900/20' : 'border-mono-300 dark:border-mono-700'
             }`}
           >
-            Drop a file here or click to browse
+            {c.dropFile}
           </div>
           <input
             ref={fileInputRef}
@@ -243,15 +336,15 @@ function OneInputManyOutputsContent() {
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Paste your content here… (blog, article, transcript, idea…)"
+            placeholder={c.contentPlaceholder}
             rows={8}
             className="w-full p-3 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-800 text-mono-950 dark:text-mono-50 resize-y"
           />
-          <p className="text-xs text-mono-500 mt-1">{input.length} characters</p>
+          <p className="text-xs text-mono-500 mt-1">{input.length} {c.characters}</p>
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Platforms (select all you want)</label>
+          <label className="block text-sm font-medium mb-2">{c.platforms}</label>
           <div className="flex flex-wrap gap-2">
             {(['instagram', 'tiktok', 'youtube', 'twitter', 'linkedin', 'facebook'] as const).map((platform) => {
               const Icon = getPlatformIcon(platform)
@@ -274,7 +367,7 @@ function OneInputManyOutputsContent() {
                     className="w-4 h-4 text-accent-600 rounded"
                   />
                   <Icon className="h-4 w-4" />
-                  <span className="text-sm font-medium">{platformLabels[platform]}</span>
+                  <span className="text-sm font-medium">{c.platformLabels[platform]}</span>
                 </label>
               )
             })}
@@ -286,27 +379,26 @@ function OneInputManyOutputsContent() {
           disabled={isGenerating || !input.trim() || selectedPlatforms.length === 0}
           className="w-full py-3 bg-accent-600 text-white rounded-lg font-semibold hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isGenerating ? 'Generating…' : `Generate for ${selectedPlatforms.length} platform${selectedPlatforms.length !== 1 ? 's' : ''}`}
+          {isGenerating ? c.generating : c.generateFor(selectedPlatforms.length)}
         </button>
       </div>
 
-      {/* Outputs */}
       {outputs.length > 0 && (
         <div className="mb-6">
           <div className="flex flex-wrap gap-2 items-center justify-between mb-4">
-            <h2 className="text-xl font-bold">Outputs</h2>
+            <h2 className="text-xl font-bold">{c.outputs}</h2>
             <div className="flex gap-2">
               <button
                 onClick={handleCopyAll}
                 className="px-4 py-2 bg-mono-200 dark:bg-mono-700 rounded-lg hover:bg-mono-300 dark:hover:bg-mono-600 text-sm font-medium"
               >
-                Copy all
+                {c.copyAll}
               </button>
               <button
                 onClick={handleDownload}
                 className="px-4 py-2 bg-mono-200 dark:bg-mono-700 rounded-lg hover:bg-mono-300 dark:hover:bg-mono-600 text-sm font-medium"
               >
-                Download .md
+                {c.downloadMd}
               </button>
             </div>
           </div>
@@ -323,7 +415,7 @@ function OneInputManyOutputsContent() {
                   <div className={`${getPlatformColor(o.platform)} text-white p-3 flex items-center justify-between`}>
                     <div className="flex items-center gap-2">
                       <Icon className="h-5 w-5" />
-                      <span className="font-semibold">{platformLabels[o.platform]}</span>
+                      <span className="font-semibold">{c.platformLabels[o.platform]}</span>
                     </div>
                     <span className="text-xs opacity-90">
                       {o.characterCount}/{limit}
@@ -335,15 +427,15 @@ function OneInputManyOutputsContent() {
                     </pre>
                     <div className="flex items-center justify-between mt-2">
                       {overLimit ? (
-                        <span className="text-xs text-red-600 dark:text-red-400">Over limit</span>
+                        <span className="text-xs text-red-600 dark:text-red-400">{c.overLimit}</span>
                       ) : (
-                        <span className="text-xs text-green-600 dark:text-green-400">Within limit</span>
+                        <span className="text-xs text-green-600 dark:text-green-400">{c.withinLimit}</span>
                       )}
                       <button
                         onClick={() => handleCopy(o.platform)}
                         className="flex items-center gap-1 px-3 py-1.5 bg-mono-100 dark:bg-mono-800 rounded hover:bg-mono-200 dark:hover:bg-mono-700 text-sm"
                       >
-                        {o.copied ? <><Check className="h-4 w-4" /> Copied</> : <><Copy className="h-4 w-4" /> Copy</>}
+                        {o.copied ? <><Check className="h-4 w-4" /> {c.copied}</> : <><Copy className="h-4 w-4" /> {c.copy}</>}
                       </button>
                     </div>
                   </div>
@@ -358,22 +450,24 @@ function OneInputManyOutputsContent() {
 }
 
 export default function OneInputManyOutputsPage() {
-  const toolDescription =
-    'One input → many outputs. Paste or drop one piece of content and get platform-ready copy for Instagram, TikTok, YouTube, Twitter, LinkedIn, and Facebook in one go.'
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const howToUse = (
     <ol className="list-decimal list-inside space-y-1 ml-2">
-      <li>Add your content (paste or drop a file)</li>
-      <li>Choose tone and platforms</li>
-      <li>Click Generate to get one output per platform</li>
-      <li>Copy per platform, copy all, or download as markdown</li>
+      {c.howToUse.map((step, i) => (
+        <li key={i}>
+          <strong>{step.label}</strong>{step.text ? ` ${step.text}` : ''}
+        </li>
+      ))}
     </ol>
   )
 
   return (
     <ToolAccessGate
       toolSlug="one-input-many-outputs"
-      toolName="One Input → Many Outputs"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
       <OneInputManyOutputsContent />

@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { DollarSign, Plus, Trash2, Calendar, TrendingUp, Download, Filter } from 'lucide-react';
+import { DollarSign, Plus, Trash2, Calendar, Download, Filter } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 interface RevenueEntry {
   id: number
@@ -14,7 +15,140 @@ interface RevenueEntry {
 
 const STORE_KEY = 'revenueTracker'
 
+const copy = {
+  en: {
+    toolName: 'Revenue Tracker',
+    toolDescription:
+      'Track and manage your creator revenue across all income sources. Monitor earnings, view trends, filter by date range, and export data for tax and financial planning.',
+    howToUse: [
+      { label: 'Add revenue entry:', text: 'Click "Add Revenue" and enter amount, date, source, and description' },
+      { label: 'View all entries:', text: 'See all revenue entries in a table with totals' },
+      { label: 'Filter by date:', text: 'Use date filters to view revenue for specific periods' },
+      { label: 'View trends:', text: 'See monthly and yearly revenue summaries' },
+      { label: 'Export data:', text: 'Download revenue data as CSV for accounting' },
+      { label: 'Delete entries:', text: 'Remove incorrect entries as needed' },
+    ],
+    title: 'Revenue Tracker',
+    subtitle: 'Track your income and revenue streams',
+    newToMonetization: 'New to monetization?',
+    stripePrompt: 'to start accepting payments from brands and clients.',
+    howToUseTitle: 'How to Use This Tool',
+    whatItDoes: 'What It Does',
+    whatItDoesBody:
+      'Track and manage your revenue streams. Add income entries with dates, sources, and descriptions. View totals, monthly breakdowns, and export data for accounting.',
+    howToUseInner: 'How to Use',
+    howToUseSteps: [
+      { label: 'Add revenue entry:', text: 'Click "Add Revenue" button, enter amount ($), select date (defaults to today), enter source (e.g., "Sponsored Post", "Affiliate"), add description (optional), click "Add Entry"' },
+      { label: 'View revenue:', text: 'See total revenue at top, view this month\'s revenue, see total number of entries, browse all entries in table' },
+      { label: 'Filter entries:', text: 'All (view all revenue entries) or This Month (view only current month)' },
+      { label: 'Manage entries:', text: 'Delete individual entries with trash icon, clear all entries (with confirmation)' },
+      { label: 'Export data:', text: 'Click "Export CSV" to download spreadsheet (includes date, amount, source, description)' },
+    ],
+    expectedOutcome: 'Expected Outcome',
+    expectedOutcomes: [
+      'Total Revenue - Sum of all entries',
+      'This Month - Current month\'s total',
+      'Total Entries - Number of revenue entries',
+      'Detailed table - All entries with date, amount, source, description',
+      'CSV export - Downloadable spreadsheet for accounting',
+      'Local storage - All data saved in browser',
+    ],
+    totalRevenue: 'Total Revenue',
+    thisMonth: 'This Month',
+    totalEntries: 'Total Entries',
+    addRevenue: 'Add Revenue',
+    all: 'All',
+    thisMonthFilter: 'This Month',
+    exportCsv: 'Export CSV',
+    clearAll: 'Clear All',
+    addRevenueEntry: 'Add Revenue Entry',
+    amount: 'Amount ($)',
+    date: 'Date',
+    source: 'Source',
+    sourcePlaceholder: 'e.g., Sponsored Post, Affiliate, Product Sale',
+    descriptionOptional: 'Description (optional)',
+    descriptionPlaceholder: 'Additional notes',
+    addEntry: 'Add Entry',
+    cancel: 'Cancel',
+    tableDate: 'Date',
+    tableAmount: 'Amount',
+    tableSource: 'Source',
+    tableDescription: 'Description',
+    tableActions: 'Actions',
+    noEntriesTitle: 'No Revenue Entries Yet',
+    noEntriesHint: 'Click "Add Revenue" to start tracking your income',
+    confirmClear: 'Are you sure you want to clear all revenue entries?',
+    defaultSource: 'Other',
+  },
+  es: {
+    toolName: 'Rastreador de ingresos',
+    toolDescription:
+      'Rastrea y gestiona tus ingresos como creador en todas las fuentes. Monitorea ganancias, ve tendencias, filtra por rango de fechas y exporta datos para impuestos y planificación financiera.',
+    howToUse: [
+      { label: 'Agrega entrada de ingreso:', text: 'Haz clic en "Agregar ingreso" e ingresa monto, fecha, fuente y descripción' },
+      { label: 'Ve todas las entradas:', text: 'Consulta todas las entradas de ingreso en una tabla con totales' },
+      { label: 'Filtra por fecha:', text: 'Usa filtros de fecha para ver ingresos de periodos específicos' },
+      { label: 'Ve tendencias:', text: 'Consulta resúmenes de ingresos mensuales y anuales' },
+      { label: 'Exporta datos:', text: 'Descarga datos de ingresos en CSV para contabilidad' },
+      { label: 'Elimina entradas:', text: 'Quita entradas incorrectas según sea necesario' },
+    ],
+    title: 'Rastreador de ingresos',
+    subtitle: 'Rastrea tus ingresos y fuentes de revenue',
+    newToMonetization: '¿Nuevo en monetización?',
+    stripePrompt: 'para empezar a aceptar pagos de marcas y clientes.',
+    howToUseTitle: 'Cómo usar esta herramienta',
+    whatItDoes: 'Qué hace',
+    whatItDoesBody:
+      'Rastrea y gestiona tus fuentes de ingresos. Agrega entradas con fechas, fuentes y descripciones. Ve totales, desglose mensual y exporta datos para contabilidad.',
+    howToUseInner: 'Cómo usar',
+    howToUseSteps: [
+      { label: 'Agrega entrada de ingreso:', text: 'Haz clic en "Agregar ingreso", ingresa monto ($), selecciona fecha (por defecto hoy), ingresa fuente (ej., "Publicación patrocinada", "Afiliado"), agrega descripción (opcional), haz clic en "Agregar entrada"' },
+      { label: 'Ve ingresos:', text: 'Consulta ingresos totales arriba, ingresos del mes, número total de entradas, explora todas las entradas en la tabla' },
+      { label: 'Filtra entradas:', text: 'Todos (ver todas las entradas) o Este mes (ver solo el mes actual)' },
+      { label: 'Gestiona entradas:', text: 'Elimina entradas individuales con el icono de papelera, borra todas las entradas (con confirmación)' },
+      { label: 'Exporta datos:', text: 'Haz clic en "Exportar CSV" para descargar hoja de cálculo (incluye fecha, monto, fuente, descripción)' },
+    ],
+    expectedOutcome: 'Resultado esperado',
+    expectedOutcomes: [
+      'Ingresos totales - Suma de todas las entradas',
+      'Este mes - Total del mes actual',
+      'Total de entradas - Número de entradas de ingreso',
+      'Tabla detallada - Todas las entradas con fecha, monto, fuente, descripción',
+      'Exportación CSV - Hoja de cálculo descargable para contabilidad',
+      'Almacenamiento local - Todos los datos guardados en el navegador',
+    ],
+    totalRevenue: 'Ingresos totales',
+    thisMonth: 'Este mes',
+    totalEntries: 'Total de entradas',
+    addRevenue: 'Agregar ingreso',
+    all: 'Todos',
+    thisMonthFilter: 'Este mes',
+    exportCsv: 'Exportar CSV',
+    clearAll: 'Borrar todo',
+    addRevenueEntry: 'Agregar entrada de ingreso',
+    amount: 'Monto ($)',
+    date: 'Fecha',
+    source: 'Fuente',
+    sourcePlaceholder: 'ej., Publicación patrocinada, Afiliado, Venta de producto',
+    descriptionOptional: 'Descripción (opcional)',
+    descriptionPlaceholder: 'Notas adicionales',
+    addEntry: 'Agregar entrada',
+    cancel: 'Cancelar',
+    tableDate: 'Fecha',
+    tableAmount: 'Monto',
+    tableSource: 'Fuente',
+    tableDescription: 'Descripción',
+    tableActions: 'Acciones',
+    noEntriesTitle: 'Aún no hay entradas de ingreso',
+    noEntriesHint: 'Haz clic en "Agregar ingreso" para empezar a rastrear tus ingresos',
+    confirmClear: '¿Estás seguro de que quieres borrar todas las entradas de ingreso?',
+    defaultSource: 'Otro',
+  },
+}
+
 function RevenueTrackerContent() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [entries, setEntries] = useState<RevenueEntry[]>([])
   const [formData, setFormData] = useState({
     amount: '',
@@ -44,7 +178,7 @@ function RevenueTrackerContent() {
       id: Date.now(),
       amount,
       date: formData.date,
-      source: formData.source || 'Other',
+      source: formData.source || c.defaultSource,
       description: formData.description || ''
     }
 
@@ -63,7 +197,7 @@ function RevenueTrackerContent() {
   }
 
   const clearAll = () => {
-    if (confirm('Are you sure you want to clear all revenue entries?')) {
+    if (confirm(c.confirmClear)) {
       setEntries([])
       localStorage.removeItem(STORE_KEY)
     }
@@ -107,7 +241,7 @@ function RevenueTrackerContent() {
     a.click()
   }
 
-  const sources = Array.from(new Set(entries.map(e => e.source))).filter(Boolean)
+  const dateLocale = language === 'es' ? 'es-ES' : 'en-US'
 
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-8 px-4">
@@ -118,12 +252,12 @@ function RevenueTrackerContent() {
               <DollarSign className="text-white" size={48} />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">Revenue Tracker</h1>
-          <p className="text-xl text-mono-600 dark:text-mono-400 mb-4">Track your income and revenue streams</p>
+          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">{c.title}</h1>
+          <p className="text-xl text-mono-600 dark:text-mono-400 mb-4">{c.subtitle}</p>
           {entries.length === 0 && (
             <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 max-w-2xl mx-auto">
               <p className="text-sm text-blue-900 dark:text-blue-200 text-center">
-                <strong>New to monetization?</strong> Set up payment processing with{' '}
+                <strong>{c.newToMonetization}</strong> Set up payment processing with{' '}
                 <a 
                   href="https://stripe.com/payments" 
                   target="_blank" 
@@ -132,72 +266,64 @@ function RevenueTrackerContent() {
                 >
                   Stripe
                 </a>
-                {' '}to start accepting payments from brands and clients.
+                {' '}{c.stripePrompt}
               </p>
             </div>
           )}
         </div>
 
-        {/* Documentation Section */}
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
-          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.howToUseTitle}</h2>
           <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
-              <p>Track and manage your revenue streams. Add income entries with dates, sources, and descriptions. View totals, monthly breakdowns, and export data for accounting.</p>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.whatItDoes}</h3>
+              <p>{c.whatItDoesBody}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.howToUseInner}</h3>
               <ol className="list-decimal list-inside space-y-1 ml-2">
-                <li><strong>Add revenue entry:</strong> Click "Add Revenue" button, enter amount ($), select date (defaults to today), enter source (e.g., "Sponsored Post", "Affiliate"), add description (optional), click "Add Entry"</li>
-                <li><strong>View revenue:</strong> See total revenue at top, view this month's revenue, see total number of entries, browse all entries in table</li>
-                <li><strong>Filter entries:</strong> All (view all revenue entries) or This Month (view only current month)</li>
-                <li><strong>Manage entries:</strong> Delete individual entries with trash icon, clear all entries (with confirmation)</li>
-                <li><strong>Export data:</strong> Click "Export CSV" to download spreadsheet (includes date, amount, source, description)</li>
+                {c.howToUseSteps.map((step, i) => (
+                  <li key={i}><strong>{step.label}</strong> {step.text}</li>
+                ))}
               </ol>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.expectedOutcome}</h3>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Total Revenue - Sum of all entries</li>
-                <li>This Month - Current month's total</li>
-                <li>Total Entries - Number of revenue entries</li>
-                <li>Detailed table - All entries with date, amount, source, description</li>
-                <li>CSV export - Downloadable spreadsheet for accounting</li>
-                <li>Local storage - All data saved in browser</li>
+                {c.expectedOutcomes.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="bg-mono-50 dark:bg-mono-900 rounded-xl shadow p-6 border border-mono-200 dark:border-mono-700">
-            <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">Total Revenue</p>
+            <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">{c.totalRevenue}</p>
             <p className="text-3xl font-bold text-mono-950 dark:text-mono-50">
               ${getTotal().toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
           <div className="bg-mono-50 dark:bg-mono-900 rounded-xl shadow p-6 border border-mono-200 dark:border-mono-700">
-            <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">This Month</p>
+            <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">{c.thisMonth}</p>
             <p className="text-3xl font-bold text-green-600">
               ${getMonthlyTotal().toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
           <div className="bg-mono-50 dark:bg-mono-900 rounded-xl shadow p-6 border border-mono-200 dark:border-mono-700">
-            <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">Total Entries</p>
+            <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">{c.totalEntries}</p>
             <p className="text-3xl font-bold text-mono-950 dark:text-mono-50">{entries.length}</p>
           </div>
         </div>
 
-        {/* Controls */}
         <div className="flex gap-4 mb-6 flex-wrap">
           <button
             onClick={() => setShowForm(!showForm)}
             className="px-6 py-3 bg-accent-600 text-white rounded-lg font-semibold hover:bg-accent-700 transition-colors flex items-center gap-2"
           >
             <Plus size={20} />
-            Add Revenue
+            {c.addRevenue}
           </button>
           <div className="flex gap-2">
             <button
@@ -209,7 +335,7 @@ function RevenueTrackerContent() {
               }`}
             >
               <Filter size={18} />
-              All
+              {c.all}
             </button>
             <button
               onClick={() => setFilter('month')}
@@ -220,7 +346,7 @@ function RevenueTrackerContent() {
               }`}
             >
               <Calendar size={18} />
-              This Month
+              {c.thisMonthFilter}
             </button>
           </div>
           <button
@@ -228,24 +354,23 @@ function RevenueTrackerContent() {
             className="px-4 py-3 bg-mono-100 dark:bg-mono-800 hover:bg-mono-200 dark:hover:bg-mono-700 rounded-lg flex items-center gap-2 text-mono-700 dark:text-mono-300 ml-auto"
           >
             <Download size={18} />
-            Export CSV
+            {c.exportCsv}
           </button>
           <button
             onClick={clearAll}
             className="px-4 py-3 bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-900/50 rounded-lg text-red-700 dark:text-red-400"
           >
-            Clear All
+            {c.clearAll}
           </button>
         </div>
 
-        {/* Add Form */}
         {showForm && (
           <div className="bg-mono-50 dark:bg-mono-900 rounded-xl shadow-xl p-6 mb-6 border border-mono-200 dark:border-mono-700">
-            <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">Add Revenue Entry</h2>
+            <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.addRevenueEntry}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                  Amount ($)
+                  {c.amount}
                 </label>
                 <input
                   type="number"
@@ -258,7 +383,7 @@ function RevenueTrackerContent() {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                  Date
+                  {c.date}
                 </label>
                 <input
                   type="date"
@@ -269,25 +394,25 @@ function RevenueTrackerContent() {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                  Source
+                  {c.source}
                 </label>
                 <input
                   type="text"
                   value={formData.source}
                   onChange={(e) => setFormData({ ...formData, source: e.target.value })}
-                  placeholder="e.g., Sponsored Post, Affiliate, Product Sale"
+                  placeholder={c.sourcePlaceholder}
                   className="w-full px-4 py-3 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                 />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                  Description (optional)
+                  {c.descriptionOptional}
                 </label>
                 <input
                   type="text"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Additional notes"
+                  placeholder={c.descriptionPlaceholder}
                   className="w-full px-4 py-3 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                 />
               </div>
@@ -298,37 +423,36 @@ function RevenueTrackerContent() {
                 disabled={!formData.amount}
                 className="px-6 py-3 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Add Entry
+                {c.addEntry}
               </button>
               <button
                 onClick={() => setShowForm(false)}
                 className="px-6 py-3 bg-mono-100 dark:bg-mono-800 text-mono-700 dark:text-mono-300 rounded-lg hover:bg-mono-200 dark:hover:bg-mono-700"
               >
-                Cancel
+                {c.cancel}
               </button>
             </div>
           </div>
         )}
 
-        {/* Entries List */}
         <div className="bg-mono-50 dark:bg-mono-900 rounded-xl shadow-xl border border-mono-200 dark:border-mono-700 overflow-hidden">
           {getFilteredEntries().length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-mono-100 dark:bg-mono-800">
                   <tr>
-                    <th className="text-left px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">Date</th>
-                    <th className="text-left px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">Amount</th>
-                    <th className="text-left px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">Source</th>
-                    <th className="text-left px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">Description</th>
-                    <th className="text-right px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">Actions</th>
+                    <th className="text-left px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">{c.tableDate}</th>
+                    <th className="text-left px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">{c.tableAmount}</th>
+                    <th className="text-left px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">{c.tableSource}</th>
+                    <th className="text-left px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">{c.tableDescription}</th>
+                    <th className="text-right px-6 py-4 text-sm font-semibold text-mono-700 dark:text-mono-300">{c.tableActions}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {getFilteredEntries().map((entry) => (
                     <tr key={entry.id} className="border-t border-mono-200 dark:border-mono-700 hover:bg-mono-100 dark:hover:bg-mono-800">
                       <td className="px-6 py-4 text-mono-700 dark:text-mono-300">
-                        {new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        {new Date(entry.date).toLocaleDateString(dateLocale, { month: 'short', day: 'numeric', year: 'numeric' })}
                       </td>
                       <td className="px-6 py-4 font-semibold text-green-600">
                         ${entry.amount.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -351,8 +475,8 @@ function RevenueTrackerContent() {
           ) : (
             <div className="p-12 text-center">
               <DollarSign className="mx-auto text-mono-300 dark:text-mono-700 mb-4" size={64} />
-              <h3 className="text-xl font-bold text-mono-700 dark:text-mono-300 mb-2">No Revenue Entries Yet</h3>
-              <p className="text-mono-500">Click "Add Revenue" to start tracking your income</p>
+              <h3 className="text-xl font-bold text-mono-700 dark:text-mono-300 mb-2">{c.noEntriesTitle}</h3>
+              <p className="text-mono-500 dark:text-mono-400">{c.noEntriesHint}</p>
             </div>
           )}
         </div>
@@ -362,29 +486,25 @@ function RevenueTrackerContent() {
 }
 
 export default function RevenueTracker() {
-  const toolDescription = "Track and manage your creator revenue across all income sources. Monitor earnings, view trends, filter by date range, and export data for tax and financial planning."
-  
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const howToUse = (
     <ol className="list-decimal list-inside space-y-1 ml-2">
-      <li><strong>Add revenue entry:</strong> Click "Add Revenue" and enter amount, date, source, and description</li>
-      <li><strong>View all entries:</strong> See all revenue entries in a table with totals</li>
-      <li><strong>Filter by date:</strong> Use date filters to view revenue for specific periods</li>
-      <li><strong>View trends:</strong> See monthly and yearly revenue summaries</li>
-      <li><strong>Export data:</strong> Download revenue data as CSV for accounting</li>
-      <li><strong>Delete entries:</strong> Remove incorrect entries as needed</li>
+      {c.howToUse.map((step, i) => (
+        <li key={i}><strong>{step.label}</strong> {step.text}</li>
+      ))}
     </ol>
   )
 
   return (
     <ToolAccessGate
       toolSlug="revenue-tracker"
-      toolName="Revenue Tracker"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
       <RevenueTrackerContent />
     </ToolAccessGate>
   )
 }
-
-

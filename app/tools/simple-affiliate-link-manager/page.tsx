@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 type AffiliateLink = {
   id: string;
@@ -14,7 +15,36 @@ type AffiliateLink = {
 const inputClass =
   "w-full border p-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400";
 
+const copy = {
+  en: {
+    title: "Simple Affiliate Link Manager",
+    instructions: "Instructions",
+    instructionsBody: "Add a destination URL and optional title, then create a short link to track clicks.",
+    expectedOutcome: "Expected Outcome",
+    expectedOutcomeBody: "You get redirect links under /go/[slug] plus click counts in this dashboard.",
+    urlPlaceholder: "Enter affiliate URL",
+    titlePlaceholder: "Title (optional)",
+    creating: "Creating...",
+    createLink: "Create Link",
+    clicks: (n: number) => `${n} clicks`,
+  },
+  es: {
+    title: "Gestor simple de enlaces de afiliados",
+    instructions: "Instrucciones",
+    instructionsBody: "Agrega una URL de destino y un título opcional, luego crea un enlace corto para rastrear clics.",
+    expectedOutcome: "Resultado esperado",
+    expectedOutcomeBody: "Obtienes enlaces de redirección bajo /go/[slug] más conteos de clics en este panel.",
+    urlPlaceholder: "Ingresa URL de afiliado",
+    titlePlaceholder: "Título (opcional)",
+    creating: "Creando...",
+    createLink: "Crear enlace",
+    clicks: (n: number) => `${n} clics`,
+  },
+};
+
 export default function SimpleAffiliateLinkManagerPage() {
+  const { language } = useLanguage();
+  const c = copy[language];
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [links, setLinks] = useState<AffiliateLink[]>([]);
@@ -47,16 +77,16 @@ export default function SimpleAffiliateLinkManagerPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Simple Affiliate Link Manager</h1>
+      <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">{c.title}</h1>
 
       <section className="mb-4 rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
         <div>
-          <h2 className="font-semibold mb-1">Instructions</h2>
-          <p>Add a destination URL and optional title, then create a short link to track clicks.</p>
+          <h2 className="font-semibold mb-1 text-mono-950 dark:text-mono-50">{c.instructions}</h2>
+          <p className="text-mono-700 dark:text-mono-300">{c.instructionsBody}</p>
         </div>
         <div>
-          <h2 className="font-semibold mb-1">Expected Outcome</h2>
-          <p>You get redirect links under /go/[slug] plus click counts in this dashboard.</p>
+          <h2 className="font-semibold mb-1 text-mono-950 dark:text-mono-50">{c.expectedOutcome}</h2>
+          <p className="text-mono-700 dark:text-mono-300">{c.expectedOutcomeBody}</p>
         </div>
       </section>
 
@@ -64,13 +94,13 @@ export default function SimpleAffiliateLinkManagerPage() {
         <input
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          placeholder="Enter affiliate URL"
+          placeholder={c.urlPlaceholder}
           className={inputClass}
         />
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title (optional)"
+          placeholder={c.titlePlaceholder}
           className={inputClass}
         />
         <button
@@ -79,7 +109,7 @@ export default function SimpleAffiliateLinkManagerPage() {
           disabled={loading}
           className="w-full bg-black dark:bg-mono-100 text-white dark:text-mono-950 py-2 rounded"
         >
-          {loading ? "Creating..." : "Create Link"}
+          {loading ? c.creating : c.createLink}
         </button>
       </div>
 
@@ -98,7 +128,7 @@ export default function SimpleAffiliateLinkManagerPage() {
               /go/{link.slug}
             </a>
             <p className="text-sm text-mono-700 dark:text-mono-300">{link.title || link.url}</p>
-            <p className="text-sm">{link.clicks} clicks</p>
+            <p className="text-sm text-mono-950 dark:text-mono-50">{c.clicks(link.clicks)}</p>
           </div>
         ))}
       </div>

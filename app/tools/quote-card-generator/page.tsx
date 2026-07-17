@@ -1,11 +1,129 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Download, Image as ImageIcon } from 'lucide-react';
+import { Download, Image as ImageIcon } from 'lucide-react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    toolName: 'Quote Card Generator',
+    toolDescription:
+      'Creates beautiful quote cards for social media. Customize quotes, authors, themes, colors, sizes, and add logos to generate professional quote graphics ready for download.',
+    howToUse: [
+      { label: 'Enter quote:', text: 'Type or paste the quote text' },
+      { label: 'Enter author (optional):', text: "Add the quote author's name" },
+      { label: 'Choose theme:', text: 'Select a visual theme (minimal, bold, elegant, etc.)' },
+      { label: 'Customize colors:', text: 'Adjust text and background colors' },
+      { label: 'Set size:', text: 'Choose image dimensions (1080x1080, 1920x1080, etc.)' },
+      { label: 'Add logo (optional):', text: 'Upload a logo to include on the card' },
+      { label: 'Download:', text: 'Click "Download" to save your quote card' },
+    ],
+    howToUseTitle: 'How to Use This Tool',
+    whatItDoes: 'What It Does',
+    whatItDoesBody:
+      'Creates visually appealing quote cards with customizable quotes, author names, themes, colors, sizes, and optional logos. Perfect for social media posts, blog graphics, or marketing materials.',
+    howToUseInner: 'How to Use',
+    howToUseSteps: [
+      { label: 'Enter quote:', text: 'Type or paste your quote text' },
+      { label: 'Enter author (optional):', text: "Add the quote author's name" },
+      { label: 'Select theme:', text: 'Choose Minimal, Bold, Elegant, or Modern' },
+      { label: 'Customize colors:', text: 'Choose text color and background color' },
+      { label: 'Select size:', text: 'Choose 1080×1080 (Square), 1200×675 (Landscape), or 1080×1920 (Story)' },
+      { label: 'Upload logo (optional):', text: 'Add your logo to the quote card' },
+      { label: 'Download:', text: 'Click "Download" to save your quote card as PNG' },
+    ],
+    expectedOutcome: 'Expected Outcome',
+    expectedOutcomes: [
+      'Visual quote card with your quote and author',
+      'Customizable theme and colors',
+      'Multiple size options for different platforms',
+      'Optional logo integration',
+      'Downloadable PNG image ready to use',
+    ],
+    title: 'Quote Card Generator',
+    quote: 'Quote',
+    authorOptional: 'Author (optional)',
+    authorPlaceholder: 'Steve Jobs',
+    theme: 'Theme',
+    themeMinimal: 'Minimal',
+    themeBrush: 'Brush',
+    themeNeon: 'Neon',
+    themeRetro: 'Retro',
+    themeDark: 'Dark',
+    textColour: 'Text colour',
+    backgroundColour: 'Background colour',
+    size: 'Size',
+    sizeInstagram: 'Instagram 1080×1080',
+    sizeTwitter: 'Twitter 1200×675',
+    sizeStory: 'Story 1080×1920',
+    logoOptional: 'Logo / avatar (optional)',
+    chooseImage: 'Choose Image',
+    downloadPng: 'Download PNG',
+    defaultQuote: 'Stay hungry, stay foolish.',
+  },
+  es: {
+    toolName: 'Generador de tarjetas de citas',
+    toolDescription:
+      'Crea hermosas tarjetas de citas para redes sociales. Personaliza citas, autores, temas, colores, tamaños y añade logos para generar gráficos profesionales listos para descargar.',
+    howToUse: [
+      { label: 'Ingresa la cita:', text: 'Escribe o pega el texto de la cita' },
+      { label: 'Ingresa autor (opcional):', text: 'Añade el nombre del autor de la cita' },
+      { label: 'Elige tema:', text: 'Selecciona un tema visual (minimal, bold, elegant, etc.)' },
+      { label: 'Personaliza colores:', text: 'Ajusta los colores del texto y fondo' },
+      { label: 'Define tamaño:', text: 'Elige dimensiones (1080x1080, 1920x1080, etc.)' },
+      { label: 'Añade logo (opcional):', text: 'Sube un logo para incluir en la tarjeta' },
+      { label: 'Descargar:', text: 'Haz clic en "Descargar" para guardar tu tarjeta de cita' },
+    ],
+    howToUseTitle: 'Cómo usar esta herramienta',
+    whatItDoes: 'Qué hace',
+    whatItDoesBody:
+      'Crea tarjetas de citas visualmente atractivas con citas, nombres de autor, temas, colores, tamaños y logos opcionales personalizables. Perfecto para publicaciones en redes, gráficos de blog o materiales de marketing.',
+    howToUseInner: 'Cómo usar',
+    howToUseSteps: [
+      { label: 'Ingresa la cita:', text: 'Escribe o pega el texto de tu cita' },
+      { label: 'Ingresa autor (opcional):', text: 'Añade el nombre del autor de la cita' },
+      { label: 'Selecciona tema:', text: 'Elige Minimal, Bold, Elegant o Modern' },
+      { label: 'Personaliza colores:', text: 'Elige color de texto y color de fondo' },
+      { label: 'Selecciona tamaño:', text: 'Elige 1080×1080 (Cuadrado), 1200×675 (Horizontal) o 1080×1920 (Story)' },
+      { label: 'Sube logo (opcional):', text: 'Añade tu logo a la tarjeta de cita' },
+      { label: 'Descargar:', text: 'Haz clic en "Descargar" para guardar tu tarjeta como PNG' },
+    ],
+    expectedOutcome: 'Resultado esperado',
+    expectedOutcomes: [
+      'Tarjeta de cita visual con tu cita y autor',
+      'Tema y colores personalizables',
+      'Varias opciones de tamaño para distintas plataformas',
+      'Integración opcional de logo',
+      'Imagen PNG descargable lista para usar',
+    ],
+    title: 'Generador de tarjetas de citas',
+    quote: 'Cita',
+    authorOptional: 'Autor (opcional)',
+    authorPlaceholder: 'Steve Jobs',
+    theme: 'Tema',
+    themeMinimal: 'Minimal',
+    themeBrush: 'Pincel',
+    themeNeon: 'Neón',
+    themeRetro: 'Retro',
+    themeDark: 'Oscuro',
+    textColour: 'Color del texto',
+    backgroundColour: 'Color de fondo',
+    size: 'Tamaño',
+    sizeInstagram: 'Instagram 1080×1080',
+    sizeTwitter: 'Twitter 1200×675',
+    sizeStory: 'Story 1080×1920',
+    logoOptional: 'Logo / avatar (opcional)',
+    chooseImage: 'Elegir imagen',
+    downloadPng: 'Descargar PNG',
+    defaultQuote: 'Mantente hambriento, mantente alocado.',
+  },
+}
 
 function QuoteCardGeneratorContent() {
-  const [quote, setQuote] = useState('Stay hungry, stay foolish.')
+  const { language } = useLanguage()
+  const c = copy[language]
+  const [quote, setQuote] = useState(c.defaultQuote)
   const [author, setAuthor] = useState('')
   const [theme, setTheme] = useState('minimal')
   const [textColor, setTextColor] = useState('#111111')
@@ -18,7 +136,7 @@ function QuoteCardGeneratorContent() {
   const sizeMap: Record<string, [number, number]> = {
     '1080': [1080, 1080],
     '1200': [1200, 675],
-    'story': [1080, 1920]
+    story: [1080, 1920],
   }
 
   useEffect(() => {
@@ -63,11 +181,9 @@ function QuoteCardGeneratorContent() {
     const w = canvas.width
     const h = canvas.height
 
-    // Background
     ctx.fillStyle = bgColor
     ctx.fillRect(0, 0, w, h)
 
-    // Theme overlay
     switch (theme) {
       case 'brush':
         ctx.globalAlpha = 0.08
@@ -100,13 +216,11 @@ function QuoteCardGeneratorContent() {
         break
     }
 
-    // Logo
     if (logoImg) {
       const s = Math.min(w, h) / 6
       ctx.drawImage(logoImg, w - s - 40, 40, s, s)
     }
 
-    // Text
     const maxW = w * 0.8
     let fontSize = Math.min(h / 6, 120)
     ctx.font = `${fontSize}px "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif`
@@ -114,7 +228,6 @@ function QuoteCardGeneratorContent() {
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
 
-    // Auto-shrink
     const fit = (text: string) => {
       const lines = text.split('\n')
       for (let i = 0; i < lines.length; i++) {
@@ -154,50 +267,40 @@ function QuoteCardGeneratorContent() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Documentation Section */}
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
-          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.howToUseTitle}</h2>
           <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
-              <p>Creates visually appealing quote cards with customizable quotes, author names, themes, colors, sizes, and optional logos. Perfect for social media posts, blog graphics, or marketing materials.</p>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.whatItDoes}</h3>
+              <p>{c.whatItDoesBody}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.howToUseInner}</h3>
               <ol className="list-decimal list-inside space-y-1 ml-2">
-                <li><strong>Enter quote:</strong> Type or paste your quote text</li>
-                <li><strong>Enter author (optional):</strong> Add the quote author's name</li>
-                <li><strong>Select theme:</strong> Choose Minimal, Bold, Elegant, or Modern</li>
-                <li><strong>Customize colors:</strong> Choose text color and background color</li>
-                <li><strong>Select size:</strong> Choose 1080×1080 (Square), 1200×675 (Landscape), or 1080×1920 (Story)</li>
-                <li><strong>Upload logo (optional):</strong> Add your logo to the quote card</li>
-                <li><strong>Download:</strong> Click "Download" to save your quote card as PNG</li>
+                {c.howToUseSteps.map((step, i) => (
+                  <li key={i}>
+                    <strong>{step.label}</strong> {step.text}
+                  </li>
+                ))}
               </ol>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.expectedOutcome}</h3>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Visual quote card with your quote and author</li>
-                <li>Customizable theme and colors</li>
-                <li>Multiple size options for different platforms</li>
-                <li>Optional logo integration</li>
-                <li>Downloadable PNG image ready to use</li>
+                {c.expectedOutcomes.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-6 text-center">
-          Quote Card Generator
-        </h1>
+        <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-6 text-center">{c.title}</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Controls */}
           <section className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                Quote
-              </label>
+              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.quote}</label>
               <textarea
                 value={quote}
                 onChange={(e) => setQuote(e.target.value)}
@@ -207,39 +310,33 @@ function QuoteCardGeneratorContent() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                Author (optional)
-              </label>
+              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.authorOptional}</label>
               <input
                 type="text"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                placeholder="Steve Jobs"
+                placeholder={c.authorPlaceholder}
                 className="w-full px-4 py-3 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                Theme
-              </label>
+              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.theme}</label>
               <select
                 value={theme}
                 onChange={(e) => setTheme(e.target.value)}
                 className="w-full px-4 py-3 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
               >
-                <option value="minimal">Minimal</option>
-                <option value="brush">Brush</option>
-                <option value="neon">Neon</option>
-                <option value="retro">Retro</option>
-                <option value="dark">Dark</option>
+                <option value="minimal">{c.themeMinimal}</option>
+                <option value="brush">{c.themeBrush}</option>
+                <option value="neon">{c.themeNeon}</option>
+                <option value="retro">{c.themeRetro}</option>
+                <option value="dark">{c.themeDark}</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                Text colour
-              </label>
+              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.textColour}</label>
               <input
                 type="color"
                 value={textColor}
@@ -249,9 +346,7 @@ function QuoteCardGeneratorContent() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                Background colour
-              </label>
+              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.backgroundColour}</label>
               <input
                 type="color"
                 value={bgColor}
@@ -261,24 +356,20 @@ function QuoteCardGeneratorContent() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                Size
-              </label>
+              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.size}</label>
               <select
                 value={size}
                 onChange={(e) => setSize(e.target.value)}
                 className="w-full px-4 py-3 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
               >
-                <option value="1080">Instagram 1080×1080</option>
-                <option value="1200">Twitter 1200×675</option>
-                <option value="story">Story 1080×1920</option>
+                <option value="1080">{c.sizeInstagram}</option>
+                <option value="1200">{c.sizeTwitter}</option>
+                <option value="story">{c.sizeStory}</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                Logo / avatar (optional)
-              </label>
+              <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.logoOptional}</label>
               <input
                 ref={fileInputRef}
                 type="file"
@@ -291,7 +382,7 @@ function QuoteCardGeneratorContent() {
                 className="w-full px-4 py-3 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 hover:bg-mono-100 dark:hover:bg-mono-800 flex items-center justify-center gap-2"
               >
                 <ImageIcon size={18} />
-                Choose Image
+                {c.chooseImage}
               </button>
             </div>
 
@@ -300,11 +391,10 @@ function QuoteCardGeneratorContent() {
               className="w-full px-6 py-4 bg-accent-600 text-white rounded-lg font-semibold hover:bg-accent-700 transition-colors flex items-center justify-center gap-2"
             >
               <Download size={20} />
-              Download PNG
+              {c.downloadPng}
             </button>
           </section>
 
-          {/* Canvas Preview */}
           <section className="flex items-center justify-center">
             <div className="w-full max-w-[500px]">
               <canvas
@@ -321,17 +411,17 @@ function QuoteCardGeneratorContent() {
 }
 
 export default function QuoteCardGenerator() {
-  const toolDescription = "Creates beautiful quote cards for social media. Customize quotes, authors, themes, colors, sizes, and add logos to generate professional quote graphics ready for download."
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const howToUse = (
     <div>
       <ol className="list-decimal list-inside space-y-1 ml-2">
-        <li><strong>Enter quote:</strong> Type or paste the quote text</li>
-        <li><strong>Enter author (optional):</strong> Add the quote author's name</li>
-        <li><strong>Choose theme:</strong> Select a visual theme (minimal, bold, elegant, etc.)</li>
-        <li><strong>Customize colors:</strong> Adjust text and background colors</li>
-        <li><strong>Set size:</strong> Choose image dimensions (1080x1080, 1920x1080, etc.)</li>
-        <li><strong>Add logo (optional):</strong> Upload a logo to include on the card</li>
-        <li><strong>Download:</strong> Click "Download" to save your quote card</li>
+        {c.howToUse.map((step, i) => (
+          <li key={i}>
+            <strong>{step.label}</strong> {step.text}
+          </li>
+        ))}
       </ol>
     </div>
   )
@@ -339,12 +429,11 @@ export default function QuoteCardGenerator() {
   return (
     <ToolAccessGate
       toolSlug="quote-card-generator"
-      toolName="Quote Card Generator"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
       <QuoteCardGeneratorContent />
     </ToolAccessGate>
   )
 }
-

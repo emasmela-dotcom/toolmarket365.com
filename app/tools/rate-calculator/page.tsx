@@ -3,8 +3,124 @@
 import { useState } from 'react'
 import { Calculator, DollarSign, Clock, TrendingUp, Users, Globe } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    toolName: 'Rate Calculator',
+    toolDescription:
+      'Calculate your content creation rates based on hours worked, hourly rate, follower count, platform, and engagement rate. Determine fair pricing for your services.',
+    howToUse: [
+      { label: 'Enter hours:', text: 'Input the number of hours spent on the project' },
+      { label: 'Set rate per hour:', text: 'Enter your hourly rate' },
+      { label: 'Add follower count (optional):', text: 'Include your follower count for platform-based calculations' },
+      { label: 'Select platform:', text: 'Choose Instagram, Twitter, YouTube, or LinkedIn' },
+      { label: 'Add engagement rate (optional):', text: 'Include your engagement rate percentage' },
+      { label: 'View results:', text: 'See total rate, rate per post, and rate per thousand followers' },
+    ],
+    title: 'Rate Calculator',
+    subtitle: 'Calculate pricing for sponsored posts and collaborations',
+    howToUseTitle: 'How to Use This Tool',
+    whatItDoes: 'What It Does',
+    whatItDoesBody:
+      'Calculates pricing for sponsored posts, collaborations, and content creation work. Provides total rates based on hours and hourly rate, plus platform-specific recommendations based on follower count and engagement.',
+    howToUseInner: 'How to Use',
+    howToUseSteps: [
+      { label: 'Enter basic info:', text: 'Hours (time spent on project) and Rate per Hour (your hourly rate)' },
+      { label: 'Optional advanced info:', text: 'Followers (your follower count), Platform (Instagram, Twitter, YouTube, LinkedIn, TikTok), Engagement Rate %' },
+      { label: 'Click "Calculate"', text: 'to see results' },
+      { label: 'Review results:', text: 'Total rate (hours × rate/hour), Rate per 1K followers, Estimated per post (if engagement rate provided), Recommended rate for platform' },
+    ],
+    expectedOutcome: 'Expected Outcome',
+    expectedOutcomes: [
+      'Total Rate - Calculated total (hours × rate per hour)',
+      'Rate per 1K Followers - CPM-style calculation',
+      'Estimated per Post - Based on engagement rate',
+      'Recommended Rate - Platform-specific suggestion',
+      'Currency formatting - All amounts in USD',
+    ],
+    calculateRate: 'Calculate Rate',
+    hours: 'Hours',
+    hoursPlaceholder: 'e.g., 5.5',
+    ratePerHour: 'Rate per Hour',
+    ratePerHourPlaceholder: 'e.g., 100.00',
+    followersOptional: 'Followers (optional)',
+    followersPlaceholder: 'e.g., 10000',
+    platformOptional: 'Platform (optional)',
+    engagementRateOptional: 'Engagement Rate % (optional)',
+    engagementRatePlaceholder: 'e.g., 3.5',
+    calculate: 'Calculate',
+    totalRate: 'Total Rate',
+    hoursTimesRate: (hours: string, rate: string) => `${hours} hours × ${rate}/hour`,
+    platformInsights: 'Platform Insights',
+    ratePer1kFollowers: 'Rate per 1K Followers',
+    estimatedPerPost: 'Estimated per Post',
+    recommendedRate: 'Recommended Rate',
+    stripePrompt: 'Ready to accept payments?',
+    stripeSetup: 'to start getting paid for your work.',
+    readyToCalculate: 'Ready to Calculate?',
+    readyHint: 'Enter hours and rate per hour to calculate your total rate',
+  },
+  es: {
+    toolName: 'Calculadora de tarifas',
+    toolDescription:
+      'Calcula tus tarifas de creación de contenido según horas trabajadas, tarifa por hora, seguidores, plataforma y tasa de engagement. Determina precios justos para tus servicios.',
+    howToUse: [
+      { label: 'Ingresa horas:', text: 'Introduce el número de horas dedicadas al proyecto' },
+      { label: 'Establece tarifa por hora:', text: 'Ingresa tu tarifa por hora' },
+      { label: 'Agrega seguidores (opcional):', text: 'Incluye tu número de seguidores para cálculos por plataforma' },
+      { label: 'Selecciona plataforma:', text: 'Elige Instagram, Twitter, YouTube o LinkedIn' },
+      { label: 'Agrega tasa de engagement (opcional):', text: 'Incluye tu porcentaje de engagement' },
+      { label: 'Ve resultados:', text: 'Consulta tarifa total, tarifa por publicación y tarifa por mil seguidores' },
+    ],
+    title: 'Calculadora de tarifas',
+    subtitle: 'Calcula precios para publicaciones patrocinadas y colaboraciones',
+    howToUseTitle: 'Cómo usar esta herramienta',
+    whatItDoes: 'Qué hace',
+    whatItDoesBody:
+      'Calcula precios para publicaciones patrocinadas, colaboraciones y trabajo de creación de contenido. Proporciona tarifas totales según horas y tarifa por hora, más recomendaciones específicas por plataforma según seguidores y engagement.',
+    howToUseInner: 'Cómo usar',
+    howToUseSteps: [
+      { label: 'Ingresa info básica:', text: 'Horas (tiempo en el proyecto) y Tarifa por hora (tu tarifa horaria)' },
+      { label: 'Info avanzada opcional:', text: 'Seguidores (tu número de seguidores), Plataforma (Instagram, Twitter, YouTube, LinkedIn, TikTok), Tasa de engagement %' },
+      { label: 'Haz clic en "Calcular"', text: 'para ver resultados' },
+      { label: 'Revisa resultados:', text: 'Tarifa total (horas × tarifa/hora), Tarifa por 1K seguidores, Estimado por publicación (si hay engagement), Tarifa recomendada por plataforma' },
+    ],
+    expectedOutcome: 'Resultado esperado',
+    expectedOutcomes: [
+      'Tarifa total - Total calculado (horas × tarifa por hora)',
+      'Tarifa por 1K seguidores - Cálculo estilo CPM',
+      'Estimado por publicación - Basado en tasa de engagement',
+      'Tarifa recomendada - Sugerencia específica por plataforma',
+      'Formato de moneda - Todos los montos en USD',
+    ],
+    calculateRate: 'Calcular tarifa',
+    hours: 'Horas',
+    hoursPlaceholder: 'ej., 5.5',
+    ratePerHour: 'Tarifa por hora',
+    ratePerHourPlaceholder: 'ej., 100.00',
+    followersOptional: 'Seguidores (opcional)',
+    followersPlaceholder: 'ej., 10000',
+    platformOptional: 'Plataforma (opcional)',
+    engagementRateOptional: 'Tasa de engagement % (opcional)',
+    engagementRatePlaceholder: 'ej., 3.5',
+    calculate: 'Calcular',
+    totalRate: 'Tarifa total',
+    hoursTimesRate: (hours: string, rate: string) => `${hours} horas × ${rate}/hora`,
+    platformInsights: 'Información de plataforma',
+    ratePer1kFollowers: 'Tarifa por 1K seguidores',
+    estimatedPerPost: 'Estimado por publicación',
+    recommendedRate: 'Tarifa recomendada',
+    stripePrompt: '¿Listo para aceptar pagos?',
+    stripeSetup: 'para empezar a cobrar por tu trabajo.',
+    readyToCalculate: '¿Listo para calcular?',
+    readyHint: 'Ingresa horas y tarifa por hora para calcular tu tarifa total',
+  },
+}
 
 function RateCalculatorContent() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [hours, setHours] = useState('')
   const [ratePerHour, setRatePerHour] = useState('')
   const [followers, setFollowers] = useState('')
@@ -50,6 +166,8 @@ function RateCalculatorContent() {
     }
   }
 
+  const formattedRate = (parseFloat(ratePerHour) || 0).toLocaleString('en', { style: 'currency', currency: 'USD' })
+
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-8 px-4">
       <div className="max-w-4xl mx-auto">
@@ -59,58 +177,53 @@ function RateCalculatorContent() {
               <Calculator className="text-white" size={48} />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">Rate Calculator</h1>
-          <p className="text-xl text-mono-600 dark:text-mono-400">Calculate pricing for sponsored posts and collaborations</p>
+          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">{c.title}</h1>
+          <p className="text-xl text-mono-600 dark:text-mono-400">{c.subtitle}</p>
         </div>
 
-        {/* Documentation Section */}
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
-          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.howToUseTitle}</h2>
           <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
-              <p>Calculates pricing for sponsored posts, collaborations, and content creation work. Provides total rates based on hours and hourly rate, plus platform-specific recommendations based on follower count and engagement.</p>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.whatItDoes}</h3>
+              <p>{c.whatItDoesBody}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.howToUseInner}</h3>
               <ol className="list-decimal list-inside space-y-1 ml-2">
-                <li><strong>Enter basic info:</strong> Hours (time spent on project) and Rate per Hour (your hourly rate)</li>
-                <li><strong>Optional advanced info:</strong> Followers (your follower count), Platform (Instagram, Twitter, YouTube, LinkedIn, TikTok), Engagement Rate %</li>
-                <li><strong>Click "Calculate"</strong> to see results</li>
-                <li><strong>Review results:</strong> Total rate (hours × rate/hour), Rate per 1K followers, Estimated per post (if engagement rate provided), Recommended rate for platform</li>
+                {c.howToUseSteps.map((step, i) => (
+                  <li key={i}><strong>{step.label}</strong> {step.text}</li>
+                ))}
               </ol>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.expectedOutcome}</h3>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Total Rate - Calculated total (hours × rate per hour)</li>
-                <li>Rate per 1K Followers - CPM-style calculation</li>
-                <li>Estimated per Post - Based on engagement rate</li>
-                <li>Recommended Rate - Platform-specific suggestion</li>
-                <li>Currency formatting - All amounts in USD</li>
+                {c.expectedOutcomes.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Input Section */}
           <div className="space-y-6">
             <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-              <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">Calculate Rate</h2>
+              <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">{c.calculateRate}</h2>
               
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2 flex items-center gap-2">
                     <Clock size={16} />
-                    Hours
+                    {c.hours}
                   </label>
                   <input
                     type="number"
                     step="0.1"
                     value={hours}
                     onChange={(e) => setHours(e.target.value)}
-                    placeholder="e.g., 5.5"
+                    placeholder={c.hoursPlaceholder}
                     className="w-full px-4 py-3 border-2 border-mono-200 dark:border-mono-700 rounded-lg focus:border-accent-500 focus:outline-none bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   />
                 </div>
@@ -118,14 +231,14 @@ function RateCalculatorContent() {
                 <div>
                   <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2 flex items-center gap-2">
                     <DollarSign size={16} />
-                    Rate per Hour
+                    {c.ratePerHour}
                   </label>
                   <input
                     type="number"
                     step="0.01"
                     value={ratePerHour}
                     onChange={(e) => setRatePerHour(e.target.value)}
-                    placeholder="e.g., 100.00"
+                    placeholder={c.ratePerHourPlaceholder}
                     className="w-full px-4 py-3 border-2 border-mono-200 dark:border-mono-700 rounded-lg focus:border-accent-500 focus:outline-none bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   />
                 </div>
@@ -133,20 +246,20 @@ function RateCalculatorContent() {
                 <div>
                   <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2 flex items-center gap-2">
                     <Users size={16} />
-                    Followers (optional)
+                    {c.followersOptional}
                   </label>
                   <input
                     type="number"
                     value={followers}
                     onChange={(e) => setFollowers(e.target.value)}
-                    placeholder="e.g., 10000"
+                    placeholder={c.followersPlaceholder}
                     className="w-full px-4 py-3 border-2 border-mono-200 dark:border-mono-700 rounded-lg focus:border-accent-500 focus:outline-none bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                    Platform (optional)
+                    {c.platformOptional}
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     {[
@@ -177,14 +290,14 @@ function RateCalculatorContent() {
                 <div>
                   <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2 flex items-center gap-2">
                     <TrendingUp size={16} />
-                    Engagement Rate % (optional)
+                    {c.engagementRateOptional}
                   </label>
                   <input
                     type="number"
                     step="0.1"
                     value={engagementRate}
                     onChange={(e) => setEngagementRate(e.target.value)}
-                    placeholder="e.g., 3.5"
+                    placeholder={c.engagementRatePlaceholder}
                     className="w-full px-4 py-3 border-2 border-mono-200 dark:border-mono-700 rounded-lg focus:border-accent-500 focus:outline-none bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   />
                 </div>
@@ -195,24 +308,23 @@ function RateCalculatorContent() {
                   className="w-full px-6 py-4 bg-accent-600 text-white rounded-xl font-bold text-lg hover:bg-accent-700 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   <Calculator size={24} />
-                  Calculate
+                  {c.calculate}
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Results Section */}
           <div className="space-y-6">
             {result ? (
               <>
                 <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-                  <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">Total Rate</h2>
+                  <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.totalRate}</h2>
                   <div className="text-center py-6">
                     <div className="text-6xl font-bold text-accent-600 mb-2">
                       {result.total.toLocaleString('en', { style: 'currency', currency: 'USD' })}
                     </div>
                     <p className="text-mono-600 dark:text-mono-400">
-                      {hours} hours × {(parseFloat(ratePerHour) || 0).toLocaleString('en', { style: 'currency', currency: 'USD' })}/hour
+                      {c.hoursTimesRate(hours, formattedRate)}
                     </p>
                   </div>
                 </div>
@@ -220,24 +332,24 @@ function RateCalculatorContent() {
                 {followers && (
                   <>
                     <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-                      <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">Platform Insights</h2>
+                      <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.platformInsights}</h2>
                       <div className="space-y-4">
                         <div className="flex justify-between items-center p-3 bg-mono-100 dark:bg-mono-800 rounded-lg">
-                          <span className="text-mono-700 dark:text-mono-300 font-medium">Rate per 1K Followers</span>
+                          <span className="text-mono-700 dark:text-mono-300 font-medium">{c.ratePer1kFollowers}</span>
                           <span className="text-xl font-bold text-mono-950 dark:text-mono-50">
                             {result.perThousand.toLocaleString('en', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 })}
                           </span>
                         </div>
                         {engagementRate && (
                           <div className="flex justify-between items-center p-3 bg-mono-100 dark:bg-mono-800 rounded-lg">
-                            <span className="text-mono-700 dark:text-mono-300 font-medium">Estimated per Post</span>
+                            <span className="text-mono-700 dark:text-mono-300 font-medium">{c.estimatedPerPost}</span>
                             <span className="text-xl font-bold text-mono-950 dark:text-mono-50">
                               {result.perPost.toLocaleString('en', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
                             </span>
                           </div>
                         )}
                         <div className="flex justify-between items-center p-3 bg-accent-100 dark:bg-accent-900/30 rounded-lg">
-                          <span className="text-mono-700 dark:text-mono-300 font-medium">Recommended Rate</span>
+                          <span className="text-mono-700 dark:text-mono-300 font-medium">{c.recommendedRate}</span>
                           <span className="text-xl font-bold text-accent-700 dark:text-accent-400">
                             {result.recommended.toLocaleString('en', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
                           </span>
@@ -247,10 +359,9 @@ function RateCalculatorContent() {
                   </>
                 )}
                 
-                {/* Stripe Link */}
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mt-6">
                   <p className="text-sm text-blue-900 dark:text-blue-200 text-center">
-                    <strong>Ready to accept payments?</strong> Set up{' '}
+                    <strong>{c.stripePrompt}</strong> Set up{' '}
                     <a 
                       href="https://stripe.com/payments" 
                       target="_blank" 
@@ -259,16 +370,16 @@ function RateCalculatorContent() {
                     >
                       Stripe
                     </a>
-                    {' '}to start getting paid for your work.
+                    {' '}{c.stripeSetup}
                   </p>
                 </div>
               </>
             ) : (
               <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-12 text-center h-full flex flex-col justify-center border border-mono-200 dark:border-mono-700">
                 <Calculator className="mx-auto text-mono-300 dark:text-mono-700 mb-4" size={64} />
-                <h3 className="text-2xl font-bold text-mono-700 dark:text-mono-300 mb-3">Ready to Calculate?</h3>
-                <p className="text-mono-500">
-                  Enter hours and rate per hour to calculate your total rate
+                <h3 className="text-2xl font-bold text-mono-700 dark:text-mono-300 mb-3">{c.readyToCalculate}</h3>
+                <p className="text-mono-500 dark:text-mono-400">
+                  {c.readyHint}
                 </p>
               </div>
             )}
@@ -280,29 +391,25 @@ function RateCalculatorContent() {
 }
 
 export default function RateCalculator() {
-  const toolDescription = "Calculate your content creation rates based on hours worked, hourly rate, follower count, platform, and engagement rate. Determine fair pricing for your services."
-  
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const howToUse = (
     <ol className="list-decimal list-inside space-y-1 ml-2">
-      <li><strong>Enter hours:</strong> Input the number of hours spent on the project</li>
-      <li><strong>Set rate per hour:</strong> Enter your hourly rate</li>
-      <li><strong>Add follower count (optional):</strong> Include your follower count for platform-based calculations</li>
-      <li><strong>Select platform:</strong> Choose Instagram, Twitter, YouTube, or LinkedIn</li>
-      <li><strong>Add engagement rate (optional):</strong> Include your engagement rate percentage</li>
-      <li><strong>View results:</strong> See total rate, rate per post, and rate per thousand followers</li>
+      {c.howToUse.map((step, i) => (
+        <li key={i}><strong>{step.label}</strong> {step.text}</li>
+      ))}
     </ol>
   )
 
   return (
     <ToolAccessGate
       toolSlug="rate-calculator"
-      toolName="Rate Calculator"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
       <RateCalculatorContent />
     </ToolAccessGate>
   )
 }
-
-

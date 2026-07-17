@@ -2,11 +2,39 @@
 
 import { useState } from "react"
 import type { NotionPdfResult } from "@/lib/notionToPdfExporter"
+import { useLanguage } from "@/lib/i18n/LanguageContext"
 
 const inputClass =
   "border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400"
 
+const copy = {
+  en: {
+    title: "Notion-to-PDF exporter",
+    description:
+      "Paste Notion-style Markdown or plain notes. Get a print-ready preview and a checklist to save as PDF from your browser (Print → Save as PDF).",
+    pageTitlePlaceholder: "Page title (optional)",
+    bodyPlaceholder: "# Heading\n- Bullet\nParagraph text…",
+    building: "Building…",
+    buildPrintPreview: "Build print preview",
+    exportChecklist: "Export checklist",
+    preview: "Preview",
+  },
+  es: {
+    title: "Exportador de Notion a PDF",
+    description:
+      "Pega Markdown estilo Notion o notas simples. Obtén una vista previa lista para imprimir y una lista de verificación para guardar como PDF desde tu navegador (Imprimir → Guardar como PDF).",
+    pageTitlePlaceholder: "Título de la página (opcional)",
+    bodyPlaceholder: "# Encabezado\n- Viñeta\nTexto del párrafo…",
+    building: "Generando…",
+    buildPrintPreview: "Crear vista previa de impresión",
+    exportChecklist: "Lista de verificación de exportación",
+    preview: "Vista previa",
+  },
+}
+
 export default function NotionToPdfExporterPage() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
   const [result, setResult] = useState<NotionPdfResult | null>(null)
@@ -26,22 +54,17 @@ export default function NotionToPdfExporterPage() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-4">
-      <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">
-        Notion-to-PDF exporter
-      </h1>
-      <p className="text-sm text-mono-600 dark:text-mono-400">
-        Paste Notion-style Markdown or plain notes. Get a print-ready preview and a checklist
-        to save as PDF from your browser (Print → Save as PDF).
-      </p>
+      <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">{c.title}</h1>
+      <p className="text-sm text-mono-600 dark:text-mono-400">{c.description}</p>
       <input
         className={inputClass}
-        placeholder="Page title (optional)"
+        placeholder={c.pageTitlePlaceholder}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <textarea
         className={`${inputClass} min-h-[200px] font-mono text-sm`}
-        placeholder={"# Heading\n- Bullet\nParagraph text…"}
+        placeholder={c.bodyPlaceholder}
         value={body}
         onChange={(e) => setBody(e.target.value)}
       />
@@ -51,17 +74,17 @@ export default function NotionToPdfExporterPage() {
         disabled={loading || !body.trim()}
         className="bg-black text-white dark:bg-mono-100 dark:text-mono-950 px-4 py-2 rounded disabled:opacity-50"
       >
-        {loading ? "Building…" : "Build print preview"}
+        {loading ? c.building : c.buildPrintPreview}
       </button>
       {result ? (
         <div className="space-y-4 border border-mono-200 dark:border-mono-700 rounded p-4">
-          <h2 className="font-semibold text-mono-900 dark:text-mono-100">Export checklist</h2>
+          <h2 className="font-semibold text-mono-900 dark:text-mono-100">{c.exportChecklist}</h2>
           <ul className="list-disc pl-5 text-sm text-mono-700 dark:text-mono-300 space-y-1">
-            {result.checklist.map((c, i) => (
-              <li key={i}>{c}</li>
+            {result.checklist.map((item, i) => (
+              <li key={i}>{item}</li>
             ))}
           </ul>
-          <h2 className="font-semibold text-mono-900 dark:text-mono-100">Preview</h2>
+          <h2 className="font-semibold text-mono-900 dark:text-mono-100">{c.preview}</h2>
           <div
             className="prose prose-invert max-w-none bg-white text-black p-4 rounded border border-mono-300 text-sm"
             dangerouslySetInnerHTML={{ __html: result.printableHtml }}

@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
-import { Copy, Check, Globe, Music } from 'lucide-react';
+import { Copy, Check, Globe, Music } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 interface PlatformOutput {
   platform: string
@@ -30,7 +31,143 @@ const platformFormats: Record<string, string[]> = {
   facebook: ['Feed Post', 'Group Post', 'Ad Copy Prompt'],
 }
 
+const copy = {
+  en: {
+    toolName: 'Multi-Platform Content Generator',
+    toolDescription:
+      'Generate formatted content for multiple social media platforms from a single input. Get Instagram captions, TikTok scripts, YouTube descriptions, Twitter threads, LinkedIn posts, and Facebook posts all at once.',
+    howToUse: [
+      { label: 'Enter your content:', text: 'Paste your blog post, article, idea, or any content' },
+      { label: 'Select tone:', text: 'Choose professional, casual, or inspirational' },
+      { label: 'Choose platforms:', text: 'Check the platforms you want content for' },
+      { label: 'Select formats:', text: 'Choose specific formats per platform (e.g., Instagram Feed, Reel, Story)' },
+      { label: 'Generate:', text: 'Click to create formatted versions for your selections' },
+      { label: 'Copy & use:', text: 'Copy individual platform formats or all at once' },
+    ],
+    title: 'Multi-Platform Content Generator',
+    subtitle: 'Enter your content once, get formatted versions for all platforms instantly',
+    contentTone: 'Content Tone',
+    toneProfessional: 'Professional',
+    toneCasual: 'Casual',
+    toneInspirational: 'Inspirational',
+    yourContent: 'Your Content',
+    contentPlaceholder: 'Paste your content here... (blog post, article, idea, etc.)',
+    characters: 'characters',
+    selectPlatforms: 'Select Platforms',
+    selectFormats: 'Select Formats (per platform)',
+    generating: 'Generating...',
+    generateFor: (n: number) => `Generate for ${n} Platform${n !== 1 ? 's' : ''}`,
+    generatedContent: 'Generated Content',
+    copyAll: 'Copy All',
+    overLimit: 'Over limit',
+    withinLimit: '✓ Within limit',
+    copied: 'Copied',
+    copy: 'Copy',
+    howItWorks: 'How It Works',
+    howItWorksSteps: [
+      'Enter your content once (blog post, article, idea, etc.)',
+      'Select your preferred tone (professional, casual, inspirational)',
+      'Choose which platforms you want content for',
+      'Select specific formats per platform (e.g., Instagram Feed, Reel, Story)',
+      "Get automatically formatted content optimized for each platform's style and limits",
+      'Copy individual platform formats or all at once',
+    ],
+    alertEnterContent: 'Please enter some content first',
+    alertSelectPlatform: 'Please select at least one platform',
+    alertCopiedAll: 'All content copied to clipboard!',
+    formatLabels: {
+      'Feed Post': 'Feed Post',
+      Carousel: 'Carousel',
+      Reel: 'Reel',
+      Story: 'Story',
+      'Caption Only': 'Caption Only',
+      'Short Video Script': 'Short Video Script',
+      'Caption & Hashtags': 'Caption & Hashtags',
+      Short: 'Short',
+      'Community Post': 'Community Post',
+      'Title + Description': 'Title + Description',
+      'Thumbnail Prompt': 'Thumbnail Prompt',
+      'Single Tweet': 'Single Tweet',
+      Thread: 'Thread',
+      'Quote Tweet': 'Quote Tweet',
+      'Long-form Post': 'Long-form Post',
+      'Short Post': 'Short Post',
+      'DM Outreach': 'DM Outreach',
+      'Group Post': 'Group Post',
+      'Ad Copy Prompt': 'Ad Copy Prompt',
+    } as Record<string, string>,
+  },
+  es: {
+    toolName: 'Generador de contenido multiplataforma',
+    toolDescription:
+      'Genera contenido formateado para múltiples redes sociales desde una sola entrada. Obtén captions de Instagram, guiones de TikTok, descripciones de YouTube, hilos de Twitter, publicaciones de LinkedIn y posts de Facebook de una sola vez.',
+    howToUse: [
+      { label: 'Ingresa tu contenido:', text: 'Pega tu blog, artículo, idea o cualquier contenido' },
+      { label: 'Selecciona tono:', text: 'Elige profesional, informal o inspirador' },
+      { label: 'Elige plataformas:', text: 'Marca las plataformas para las que quieres contenido' },
+      { label: 'Selecciona formatos:', text: 'Elige formatos específicos por plataforma (ej., Feed de Instagram, Reel, Story)' },
+      { label: 'Generar:', text: 'Haz clic para crear versiones formateadas para tus selecciones' },
+      { label: 'Copiar y usar:', text: 'Copia formatos individuales o todo a la vez' },
+    ],
+    title: 'Generador de contenido multiplataforma',
+    subtitle: 'Ingresa tu contenido una vez y obtén versiones formateadas para todas las plataformas al instante',
+    contentTone: 'Tono del contenido',
+    toneProfessional: 'Profesional',
+    toneCasual: 'Informal',
+    toneInspirational: 'Inspirador',
+    yourContent: 'Tu contenido',
+    contentPlaceholder: 'Pega tu contenido aquí... (blog, artículo, idea, etc.)',
+    characters: 'caracteres',
+    selectPlatforms: 'Seleccionar plataformas',
+    selectFormats: 'Seleccionar formatos (por plataforma)',
+    generating: 'Generando...',
+    generateFor: (n: number) => `Generar para ${n} plataforma${n !== 1 ? 's' : ''}`,
+    generatedContent: 'Contenido generado',
+    copyAll: 'Copiar todo',
+    overLimit: 'Supera el límite',
+    withinLimit: '✓ Dentro del límite',
+    copied: 'Copiado',
+    copy: 'Copiar',
+    howItWorks: 'Cómo funciona',
+    howItWorksSteps: [
+      'Ingresa tu contenido una vez (blog, artículo, idea, etc.)',
+      'Selecciona tu tono preferido (profesional, informal, inspirador)',
+      'Elige para qué plataformas quieres contenido',
+      'Selecciona formatos específicos por plataforma (ej., Feed de Instagram, Reel, Story)',
+      'Obtén contenido formateado automáticamente optimizado para el estilo y límites de cada plataforma',
+      'Copia formatos individuales o todo a la vez',
+    ],
+    alertEnterContent: 'Por favor ingresa contenido primero',
+    alertSelectPlatform: 'Por favor selecciona al menos una plataforma',
+    alertCopiedAll: '¡Todo el contenido copiado al portapapeles!',
+    formatLabels: {
+      'Feed Post': 'Publicación de feed',
+      Carousel: 'Carrusel',
+      Reel: 'Reel',
+      Story: 'Story',
+      'Caption Only': 'Solo caption',
+      'Short Video Script': 'Guion de video corto',
+      'Caption & Hashtags': 'Caption y hashtags',
+      Short: 'Short',
+      'Community Post': 'Publicación de comunidad',
+      'Title + Description': 'Título + descripción',
+      'Thumbnail Prompt': 'Prompt de miniatura',
+      'Single Tweet': 'Tweet único',
+      Thread: 'Hilo',
+      'Quote Tweet': 'Tweet citado',
+      'Long-form Post': 'Publicación larga',
+      'Short Post': 'Publicación corta',
+      'DM Outreach': 'Mensaje directo',
+      'Group Post': 'Publicación de grupo',
+      'Ad Copy Prompt': 'Prompt de anuncio',
+    } as Record<string, string>,
+  },
+}
+
 function MultiPlatformGeneratorContent() {
+  const { language } = useLanguage()
+  const c = copy[language]
+  const formatLabel = (format: string) => c.formatLabels[format] ?? format
   const [input, setInput] = useState('')
   const [tone, setTone] = useState('professional')
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(['instagram', 'tiktok', 'youtube', 'twitter', 'linkedin', 'facebook'])
@@ -80,12 +217,12 @@ function MultiPlatformGeneratorContent() {
 
   const generateContent = () => {
     if (!input.trim()) {
-      alert('Please enter some content first')
+      alert(c.alertEnterContent)
       return
     }
 
     if (selectedPlatforms.length === 0) {
-      alert('Please select at least one platform')
+      alert(c.alertSelectPlatform)
       return
     }
 
@@ -300,7 +437,7 @@ function MultiPlatformGeneratorContent() {
       .map((o) => `=== ${o.platform.toUpperCase()} ===\n\n${o.content}\n\n`)
       .join('\n')
     await navigator.clipboard.writeText(allContent)
-    alert('All content copied to clipboard!')
+    alert(c.alertCopiedAll)
   }
 
   const getPlatformIcon = (platform: string) => {
@@ -332,42 +469,39 @@ function MultiPlatformGeneratorContent() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Multi-Platform Content Generator</h1>
-          <p className="text-mono-600 dark:text-mono-400">
-            Enter your content once, get formatted versions for all platforms instantly
-          </p>
+          <h1 className="text-3xl font-bold mb-2">{c.title}</h1>
+          <p className="text-mono-600 dark:text-mono-400">{c.subtitle}</p>
         </div>
 
         {/* Input Section */}
         <div className="bg-white dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Content Tone</label>
+            <label className="block text-sm font-medium mb-2">{c.contentTone}</label>
             <select
               value={tone}
               onChange={(e) => setTone(e.target.value)}
-              className="w-full p-2 border border-mono-300 dark:border-mono-700 rounded bg-white dark:bg-mono-800"
+              className="w-full p-2 border border-mono-300 dark:border-mono-700 rounded bg-white dark:bg-mono-800 text-mono-950 dark:text-mono-50"
             >
-              <option value="professional">Professional</option>
-              <option value="casual">Casual</option>
-              <option value="inspirational">Inspirational</option>
+              <option value="professional">{c.toneProfessional}</option>
+              <option value="casual">{c.toneCasual}</option>
+              <option value="inspirational">{c.toneInspirational}</option>
             </select>
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Your Content</label>
+            <label className="block text-sm font-medium mb-2">{c.yourContent}</label>
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Paste your content here... (blog post, article, idea, etc.)"
+              placeholder={c.contentPlaceholder}
               rows={8}
               className="w-full p-3 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-800 text-mono-950 dark:text-mono-50 resize-y"
             />
-            <p className="text-xs text-mono-500 mt-1">{input.length} characters</p>
+            <p className="text-xs text-mono-500 mt-1">{input.length} {c.characters}</p>
           </div>
 
-          {/* Platform Selection */}
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-3">Select Platforms</label>
+            <label className="block text-sm font-medium mb-3">{c.selectPlatforms}</label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {Object.keys(platformFormats).map((platform) => {
                 const Icon = getPlatformIcon(platform)
@@ -398,7 +532,7 @@ function MultiPlatformGeneratorContent() {
           {/* Format Selection per Platform */}
           {selectedPlatforms.length > 0 && (
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-3">Select Formats (per platform)</label>
+              <label className="block text-sm font-medium mb-3">{c.selectFormats}</label>
               <div className="space-y-4">
                 {selectedPlatforms.map((platform) => {
                   const formats = platformFormats[platform] || []
@@ -427,7 +561,7 @@ function MultiPlatformGeneratorContent() {
                                 onChange={() => handleFormatToggle(platform, format)}
                                 className="w-3 h-3 text-accent-600 rounded focus:ring-accent-500"
                               />
-                              <span>{format}</span>
+                              <span>{formatLabel(format)}</span>
                             </label>
                           )
                         })}
@@ -445,8 +579,8 @@ function MultiPlatformGeneratorContent() {
             className="w-full py-3 bg-accent-600 text-white rounded-lg font-semibold hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isGenerating
-              ? 'Generating...'
-              : `Generate for ${selectedPlatforms.length} Platform${selectedPlatforms.length !== 1 ? 's' : ''}`}
+              ? c.generating
+              : c.generateFor(selectedPlatforms.length)}
           </button>
         </div>
 
@@ -454,12 +588,12 @@ function MultiPlatformGeneratorContent() {
         {outputs.length > 0 && (
           <div className="mb-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">Generated Content</h2>
+              <h2 className="text-2xl font-bold">{c.generatedContent}</h2>
               <button
                 onClick={handleCopyAll}
                 className="px-4 py-2 bg-mono-200 dark:bg-mono-700 rounded-lg hover:bg-mono-300 dark:hover:bg-mono-600 text-sm font-medium"
               >
-                Copy All
+                {c.copyAll}
               </button>
             </div>
 
@@ -480,7 +614,7 @@ function MultiPlatformGeneratorContent() {
                         <Icon className="h-5 w-5" />
                         <div className="flex flex-col">
                           <span className="font-semibold capitalize">{output.platform}</span>
-                          <span className="text-xs opacity-90">{output.format}</span>
+                          <span className="text-xs opacity-90">{formatLabel(output.format)}</span>
                         </div>
                       </div>
                       <span className="text-xs">
@@ -500,12 +634,12 @@ function MultiPlatformGeneratorContent() {
                       <div className="flex items-center justify-between">
                         {isOverLimit && (
                           <span className="text-xs text-red-600 dark:text-red-400">
-                            Over limit
+                            {c.overLimit}
                           </span>
                         )}
                         {!isOverLimit && (
                           <span className="text-xs text-green-600 dark:text-green-400">
-                            ✓ Within limit
+                            {c.withinLimit}
                           </span>
                         )}
                         <button
@@ -515,12 +649,12 @@ function MultiPlatformGeneratorContent() {
                           {output.copied ? (
                             <>
                               <Check className="h-4 w-4" />
-                              Copied
+                              {c.copied}
                             </>
                           ) : (
                             <>
                               <Copy className="h-4 w-4" />
-                              Copy
+                              {c.copy}
                             </>
                           )}
                         </button>
@@ -536,15 +670,12 @@ function MultiPlatformGeneratorContent() {
         {/* Info Section */}
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
           <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
-            How It Works
+            {c.howItWorks}
           </h3>
           <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1 list-disc list-inside">
-            <li>Enter your content once (blog post, article, idea, etc.)</li>
-            <li>Select your preferred tone (professional, casual, inspirational)</li>
-            <li>Choose which platforms you want content for</li>
-            <li>Select specific formats per platform (e.g., Instagram Feed, Reel, Story)</li>
-            <li>Get automatically formatted content optimized for each platform's style and limits</li>
-            <li>Copy individual platform formats or all at once</li>
+            {c.howItWorksSteps.map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
           </ul>
         </div>
       </div>
@@ -553,29 +684,17 @@ function MultiPlatformGeneratorContent() {
 }
 
 export default function MultiPlatformGenerator() {
-  const toolDescription =
-    'Generate formatted content for multiple social media platforms from a single input. Get Instagram captions, TikTok scripts, YouTube descriptions, Twitter threads, LinkedIn posts, and Facebook posts all at once.'
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const howToUse = (
     <div>
       <ol className="list-decimal list-inside space-y-1 ml-2">
-        <li>
-          <strong>Enter your content:</strong> Paste your blog post, article, idea, or any content
-        </li>
-        <li>
-          <strong>Select tone:</strong> Choose professional, casual, or inspirational
-        </li>
-        <li>
-          <strong>Choose platforms:</strong> Check the platforms you want content for
-        </li>
-        <li>
-          <strong>Select formats:</strong> Choose specific formats per platform (e.g., Instagram Feed, Reel, Story)
-        </li>
-        <li>
-          <strong>Generate:</strong> Click to create formatted versions for your selections
-        </li>
-        <li>
-          <strong>Copy & use:</strong> Copy individual platform formats or all at once
-        </li>
+        {c.howToUse.map((step, i) => (
+          <li key={i}>
+            <strong>{step.label}</strong> {step.text}
+          </li>
+        ))}
       </ol>
     </div>
   )
@@ -583,8 +702,8 @@ export default function MultiPlatformGenerator() {
   return (
     <ToolAccessGate
       toolSlug="multi-platform-generator"
-      toolName="Multi-Platform Content Generator"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
       <MultiPlatformGeneratorContent />
