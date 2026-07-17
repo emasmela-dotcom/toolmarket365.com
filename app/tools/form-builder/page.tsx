@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import type { FormBuilderField, FormBuilderFieldType } from "@/lib/formBuilder"
+import { useLanguage } from "@/lib/i18n/LanguageContext"
 
 const inputClass =
   "border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 !text-neutral-900 dark:!text-neutral-100 placeholder:text-neutral-600 dark:placeholder:text-neutral-400"
@@ -13,7 +14,62 @@ const emptyField = (): FormBuilderField => ({
   required: true,
 })
 
+const copy = {
+  en: {
+    title: "Form builder",
+    description:
+      "Build embeddable HTML for a form that POSTs to Formspree, Netlify Forms, or your own endpoint. Email notifications are handled by that service — not by this page.",
+    formTitle: "Form title",
+    actionUrl: "Action URL (receives POST)",
+    method: "Method",
+    netlifyLabel: "Add Netlify",
+    fields: "Fields",
+    addField: "Add field",
+    namePlaceholder: "name attribute",
+    labelPlaceholder: "Label",
+    typeText: "Text",
+    typeEmail: "Email",
+    typePhone: "Phone",
+    typeTextarea: "Textarea",
+    required: "Required",
+    removeField: "Remove field",
+    generate: "Generate HTML",
+    generating: "Generating…",
+    embedCode: "Embed code",
+    checklist: "Checklist",
+    requestFailed: "Request failed",
+    networkError: "Network error",
+  },
+  es: {
+    title: "Constructor de formularios",
+    description:
+      "Crea HTML insertable para un formulario que envía POST a Formspree, Netlify Forms o tu propio endpoint. Las notificaciones por correo las gestiona ese servicio — no esta página.",
+    formTitle: "Título del formulario",
+    actionUrl: "URL de acción (recibe el POST)",
+    method: "Método",
+    netlifyLabel: "Añadir Netlify",
+    fields: "Campos",
+    addField: "Añadir campo",
+    namePlaceholder: "atributo name",
+    labelPlaceholder: "Etiqueta",
+    typeText: "Texto",
+    typeEmail: "Correo",
+    typePhone: "Teléfono",
+    typeTextarea: "Área de texto",
+    required: "Obligatorio",
+    removeField: "Quitar campo",
+    generate: "Generar HTML",
+    generating: "Generando…",
+    embedCode: "Código para insertar",
+    checklist: "Lista de comprobación",
+    requestFailed: "Error en la solicitud",
+    networkError: "Error de red",
+  },
+}
+
 export default function FormBuilderPage() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [title, setTitle] = useState("Contact us")
   const [actionUrl, setActionUrl] = useState("https://formspree.io/f/your-id")
   const [method, setMethod] = useState<"post" | "get">("post")
@@ -43,33 +99,30 @@ export default function FormBuilderPage() {
       })
       const data = (await res.json()) as { html?: string; checklist?: string[]; error?: string }
       if (!res.ok) {
-        setErr(data.error || "Request failed")
+        setErr(data.error || c.requestFailed)
         setLoading(false)
         return
       }
       setHtml(data.html || "")
       setChecklist(data.checklist || [])
     } catch {
-      setErr("Network error")
+      setErr(c.networkError)
     }
     setLoading(false)
   }
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-6 text-mono-900 dark:text-mono-100">
-      <h1 className="text-2xl font-bold">Form builder</h1>
-      <p className="text-sm text-mono-600 dark:text-mono-400">
-        Build embeddable HTML for a form that POSTs to Formspree, Netlify Forms, or your own endpoint. Email
-        notifications are handled by that service — not by this page.
-      </p>
+      <h1 className="text-2xl font-bold">{c.title}</h1>
+      <p className="text-sm text-mono-600 dark:text-mono-400">{c.description}</p>
 
       <div className="space-y-3">
         <label className="block text-sm font-medium">
-          Form title
+          {c.formTitle}
           <input className={`${inputClass} mt-1`} value={title} onChange={(e) => setTitle(e.target.value)} />
         </label>
         <label className="block text-sm font-medium">
-          Action URL (receives POST)
+          {c.actionUrl}
           <input
             className={`${inputClass} mt-1 font-mono text-sm`}
             value={actionUrl}
@@ -77,7 +130,7 @@ export default function FormBuilderPage() {
           />
         </label>
         <label className="block text-sm font-medium">
-          Method
+          {c.method}
           <select
             className={`${inputClass} mt-1`}
             value={method}
@@ -89,19 +142,19 @@ export default function FormBuilderPage() {
         </label>
         <label className="flex items-center gap-2 text-sm">
           <input type="checkbox" checked={netlify} onChange={(e) => setNetlify(e.target.checked)} />
-          Add Netlify <code className="text-xs">data-netlify=&quot;true&quot;</code>
+          {c.netlifyLabel} <code className="text-xs">data-netlify=&quot;true&quot;</code>
         </label>
       </div>
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-sm">Fields</h2>
+          <h2 className="font-semibold text-sm">{c.fields}</h2>
           <button
             type="button"
             className="text-sm text-accent-600 hover:underline"
             onClick={() => setFields((f) => [...f, emptyField()])}
           >
-            Add field
+            {c.addField}
           </button>
         </div>
         {fields.map((f, i) => (
@@ -111,13 +164,13 @@ export default function FormBuilderPage() {
           >
             <input
               className={inputClass}
-              placeholder="name attribute"
+              placeholder={c.namePlaceholder}
               value={f.name}
               onChange={(e) => updateField(i, { name: e.target.value })}
             />
             <input
               className={inputClass}
-              placeholder="Label"
+              placeholder={c.labelPlaceholder}
               value={f.label}
               onChange={(e) => updateField(i, { label: e.target.value })}
             />
@@ -126,10 +179,10 @@ export default function FormBuilderPage() {
               value={f.type}
               onChange={(e) => updateField(i, { type: e.target.value as FormBuilderFieldType })}
             >
-              <option value="text">Text</option>
-              <option value="email">Email</option>
-              <option value="tel">Phone</option>
-              <option value="textarea">Textarea</option>
+              <option value="text">{c.typeText}</option>
+              <option value="email">{c.typeEmail}</option>
+              <option value="tel">{c.typePhone}</option>
+              <option value="textarea">{c.typeTextarea}</option>
             </select>
             <label className="flex items-center gap-2 text-sm">
               <input
@@ -137,14 +190,14 @@ export default function FormBuilderPage() {
                 checked={Boolean(f.required)}
                 onChange={(e) => updateField(i, { required: e.target.checked })}
               />
-              Required
+              {c.required}
             </label>
             <button
               type="button"
               className="text-sm text-red-600 dark:text-red-400 sm:col-span-2"
               onClick={() => setFields((rows) => rows.filter((_, j) => j !== i))}
             >
-              Remove field
+              {c.removeField}
             </button>
           </div>
         ))}
@@ -157,12 +210,12 @@ export default function FormBuilderPage() {
         onClick={() => void generate()}
         className="rounded-lg bg-black dark:bg-mono-100 px-4 py-2 text-sm font-semibold text-white dark:text-mono-950 disabled:opacity-60"
       >
-        {loading ? "Generating…" : "Generate HTML"}
+        {loading ? c.generating : c.generate}
       </button>
 
       {html ? (
         <div className="space-y-3">
-          <h2 className="font-semibold text-sm">Embed code</h2>
+          <h2 className="font-semibold text-sm">{c.embedCode}</h2>
           <textarea
             readOnly
             className={`${inputClass} min-h-[200px] font-mono text-xs`}
@@ -171,10 +224,10 @@ export default function FormBuilderPage() {
           />
           {checklist.length > 0 ? (
             <div>
-              <p className="font-semibold text-sm mb-1">Checklist</p>
+              <p className="font-semibold text-sm mb-1">{c.checklist}</p>
               <ul className="list-disc pl-5 text-sm text-mono-700 dark:text-mono-300">
-                {checklist.map((c, i) => (
-                  <li key={i}>{c}</li>
+                {checklist.map((item, i) => (
+                  <li key={i}>{item}</li>
                 ))}
               </ul>
             </div>

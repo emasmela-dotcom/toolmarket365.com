@@ -3,11 +3,67 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ScopeItem } from "@/types/scope";
 import { calculateTotals, detectScopeCreep } from "@/lib/scopeTracker";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const inputClass =
   "w-full border p-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400";
 
+const copy = {
+  en: {
+    title: "Scope Creep Tracker",
+    instructions: "Instructions",
+    instructionsBody:
+      "Add original scope lines and new client requests. Approve or reject creep items to update totals.",
+    expectedOutcome: "Expected Outcome",
+    expectedOutcomeBefore:
+      "Approved creep (non-original) adds to extra cost and hours in the summary. Pending creep:",
+    originalCost: "Original cost",
+    creepCost: "Creep cost (approved)",
+    totalCost: "Total cost",
+    originalHours: "Original hours",
+    creepHours: "Creep hours (approved)",
+    totalHours: "Total hours",
+    taskTitlePlaceholder: "Task title",
+    descriptionPlaceholder: "Description (optional)",
+    hoursPlaceholder: "Hours",
+    costPlaceholder: "Cost ($)",
+    originalScope: "Original scope",
+    scopeCreep: "Scope creep",
+    addItem: "Add item",
+    status: "Status:",
+    approve: "Approve",
+    reject: "Reject",
+  },
+  es: {
+    title: "Seguimiento de ampliación de alcance",
+    instructions: "Instrucciones",
+    instructionsBody:
+      "Agrega líneas del alcance original y nuevas solicitudes del cliente. Aprueba o rechaza ampliaciones para actualizar los totales.",
+    expectedOutcome: "Resultado esperado",
+    expectedOutcomeBefore:
+      "Las ampliaciones aprobadas (no originales) suman costo y horas extra en el resumen. Ampliaciones pendientes:",
+    originalCost: "Costo original",
+    creepCost: "Costo de ampliación (aprobado)",
+    totalCost: "Costo total",
+    originalHours: "Horas originales",
+    creepHours: "Horas de ampliación (aprobadas)",
+    totalHours: "Horas totales",
+    taskTitlePlaceholder: "Título de la tarea",
+    descriptionPlaceholder: "Descripción (opcional)",
+    hoursPlaceholder: "Horas",
+    costPlaceholder: "Costo ($)",
+    originalScope: "Alcance original",
+    scopeCreep: "Ampliación de alcance",
+    addItem: "Agregar ítem",
+    status: "Estado:",
+    approve: "Aprobar",
+    reject: "Rechazar",
+  },
+};
+
 export default function ScopeCreepTrackerPage() {
+  const { language } = useLanguage();
+  const c = copy[language];
   const [items, setItems] = useState<ScopeItem[]>([]);
   const [form, setForm] = useState({
     title: "",
@@ -65,64 +121,63 @@ export default function ScopeCreepTrackerPage() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold">Scope Creep Tracker</h1>
+      <h1 className="text-2xl font-bold">{c.title}</h1>
 
       <section className="rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
         <div>
-          <h2 className="font-semibold mb-1">Instructions</h2>
-          <p>Add original scope lines and new client requests. Approve or reject creep items to update totals.</p>
+          <h2 className="font-semibold mb-1">{c.instructions}</h2>
+          <p>{c.instructionsBody}</p>
         </div>
         <div>
-          <h2 className="font-semibold mb-1">Expected Outcome</h2>
+          <h2 className="font-semibold mb-1">{c.expectedOutcome}</h2>
           <p>
-            Approved creep (non-original) adds to extra cost and hours in the summary. Pending creep:{" "}
-            <strong>{pendingCreep}</strong>
+            {c.expectedOutcomeBefore} <strong>{pendingCreep}</strong>
           </p>
         </div>
       </section>
 
       <div className="rounded-lg border border-mono-300 dark:border-mono-700 p-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
         <div>
-          <p className="text-mono-600 dark:text-mono-400">Original cost</p>
+          <p className="text-mono-600 dark:text-mono-400">{c.originalCost}</p>
           <p className="text-lg font-semibold">${totals.originalCost}</p>
         </div>
         <div>
-          <p className="text-mono-600 dark:text-mono-400">Creep cost (approved)</p>
+          <p className="text-mono-600 dark:text-mono-400">{c.creepCost}</p>
           <p className="text-lg font-semibold">${totals.creepCost}</p>
         </div>
         <div>
-          <p className="text-mono-600 dark:text-mono-400">Total cost</p>
+          <p className="text-mono-600 dark:text-mono-400">{c.totalCost}</p>
           <p className="text-lg font-semibold">${totals.totalCost}</p>
         </div>
         <div>
-          <p className="text-mono-600 dark:text-mono-400">Original hours</p>
+          <p className="text-mono-600 dark:text-mono-400">{c.originalHours}</p>
           <p className="text-lg font-semibold">{totals.originalHours}h</p>
         </div>
         <div>
-          <p className="text-mono-600 dark:text-mono-400">Creep hours (approved)</p>
+          <p className="text-mono-600 dark:text-mono-400">{c.creepHours}</p>
           <p className="text-lg font-semibold">{totals.creepHours}h</p>
         </div>
         <div>
-          <p className="text-mono-600 dark:text-mono-400">Total hours</p>
+          <p className="text-mono-600 dark:text-mono-400">{c.totalHours}</p>
           <p className="text-lg font-semibold">{totals.totalHours}h</p>
         </div>
       </div>
 
       <div className="space-y-2">
         <input
-          placeholder="Task title"
+          placeholder={c.taskTitlePlaceholder}
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
           className={inputClass}
         />
         <textarea
-          placeholder="Description (optional)"
+          placeholder={c.descriptionPlaceholder}
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
           className={`${inputClass} min-h-[72px]`}
         />
         <input
-          placeholder="Hours"
+          placeholder={c.hoursPlaceholder}
           type="number"
           min="0"
           step="0.25"
@@ -131,7 +186,7 @@ export default function ScopeCreepTrackerPage() {
           className={inputClass}
         />
         <input
-          placeholder="Cost ($)"
+          placeholder={c.costPlaceholder}
           type="number"
           min="0"
           step="0.01"
@@ -146,7 +201,7 @@ export default function ScopeCreepTrackerPage() {
             onChange={(e) => setForm({ ...form, isOriginal: e.target.checked })}
             className="h-4 w-4 rounded border-mono-400"
           />
-          Original scope
+          {c.originalScope}
         </label>
 
         <button
@@ -154,7 +209,7 @@ export default function ScopeCreepTrackerPage() {
           onClick={addItem}
           className="w-full rounded-lg bg-black dark:bg-mono-100 px-4 py-2 font-semibold text-white dark:text-mono-950"
         >
-          Add item
+          {c.addItem}
         </button>
       </div>
 
@@ -172,7 +227,7 @@ export default function ScopeCreepTrackerPage() {
               {item.estimatedHours}h · ${item.cost}
             </div>
             <div className="text-xs text-mono-600 dark:text-mono-400 mt-1">
-              {item.isOriginal ? "Original scope" : "Scope creep"} · Status:{" "}
+              {item.isOriginal ? c.originalScope : c.scopeCreep} · {c.status}{" "}
               <span className="font-medium text-mono-900 dark:text-mono-100">{item.status}</span>
             </div>
             {!item.isOriginal && item.status === "pending" ? (
@@ -182,14 +237,14 @@ export default function ScopeCreepTrackerPage() {
                   onClick={() => updateStatus(item.id, "approved")}
                   className="rounded bg-green-700 px-2 py-1 text-xs font-medium text-white hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-500"
                 >
-                  Approve
+                  {c.approve}
                 </button>
                 <button
                   type="button"
                   onClick={() => updateStatus(item.id, "rejected")}
                   className="rounded bg-red-700 px-2 py-1 text-xs font-medium text-white hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-500"
                 >
-                  Reject
+                  {c.reject}
                 </button>
               </div>
             ) : null}

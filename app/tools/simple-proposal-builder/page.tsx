@@ -2,11 +2,56 @@
 
 import { useCallback, useState } from "react";
 import { buildProposalText, type ProposalInput } from "@/lib/simpleProposal";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const inputClass =
   "w-full border p-2 rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400";
 
+const copy = {
+  en: {
+    title: "Simple Proposal Builder",
+    instructions: "Instructions",
+    instructionsBody: "Enter client and project details, then generate a proposal preview.",
+    expectedOutcome: "Expected Outcome",
+    expectedOutcomeBody:
+      "Use Print / Export PDF to open the browser print dialog and save as PDF.",
+    buildHeading: "Build your proposal",
+    clientPlaceholder: "Client Name",
+    projectPlaceholder: "Project Title",
+    scopePlaceholder: "Scope of Work",
+    pricePlaceholder: "Price ($)",
+    notesPlaceholder: "Additional Notes",
+    generate: "Generate",
+    reset: "Reset",
+    preview: "Preview",
+    printExport: "Print / Export PDF",
+    emptyPreview: "Fill out the form and click Generate",
+  },
+  es: {
+    title: "Constructor simple de propuestas",
+    instructions: "Instrucciones",
+    instructionsBody:
+      "Ingresa los datos del cliente y del proyecto, luego genera una vista previa de la propuesta.",
+    expectedOutcome: "Resultado esperado",
+    expectedOutcomeBody:
+      "Usa Imprimir / Exportar PDF para abrir el diálogo de impresión del navegador y guardar como PDF.",
+    buildHeading: "Arma tu propuesta",
+    clientPlaceholder: "Nombre del cliente",
+    projectPlaceholder: "Título del proyecto",
+    scopePlaceholder: "Alcance del trabajo",
+    pricePlaceholder: "Precio ($)",
+    notesPlaceholder: "Notas adicionales",
+    generate: "Generar",
+    reset: "Reiniciar",
+    preview: "Vista previa",
+    printExport: "Imprimir / Exportar PDF",
+    emptyPreview: "Completa el formulario y haz clic en Generar",
+  },
+};
+
 export default function SimpleProposalBuilderPage() {
+  const { language } = useLanguage();
+  const c = copy[language];
   const [client, setClient] = useState("");
   const [project, setProject] = useState("");
   const [scope, setScope] = useState("");
@@ -43,46 +88,46 @@ export default function SimpleProposalBuilderPage() {
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6 print:max-w-none">
-      <h1 className="text-2xl font-bold print:hidden">Simple Proposal Builder</h1>
+      <h1 className="text-2xl font-bold print:hidden">{c.title}</h1>
 
       <section className="rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3 print:hidden">
         <div>
-          <h2 className="font-semibold mb-1">Instructions</h2>
-          <p>Enter client and project details, then generate a proposal preview.</p>
+          <h2 className="font-semibold mb-1">{c.instructions}</h2>
+          <p>{c.instructionsBody}</p>
         </div>
         <div>
-          <h2 className="font-semibold mb-1">Expected Outcome</h2>
-          <p>Use Print / Export PDF to open the browser print dialog and save as PDF.</p>
+          <h2 className="font-semibold mb-1">{c.expectedOutcome}</h2>
+          <p>{c.expectedOutcomeBody}</p>
         </div>
       </section>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="rounded-lg border border-mono-300 dark:border-mono-700 p-4 space-y-4 print:hidden">
-          <h2 className="text-xl font-bold">Build your proposal</h2>
+          <h2 className="text-xl font-bold">{c.buildHeading}</h2>
 
           <input
-            placeholder="Client Name"
+            placeholder={c.clientPlaceholder}
             className={inputClass}
             value={client}
             onChange={(e) => setClient(e.target.value)}
           />
 
           <input
-            placeholder="Project Title"
+            placeholder={c.projectPlaceholder}
             className={inputClass}
             value={project}
             onChange={(e) => setProject(e.target.value)}
           />
 
           <textarea
-            placeholder="Scope of Work"
+            placeholder={c.scopePlaceholder}
             className={`${inputClass} min-h-[120px]`}
             value={scope}
             onChange={(e) => setScope(e.target.value)}
           />
 
           <input
-            placeholder="Price ($)"
+            placeholder={c.pricePlaceholder}
             type="text"
             inputMode="decimal"
             className={inputClass}
@@ -91,7 +136,7 @@ export default function SimpleProposalBuilderPage() {
           />
 
           <textarea
-            placeholder="Additional Notes"
+            placeholder={c.notesPlaceholder}
             className={`${inputClass} min-h-[80px]`}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
@@ -103,20 +148,20 @@ export default function SimpleProposalBuilderPage() {
               onClick={handleGenerate}
               className="rounded-lg bg-black dark:bg-mono-100 px-4 py-2 font-semibold text-white dark:text-mono-950"
             >
-              Generate
+              {c.generate}
             </button>
             <button
               type="button"
               onClick={handleReset}
               className="rounded-lg border border-mono-300 dark:border-mono-600 px-4 py-2 font-semibold text-mono-950 dark:text-mono-50"
             >
-              Reset
+              {c.reset}
             </button>
           </div>
         </div>
 
         <div className="rounded-lg border border-mono-300 dark:border-mono-700 p-4 space-y-4 print:border-0">
-          <h2 className="text-xl font-bold print:hidden">Preview</h2>
+          <h2 className="text-xl font-bold print:hidden">{c.preview}</h2>
 
           {generated ? (
             <>
@@ -128,13 +173,11 @@ export default function SimpleProposalBuilderPage() {
                 onClick={handlePrint}
                 className="w-full rounded-lg bg-accent-600 px-4 py-2 font-semibold text-white hover:bg-accent-700 print:hidden"
               >
-                Print / Export PDF
+                {c.printExport}
               </button>
             </>
           ) : (
-            <p className="text-mono-600 dark:text-mono-400 print:hidden">
-              Fill out the form and click Generate
-            </p>
+            <p className="text-mono-600 dark:text-mono-400 print:hidden">{c.emptyPreview}</p>
           )}
         </div>
       </div>
