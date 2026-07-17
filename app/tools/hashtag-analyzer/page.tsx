@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Hash, TrendingUp, TrendingDown, BarChart3, Target, Award, AlertCircle, CheckCircle, XCircle, Zap } from 'lucide-react';
+import { Hash, TrendingUp, TrendingDown, Award, AlertCircle, CheckCircle, Zap } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 interface HashtagData {
   tag: string
@@ -28,7 +29,166 @@ interface Results {
   recommendations: { type: string; message: string }[]
 }
 
+const copy = {
+  en: {
+    toolName: 'Hashtag Analyzer',
+    toolDescription:
+      'Analyzes hashtag performance by tracking usage, engagement rates, reach, and trends. Provides recommendations on which hashtags to keep, test, or replace based on performance data.',
+    howToUse: [
+      { label: 'Enter hashtags:', text: 'Paste your hashtags (one per line or comma-separated)' },
+      { label: 'Enter post count:', text: "Input the number of posts you've used these hashtags in" },
+      { label: 'Click "Analyze":', text: 'See detailed performance metrics for each hashtag' },
+      { label: 'Review results:', text: 'Check performance ratings, trends, and recommendations' },
+      { label: 'Optimize:', text: 'Use the recommendations to improve your hashtag strategy' },
+    ],
+    howToUseTitle: 'How to Use This Tool',
+    whatItDoes: 'What It Does',
+    whatItDoesBody:
+      'Analyzes your hashtag performance by tracking usage, engagement, reach, and trends. Provides recommendations on which hashtags to keep, test, or replace based on performance data.',
+    howToUseInner: 'How to Use',
+    howToUseSteps: [
+      { label: 'Enter hashtags:', text: 'Paste your hashtags (comma or space separated)' },
+      { label: 'Enter post count:', text: 'Number of posts using these hashtags' },
+      { label: 'Enter total engagement:', text: 'Total likes, comments, shares across those posts' },
+      { label: 'Click "Analyze"', text: 'to process your hashtags' },
+      { label: 'Review results:', text: 'See performance metrics, top performers, underperformers, charts, and recommendations' },
+    ],
+    expectedOutcome: 'Expected Outcome',
+    expectedOutcomes: [
+      'Performance analysis for each hashtag',
+      'Top performing hashtags identified',
+      'Underperforming hashtags flagged',
+      'Visual charts showing performance trends',
+      'Recommendations (Keep, Test, or Replace) for each hashtag',
+      'Overall hashtag strategy score',
+    ],
+    title: 'Hashtag Analyzer',
+    subtitle: 'Analyze hashtag performance and get recommendations',
+    enterHashtags: 'Enter Your Hashtags',
+    hashtagsLabel: 'Hashtags (comma or space separated)',
+    hashtagsPlaceholder: '#fitness #motivation #workout #health #gym...',
+    hashtagsCount: (n: number) => `${n} hashtags`,
+    postCountLabel: 'Number of Posts (optional)',
+    postCountPlaceholder: 'e.g., 20',
+    engagementLabel: 'Total Engagement (optional)',
+    engagementPlaceholder: 'e.g., 5000',
+    analyzeHashtags: 'Analyze Hashtags',
+    performanceScore: 'Performance Score',
+    excellent: 'Excellent',
+    good: 'Good',
+    needsWork: 'Needs Work',
+    overallPerformance: 'Overall Hashtag Performance',
+    keyMetrics: 'Key Metrics',
+    totalHashtags: 'Total Hashtags',
+    avgEngagement: 'Avg Engagement',
+    highPerformers: 'High Performers',
+    recommendations: 'Recommendations',
+    readyToAnalyze: 'Ready to Analyze?',
+    readyBody: 'Enter your hashtags to see detailed performance metrics and recommendations',
+    performanceOverTime: 'Performance Over Time',
+    performanceDistribution: 'Performance Distribution',
+    topPerforming: 'Top Performing Hashtags',
+    avgEngagementCol: 'Avg Engagement:',
+    reachCol: 'Reach:',
+    completeAnalysis: 'Complete Hashtag Analysis',
+    colHashtag: 'Hashtag',
+    colUses: 'Uses',
+    colAvgEngagement: 'Avg Engagement',
+    colReach: 'Reach',
+    colPerformance: 'Performance',
+    colTrend: 'Trend',
+    colAction: 'Action',
+    performanceLabels: { High: 'High', Medium: 'Medium', Low: 'Low' } as Record<string, string>,
+    recommendationLabels: { Keep: 'Keep', Test: 'Test', Replace: 'Replace' } as Record<string, string>,
+    weekLabels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+    recGreatSelection: 'Great hashtag selection! Most of your hashtags are performing well.',
+    recReplaceLow: 'Consider replacing low-performing hashtags with higher-engagement alternatives.',
+    recTryFiveTen: 'Try using 5-10 hashtags per post for optimal reach.',
+    recTooMany: 'Too many hashtags may look spammy. Consider reducing to 10-15.',
+    recTrendingUp: 'Most of your hashtags are trending upward! Keep using them.',
+  },
+  es: {
+    toolName: 'Analizador de hashtags',
+    toolDescription:
+      'Analiza el rendimiento de hashtags rastreando uso, tasas de interacción, alcance y tendencias. Ofrece recomendaciones sobre qué hashtags mantener, probar o reemplazar según los datos de rendimiento.',
+    howToUse: [
+      { label: 'Ingresa hashtags:', text: 'Pega tus hashtags (uno por línea o separados por comas)' },
+      { label: 'Ingresa cantidad de publicaciones:', text: 'Indica el número de publicaciones donde usaste estos hashtags' },
+      { label: 'Haz clic en "Analizar":', text: 'Ve métricas detalladas de rendimiento para cada hashtag' },
+      { label: 'Revisa resultados:', text: 'Consulta calificaciones de rendimiento, tendencias y recomendaciones' },
+      { label: 'Optimiza:', text: 'Usa las recomendaciones para mejorar tu estrategia de hashtags' },
+    ],
+    howToUseTitle: 'Cómo usar esta herramienta',
+    whatItDoes: 'Qué hace',
+    whatItDoesBody:
+      'Analiza el rendimiento de tus hashtags rastreando uso, interacción, alcance y tendencias. Ofrece recomendaciones sobre qué hashtags mantener, probar o reemplazar según los datos de rendimiento.',
+    howToUseInner: 'Cómo usar',
+    howToUseSteps: [
+      { label: 'Ingresa hashtags:', text: 'Pega tus hashtags (separados por comas o espacios)' },
+      { label: 'Ingresa cantidad de publicaciones:', text: 'Número de publicaciones que usan estos hashtags' },
+      { label: 'Ingresa interacción total:', text: 'Total de likes, comentarios y compartidos en esas publicaciones' },
+      { label: 'Haz clic en "Analizar"', text: 'para procesar tus hashtags' },
+      { label: 'Revisa resultados:', text: 'Ve métricas de rendimiento, mejores, peores, gráficos y recomendaciones' },
+    ],
+    expectedOutcome: 'Resultado esperado',
+    expectedOutcomes: [
+      'Análisis de rendimiento para cada hashtag',
+      'Hashtags con mejor rendimiento identificados',
+      'Hashtags con bajo rendimiento señalados',
+      'Gráficos visuales de tendencias de rendimiento',
+      'Recomendaciones (Mantener, Probar o Reemplazar) para cada hashtag',
+      'Puntuación general de estrategia de hashtags',
+    ],
+    title: 'Analizador de hashtags',
+    subtitle: 'Analiza el rendimiento de hashtags y obtén recomendaciones',
+    enterHashtags: 'Ingresa tus hashtags',
+    hashtagsLabel: 'Hashtags (separados por comas o espacios)',
+    hashtagsPlaceholder: '#fitness #motivation #workout #health #gym...',
+    hashtagsCount: (n: number) => `${n} hashtags`,
+    postCountLabel: 'Número de publicaciones (opcional)',
+    postCountPlaceholder: 'ej., 20',
+    engagementLabel: 'Interacción total (opcional)',
+    engagementPlaceholder: 'ej., 5000',
+    analyzeHashtags: 'Analizar hashtags',
+    performanceScore: 'Puntuación de rendimiento',
+    excellent: 'Excelente',
+    good: 'Bueno',
+    needsWork: 'Necesita mejorar',
+    overallPerformance: 'Rendimiento general de hashtags',
+    keyMetrics: 'Métricas clave',
+    totalHashtags: 'Total de hashtags',
+    avgEngagement: 'Interacción promedio',
+    highPerformers: 'Alto rendimiento',
+    recommendations: 'Recomendaciones',
+    readyToAnalyze: '¿Listo para analizar?',
+    readyBody: 'Ingresa tus hashtags para ver métricas detalladas de rendimiento y recomendaciones',
+    performanceOverTime: 'Rendimiento a lo largo del tiempo',
+    performanceDistribution: 'Distribución de rendimiento',
+    topPerforming: 'Hashtags con mejor rendimiento',
+    avgEngagementCol: 'Interacción prom.:',
+    reachCol: 'Alcance:',
+    completeAnalysis: 'Análisis completo de hashtags',
+    colHashtag: 'Hashtag',
+    colUses: 'Usos',
+    colAvgEngagement: 'Interacción prom.',
+    colReach: 'Alcance',
+    colPerformance: 'Rendimiento',
+    colTrend: 'Tendencia',
+    colAction: 'Acción',
+    performanceLabels: { High: 'Alto', Medium: 'Medio', Low: 'Bajo' } as Record<string, string>,
+    recommendationLabels: { Keep: 'Mantener', Test: 'Probar', Replace: 'Reemplazar' } as Record<string, string>,
+    weekLabels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+    recGreatSelection: '¡Excelente selección de hashtags! La mayoría están rindiendo bien.',
+    recReplaceLow: 'Considera reemplazar hashtags de bajo rendimiento por alternativas con mayor interacción.',
+    recTryFiveTen: 'Prueba usar 5-10 hashtags por publicación para un alcance óptimo.',
+    recTooMany: 'Demasiados hashtags pueden parecer spam. Considera reducir a 10-15.',
+    recTrendingUp: '¡La mayoría de tus hashtags están en tendencia al alza! Sigue usándolos.',
+  },
+}
+
 function HashtagAnalyzerContent() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [hashtags, setHashtags] = useState('')
   const [postCount, setPostCount] = useState('')
   const [totalEngagement, setTotalEngagement] = useState('')
@@ -54,20 +214,62 @@ function HashtagAnalyzerContent() {
   }
 
   const generatePerformanceHistory = () => {
-    return [
-      { week: 'Week 1', engagement: 450 },
-      { week: 'Week 2', engagement: 520 },
-      { week: 'Week 3', engagement: 480 },
-      { week: 'Week 4', engagement: 650 }
-    ]
+    const engagements = [450, 520, 480, 650]
+    return c.weekLabels.map((week, i) => ({
+      week,
+      engagement: engagements[i],
+    }))
+  }
+
+  const generateRecommendations = (data: HashtagData[]) => {
+    const recommendations = []
+
+    const highPerformers = data.filter(h => h.performance === 'High').length
+    const lowPerformers = data.filter(h => h.performance === 'Low').length
+
+    if (highPerformers / data.length > 0.6) {
+      recommendations.push({
+        type: 'success',
+        message: c.recGreatSelection,
+      })
+    }
+
+    if (lowPerformers / data.length > 0.4) {
+      recommendations.push({
+        type: 'warning',
+        message: c.recReplaceLow,
+      })
+    }
+
+    if (data.length < 5) {
+      recommendations.push({
+        type: 'info',
+        message: c.recTryFiveTen,
+      })
+    }
+
+    if (data.length > 15) {
+      recommendations.push({
+        type: 'warning',
+        message: c.recTooMany,
+      })
+    }
+
+    const trendingUp = data.filter(h => h.trend === 'up').length
+    if (trendingUp > data.length / 2) {
+      recommendations.push({
+        type: 'success',
+        message: c.recTrendingUp,
+      })
+    }
+
+    return recommendations
   }
 
   const analyzeHashtags = () => {
     if (!hashtags.trim()) return
 
     const tagList = hashtags.split(/[,\s#]+/).filter(t => t.trim()).map(t => t.trim().toLowerCase())
-    const posts = parseInt(postCount) || 10
-    const engagement = parseInt(totalEngagement) || 0
 
     const hashtagData = generateHashtagData(tagList)
     const performanceHistory = generatePerformanceHistory()
@@ -98,51 +300,6 @@ function HashtagAnalyzerContent() {
     })
   }
 
-  const generateRecommendations = (data: HashtagData[]) => {
-    const recommendations = []
-
-    const highPerformers = data.filter(h => h.performance === 'High').length
-    const lowPerformers = data.filter(h => h.performance === 'Low').length
-
-    if (highPerformers / data.length > 0.6) {
-      recommendations.push({
-        type: 'success',
-        message: 'Great hashtag selection! Most of your hashtags are performing well.'
-      })
-    }
-
-    if (lowPerformers / data.length > 0.4) {
-      recommendations.push({
-        type: 'warning',
-        message: 'Consider replacing low-performing hashtags with higher-engagement alternatives.'
-      })
-    }
-
-    if (data.length < 5) {
-      recommendations.push({
-        type: 'info',
-        message: 'Try using 5-10 hashtags per post for optimal reach.'
-      })
-    }
-
-    if (data.length > 15) {
-      recommendations.push({
-        type: 'warning',
-        message: 'Too many hashtags may look spammy. Consider reducing to 10-15.'
-      })
-    }
-
-    const trendingUp = data.filter(h => h.trend === 'up').length
-    if (trendingUp > data.length / 2) {
-      recommendations.push({
-        type: 'success',
-        message: 'Most of your hashtags are trending upward! Keep using them.'
-      })
-    }
-
-    return recommendations
-  }
-
   const getPerformanceColor = (performance: string) => {
     switch(performance) {
       case 'High': return 'text-green-600 bg-green-100'
@@ -161,6 +318,8 @@ function HashtagAnalyzerContent() {
     }
   }
 
+  const hashtagCount = hashtags.split(/[,\s#]+/).filter(t => t.trim()).length
+
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 py-8 px-4">
       <div className="max-w-7xl mx-auto">
@@ -170,87 +329,82 @@ function HashtagAnalyzerContent() {
               <Hash className="text-white" size={48} />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">Hashtag Analyzer</h1>
-          <p className="text-xl text-mono-600 dark:text-mono-400">Analyze hashtag performance and get recommendations</p>
+          <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-3">{c.title}</h1>
+          <p className="text-xl text-mono-600 dark:text-mono-400">{c.subtitle}</p>
         </div>
 
-        {/* Documentation Section */}
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-8 border border-mono-200 dark:border-mono-700">
-          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.howToUseTitle}</h2>
           <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
-              <p>Analyzes your hashtag performance by tracking usage, engagement, reach, and trends. Provides recommendations on which hashtags to keep, test, or replace based on performance data.</p>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.whatItDoes}</h3>
+              <p>{c.whatItDoesBody}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.howToUseInner}</h3>
               <ol className="list-decimal list-inside space-y-1 ml-2">
-                <li><strong>Enter hashtags:</strong> Paste your hashtags (comma or space separated)</li>
-                <li><strong>Enter post count:</strong> Number of posts using these hashtags</li>
-                <li><strong>Enter total engagement:</strong> Total likes, comments, shares across those posts</li>
-                <li><strong>Click "Analyze"</strong> to process your hashtags</li>
-                <li><strong>Review results:</strong> See performance metrics, top performers, underperformers, charts, and recommendations</li>
+                {c.howToUseSteps.map((step, i) => (
+                  <li key={i}>
+                    <strong>{step.label}</strong> {step.text}
+                  </li>
+                ))}
               </ol>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.expectedOutcome}</h3>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Performance analysis for each hashtag</li>
-                <li>Top performing hashtags identified</li>
-                <li>Underperforming hashtags flagged</li>
-                <li>Visual charts showing performance trends</li>
-                <li>Recommendations (Keep, Test, or Replace) for each hashtag</li>
-                <li>Overall hashtag strategy score</li>
+                {c.expectedOutcomes.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Input Section */}
           <div className="space-y-6">
             <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-              <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">Enter Your Hashtags</h2>
+              <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">{c.enterHashtags}</h2>
               
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                    Hashtags (comma or space separated)
+                    {c.hashtagsLabel}
                   </label>
                   <textarea
                     value={hashtags}
                     onChange={(e) => setHashtags(e.target.value)}
-                    placeholder="#fitness #motivation #workout #health #gym..."
+                    placeholder={c.hashtagsPlaceholder}
                     rows={6}
                     className="w-full px-4 py-3 border-2 border-mono-200 dark:border-mono-700 rounded-lg focus:border-accent-500 focus:outline-none resize-none bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   />
                   <p className="text-xs text-mono-500 mt-1">
-                    {hashtags.split(/[,\s#]+/).filter(t => t.trim()).length} hashtags
+                    {c.hashtagsCount(hashtagCount)}
                   </p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                    Number of Posts (optional)
+                    {c.postCountLabel}
                   </label>
                   <input
                     type="number"
                     value={postCount}
                     onChange={(e) => setPostCount(e.target.value)}
-                    placeholder="e.g., 20"
+                    placeholder={c.postCountPlaceholder}
                     className="w-full px-4 py-3 border-2 border-mono-200 dark:border-mono-700 rounded-lg focus:border-accent-500 focus:outline-none bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-mono-700 dark:text-mono-300 mb-2">
-                    Total Engagement (optional)
+                    {c.engagementLabel}
                   </label>
                   <input
                     type="number"
                     value={totalEngagement}
                     onChange={(e) => setTotalEngagement(e.target.value)}
-                    placeholder="e.g., 5000"
+                    placeholder={c.engagementPlaceholder}
                     className="w-full px-4 py-3 border-2 border-mono-200 dark:border-mono-700 rounded-lg focus:border-accent-500 focus:outline-none bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   />
                 </div>
@@ -261,19 +415,17 @@ function HashtagAnalyzerContent() {
                   className="w-full px-6 py-4 bg-accent-600 text-white rounded-xl font-bold text-lg hover:bg-accent-700 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   <Zap size={24} />
-                  Analyze Hashtags
+                  {c.analyzeHashtags}
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Results Section */}
           <div className="space-y-6">
             {results ? (
               <>
-                {/* Overall Score */}
                 <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-                  <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">Performance Score</h2>
+                  <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.performanceScore}</h2>
                   <div className="text-center py-6">
                     <div className={`inline-block px-6 py-3 rounded-full mb-4 ${
                       results.overallScore >= 70 ? 'bg-green-100' :
@@ -283,29 +435,28 @@ function HashtagAnalyzerContent() {
                         results.overallScore >= 70 ? 'text-green-700' :
                         results.overallScore >= 50 ? 'text-yellow-700' : 'text-red-700'
                       }`}>
-                        {results.overallScore >= 70 ? 'Excellent' :
-                         results.overallScore >= 50 ? 'Good' : 'Needs Work'}
+                        {results.overallScore >= 70 ? c.excellent :
+                         results.overallScore >= 50 ? c.good : c.needsWork}
                       </span>
                     </div>
                     <div className="text-6xl font-bold text-mono-950 dark:text-mono-50 mb-2">{results.overallScore}/100</div>
-                    <p className="text-mono-600 dark:text-mono-400">Overall Hashtag Performance</p>
+                    <p className="text-mono-600 dark:text-mono-400">{c.overallPerformance}</p>
                   </div>
                 </div>
 
-                {/* Key Metrics */}
                 <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-                  <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">Key Metrics</h2>
+                  <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.keyMetrics}</h2>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center p-3 bg-mono-100 dark:bg-mono-800 rounded-lg">
-                      <span className="text-mono-700 dark:text-mono-300 font-medium">Total Hashtags</span>
+                      <span className="text-mono-700 dark:text-mono-300 font-medium">{c.totalHashtags}</span>
                       <span className="text-2xl font-bold text-mono-950 dark:text-mono-50">{results.totalHashtags}</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-mono-100 dark:bg-mono-800 rounded-lg">
-                      <span className="text-mono-700 dark:text-mono-300 font-medium">Avg Engagement</span>
+                      <span className="text-mono-700 dark:text-mono-300 font-medium">{c.avgEngagement}</span>
                       <span className="text-2xl font-bold text-mono-950 dark:text-mono-50">{results.avgEngagementPerHashtag}</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-mono-100 dark:bg-mono-800 rounded-lg">
-                      <span className="text-mono-700 dark:text-mono-300 font-medium">High Performers</span>
+                      <span className="text-mono-700 dark:text-mono-300 font-medium">{c.highPerformers}</span>
                       <span className="text-2xl font-bold text-green-600">
                         {results.hashtags.filter(h => h.performance === 'High').length}
                       </span>
@@ -313,9 +464,8 @@ function HashtagAnalyzerContent() {
                   </div>
                 </div>
 
-                {/* Recommendations */}
                 <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-                  <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">Recommendations</h2>
+                  <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.recommendations}</h2>
                   <div className="space-y-3">
                     {results.recommendations.map((rec, idx) => (
                       <div key={idx} className={`p-4 rounded-lg border-l-4 ${
@@ -337,22 +487,18 @@ function HashtagAnalyzerContent() {
             ) : (
               <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-12 text-center h-full flex flex-col justify-center border border-mono-200 dark:border-mono-700">
                 <Hash className="mx-auto text-mono-300 dark:text-mono-700 mb-4" size={64} />
-                <h3 className="text-2xl font-bold text-mono-700 dark:text-mono-300 mb-3">Ready to Analyze?</h3>
-                <p className="text-mono-500 mb-6">
-                  Enter your hashtags to see detailed performance metrics and recommendations
-                </p>
+                <h3 className="text-2xl font-bold text-mono-700 dark:text-mono-300 mb-3">{c.readyToAnalyze}</h3>
+                <p className="text-mono-500 mb-6">{c.readyBody}</p>
               </div>
             )}
           </div>
         </div>
 
-        {/* Detailed Results */}
         {results && (
           <div className="mt-8 space-y-8">
-            {/* Performance Chart */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-                <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">Performance Over Time</h2>
+                <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.performanceOverTime}</h2>
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart data={results.performanceHistory}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -365,7 +511,7 @@ function HashtagAnalyzerContent() {
               </div>
 
               <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-                <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">Performance Distribution</h2>
+                <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.performanceDistribution}</h2>
                 <div className="flex items-center justify-center">
                   <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
@@ -390,7 +536,7 @@ function HashtagAnalyzerContent() {
                   {results.performanceDistribution.map(perf => (
                     <div key={perf.name} className="text-center">
                       <div className="w-4 h-4 rounded mx-auto mb-1" style={{ backgroundColor: perf.color }}></div>
-                      <p className="text-xs text-mono-600 dark:text-mono-400">{perf.name}</p>
+                      <p className="text-xs text-mono-600 dark:text-mono-400">{c.performanceLabels[perf.name]}</p>
                       <p className="text-sm font-bold text-mono-950 dark:text-mono-50">{perf.value}</p>
                     </div>
                   ))}
@@ -398,11 +544,10 @@ function HashtagAnalyzerContent() {
               </div>
             </div>
 
-            {/* Top Performers */}
             <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
               <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4 flex items-center gap-2">
                 <Award className="text-yellow-500" size={24} />
-                Top Performing Hashtags
+                {c.topPerforming}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {results.topPerformers.map((tag, idx) => (
@@ -413,11 +558,11 @@ function HashtagAnalyzerContent() {
                     </div>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-mono-600 dark:text-mono-400">Avg Engagement:</span>
+                        <span className="text-mono-600 dark:text-mono-400">{c.avgEngagementCol}</span>
                         <span className="font-semibold text-mono-950 dark:text-mono-50">{tag.avgEngagement}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-mono-600 dark:text-mono-400">Reach:</span>
+                        <span className="text-mono-600 dark:text-mono-400">{c.reachCol}</span>
                         <span className="font-semibold text-mono-950 dark:text-mono-50">{tag.reach.toLocaleString()}</span>
                       </div>
                     </div>
@@ -426,20 +571,19 @@ function HashtagAnalyzerContent() {
               </div>
             </div>
 
-            {/* All Hashtags Table */}
             <div className="bg-mono-50 dark:bg-mono-900 rounded-2xl shadow-xl p-6 border border-mono-200 dark:border-mono-700">
-              <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">Complete Hashtag Analysis</h2>
+              <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.completeAnalysis}</h2>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="border-b-2 border-mono-200 dark:border-mono-700">
                     <tr>
-                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">Hashtag</th>
-                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">Uses</th>
-                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">Avg Engagement</th>
-                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">Reach</th>
-                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">Performance</th>
-                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">Trend</th>
-                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">Action</th>
+                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">{c.colHashtag}</th>
+                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">{c.colUses}</th>
+                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">{c.colAvgEngagement}</th>
+                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">{c.colReach}</th>
+                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">{c.colPerformance}</th>
+                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">{c.colTrend}</th>
+                      <th className="text-left py-3 px-4 font-semibold text-mono-700 dark:text-mono-300">{c.colAction}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -453,7 +597,7 @@ function HashtagAnalyzerContent() {
                         <td className="py-3 px-4 text-mono-700 dark:text-mono-300">{tag.reach.toLocaleString()}</td>
                         <td className="py-3 px-4">
                           <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getPerformanceColor(tag.performance)}`}>
-                            {tag.performance}
+                            {c.performanceLabels[tag.performance]}
                           </span>
                         </td>
                         <td className="py-3 px-4">
@@ -470,7 +614,7 @@ function HashtagAnalyzerContent() {
                         </td>
                         <td className="py-3 px-4">
                           <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getRecommendationColor(tag.recommendation)}`}>
-                            {tag.recommendation}
+                            {c.recommendationLabels[tag.recommendation]}
                           </span>
                         </td>
                       </tr>
@@ -487,15 +631,17 @@ function HashtagAnalyzerContent() {
 }
 
 export default function HashtagAnalyzer() {
-  const toolDescription = "Analyzes hashtag performance by tracking usage, engagement rates, reach, and trends. Provides recommendations on which hashtags to keep, test, or replace based on performance data."
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const howToUse = (
     <div>
       <ol className="list-decimal list-inside space-y-1 ml-2">
-        <li><strong>Enter hashtags:</strong> Paste your hashtags (one per line or comma-separated)</li>
-        <li><strong>Enter post count:</strong> Input the number of posts you've used these hashtags in</li>
-        <li><strong>Click "Analyze":</strong> See detailed performance metrics for each hashtag</li>
-        <li><strong>Review results:</strong> Check performance ratings, trends, and recommendations</li>
-        <li><strong>Optimize:</strong> Use the recommendations to improve your hashtag strategy</li>
+        {c.howToUse.map((step, i) => (
+          <li key={i}>
+            <strong>{step.label}</strong> {step.text}
+          </li>
+        ))}
       </ol>
     </div>
   )
@@ -503,12 +649,11 @@ export default function HashtagAnalyzer() {
   return (
     <ToolAccessGate
       toolSlug="hashtag-analyzer"
-      toolName="Hashtag Analyzer"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
       <HashtagAnalyzerContent />
     </ToolAccessGate>
   )
 }
-

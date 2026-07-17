@@ -2,11 +2,31 @@
 
 import { useState } from "react"
 import type { LeadMagnetDeliveryResult } from "@/lib/leadMagnetDeliveryTool"
+import { useLanguage } from "@/lib/i18n/LanguageContext"
 
 const inputClass =
   "border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
 
+const copy = {
+  en: {
+    title: "Lead magnet delivery tool",
+    magnetTitlePlaceholder: "Magnet title",
+    downloadUrlPlaceholder: "Download URL",
+    fromNamePlaceholder: "From name",
+    buildSequence: "Build sequence",
+  },
+  es: {
+    title: "Herramienta de entrega de imán de leads",
+    magnetTitlePlaceholder: "Título del imán",
+    downloadUrlPlaceholder: "URL de descarga",
+    fromNamePlaceholder: "Nombre del remitente",
+    buildSequence: "Crear secuencia",
+  },
+}
+
 export default function LeadMagnetDeliveryToolPage() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [magnetTitle, setMagnetTitle] = useState("")
   const [downloadUrl, setDownloadUrl] = useState("https://")
   const [fromName, setFromName] = useState("")
@@ -26,12 +46,12 @@ export default function LeadMagnetDeliveryToolPage() {
 
   return (
     <div className="p-6 max-w-xl mx-auto space-y-3">
-      <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">Lead magnet delivery tool</h1>
-      <input className={inputClass} placeholder="Magnet title" value={magnetTitle} onChange={(e) => setMagnetTitle(e.target.value)} />
-      <input className={inputClass} placeholder="Download URL" value={downloadUrl} onChange={(e) => setDownloadUrl(e.target.value)} />
-      <input className={inputClass} placeholder="From name" value={fromName} onChange={(e) => setFromName(e.target.value)} />
+      <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">{c.title}</h1>
+      <input className={inputClass} placeholder={c.magnetTitlePlaceholder} value={magnetTitle} onChange={(e) => setMagnetTitle(e.target.value)} />
+      <input className={inputClass} placeholder={c.downloadUrlPlaceholder} value={downloadUrl} onChange={(e) => setDownloadUrl(e.target.value)} />
+      <input className={inputClass} placeholder={c.fromNamePlaceholder} value={fromName} onChange={(e) => setFromName(e.target.value)} />
       <button type="button" onClick={run} disabled={loading || !magnetTitle.trim()} className="bg-black text-white dark:bg-mono-100 dark:text-mono-950 px-4 py-2 rounded">
-        Build sequence
+        {c.buildSequence}
       </button>
       {result ? (
         <div className="text-sm space-y-2">
