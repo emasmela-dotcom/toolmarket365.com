@@ -2,13 +2,107 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    toolName: 'Social Media Post Formatter',
+    toolDescription:
+      'Formats social media content for different platforms with character limits, text styling (bold, italic, underline), emoji picker, and AI hashtag suggestions.',
+    howToUse: [
+      { label: 'Enter content:', text: 'Type or paste your social media post' },
+      { label: 'Select platform:', text: 'Choose Twitter/X, Instagram, LinkedIn, Facebook, or TikTok' },
+      { label: 'Format text:', text: 'Select text and use Bold, Italic, or Underline buttons' },
+      { label: 'Add emojis:', text: 'Click emojis to insert them into your text' },
+      { label: 'Generate hashtags:', text: 'Use "🪄 AI hashtags" to auto-generate hashtags' },
+      { label: 'Copy output:', text: 'Click "Copy output" to copy the formatted text' },
+    ],
+    howToUseTitle: 'How to Use This Tool',
+    whatItDoes: 'What It Does',
+    whatItDoesBody:
+      "Formats your text content for different social media platforms. Automatically adjusts formatting, line breaks, and character limits to match each platform's requirements.",
+    howToUseInner: 'How to Use',
+    howToUseSteps: [
+      { label: 'Paste your content:', text: 'Enter or paste your text into the input area' },
+      { label: 'Style your text:', text: 'Use formatting options (bold, italic, etc.) if needed' },
+      { label: 'Select platform:', text: 'Choose Instagram, Twitter, LinkedIn, Facebook, or TikTok' },
+      { label: 'Review formatted output:', text: 'See how your content looks formatted for the selected platform' },
+      { label: 'Copy formatted text:', text: 'Click copy to use the formatted version' },
+    ],
+    expectedOutcome: 'Expected Outcome',
+    expectedOutcomes: [
+      'Platform-optimized text formatting',
+      'Character count compliance',
+      'Proper line breaks and spacing',
+      'Ready-to-paste formatted content',
+      'One-click copy functionality',
+    ],
+    title: 'Social Media Post Formatter',
+    subtitle: "Paste → style → pick platform → copy. That's it.",
+    supportedPlatforms: 'Supported Platforms:',
+    placeholder: 'Start typing your post…',
+    bold: 'Bold',
+    italic: 'Italic',
+    underline: 'Underline',
+    aiHashtags: '🪄 AI hashtags',
+    copyOutput: 'Copy output',
+    copied: 'Copied!',
+    selectTextFirst: 'Select text first',
+  },
+  es: {
+    toolName: 'Formateador de publicaciones para redes',
+    toolDescription:
+      'Formatea contenido para redes sociales según la plataforma: límites de caracteres, estilos (negrita, cursiva, subrayado), emojis y sugerencias de hashtags con IA.',
+    howToUse: [
+      { label: 'Ingresa el contenido:', text: 'Escribe o pega tu publicación' },
+      { label: 'Elige la plataforma:', text: 'Twitter/X, Instagram, LinkedIn, Facebook o TikTok' },
+      { label: 'Formatea el texto:', text: 'Selecciona texto y usa Negrita, Cursiva o Subrayado' },
+      { label: 'Agrega emojis:', text: 'Haz clic en un emoji para insertarlo' },
+      { label: 'Genera hashtags:', text: 'Usa "🪄 Hashtags IA" para generarlos automáticamente' },
+      { label: 'Copia el resultado:', text: 'Haz clic en "Copiar resultado" para copiar el texto formateado' },
+    ],
+    howToUseTitle: 'Cómo usar esta herramienta',
+    whatItDoes: 'Qué hace',
+    whatItDoesBody:
+      'Formatea tu texto para distintas redes sociales. Ajusta formato, saltos de línea y límites de caracteres según cada plataforma.',
+    howToUseInner: 'Cómo usar',
+    howToUseSteps: [
+      { label: 'Pega tu contenido:', text: 'Escribe o pega el texto en el área de entrada' },
+      { label: 'Estiliza el texto:', text: 'Usa las opciones de formato (negrita, cursiva, etc.) si las necesitas' },
+      { label: 'Elige la plataforma:', text: 'Instagram, Twitter, LinkedIn, Facebook o TikTok' },
+      { label: 'Revisa el resultado:', text: 'Mira cómo queda el contenido formateado para esa plataforma' },
+      { label: 'Copia el texto:', text: 'Haz clic en copiar para usar la versión formateada' },
+    ],
+    expectedOutcome: 'Resultado esperado',
+    expectedOutcomes: [
+      'Texto formateado según la plataforma',
+      'Cumplimiento del límite de caracteres',
+      'Saltos de línea y espaciado adecuados',
+      'Contenido listo para pegar',
+      'Copia con un clic',
+    ],
+    title: 'Formateador de publicaciones para redes',
+    subtitle: 'Pega → estiliza → elige plataforma → copia. Así de simple.',
+    supportedPlatforms: 'Plataformas compatibles:',
+    placeholder: 'Empieza a escribir tu publicación…',
+    bold: 'Negrita',
+    italic: 'Cursiva',
+    underline: 'Subrayado',
+    aiHashtags: '🪄 Hashtags IA',
+    copyOutput: 'Copiar resultado',
+    copied: '¡Copiado!',
+    selectTextFirst: 'Selecciona texto primero',
+  },
+}
 
 function SocialMediaPostFormatterContent() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [input, setInput] = useState('')
   const [platform, setPlatform] = useState('twitter')
   const [output, setOutput] = useState('')
   const [used, setUsed] = useState(0)
-  const [copyText, setCopyText] = useState('Copy output')
+  const [copied, setCopied] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const limits: Record<string, number> = {
@@ -70,7 +164,7 @@ function SocialMediaPostFormatterContent() {
   const handleStyle = (style: string) => {
     const sel = getSelectionText()
     if (!sel) {
-      alert("Select text first")
+      alert(c.selectTextFirst)
       return
     }
     const mapped = sel.split("").map(ch => unicode[style][ch] || ch).join("")
@@ -92,8 +186,8 @@ function SocialMediaPostFormatterContent() {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(output)
-      setCopyText("Copied!")
-      setTimeout(() => setCopyText("Copy output"), 1200)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1200)
     } catch (err) {
       console.error('Failed to copy:', err)
     }
@@ -104,43 +198,39 @@ function SocialMediaPostFormatterContent() {
       <div className="w-full max-w-2xl">
         {/* Documentation Section */}
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
-          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.howToUseTitle}</h2>
           <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
-              <p>Formats your text content for different social media platforms. Automatically adjusts formatting, line breaks, and character limits to match each platform's requirements.</p>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.whatItDoes}</h3>
+              <p>{c.whatItDoesBody}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.howToUseInner}</h3>
               <ol className="list-decimal list-inside space-y-1 ml-2">
-                <li><strong>Paste your content:</strong> Enter or paste your text into the input area</li>
-                <li><strong>Style your text:</strong> Use formatting options (bold, italic, etc.) if needed</li>
-                <li><strong>Select platform:</strong> Choose Instagram, Twitter, LinkedIn, Facebook, or TikTok</li>
-                <li><strong>Review formatted output:</strong> See how your content looks formatted for the selected platform</li>
-                <li><strong>Copy formatted text:</strong> Click copy to use the formatted version</li>
+                {c.howToUseSteps.map((step, i) => (
+                  <li key={i}><strong>{step.label}</strong> {step.text}</li>
+                ))}
               </ol>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.expectedOutcome}</h3>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Platform-optimized text formatting</li>
-                <li>Character count compliance</li>
-                <li>Proper line breaks and spacing</li>
-                <li>Ready-to-paste formatted content</li>
-                <li>One-click copy functionality</li>
+                {c.expectedOutcomes.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold mb-2">Social Media Post Formatter</h1>
+        <h1 className="text-2xl font-bold mb-2">{c.title}</h1>
         <p className="text-sm text-mono-600 dark:text-mono-400 mb-4">
-          Paste → style → pick platform → copy. That&apos;s it.
+          {c.subtitle}
         </p>
 
         {/* Supported Platforms */}
         <div className="bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-lg p-4 mb-6">
-          <p className="text-xs font-semibold text-mono-700 dark:text-mono-300 mb-2">Supported Platforms:</p>
+          <p className="text-xs font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.supportedPlatforms}</p>
           <div className="flex flex-wrap gap-2">
             <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">📸 Instagram</span>
             <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">🐦 Twitter/X</span>
@@ -154,7 +244,7 @@ function SocialMediaPostFormatterContent() {
           ref={textareaRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Start typing your post…"
+          placeholder={c.placeholder}
           className="w-full h-36 text-base p-3 border border-mono-300 dark:border-mono-700 rounded-md bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 resize-y focus:outline-none focus:ring-2 focus:ring-accent-500"
         />
 
@@ -174,31 +264,31 @@ function SocialMediaPostFormatterContent() {
             onClick={() => handleStyle('bold')}
             className="px-4 py-2 rounded bg-accent-600 text-white cursor-pointer text-sm hover:opacity-90 transition-opacity"
           >
-            Bold
+            {c.bold}
           </button>
           <button
             onClick={() => handleStyle('italic')}
             className="px-4 py-2 rounded bg-accent-600 text-white cursor-pointer text-sm hover:opacity-90 transition-opacity"
           >
-            Italic
+            {c.italic}
           </button>
           <button
             onClick={() => handleStyle('underline')}
             className="px-4 py-2 rounded bg-accent-600 text-white cursor-pointer text-sm hover:opacity-90 transition-opacity"
           >
-            Underline
+            {c.underline}
           </button>
           <button
             onClick={handleAITags}
             className="px-4 py-2 rounded bg-accent-600 text-white cursor-pointer text-sm hover:opacity-90 transition-opacity"
           >
-            🪄 AI hashtags
+            {c.aiHashtags}
           </button>
           <button
             onClick={handleCopy}
             className="px-4 py-2 rounded bg-accent-600 text-white cursor-pointer text-sm hover:opacity-90 transition-opacity"
           >
-            {copyText}
+            {copied ? c.copied : c.copyOutput}
           </button>
           <span className="text-sm ml-auto text-mono-600 dark:text-mono-400">
             {used} / {limits[platform]}
@@ -226,16 +316,14 @@ function SocialMediaPostFormatterContent() {
 }
 
 export default function SocialMediaPostFormatter() {
-  const toolDescription = "Formats social media content for different platforms with character limits, text styling (bold, italic, underline), emoji picker, and AI hashtag suggestions."
+  const { language } = useLanguage()
+  const c = copy[language]
   const howToUse = (
     <div>
       <ol className="list-decimal list-inside space-y-1 ml-2">
-        <li><strong>Enter content:</strong> Type or paste your social media post</li>
-        <li><strong>Select platform:</strong> Choose Twitter/X, Instagram, LinkedIn, Facebook, or TikTok</li>
-        <li><strong>Format text:</strong> Select text and use Bold, Italic, or Underline buttons</li>
-        <li><strong>Add emojis:</strong> Click emojis to insert them into your text</li>
-        <li><strong>Generate hashtags:</strong> Use "🪄 AI hashtags" to auto-generate hashtags</li>
-        <li><strong>Copy output:</strong> Click "Copy output" to copy the formatted text</li>
+        {c.howToUse.map((step, i) => (
+          <li key={i}><strong>{step.label}</strong> {step.text}</li>
+        ))}
       </ol>
     </div>
   )
@@ -243,12 +331,11 @@ export default function SocialMediaPostFormatter() {
   return (
     <ToolAccessGate
       toolSlug="social-media-post-formatter"
-      toolName="Social Media Post Formatter"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
       <SocialMediaPostFormatterContent />
     </ToolAccessGate>
   )
 }
-
