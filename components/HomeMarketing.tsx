@@ -17,34 +17,36 @@ export default function HomeMarketing() {
     <main className="tm-home">
       <div className="tm-home__glow" aria-hidden />
       <section className="tm-home__inner">
-        <p className="tm-home__badge">{t('homeBadge')}</p>
-        <h1 className="tm-home__title">ToolMarket365</h1>
-        <p className="tm-home__tagline">
-          {t('homeTagline')}
-        </p>
-        <div className="tm-home__auth">
-          <Link href="/signup" className="tm-home__auth-primary">
-            {t('navSignUp')}
-          </Link>
-          <Link href="/login" className="tm-home__auth-secondary">
-            {t('navSignIn')}
-          </Link>
-          <Link href="/pricing" className="tm-home__auth-link">
-            {t('navPricing')}
-          </Link>
-          <Link href="/forgot-password" className="tm-home__auth-link">
-            {t('homeForgotPassword')}
-          </Link>
-        </div>
-        <HomeShareBar />
-        {lifepackUrl ? (
-          <p className="tm-home__sister">
-            <span className="tm-home__sister-label">{t('homeSisterProduct')}</span>{' '}
-            <a href={lifepackUrl} className="tm-home__sister-link" target="_blank" rel="noopener noreferrer">
-              {LIFEPACK365_NAME}
-            </a>
+        <div className="tm-home__hero">
+          <p className="tm-home__badge">{t('homeBadge')}</p>
+          <h1 className="tm-home__title">ToolMarket365</h1>
+          <p className="tm-home__tagline">
+            {t('homeTagline')}
           </p>
-        ) : null}
+          <div className="tm-home__auth">
+            <Link href="/signup" className="tm-home__auth-primary">
+              {t('navSignUp')}
+            </Link>
+            <Link href="/login" className="tm-home__auth-secondary">
+              {t('navSignIn')}
+            </Link>
+            <Link href="/pricing" className="tm-home__auth-link">
+              {t('navPricing')}
+            </Link>
+            <Link href="/forgot-password" className="tm-home__auth-link">
+              {t('homeForgotPassword')}
+            </Link>
+          </div>
+          <HomeShareBar />
+          {lifepackUrl ? (
+            <p className="tm-home__sister">
+              <span className="tm-home__sister-label">{t('homeSisterProduct')}</span>{' '}
+              <a href={lifepackUrl} className="tm-home__sister-link" target="_blank" rel="noopener noreferrer">
+                {LIFEPACK365_NAME}
+              </a>
+            </p>
+          ) : null}
+        </div>
         <div className="tm-home__grid">
           <article className="tm-home__card">
             <div className="tm-home__card-head">

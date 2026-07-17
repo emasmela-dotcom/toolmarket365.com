@@ -4,9 +4,6 @@ import { useState } from 'react'
 import type { StackCategoryResult, StackCategorySlug } from '@/lib/stackCategoryTools'
 import { useLanguage } from '@/lib/i18n/LanguageContext'
 
-const inputClass =
-  'border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400'
-
 const LABELS: Record<
   StackCategorySlug,
   { en: { title: string; description: string }; es: { title: string; description: string } }
@@ -108,10 +105,22 @@ const ui = {
   },
 }
 
+const ACCENT: Record<StackCategorySlug, string> = {
+  writing: '#2dd4bf',
+  coding: '#38bdf8',
+  research: '#f59e0b',
+  images: '#fbbf24',
+  video: '#fb7185',
+  meetings: '#34d399',
+  office: '#60a5fa',
+  automation: '#f472b6',
+}
+
 export function StackCategoryTool({ category }: { category: StackCategorySlug }) {
   const { language } = useLanguage()
   const label = LABELS[category][language]
   const c = ui[language]
+  const accent = ACCENT[category]
   const [topic, setTopic] = useState('')
   const [details, setDetails] = useState('')
   const [result, setResult] = useState<StackCategoryResult | null>(null)
@@ -129,34 +138,65 @@ export function StackCategoryTool({ category }: { category: StackCategorySlug })
   }
 
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-4">
-      <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">{label.title}</h1>
-      <p className="text-sm text-mono-600 dark:text-mono-400">{label.description}</p>
-      <input
-        className={inputClass}
-        placeholder={c.topic}
-        value={topic}
-        onChange={(e) => setTopic(e.target.value)}
-      />
-      <textarea
-        className={`${inputClass} min-h-[160px]`}
-        placeholder={c.details}
-        value={details}
-        onChange={(e) => setDetails(e.target.value)}
-      />
-      <button
-        type="button"
-        onClick={() => void run()}
-        disabled={loading || !topic.trim()}
-        className="bg-black text-white dark:bg-mono-100 dark:text-mono-950 px-4 py-2 rounded disabled:opacity-50"
+    <div
+      className="min-h-[calc(100vh-2rem)] px-4 py-8 sm:px-6"
+      style={{
+        background:
+          'radial-gradient(900px 420px at 10% -10%, rgba(45,212,191,0.16), transparent 55%), radial-gradient(700px 360px at 90% 0%, rgba(56,189,248,0.14), transparent 50%), linear-gradient(165deg, #07111f 0%, #0f1c33 45%, #12243d 100%)',
+      }}
+    >
+      <div
+        className="mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-500/30 bg-slate-950/70 p-6 shadow-2xl backdrop-blur-md sm:p-8"
+        style={{ borderTop: `4px solid ${accent}` }}
       >
-        {loading ? c.running : c.run}
-      </button>
-      {result?.markdown ? (
-        <pre className="whitespace-pre-wrap text-xs bg-mono-100 dark:bg-mono-900 text-mono-900 dark:text-mono-100 p-4 rounded border border-mono-200 dark:border-mono-700 overflow-x-auto">
-          {result.markdown}
-        </pre>
-      ) : null}
+        <p
+          className="mb-3 inline-flex rounded-full px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em]"
+          style={{
+            color: accent,
+            background: `${accent}22`,
+            border: `1px solid ${accent}66`,
+          }}
+        >
+          Stack tool
+        </p>
+        <h1 className="text-3xl font-extrabold tracking-tight text-slate-50 sm:text-4xl">
+          {label.title}
+        </h1>
+        <p className="mt-2 text-sm leading-relaxed text-slate-300 sm:text-base">
+          {label.description}
+        </p>
+        <div className="mt-6 space-y-3">
+          <input
+            className="w-full rounded-xl border border-slate-500/40 bg-slate-900/80 px-3.5 py-3 text-slate-50 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70"
+            placeholder={c.topic}
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+          />
+          <textarea
+            className="min-h-[160px] w-full rounded-xl border border-slate-500/40 bg-slate-900/80 px-3.5 py-3 text-slate-50 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70"
+            placeholder={c.details}
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+          />
+          <button
+            type="button"
+            onClick={() => void run()}
+            disabled={loading || !topic.trim()}
+            className="rounded-full px-5 py-2.5 text-sm font-bold text-slate-950 shadow-lg transition hover:brightness-110 disabled:opacity-50"
+            style={{
+              background: `linear-gradient(180deg, ${accent}, ${accent}cc)`,
+              boxShadow: `0 12px 28px ${accent}44`,
+            }}
+          >
+            {loading ? c.running : c.run}
+          </button>
+        </div>
+        {result?.markdown ? (
+          <pre className="mt-6 overflow-x-auto whitespace-pre-wrap rounded-xl border border-slate-500/30 bg-slate-900/90 p-4 text-xs leading-relaxed text-slate-100">
+            {result.markdown}
+          </pre>
+        ) : null}
+      </div>
     </div>
   )
 }
