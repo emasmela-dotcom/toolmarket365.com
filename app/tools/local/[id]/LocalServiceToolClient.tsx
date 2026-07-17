@@ -3,11 +3,31 @@
 import { useState } from "react"
 import type { LifeToolMeta } from "@/lib/lifeTools/types"
 import { localToolSurfaceAccent } from "@/lib/toolSurfaceTheme"
+import { useLanguage } from "@/lib/i18n/LanguageContext"
 
 const inputClass =
   "border p-2.5 w-full rounded-lg border-mono-300 dark:border-mono-600 bg-white text-mono-950 placeholder:text-mono-600 dark:bg-mono-900 dark:text-mono-50 dark:placeholder:text-mono-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mono-400 focus-visible:ring-offset-2 dark:focus-visible:ring-mono-500 dark:focus-visible:ring-offset-mono-950"
 
+const copy = {
+  en: {
+    eyebrow: "Local & service business",
+    requestFailed: "Request failed",
+    networkError: "Network error",
+    running: "Running…",
+    run: "Run",
+  },
+  es: {
+    eyebrow: "Negocios locales y de servicios",
+    requestFailed: "La solicitud falló",
+    networkError: "Error de red",
+    running: "Ejecutando…",
+    run: "Ejecutar",
+  },
+}
+
 export function LocalServiceToolClient({ meta }: { meta: LifeToolMeta }) {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [values, setValues] = useState<Record<string, string>>({})
   const [out, setOut] = useState("")
   const [err, setErr] = useState("")
@@ -25,13 +45,13 @@ export function LocalServiceToolClient({ meta }: { meta: LifeToolMeta }) {
       })
       const data = (await res.json()) as { ok?: boolean; output?: string; error?: string }
       if (!res.ok || !data.ok) {
-        setErr(data.error || "Request failed")
+        setErr(data.error || c.requestFailed)
         setLoading(false)
         return
       }
       setOut(data.output || "")
     } catch {
-      setErr("Network error")
+      setErr(c.networkError)
     }
     setLoading(false)
   }
@@ -45,7 +65,7 @@ export function LocalServiceToolClient({ meta }: { meta: LifeToolMeta }) {
     >
       <header className="space-y-2">
         <p className="text-xs font-medium uppercase tracking-wide text-mono-500 dark:text-mono-400">
-          Local & service business
+          {c.eyebrow}
         </p>
         <span
           className={`inline-flex max-w-full rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide ${accent.badge}`}
@@ -84,7 +104,7 @@ export function LocalServiceToolClient({ meta }: { meta: LifeToolMeta }) {
         onClick={() => void run()}
         className="rounded-lg bg-mono-950 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 active:opacity-90 disabled:opacity-60 dark:bg-mono-100 dark:text-mono-950 dark:shadow-none"
       >
-        {loading ? "Running…" : "Run"}
+        {loading ? c.running : c.run}
       </button>
       {err ? <p className="text-sm font-medium text-red-700 dark:text-red-400">{err}</p> : null}
       {out ? (

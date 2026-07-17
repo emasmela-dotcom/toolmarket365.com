@@ -1,7 +1,59 @@
+'use client'
+
 import Link from 'next/link'
 import { getLifepack365Url, LIFEPACK365_NAME } from '@/lib/siteConfig'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    platformBlurb: 'ToolMarket365 platform',
+    sisterProduct: 'Sister product',
+    platform: 'Platform',
+    allTools: 'All Tools',
+    categories: 'Categories',
+    compare: 'Compare',
+    pricing: 'Pricing',
+    account: 'Account',
+    signIn: 'Sign In',
+    signUp: 'Sign Up',
+    forgotPassword: 'Forgot Password',
+    company: 'Company',
+    about: 'About',
+    contact: 'Contact',
+    feedback: 'Feedback & Suggestions 💬',
+    marketingKit: 'Marketing kit',
+    legal: 'Legal',
+    privacy: 'Privacy',
+    terms: 'Terms',
+    rights: '© 2025 ToolMarket365. All rights reserved.',
+  },
+  es: {
+    platformBlurb: 'Plataforma ToolMarket365',
+    sisterProduct: 'Producto hermano',
+    platform: 'Plataforma',
+    allTools: 'Todas las herramientas',
+    categories: 'Categorías',
+    compare: 'Comparar',
+    pricing: 'Precios',
+    account: 'Cuenta',
+    signIn: 'Iniciar sesión',
+    signUp: 'Registrarse',
+    forgotPassword: 'Olvidé mi contraseña',
+    company: 'Empresa',
+    about: 'Acerca de',
+    contact: 'Contacto',
+    feedback: 'Comentarios y sugerencias 💬',
+    marketingKit: 'Kit de marketing',
+    legal: 'Legal',
+    privacy: 'Privacidad',
+    terms: 'Términos',
+    rights: '© 2025 ToolMarket365. Todos los derechos reservados.',
+  },
+}
 
 export function Footer() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const lifepackUrl = getLifepack365Url()
   return (
     <footer className="border-t border-mono-200 bg-mono-50">
@@ -10,11 +62,11 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-mono-950 mb-4">ToolMarket365</h3>
             <p className="text-sm text-mono-600">
-              ToolMarket365 platform
+              {c.platformBlurb}
             </p>
             {lifepackUrl ? (
               <p className="text-sm text-mono-600 mt-3">
-                Sister product:{' '}
+                {c.sisterProduct}:{' '}
                 <a
                   href={lifepackUrl}
                   className="text-accent-600 hover:text-accent-700 font-medium"
@@ -28,89 +80,89 @@ export function Footer() {
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold text-mono-950 mb-4">Platform</h4>
+            <h4 className="text-sm font-semibold text-mono-950 mb-4">{c.platform}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/home" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  All Tools
+                  {c.allTools}
                 </Link>
               </li>
               <li>
                 <Link href="/categories" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Categories
+                  {c.categories}
                 </Link>
               </li>
               <li>
                 <Link href="/compare" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Compare
+                  {c.compare}
                 </Link>
               </li>
               <li>
                 <Link href="/pricing" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Pricing
+                  {c.pricing}
                 </Link>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold text-mono-950 mb-4">Account</h4>
+            <h4 className="text-sm font-semibold text-mono-950 mb-4">{c.account}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/login" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Sign In
+                  {c.signIn}
                 </Link>
               </li>
               <li>
                 <Link href="/signup" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Sign Up
+                  {c.signUp}
                 </Link>
               </li>
               <li>
                 <Link href="/forgot-password" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Forgot Password
+                  {c.forgotPassword}
                 </Link>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold text-mono-950 mb-4">Company</h4>
+            <h4 className="text-sm font-semibold text-mono-950 mb-4">{c.company}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/about" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  About
+                  {c.about}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Contact
+                  {c.contact}
                 </Link>
               </li>
               <li>
                 <Link href="/contact?type=feedback" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Feedback & Suggestions 💬
+                  {c.feedback}
                 </Link>
               </li>
               <li>
                 <Link href="/marketing-kit" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Marketing kit
+                  {c.marketingKit}
                 </Link>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold text-mono-950 mb-4">Legal</h4>
+            <h4 className="text-sm font-semibold text-mono-950 mb-4">{c.legal}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/privacy" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Privacy
+                  {c.privacy}
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="text-mono-600 hover:text-accent-600 transition-colors">
-                  Terms
+                  {c.terms}
                 </Link>
               </li>
             </ul>
@@ -119,12 +171,10 @@ export function Footer() {
         
         <div className="mt-8 pt-8 border-t border-mono-200">
           <p className="text-sm text-mono-500 text-center">
-            © 2025 ToolMarket365. All rights reserved.
+            {c.rights}
           </p>
         </div>
       </div>
     </footer>
   )
 }
-
-
