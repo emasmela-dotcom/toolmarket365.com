@@ -7,13 +7,77 @@ import {
   maskSecret,
   type VaultKeyEntry,
 } from "@/lib/apiKeyVault"
+import { useLanguage } from "@/lib/i18n/LanguageContext"
 
 const STORAGE = "tm365-api-key-vault-v1"
 
 const inputClass =
   "border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 !text-neutral-900 dark:!text-neutral-100 placeholder:text-neutral-600 dark:placeholder:text-neutral-400"
 
+const copy = {
+  en: {
+    title: "API key manager",
+    description:
+      "Keys are encrypted with your passphrase and stored only in this browser's localStorage. Use a real secrets manager for production; this is for staging keys and rotation reminders.",
+    errPassphraseLength: "Use a passphrase of at least 8 characters.",
+    errPassphraseMismatch: "Passphrases do not match.",
+    errWrongPassphrase: "Wrong passphrase or vault data is damaged.",
+    loading: "Loading…",
+    createVault: "Create a vault",
+    passphrasePlaceholder: "Passphrase (8+ characters)",
+    confirmPassphrasePlaceholder: "Confirm passphrase",
+    createEncryptedVault: "Create encrypted vault",
+    unlockVault: "Unlock vault",
+    passphrasePlaceholderShort: "Passphrase",
+    unlock: "Unlock",
+    lock: "Lock",
+    addKey: "Add key",
+    labelPlaceholder: "Label (e.g. Stripe test)",
+    secretPlaceholder: "Secret value",
+    saveKey: "Save key",
+    noKeysYet: "No keys yet.",
+    lastMarkedRotated: (date: string) => `Last marked rotated: ${date}`,
+    hide: "Hide",
+    reveal: "Reveal",
+    markRotatedToday: "Mark rotated today",
+    remove: "Remove",
+    tipRotate: "Rotate keys on a schedule; revoke old keys in the provider dashboard.",
+    tipNeverCommit: "Never commit secrets to git or paste them into shared docs.",
+  },
+  es: {
+    title: "Administrador de claves API",
+    description:
+      "Las claves se cifran con tu contraseña y se guardan solo en el almacenamiento local de este navegador. Usa un gestor de secretos real para producción; esto es para claves de prueba y recordatorios de rotación.",
+    errPassphraseLength: "Usa una contraseña de al menos 8 caracteres.",
+    errPassphraseMismatch: "Las contraseñas no coinciden.",
+    errWrongPassphrase: "Contraseña incorrecta o los datos de la bóveda están dañados.",
+    loading: "Cargando…",
+    createVault: "Crear una bóveda",
+    passphrasePlaceholder: "Contraseña (8+ caracteres)",
+    confirmPassphrasePlaceholder: "Confirmar contraseña",
+    createEncryptedVault: "Crear bóveda cifrada",
+    unlockVault: "Desbloquear bóveda",
+    passphrasePlaceholderShort: "Contraseña",
+    unlock: "Desbloquear",
+    lock: "Bloquear",
+    addKey: "Añadir clave",
+    labelPlaceholder: "Etiqueta (ej. Stripe test)",
+    secretPlaceholder: "Valor secreto",
+    saveKey: "Guardar clave",
+    noKeysYet: "Aún no hay claves.",
+    lastMarkedRotated: (date: string) => `Última rotación marcada: ${date}`,
+    hide: "Ocultar",
+    reveal: "Mostrar",
+    markRotatedToday: "Marcar rotada hoy",
+    remove: "Eliminar",
+    tipRotate: "Rota las claves según un calendario; revoca las antiguas en el panel del proveedor.",
+    tipNeverCommit: "Nunca subas secretos a git ni los pegues en documentos compartidos.",
+  },
+}
+
 export default function ApiKeyManagerPage() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [blob, setBlob] = useState("")
   const [phase, setPhase] = useState<"init" | "none" | "locked" | "unlocked">("init")
   const [pass, setPass] = useState("")
@@ -44,11 +108,11 @@ export default function ApiKeyManagerPage() {
   const createVault = async () => {
     setErr("")
     if (pass.length < 8) {
-      setErr("Use a passphrase of at least 8 characters.")
+      setErr(c.errPassphraseLength)
       return
     }
     if (pass !== pass2) {
-      setErr("Passphrases do not match.")
+      setErr(c.errPassphraseMismatch)
       return
     }
     try {
@@ -71,7 +135,7 @@ export default function ApiKeyManagerPage() {
       setPhase("unlocked")
       setPass("")
     } catch {
-      setErr("Wrong passphrase or vault data is damaged.")
+      setErr(c.errWrongPassphrase)
     }
   }
 
@@ -121,25 +185,24 @@ export default function ApiKeyManagerPage() {
   }
 
   if (phase === "init") {
-    return <div className="p-6 text-mono-600 dark:text-mono-400">Loading…</div>
+    return <div className="p-6 text-mono-600 dark:text-mono-400">{c.loading}</div>
   }
 
   return (
     <div className="max-w-xl mx-auto p-6 space-y-6 text-mono-900 dark:text-mono-100">
-      <h1 className="text-2xl font-bold">API key manager</h1>
+      <h1 className="text-2xl font-bold">{c.title}</h1>
       <p className="text-sm text-mono-600 dark:text-mono-400">
-        Keys are encrypted with your passphrase and stored only in this browser&apos;s localStorage. Use a real
-        secrets manager for production; this is for staging keys and rotation reminders.
+        {c.description}
       </p>
       {err ? <p className="text-sm text-red-600 dark:text-red-400">{err}</p> : null}
 
       {phase === "none" ? (
         <section className="space-y-3 rounded-lg border border-mono-200 dark:border-mono-700 p-4">
-          <p className="text-sm font-medium">Create a vault</p>
+          <p className="text-sm font-medium">{c.createVault}</p>
           <input
             type="password"
             className={inputClass}
-            placeholder="Passphrase (8+ characters)"
+            placeholder={c.passphrasePlaceholder}
             value={pass}
             onChange={(e) => setPass(e.target.value)}
             autoComplete="new-password"
@@ -147,7 +210,7 @@ export default function ApiKeyManagerPage() {
           <input
             type="password"
             className={inputClass}
-            placeholder="Confirm passphrase"
+            placeholder={c.confirmPassphrasePlaceholder}
             value={pass2}
             onChange={(e) => setPass2(e.target.value)}
             autoComplete="new-password"
@@ -157,18 +220,18 @@ export default function ApiKeyManagerPage() {
             onClick={() => void createVault()}
             className="rounded-lg bg-black dark:bg-mono-100 px-4 py-2 text-sm font-semibold text-white dark:text-mono-950"
           >
-            Create encrypted vault
+            {c.createEncryptedVault}
           </button>
         </section>
       ) : null}
 
       {phase === "locked" ? (
         <section className="space-y-3 rounded-lg border border-mono-200 dark:border-mono-700 p-4">
-          <p className="text-sm font-medium">Unlock vault</p>
+          <p className="text-sm font-medium">{c.unlockVault}</p>
           <input
             type="password"
             className={inputClass}
-            placeholder="Passphrase"
+            placeholder={c.passphrasePlaceholderShort}
             value={pass}
             onChange={(e) => setPass(e.target.value)}
             autoComplete="current-password"
@@ -178,7 +241,7 @@ export default function ApiKeyManagerPage() {
             onClick={() => void unlock()}
             className="rounded-lg bg-black dark:bg-mono-100 px-4 py-2 text-sm font-semibold text-white dark:text-mono-950"
           >
-            Unlock
+            {c.unlock}
           </button>
         </section>
       ) : null}
@@ -191,21 +254,21 @@ export default function ApiKeyManagerPage() {
               onClick={lock}
               className="rounded-lg border border-mono-300 dark:border-mono-600 px-3 py-1.5 text-sm"
             >
-              Lock
+              {c.lock}
             </button>
           </div>
           <section className="space-y-3 rounded-lg border border-mono-200 dark:border-mono-700 p-4">
-            <p className="text-sm font-medium">Add key</p>
+            <p className="text-sm font-medium">{c.addKey}</p>
             <input
               className={inputClass}
-              placeholder="Label (e.g. Stripe test)"
+              placeholder={c.labelPlaceholder}
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
             />
             <input
               className={inputClass}
               type="password"
-              placeholder="Secret value"
+              placeholder={c.secretPlaceholder}
               value={newVal}
               onChange={(e) => setNewVal(e.target.value)}
               autoComplete="off"
@@ -215,12 +278,12 @@ export default function ApiKeyManagerPage() {
               onClick={() => void addKey()}
               className="rounded-lg bg-black dark:bg-mono-100 px-4 py-2 text-sm font-semibold text-white dark:text-mono-950"
             >
-              Save key
+              {c.saveKey}
             </button>
           </section>
           <ul className="space-y-3 text-sm">
             {keys.length === 0 ? (
-              <li className="text-mono-500">No keys yet.</li>
+              <li className="text-mono-500">{c.noKeysYet}</li>
             ) : (
               keys.map((k) => (
                 <li
@@ -234,7 +297,7 @@ export default function ApiKeyManagerPage() {
                     </code>
                   </div>
                   {k.lastRotated ? (
-                    <p className="text-xs text-mono-500">Last marked rotated: {k.lastRotated}</p>
+                    <p className="text-xs text-mono-500">{c.lastMarkedRotated(k.lastRotated)}</p>
                   ) : null}
                   <div className="flex flex-wrap gap-2">
                     <button
@@ -242,21 +305,21 @@ export default function ApiKeyManagerPage() {
                       className="text-xs text-accent-600 hover:underline"
                       onClick={() => setRevealId((id) => (id === k.id ? null : k.id))}
                     >
-                      {revealId === k.id ? "Hide" : "Reveal"}
+                      {revealId === k.id ? c.hide : c.reveal}
                     </button>
                     <button
                       type="button"
                       className="text-xs text-accent-600 hover:underline"
                       onClick={() => void markRotated(k.id)}
                     >
-                      Mark rotated today
+                      {c.markRotatedToday}
                     </button>
                     <button
                       type="button"
                       className="text-xs text-red-600 dark:text-red-400 hover:underline"
                       onClick={() => void removeKey(k.id)}
                     >
-                      Remove
+                      {c.remove}
                     </button>
                   </div>
                 </li>
@@ -264,8 +327,8 @@ export default function ApiKeyManagerPage() {
             )}
           </ul>
           <ul className="text-xs text-mono-600 dark:text-mono-400 list-disc pl-5 space-y-1">
-            <li>Rotate keys on a schedule; revoke old keys in the provider dashboard.</li>
-            <li>Never commit secrets to git or paste them into shared docs.</li>
+            <li>{c.tipRotate}</li>
+            <li>{c.tipNeverCommit}</li>
           </ul>
         </>
       ) : null}

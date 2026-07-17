@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import { BookOpen, Copy, Check } from 'lucide-react';
+import { BookOpen, Copy, Check } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 const pricingData = {
   instagram: {
@@ -48,16 +49,116 @@ const pricingData = {
   },
 }
 
-const platformNames: Record<string, string> = {
-  instagram: 'Instagram',
-  tiktok: 'TikTok',
-  youtube: 'YouTube',
-  twitter: 'Twitter / X',
-  linkedin: 'LinkedIn',
-  facebook: 'Facebook',
+const copy = {
+  en: {
+    title: 'Creator Pricing Guide',
+    subtitle:
+      'Industry-standard pricing benchmarks for content creators. Use this guide to understand fair rates based on your follower count and platform.',
+    howToUseTitle: 'How to Use This Guide',
+    whatThisIs: 'What This Is',
+    whatThisIsBody:
+      'Reference guide showing industry-standard pricing ranges for content creators based on follower count and platform. These are benchmarks—actual rates vary based on engagement, niche, and negotiation.',
+    howToUse: 'How to Use',
+    howToUseSteps: [
+      { label: 'Select your platform:', text: 'Choose Instagram, TikTok, YouTube, etc.' },
+      { label: 'Find your follower range:', text: 'Locate your current follower count' },
+      { label: 'Check content types:', text: 'See pricing for posts, videos, collaborations, etc.' },
+      {
+        label: 'Use as reference:',
+        text: 'These are starting points—adjust based on your engagement rate and niche',
+      },
+    ],
+    importantNotes: 'Important Notes',
+    importantNotesList: [
+      'Rates vary significantly based on engagement rate, niche, and content quality',
+      'These are per-post/video rates—long-term partnerships may offer different pricing',
+      'Always negotiate based on your unique value and audience demographics',
+      'For exact calculations, use the Rate Calculator tool (available in Professional plan)',
+    ],
+    selectPlatform: 'Select Platform',
+    followerCount: 'Follower Count',
+    copyPrice: 'Copy price',
+    footerNote:
+      'These are industry benchmarks. Your actual rates should be based on your engagement rate, niche, content quality, and negotiation skills. For personalized rate calculations, upgrade to Professional plan to access the Rate Calculator tool.',
+    note: 'Note:',
+    contentTypes: {
+      post: 'Post',
+      reel: 'Reel',
+      story: 'Story',
+      collaboration: 'Collaboration',
+      video: 'Video',
+      brand: 'Brand',
+      sponsorship: 'Sponsorship',
+      tweet: 'Tweet',
+      thread: 'Thread',
+      article: 'Article',
+    },
+    platforms: {
+      instagram: 'Instagram',
+      tiktok: 'TikTok',
+      youtube: 'YouTube',
+      twitter: 'Twitter / X',
+      linkedin: 'LinkedIn',
+      facebook: 'Facebook',
+    },
+  },
+  es: {
+    title: 'Guía de precios para creadores',
+    subtitle:
+      'Referencias de precios del sector para creadores de contenido. Usa esta guía para entender tarifas justas según tu número de seguidores y plataforma.',
+    howToUseTitle: 'Cómo usar esta guía',
+    whatThisIs: 'Qué es',
+    whatThisIsBody:
+      'Guía de referencia con rangos de precios estándar del sector según seguidores y plataforma. Son referencias: las tarifas reales varían según engagement, nicho y negociación.',
+    howToUse: 'Cómo usar',
+    howToUseSteps: [
+      { label: 'Elige tu plataforma:', text: 'Instagram, TikTok, YouTube, etc.' },
+      { label: 'Encuentra tu rango de seguidores:', text: 'Localiza tu número actual de seguidores' },
+      { label: 'Revisa tipos de contenido:', text: 'Consulta precios de publicaciones, videos, colaboraciones, etc.' },
+      {
+        label: 'Úsalo como referencia:',
+        text: 'Son puntos de partida: ajusta según tu tasa de engagement y nicho',
+      },
+    ],
+    importantNotes: 'Notas importantes',
+    importantNotesList: [
+      'Las tarifas varían mucho según engagement, nicho y calidad del contenido',
+      'Son tarifas por publicación/video: las colaboraciones a largo plazo pueden tener otros precios',
+      'Negocia siempre según tu valor único y la demografía de tu audiencia',
+      'Para cálculos exactos, usa la herramienta Rate Calculator (disponible en el plan Professional)',
+    ],
+    selectPlatform: 'Seleccionar plataforma',
+    followerCount: 'Número de seguidores',
+    copyPrice: 'Copiar precio',
+    footerNote:
+      'Estas son referencias del sector. Tus tarifas reales deben basarse en engagement, nicho, calidad del contenido y habilidades de negociación. Para cálculos personalizados, actualiza al plan Professional para acceder a la herramienta Rate Calculator.',
+    note: 'Nota:',
+    contentTypes: {
+      post: 'Publicación',
+      reel: 'Reel',
+      story: 'Historia',
+      collaboration: 'Colaboración',
+      video: 'Video',
+      brand: 'Marca',
+      sponsorship: 'Patrocinio',
+      tweet: 'Tweet',
+      thread: 'Hilo',
+      article: 'Artículo',
+    },
+    platforms: {
+      instagram: 'Instagram',
+      tiktok: 'TikTok',
+      youtube: 'YouTube',
+      twitter: 'Twitter / X',
+      linkedin: 'LinkedIn',
+      facebook: 'Facebook',
+    },
+  },
 }
 
-function CreatorPricingGuideContent() {
+type Copy = (typeof copy)[keyof typeof copy]
+
+function CreatorPricingGuideContent({ c }: { c: Copy }) {
   const [selectedPlatform, setSelectedPlatform] = React.useState<string>('instagram')
   const [copied, setCopied] = React.useState<string | null>(null)
 
@@ -69,55 +170,51 @@ function CreatorPricingGuideContent() {
 
   const currentData = pricingData[selectedPlatform as keyof typeof pricingData]
 
+  const contentTypeLabel = (key: string) =>
+    c.contentTypes[key as keyof typeof c.contentTypes] ?? key.charAt(0).toUpperCase() + key.slice(1)
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-3 mb-4">
             <BookOpen className="h-10 w-10 text-accent-600 dark:text-accent-400" />
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-              Creator Pricing Guide
-            </h1>
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">{c.title}</h1>
           </div>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Industry-standard pricing benchmarks for content creators. Use this guide to understand fair rates based on your follower count and platform.
-          </p>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">{c.subtitle}</p>
         </div>
 
-        {/* Documentation */}
         <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Use This Guide</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">{c.howToUseTitle}</h2>
           <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">What This Is</h3>
-              <p>Reference guide showing industry-standard pricing ranges for content creators based on follower count and platform. These are benchmarks—actual rates vary based on engagement, niche, and negotiation.</p>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{c.whatThisIs}</h3>
+              <p>{c.whatThisIsBody}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">How to Use</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{c.howToUse}</h3>
               <ol className="list-decimal list-inside space-y-1 ml-2">
-                <li><strong>Select your platform:</strong> Choose Instagram, TikTok, YouTube, etc.</li>
-                <li><strong>Find your follower range:</strong> Locate your current follower count</li>
-                <li><strong>Check content types:</strong> See pricing for posts, videos, collaborations, etc.</li>
-                <li><strong>Use as reference:</strong> These are starting points—adjust based on your engagement rate and niche</li>
+                {c.howToUseSteps.map((step, i) => (
+                  <li key={i}>
+                    <strong>{step.label}</strong> {step.text}
+                  </li>
+                ))}
               </ol>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Important Notes</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{c.importantNotes}</h3>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Rates vary significantly based on engagement rate, niche, and content quality</li>
-                <li>These are per-post/video rates—long-term partnerships may offer different pricing</li>
-                <li>Always negotiate based on your unique value and audience demographics</li>
-                <li>For exact calculations, use the <strong>Rate Calculator</strong> tool (available in Professional plan)</li>
+                {c.importantNotesList.map((note, i) => (
+                  <li key={i}>{note}</li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Platform Selector */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Select Platform
+            {c.selectPlatform}
           </label>
           <div className="flex flex-wrap gap-2">
             {Object.keys(pricingData).map((platform) => (
@@ -130,27 +227,26 @@ function CreatorPricingGuideContent() {
                     : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
                 }`}
               >
-                {platformNames[platform]}
+                {c.platforms[platform as keyof typeof c.platforms]}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Pricing Table */}
         <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 dark:bg-gray-900">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Follower Count
+                    {c.followerCount}
                   </th>
                   {Object.keys(currentData['0-10k']).map((contentType) => (
                     <th
                       key={contentType}
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
                     >
-                      {contentType.charAt(0).toUpperCase() + contentType.slice(1)}
+                      {contentTypeLabel(contentType)}
                     </th>
                   ))}
                 </tr>
@@ -173,7 +269,7 @@ function CreatorPricingGuideContent() {
                             <button
                               onClick={() => copyToClipboard(String(price), cellId)}
                               className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition-colors"
-                              title="Copy price"
+                              title={c.copyPrice}
                             >
                               {copied === cellId ? (
                                 <Check className="h-4 w-4 text-green-600" />
@@ -192,10 +288,9 @@ function CreatorPricingGuideContent() {
           </div>
         </div>
 
-        {/* Footer Note */}
         <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
           <p className="text-sm text-blue-800 dark:text-blue-300">
-            <strong>Note:</strong> These are industry benchmarks. Your actual rates should be based on your engagement rate, niche, content quality, and negotiation skills. For personalized rate calculations, upgrade to Professional plan to access the <strong>Rate Calculator</strong> tool.
+            <strong>{c.note}</strong> {c.footerNote}
           </p>
         </div>
       </div>
@@ -204,5 +299,8 @@ function CreatorPricingGuideContent() {
 }
 
 export default function CreatorPricingGuidePage() {
-  return <CreatorPricingGuideContent />
+  const { language } = useLanguage()
+  const c = copy[language]
+
+  return <CreatorPricingGuideContent c={c} />
 }

@@ -2,11 +2,39 @@
 
 import { useState } from "react"
 import type { AiBlogPostResult } from "@/lib/aiBlogPostWriter"
+import { useLanguage } from "@/lib/i18n/LanguageContext"
 
 const inputClass =
   "border p-2 w-full rounded border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
 
+const copy = {
+  en: {
+    title: "AI blog post writer",
+    subtitle: "SEO-structured draft from templates (no live LLM).",
+    topicPlaceholder: "Topic",
+    audiencePlaceholder: "Audience",
+    keywordsPlaceholder: "Keywords (comma-separated)",
+    toneProfessional: "Professional",
+    toneFriendly: "Friendly",
+    toneTechnical: "Technical",
+    draft: "Draft",
+  },
+  es: {
+    title: "Redactor de entradas de blog con IA",
+    subtitle: "Borrador estructurado para SEO desde plantillas (sin LLM en vivo).",
+    topicPlaceholder: "Tema",
+    audiencePlaceholder: "Audiencia",
+    keywordsPlaceholder: "Palabras clave (separadas por comas)",
+    toneProfessional: "Profesional",
+    toneFriendly: "Amigable",
+    toneTechnical: "Técnico",
+    draft: "Redactar",
+  },
+}
+
 export default function AiBlogPostWriterPage() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [topic, setTopic] = useState("")
   const [audience, setAudience] = useState("founders")
   const [keywords, setKeywords] = useState("")
@@ -27,18 +55,18 @@ export default function AiBlogPostWriterPage() {
 
   return (
     <div className="p-6 max-w-2xl mx-auto space-y-3">
-      <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">AI blog post writer</h1>
-      <p className="text-sm text-mono-600 dark:text-mono-400">SEO-structured draft from templates (no live LLM).</p>
-      <input className={inputClass} placeholder="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} />
-      <input className={inputClass} placeholder="Audience" value={audience} onChange={(e) => setAudience(e.target.value)} />
-      <input className={inputClass} placeholder="Keywords (comma-separated)" value={keywords} onChange={(e) => setKeywords(e.target.value)} />
+      <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">{c.title}</h1>
+      <p className="text-sm text-mono-600 dark:text-mono-400">{c.subtitle}</p>
+      <input className={inputClass} placeholder={c.topicPlaceholder} value={topic} onChange={(e) => setTopic(e.target.value)} />
+      <input className={inputClass} placeholder={c.audiencePlaceholder} value={audience} onChange={(e) => setAudience(e.target.value)} />
+      <input className={inputClass} placeholder={c.keywordsPlaceholder} value={keywords} onChange={(e) => setKeywords(e.target.value)} />
       <select className={inputClass} value={tone} onChange={(e) => setTone(e.target.value as typeof tone)}>
-        <option value="professional">Professional</option>
-        <option value="friendly">Friendly</option>
-        <option value="technical">Technical</option>
+        <option value="professional">{c.toneProfessional}</option>
+        <option value="friendly">{c.toneFriendly}</option>
+        <option value="technical">{c.toneTechnical}</option>
       </select>
       <button type="button" onClick={run} disabled={loading || !topic.trim()} className="bg-black text-white dark:bg-mono-100 dark:text-mono-950 px-4 py-2 rounded">
-        Draft
+        {c.draft}
       </button>
       {result ? (
         <div className="text-sm space-y-3 border border-mono-200 dark:border-mono-700 rounded p-4">

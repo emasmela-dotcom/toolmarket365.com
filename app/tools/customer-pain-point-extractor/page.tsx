@@ -2,11 +2,49 @@
 
 import { useState } from "react";
 import type { PainPoint } from "@/lib/painExtractor";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const textareaClass =
   "w-full min-h-[160px] border p-3 rounded-lg border-mono-300 dark:border-mono-600 bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50 placeholder:text-mono-500 dark:placeholder:text-mono-400";
 
+const copy = {
+  en: {
+    title: "Customer Pain Point Extractor",
+    instructions: "Instructions",
+    instructionsBody:
+      "Paste reviews, comments, Reddit threads, or support logs. The tool finds sentences that match common pain signals, assigns a category, and ranks by how many signals hit per sentence.",
+    expectedOutcome: "Expected outcome",
+    expectedOutcomeBody:
+      "Phrases with category and a frequency-style score (more keyword hits in the same sentence raises the score).",
+    placeholder: "Paste raw text here…",
+    extracting: "Extracting…",
+    extractPainPoints: "Extract pain points",
+    requestFailed: "Request failed",
+    phrase: "Phrase",
+    category: "Category",
+    score: "Score",
+  },
+  es: {
+    title: "Extractor de puntos de dolor del cliente",
+    instructions: "Instrucciones",
+    instructionsBody:
+      "Pega reseñas, comentarios, hilos de Reddit o registros de soporte. La herramienta encuentra frases que coinciden con señales de dolor comunes, asigna una categoría y las ordena según cuántas señales aparecen en cada frase.",
+    expectedOutcome: "Resultado esperado",
+    expectedOutcomeBody:
+      "Frases con categoría y una puntuación basada en frecuencia (más coincidencias de palabras clave en la misma frase aumentan la puntuación).",
+    placeholder: "Pega el texto aquí…",
+    extracting: "Extrayendo…",
+    extractPainPoints: "Extraer puntos de dolor",
+    requestFailed: "La solicitud falló",
+    phrase: "Frase",
+    category: "Categoría",
+    score: "Puntuación",
+  },
+};
+
 export default function CustomerPainPointExtractorPage() {
+  const { language } = useLanguage();
+  const c = copy[language];
   const [text, setText] = useState("");
   const [painPoints, setPainPoints] = useState<PainPoint[]>([]);
   const [error, setError] = useState("");
@@ -22,7 +60,7 @@ export default function CustomerPainPointExtractorPage() {
     });
     const data = await res.json();
     if (!res.ok) {
-      setError(data.error || "Request failed");
+      setError(data.error || c.requestFailed);
       setPainPoints([]);
       setLoading(false);
       return;
@@ -34,34 +72,31 @@ export default function CustomerPainPointExtractorPage() {
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-4">
       <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50">
-        Customer Pain Point Extractor
+        {c.title}
       </h1>
 
       <section className="rounded-lg border border-mono-300 dark:border-mono-700 p-4 text-sm space-y-3">
         <div>
           <h2 className="font-semibold mb-1 text-mono-900 dark:text-mono-100">
-            Instructions
+            {c.instructions}
           </h2>
           <p className="text-mono-700 dark:text-mono-300">
-            Paste reviews, comments, Reddit threads, or support logs. The tool
-            finds sentences that match common pain signals, assigns a category,
-            and ranks by how many signals hit per sentence.
+            {c.instructionsBody}
           </p>
         </div>
         <div>
           <h2 className="font-semibold mb-1 text-mono-900 dark:text-mono-100">
-            Expected outcome
+            {c.expectedOutcome}
           </h2>
           <p className="text-mono-700 dark:text-mono-300">
-            Phrases with category and a frequency-style score (more keyword hits
-            in the same sentence raises the score).
+            {c.expectedOutcomeBody}
           </p>
         </div>
       </section>
 
       <textarea
         className={textareaClass}
-        placeholder="Paste raw text here…"
+        placeholder={c.placeholder}
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
@@ -72,7 +107,7 @@ export default function CustomerPainPointExtractorPage() {
         disabled={loading}
         className="w-full rounded-lg bg-black dark:bg-mono-100 px-4 py-2 font-semibold text-white dark:text-mono-950 disabled:opacity-60"
       >
-        {loading ? "Extracting…" : "Extract pain points"}
+        {loading ? c.extracting : c.extractPainPoints}
       </button>
 
       {error && (
@@ -87,13 +122,13 @@ export default function CustomerPainPointExtractorPage() {
             <thead className="border-b border-mono-300 dark:border-mono-600 bg-mono-100 dark:bg-mono-900">
               <tr>
                 <th className="p-3 font-semibold text-mono-900 dark:text-mono-100">
-                  Phrase
+                  {c.phrase}
                 </th>
                 <th className="p-3 font-semibold text-mono-900 dark:text-mono-100">
-                  Category
+                  {c.category}
                 </th>
                 <th className="p-3 font-semibold text-mono-900 dark:text-mono-100">
-                  Score
+                  {c.score}
                 </th>
               </tr>
             </thead>

@@ -2,6 +2,108 @@
 
 import { useState, useEffect } from 'react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    toolName: 'Best Time to Post',
+    toolDescription:
+      'Shows the best times to post on social media platforms using a heat-map visualization. Displays optimal posting times by day of week and hour of day to maximize engagement.',
+    howToUse: [
+      { label: 'Select platform:', text: 'Choose Instagram, TikTok, Twitter, LinkedIn, or Facebook' },
+      { label: 'View heat-map:', text: 'See color-coded grid showing best posting times (darker colors = better times)' },
+      { label: 'Hover over cells:', text: 'See specific day and time combinations' },
+      { label: 'Plan your posts:', text: 'Schedule content during the optimal times shown in darker colors' },
+    ],
+    howToUseTitle: 'How to Use This Tool',
+    whatItDoes: 'What It Does',
+    whatItDoesBody:
+      'Shows the best times to post on social media platforms using a heat-map visualization. Displays optimal posting times by day of week and hour of day to maximize engagement.',
+    howToUseInner: 'How to Use',
+    expectedOutcome: 'Expected Outcome',
+    expectedOutcomes: [
+      'Visual heat-map showing optimal posting times',
+      'Platform-specific recommendations',
+      'Day and hour combinations for best engagement',
+      'Color-coded visualization (darker = better times)',
+      'Easy-to-read grid format',
+    ],
+    title: 'Best Time to Post – 2026 Heat-map',
+    supportedPlatforms: 'Supported Platforms:',
+    platformInstagram: 'Instagram',
+    platformTiktok: 'TikTok',
+    platformLinkedin: 'LinkedIn',
+    platformTwitter: 'Twitter / X',
+    platformFacebook: 'Facebook',
+    industryTravel: 'Travel & Tourism',
+    industryFashion: 'Fashion & Beauty',
+    industryFood: 'Food & Restaurants',
+    industryEdu: 'Education',
+    industryFitness: 'Fitness & Wellness',
+    industryGaming: 'Gaming',
+    industryB2b: 'B2B',
+    industryEcom: 'E-commerce',
+    tzEastern: 'Eastern (ET/UTC-5)',
+    tzCentral: 'Central (CT/UTC-6)',
+    tzPacific: 'Pacific (PT/UTC-8)',
+    tzLondon: 'London (GMT/UTC+0)',
+    tzCentralEu: 'Central EU (CET/UTC+1)',
+    exportIcs: 'Export .ics',
+    legendLow: 'low',
+    legendTop3: 'top-3 window',
+    alertNoSlots: 'No slots available for this combo',
+    dayLabels: { mon: 'MON', tue: 'TUE', wed: 'WED', thu: 'THU', fri: 'FRI', sat: 'SAT', sun: 'SUN' },
+  },
+  es: {
+    toolName: 'Mejor hora para publicar',
+    toolDescription:
+      'Muestra las mejores horas para publicar en redes sociales con un mapa de calor. Indica los momentos óptimos por día de la semana y hora del día para maximizar el engagement.',
+    howToUse: [
+      { label: 'Selecciona la plataforma:', text: 'Elige Instagram, TikTok, Twitter, LinkedIn o Facebook' },
+      { label: 'Consulta el mapa de calor:', text: 'Ve la cuadrícula con colores que indica las mejores horas (colores más oscuros = mejores horas)' },
+      { label: 'Pasa el cursor sobre las celdas:', text: 'Consulta combinaciones específicas de día y hora' },
+      { label: 'Planifica tus publicaciones:', text: 'Programa contenido en las horas óptimas mostradas con colores más oscuros' },
+    ],
+    howToUseTitle: 'Cómo usar esta herramienta',
+    whatItDoes: 'Qué hace',
+    whatItDoesBody:
+      'Muestra las mejores horas para publicar en redes sociales con un mapa de calor. Indica los momentos óptimos por día de la semana y hora del día para maximizar el engagement.',
+    howToUseInner: 'Cómo usar',
+    expectedOutcome: 'Resultado esperado',
+    expectedOutcomes: [
+      'Mapa de calor visual con las horas óptimas de publicación',
+      'Recomendaciones específicas por plataforma',
+      'Combinaciones de día y hora para mejor engagement',
+      'Visualización con código de colores (más oscuro = mejores horas)',
+      'Formato de cuadrícula fácil de leer',
+    ],
+    title: 'Mejor hora para publicar – Mapa de calor 2026',
+    supportedPlatforms: 'Plataformas compatibles:',
+    platformInstagram: 'Instagram',
+    platformTiktok: 'TikTok',
+    platformLinkedin: 'LinkedIn',
+    platformTwitter: 'Twitter / X',
+    platformFacebook: 'Facebook',
+    industryTravel: 'Viajes y turismo',
+    industryFashion: 'Moda y belleza',
+    industryFood: 'Comida y restaurantes',
+    industryEdu: 'Educación',
+    industryFitness: 'Fitness y bienestar',
+    industryGaming: 'Videojuegos',
+    industryB2b: 'B2B',
+    industryEcom: 'Comercio electrónico',
+    tzEastern: 'Este (ET/UTC-5)',
+    tzCentral: 'Centro (CT/UTC-6)',
+    tzPacific: 'Pacífico (PT/UTC-8)',
+    tzLondon: 'Londres (GMT/UTC+0)',
+    tzCentralEu: 'Europa central (CET/UTC+1)',
+    exportIcs: 'Exportar .ics',
+    legendLow: 'bajo',
+    legendTop3: 'ventana top-3',
+    alertNoSlots: 'No hay franjas disponibles para esta combinación',
+    dayLabels: { mon: 'LUN', tue: 'MAR', wed: 'MIÉ', thu: 'JUE', fri: 'VIE', sat: 'SÁB', sun: 'DOM' },
+  },
+}
 
 const data: Record<string, Record<string, string[]>> = {
   ig: {
@@ -29,7 +131,7 @@ const data: Record<string, Record<string, string[]>> = {
 const days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 const hours = Array.from({ length: 24 }, (_, i) => i)
 
-function BestTimeToPostContent() {
+function BestTimeToPostContent({ c }: { c: typeof copy.en }) {
   const [platform, setPlatform] = useState('ig')
   const [industry, setIndustry] = useState('travel')
   const [tz, setTz] = useState('et')
@@ -73,7 +175,7 @@ function BestTimeToPostContent() {
   const handleExport = () => {
     const key = data[platform]?.[industry] || []
     if (!key.length) {
-      alert("No slots available for this combo")
+      alert(c.alertNoSlots)
       return
     }
 
@@ -109,41 +211,38 @@ function BestTimeToPostContent() {
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 p-4 max-w-4xl mx-auto">
       {/* Documentation Section */}
       <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
-        <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+        <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.howToUseTitle}</h2>
         <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
           <div>
-            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
-            <p>Shows the best times to post on social media platforms using a heat-map visualization. Displays optimal posting times by day of week and hour of day to maximize engagement.</p>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.whatItDoes}</h3>
+            <p>{c.whatItDoesBody}</p>
           </div>
           <div>
-            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.howToUseInner}</h3>
             <ol className="list-decimal list-inside space-y-1 ml-2">
-              <li><strong>Select platform:</strong> Choose Instagram, TikTok, Twitter, LinkedIn, or Facebook</li>
-              <li><strong>View heat-map:</strong> See color-coded grid showing best posting times (darker colors = better times)</li>
-              <li><strong>Hover over cells:</strong> See specific day and time combinations</li>
-              <li><strong>Plan your posts:</strong> Schedule content during the optimal times shown in darker colors</li>
+              {c.howToUse.map((step, i) => (
+                <li key={i}><strong>{step.label}</strong> {step.text}</li>
+              ))}
             </ol>
           </div>
           <div>
-            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+            <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.expectedOutcome}</h3>
             <ul className="list-disc list-inside space-y-1 ml-2">
-              <li>Visual heat-map showing optimal posting times</li>
-              <li>Platform-specific recommendations</li>
-              <li>Day and hour combinations for best engagement</li>
-              <li>Color-coded visualization (darker = better times)</li>
-              <li>Easy-to-read grid format</li>
+              {c.expectedOutcomes.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
           </div>
         </div>
       </div>
 
       <header className="flex gap-4 flex-wrap items-center mb-4">
-        <h1 className="text-2xl font-bold m-0">Best Time to Post – 2026 Heat-map</h1>
+        <h1 className="text-2xl font-bold m-0">{c.title}</h1>
       </header>
 
       {/* Supported Platforms */}
       <div className="bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-lg p-4 mb-6">
-        <p className="text-xs font-semibold text-mono-700 dark:text-mono-300 mb-2">Supported Platforms:</p>
+        <p className="text-xs font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.supportedPlatforms}</p>
         <div className="flex flex-wrap gap-2">
           <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">📸 Instagram</span>
           <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">🎵 TikTok</span>
@@ -159,54 +258,54 @@ function BestTimeToPostContent() {
           onChange={(e) => setPlatform(e.target.value)}
           className="px-3 py-2 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
         >
-          <option value="ig">Instagram</option>
-          <option value="tt">TikTok</option>
-          <option value="li">LinkedIn</option>
-          <option value="tw">Twitter / X</option>
-          <option value="fb">Facebook</option>
+          <option value="ig">{c.platformInstagram}</option>
+          <option value="tt">{c.platformTiktok}</option>
+          <option value="li">{c.platformLinkedin}</option>
+          <option value="tw">{c.platformTwitter}</option>
+          <option value="fb">{c.platformFacebook}</option>
         </select>
         <select
           value={industry}
           onChange={(e) => setIndustry(e.target.value)}
           className="px-3 py-2 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
         >
-          <option value="travel">Travel & Tourism</option>
-          <option value="fashion">Fashion & Beauty</option>
-          <option value="food">Food & Restaurants</option>
-          <option value="edu">Education</option>
-          <option value="fitness">Fitness & Wellness</option>
-          <option value="gaming">Gaming</option>
-          <option value="b2b">B2B</option>
-          <option value="ecom">E-commerce</option>
+          <option value="travel">{c.industryTravel}</option>
+          <option value="fashion">{c.industryFashion}</option>
+          <option value="food">{c.industryFood}</option>
+          <option value="edu">{c.industryEdu}</option>
+          <option value="fitness">{c.industryFitness}</option>
+          <option value="gaming">{c.industryGaming}</option>
+          <option value="b2b">{c.industryB2b}</option>
+          <option value="ecom">{c.industryEcom}</option>
         </select>
         <select
           value={tz}
           onChange={(e) => setTz(e.target.value)}
           className="px-3 py-2 border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50"
         >
-          <option value="et">Eastern (ET/UTC-5)</option>
-          <option value="ct">Central (CT/UTC-6)</option>
-          <option value="pt">Pacific (PT/UTC-8)</option>
-          <option value="gmt">London (GMT/UTC+0)</option>
-          <option value="cet">Central EU (CET/UTC+1)</option>
+          <option value="et">{c.tzEastern}</option>
+          <option value="ct">{c.tzCentral}</option>
+          <option value="pt">{c.tzPacific}</option>
+          <option value="gmt">{c.tzLondon}</option>
+          <option value="cet">{c.tzCentralEu}</option>
         </select>
         <button
           onClick={handleExport}
           className="px-4 py-2 bg-accent-600 text-white rounded cursor-pointer hover:opacity-90"
         >
-          Export .ics
+          {c.exportIcs}
         </button>
       </div>
 
       <div className="text-sm mt-4 flex gap-4">
-        <span>■ <span className="text-mono-500">low</span></span>
-        <span>■ <span className="text-green-600">top-3 window</span></span>
+        <span>■ <span className="text-mono-500">{c.legendLow}</span></span>
+        <span>■ <span className="text-green-600">{c.legendTop3}</span></span>
       </div>
 
       <div className="grid grid-cols-7 gap-1 mt-4">
         {days.map(d => (
           <div key={d} className="font-semibold text-xs text-center py-2">
-            {d.slice(0, 3).toUpperCase()}
+            {c.dayLabels[d as keyof typeof c.dayLabels]}
           </div>
         ))}
         {hours.map(h => (
@@ -232,14 +331,15 @@ function BestTimeToPostContent() {
 }
 
 export default function BestTimeToPost() {
-  const toolDescription = "Shows the best times to post on social media platforms using a heat-map visualization. Displays optimal posting times by day of week and hour of day to maximize engagement."
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const howToUse = (
     <div>
       <ol className="list-decimal list-inside space-y-1 ml-2">
-        <li><strong>Select platform:</strong> Choose Instagram, TikTok, Twitter, LinkedIn, or Facebook</li>
-        <li><strong>View heat-map:</strong> See color-coded grid showing best posting times (darker colors = better times)</li>
-        <li><strong>Hover over cells:</strong> See specific day and time combinations</li>
-        <li><strong>Plan your posts:</strong> Schedule content during the optimal times shown in darker colors</li>
+        {c.howToUse.map((step, i) => (
+          <li key={i}><strong>{step.label}</strong> {step.text}</li>
+        ))}
       </ol>
     </div>
   )
@@ -247,11 +347,11 @@ export default function BestTimeToPost() {
   return (
     <ToolAccessGate
       toolSlug="best-time-to-post"
-      toolName="Best Time to Post"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
-      <BestTimeToPostContent />
+      <BestTimeToPostContent c={c} />
     </ToolAccessGate>
   )
 }

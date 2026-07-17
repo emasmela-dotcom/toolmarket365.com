@@ -2,8 +2,108 @@
 
 import { useState } from 'react'
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
-function AICaptionGeneratorContent() {
+const copy = {
+  en: {
+    toolName: 'AI Caption Generator',
+    toolDescription:
+      'Generates 3 social media captions instantly based on your image/video description, selected tone, platform, and length preference.',
+    howToUse: [
+      { label: 'Describe your content:', text: 'Paste image description or video script' },
+      { label: 'Select tone:', text: 'Funny/Witty, Inspirational, Professional, Casual, or Informative' },
+      { label: 'Choose platform:', text: 'Instagram, TikTok, LinkedIn, Twitter/X, or Facebook' },
+      { label: 'Pick length:', text: 'Short (≤70 chars), Medium (70-220 chars), or Long (220+ chars)' },
+      { label: 'Click "Generate 3 captions"', text: 'to create your captions' },
+    ],
+    title: 'AI Caption Generator',
+    subtitle: 'Describe your image/video, pick a vibe & platform → get 3 captions in seconds.',
+    supportedPlatforms: 'Supported Platforms:',
+    howToUseTitle: 'How to Use This Tool',
+    whatItDoes: 'What It Does',
+    whatItDoesBody:
+      'Generates 3 social media captions instantly based on your image/video description, selected tone, platform, and length preference.',
+    howToUseInner: 'How to Use',
+    expectedOutcome: 'Expected Outcome',
+    expectedOutcomes: [
+      '3 unique captions tailored to your tone and platform',
+      'Platform-optimized formatting and hashtags',
+      'Tone-appropriate language and style',
+      'Length-optimized for your selected preference',
+      'Ready to copy and use immediately',
+    ],
+    step1Label: '1. Paste image description or video script',
+    promptPlaceholder: 'E.g. A dog skateboarding down the beach at sunset wearing neon sunglasses…',
+    step2Label: '2. Tone',
+    toneFunny: 'Funny / Witty',
+    toneInspirational: 'Inspirational',
+    toneProfessional: 'Professional',
+    toneCasual: 'Casual',
+    toneInformative: 'Informative',
+    step3Label: '3. Platform',
+    platformInstagram: 'Instagram',
+    platformTiktok: 'TikTok',
+    platformLinkedin: 'LinkedIn',
+    platformTwitter: 'Twitter / X',
+    platformFacebook: 'Facebook',
+    step5Label: '5. Length',
+    lengthShort: 'Short (≤ 70 chars)',
+    lengthMedium: 'Medium (70-220 chars)',
+    lengthLong: 'Long (220+)',
+    generate: 'Generate 3 captions',
+    alertAddDescription: 'Add a description first',
+  },
+  es: {
+    toolName: 'Generador de pies de foto con IA',
+    toolDescription:
+      'Genera 3 pies de foto para redes al instante según la descripción de tu imagen/video, el tono, la plataforma y la longitud elegidos.',
+    howToUse: [
+      { label: 'Describe tu contenido:', text: 'Pega la descripción de la imagen o el guion del video' },
+      { label: 'Selecciona el tono:', text: 'Divertido/Ingenioso, Inspirador, Profesional, Casual o Informativo' },
+      { label: 'Elige la plataforma:', text: 'Instagram, TikTok, LinkedIn, Twitter/X o Facebook' },
+      { label: 'Elige la longitud:', text: 'Corta (≤70 caracteres), Media (70-220 caracteres) o Larga (220+ caracteres)' },
+      { label: 'Haz clic en "Generar 3 pies de foto"', text: 'para crear tus pies de foto' },
+    ],
+    title: 'Generador de pies de foto con IA',
+    subtitle: 'Describe tu imagen/video, elige el estilo y la plataforma → obtén 3 pies de foto en segundos.',
+    supportedPlatforms: 'Plataformas compatibles:',
+    howToUseTitle: 'Cómo usar esta herramienta',
+    whatItDoes: 'Qué hace',
+    whatItDoesBody:
+      'Genera 3 pies de foto para redes al instante según la descripción de tu imagen/video, el tono, la plataforma y la longitud elegidos.',
+    howToUseInner: 'Cómo usar',
+    expectedOutcome: 'Resultado esperado',
+    expectedOutcomes: [
+      '3 pies de foto únicos adaptados a tu tono y plataforma',
+      'Formato y hashtags optimizados para la plataforma',
+      'Lenguaje y estilo acordes al tono',
+      'Longitud optimizada según tu preferencia',
+      'Listos para copiar y usar de inmediato',
+    ],
+    step1Label: '1. Pega la descripción de la imagen o el guion del video',
+    promptPlaceholder: 'Ej. Un perro patinando por la playa al atardecer con gafas de sol neón…',
+    step2Label: '2. Tono',
+    toneFunny: 'Divertido / Ingenioso',
+    toneInspirational: 'Inspirador',
+    toneProfessional: 'Profesional',
+    toneCasual: 'Casual',
+    toneInformative: 'Informativo',
+    step3Label: '3. Plataforma',
+    platformInstagram: 'Instagram',
+    platformTiktok: 'TikTok',
+    platformLinkedin: 'LinkedIn',
+    platformTwitter: 'Twitter / X',
+    platformFacebook: 'Facebook',
+    step5Label: '5. Longitud',
+    lengthShort: 'Corta (≤ 70 caracteres)',
+    lengthMedium: 'Media (70-220 caracteres)',
+    lengthLong: 'Larga (220+)',
+    generate: 'Generar 3 pies de foto',
+    alertAddDescription: 'Añade una descripción primero',
+  },
+}
+
+function AICaptionGeneratorContent({ c }: { c: typeof copy.en }) {
   const [prompt, setPrompt] = useState('')
   const [tone, setTone] = useState('funny')
   const [platform, setPlatform] = useState('instagram')
@@ -353,14 +453,14 @@ function AICaptionGeneratorContent() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950 text-mono-950 dark:text-mono-50 py-8 px-4 flex flex-col items-center">
       <div className="w-full max-w-2xl">
-        <h1 className="text-2xl font-bold mb-2 text-center">AI Caption Generator</h1>
+        <h1 className="text-2xl font-bold mb-2 text-center">{c.title}</h1>
         <p className="text-sm text-mono-600 dark:text-mono-400 text-center mb-4">
-          Describe your image/video, pick a vibe & platform → get 3 captions in seconds.
+          {c.subtitle}
         </p>
 
         {/* Supported Platforms */}
         <div className="bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-lg p-4 mb-6">
-          <p className="text-xs font-semibold text-mono-700 dark:text-mono-300 mb-2">Supported Platforms:</p>
+          <p className="text-xs font-semibold text-mono-700 dark:text-mono-300 mb-2">{c.supportedPlatforms}</p>
           <div className="flex flex-wrap gap-2">
             <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">📸 Instagram</span>
             <span className="px-3 py-1 bg-white dark:bg-mono-800 rounded-full text-xs font-medium text-mono-700 dark:text-mono-300 border border-mono-200 dark:border-mono-700">🎵 TikTok</span>
@@ -372,30 +472,26 @@ function AICaptionGeneratorContent() {
 
         {/* Documentation Section */}
         <div className="bg-mono-100 dark:bg-mono-900 rounded-lg p-6 mb-6 border border-mono-200 dark:border-mono-700">
-          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">How to Use This Tool</h2>
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.howToUseTitle}</h2>
           <div className="space-y-4 text-sm text-mono-700 dark:text-mono-300">
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">What It Does</h3>
-              <p>Generates 3 social media captions instantly based on your image/video description, selected tone, platform, and length preference.</p>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.whatItDoes}</h3>
+              <p>{c.whatItDoesBody}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">How to Use</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.howToUseInner}</h3>
               <ol className="list-decimal list-inside space-y-1 ml-2">
-                <li><strong>Describe your content:</strong> Paste image description or video script</li>
-                <li><strong>Select tone:</strong> Funny/Witty, Inspirational, Professional, Casual, or Informative</li>
-                <li><strong>Choose platform:</strong> Instagram, TikTok, LinkedIn, Twitter/X, or Facebook</li>
-                <li><strong>Pick length:</strong> Short (≤70 chars), Medium (70-220 chars), or Long (220+ chars)</li>
-                <li><strong>Click "Generate 3 captions"</strong> to create your captions</li>
+                {c.howToUse.map((step, i) => (
+                  <li key={i}><strong>{step.label}</strong> {step.text}</li>
+                ))}
               </ol>
             </div>
             <div>
-              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">Expected Outcome</h3>
+              <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-1">{c.expectedOutcome}</h3>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>3 unique captions tailored to your tone and platform</li>
-                <li>Platform-optimized formatting and hashtags</li>
-                <li>Tone-appropriate language and style</li>
-                <li>Length-optimized for your selected preference</li>
-                <li>Ready to copy and use immediately</li>
+                {c.expectedOutcomes.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -403,57 +499,57 @@ function AICaptionGeneratorContent() {
 
         <div className="bg-mono-50 dark:bg-mono-900 border border-mono-300 dark:border-mono-700 rounded-lg p-6 mt-4">
           <label className="block mb-2 mt-4 text-sm font-semibold">
-            1. Paste image description or video script
+            {c.step1Label}
           </label>
           <textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="E.g. A dog skateboarding down the beach at sunset wearing neon sunglasses…"
+            placeholder={c.promptPlaceholder}
             className="w-full p-3 text-sm border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 resize-y h-24 focus:outline-none focus:ring-2 focus:ring-accent-500"
           />
 
-          <label className="block mb-2 mt-4 text-sm font-semibold">2. Tone</label>
+          <label className="block mb-2 mt-4 text-sm font-semibold">{c.step2Label}</label>
           <select
             value={tone}
             onChange={(e) => setTone(e.target.value)}
             className="w-full p-3 text-sm border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
           >
-            <option value="funny">Funny / Witty</option>
-            <option value="inspirational">Inspirational</option>
-            <option value="professional">Professional</option>
-            <option value="casual">Casual</option>
-            <option value="informative">Informative</option>
+            <option value="funny">{c.toneFunny}</option>
+            <option value="inspirational">{c.toneInspirational}</option>
+            <option value="professional">{c.toneProfessional}</option>
+            <option value="casual">{c.toneCasual}</option>
+            <option value="informative">{c.toneInformative}</option>
           </select>
 
-          <label className="block mb-2 mt-4 text-sm font-semibold">3. Platform</label>
+          <label className="block mb-2 mt-4 text-sm font-semibold">{c.step3Label}</label>
           <select
             value={platform}
             onChange={(e) => setPlatform(e.target.value)}
             className="w-full p-3 text-sm border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
           >
-            <option value="instagram">Instagram</option>
-            <option value="tiktok">TikTok</option>
-            <option value="linkedin">LinkedIn</option>
-            <option value="twitter">Twitter / X</option>
-            <option value="facebook">Facebook</option>
+            <option value="instagram">{c.platformInstagram}</option>
+            <option value="tiktok">{c.platformTiktok}</option>
+            <option value="linkedin">{c.platformLinkedin}</option>
+            <option value="twitter">{c.platformTwitter}</option>
+            <option value="facebook">{c.platformFacebook}</option>
           </select>
 
-          <label className="block mb-2 mt-4 text-sm font-semibold">5. Length</label>
+          <label className="block mb-2 mt-4 text-sm font-semibold">{c.step5Label}</label>
           <select
             value={length}
             onChange={(e) => setLength(e.target.value)}
             className="w-full p-3 text-sm border border-mono-300 dark:border-mono-700 rounded bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
           >
-            <option value="short">Short (≤ 70 chars)</option>
-            <option value="medium">Medium (70-220 chars)</option>
-            <option value="long">Long (220+)</option>
+            <option value="short">{c.lengthShort}</option>
+            <option value="medium">{c.lengthMedium}</option>
+            <option value="long">{c.lengthLong}</option>
           </select>
 
           <button
             onClick={handleGenerate}
             className="w-full mt-6 px-4 py-3 bg-accent-600 text-white rounded font-medium hover:opacity-90 transition-opacity cursor-pointer"
           >
-            Generate 3 captions
+            {c.generate}
           </button>
 
           {showOutput && (
@@ -468,26 +564,25 @@ function AICaptionGeneratorContent() {
 }
 
 export default function AICaptionGenerator() {
-  const toolDescription = "Generates 3 social media captions instantly based on your image/video description, selected tone, platform, and length preference."
-  
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const howToUse = (
     <ol className="list-decimal list-inside space-y-1 ml-2">
-      <li><strong>Describe your content:</strong> Paste image description or video script</li>
-      <li><strong>Select tone:</strong> Funny/Witty, Inspirational, Professional, Casual, or Informative</li>
-      <li><strong>Choose platform:</strong> Instagram, TikTok, LinkedIn, Twitter/X, or Facebook</li>
-      <li><strong>Pick length:</strong> Short (≤70 chars), Medium (70-220 chars), or Long (220+ chars)</li>
-      <li><strong>Click "Generate 3 captions"</strong> to create your captions</li>
+      {c.howToUse.map((step, i) => (
+        <li key={i}><strong>{step.label}</strong> {step.text}</li>
+      ))}
     </ol>
   )
 
   return (
     <ToolAccessGate
       toolSlug="ai-caption-generator"
-      toolName="AI Caption Generator"
-      toolDescription={toolDescription}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
       howToUse={howToUse}
     >
-      <AICaptionGeneratorContent />
+      <AICaptionGeneratorContent c={c} />
     </ToolAccessGate>
   )
 }

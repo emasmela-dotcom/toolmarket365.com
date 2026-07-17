@@ -4,7 +4,163 @@ import { useState, useEffect, useCallback } from 'react'
 import { AdvancedFilters } from '@/components/content-library/AdvancedFilters'
 import { BulkActions } from '@/components/content-library/BulkActions'
 import { ContentPreview } from '@/components/content-library/ContentPreview'
-import { Search, Plus, Grid, List, Filter, Heart, Share2, MoreVertical, Folder, FileText, Image, Video, Music, File, Calendar, Eye, ThumbsUp, Tag, Clock, Star, Archive, Edit, Trash2, Download, Copy, EyeOff, X, Check, Sparkles } from 'lucide-react';
+import { Search, Plus, Grid, List, Filter, Heart, Share2, MoreVertical, Folder, FileText, Image, Video, Music, File, Calendar, Eye, ThumbsUp, Tag, Clock, Star, Archive, Edit, Trash2, Download, Copy, EyeOff, X, Check, Sparkles } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    localStorageTitle: 'Data Stored Locally in Your Browser',
+    localStorageBody:
+      "Good news: All tools work instantly with local storage—no setup required! However: Your content is currently stored in your browser's local storage, which means your data is only on this device, won't sync across devices, and may be lost if you clear browser data. For full benefits and full functionality (cloud sync, cross-device access, data backup), set up a database connection. One database setup works for all tools—configure it once and enjoy cloud storage across your entire ToolMarket365 toolkit.",
+    setupNeon: 'Set up Neon Database (Free)',
+    title: '📚 Content Library',
+    subtitle: 'Manage and organize your content',
+    newContent: 'New Content',
+    searchPlaceholder: 'Search content, tags, descriptions...',
+    filters: 'Filters',
+    contentType: 'Content Type',
+    status: 'Status',
+    collection: 'Collection',
+    sortBy: 'Sort By',
+    other: 'Other',
+    favoritesOnly: 'Favorites Only',
+    allCollections: 'All Collections',
+    clearFilters: 'Clear Filters',
+    collections: 'Collections',
+    allContent: 'All Content',
+    quickStats: '📊 Quick Stats',
+    totalItems: 'Total Items',
+    published: 'Published',
+    favorites: 'Favorites',
+    thisWeek: 'This Week',
+    showingItems: (shown: number, total: number) => `Showing ${shown} of ${total} items`,
+    previous: 'Previous',
+    next: 'Next',
+    noContentFound: 'No content found',
+    adjustFilters: 'Try adjusting your search or filter criteria',
+    startCreating: 'Start by creating your first piece of content',
+    createContent: 'Create Content',
+    deleteConfirm: 'Are you sure you want to delete this content?',
+    view: 'View',
+    edit: 'Edit',
+    deselect: 'Deselect',
+    select: 'Select',
+    delete: 'Delete',
+    editContent: 'Edit Content',
+    createNewContent: 'Create New Content',
+    titleLabel: 'Title *',
+    titlePlaceholder: 'Enter content title',
+    descriptionLabel: 'Description',
+    descriptionPlaceholder: 'Enter content description',
+    contentTypeLabel: 'Content Type',
+    statusLabel: 'Status',
+    collectionLabel: 'Collection',
+    noCollection: 'No Collection',
+    markFavorite: 'Mark as favorite',
+    tagsLabel: 'Tags',
+    addTagPlaceholder: 'Add a tag',
+    addTag: 'Add Tag',
+    cancel: 'Cancel',
+    updateContent: 'Update Content',
+    createContentBtn: 'Create Content',
+    titleRequired: 'Please enter a title',
+    sortCreated: 'Created Date',
+    sortUpdated: 'Updated Date',
+    sortTitle: 'Title',
+    sortViews: 'Views',
+    sortLikes: 'Likes',
+    contentTypes: {
+      text: 'Text',
+      image: 'Image',
+      video: 'Video',
+      audio: 'Audio',
+      document: 'Document',
+      template: 'Template',
+    },
+    statuses: {
+      draft: 'Draft',
+      published: 'Published',
+      archived: 'Archived',
+    },
+  },
+  es: {
+    localStorageTitle: 'Datos almacenados localmente en tu navegador',
+    localStorageBody:
+      'Buenas noticias: todas las herramientas funcionan al instante con almacenamiento local, sin configuración. Sin embargo: tu contenido se guarda en el almacenamiento local del navegador, así que solo está en este dispositivo, no se sincroniza entre dispositivos y puede perderse si borras datos del navegador. Para todas las ventajas (sincronización en la nube, acceso multi-dispositivo, copia de seguridad), configura una base de datos. Una sola configuración sirve para todas las herramientas: configúrala una vez y disfruta del almacenamiento en la nube en todo tu kit ToolMarket365.',
+    setupNeon: 'Configurar base de datos Neon (gratis)',
+    title: '📚 Biblioteca de contenido',
+    subtitle: 'Gestiona y organiza tu contenido',
+    newContent: 'Nuevo contenido',
+    searchPlaceholder: 'Buscar contenido, etiquetas, descripciones...',
+    filters: 'Filtros',
+    contentType: 'Tipo de contenido',
+    status: 'Estado',
+    collection: 'Colección',
+    sortBy: 'Ordenar por',
+    other: 'Otros',
+    favoritesOnly: 'Solo favoritos',
+    allCollections: 'Todas las colecciones',
+    clearFilters: 'Borrar filtros',
+    collections: 'Colecciones',
+    allContent: 'Todo el contenido',
+    quickStats: '📊 Estadísticas rápidas',
+    totalItems: 'Total de elementos',
+    published: 'Publicado',
+    favorites: 'Favoritos',
+    thisWeek: 'Esta semana',
+    showingItems: (shown: number, total: number) => `Mostrando ${shown} de ${total} elementos`,
+    previous: 'Anterior',
+    next: 'Siguiente',
+    noContentFound: 'No se encontró contenido',
+    adjustFilters: 'Prueba ajustar tu búsqueda o criterios de filtro',
+    startCreating: 'Empieza creando tu primer contenido',
+    createContent: 'Crear contenido',
+    deleteConfirm: '¿Seguro que quieres eliminar este contenido?',
+    view: 'Ver',
+    edit: 'Editar',
+    deselect: 'Deseleccionar',
+    select: 'Seleccionar',
+    delete: 'Eliminar',
+    editContent: 'Editar contenido',
+    createNewContent: 'Crear contenido nuevo',
+    titleLabel: 'Título *',
+    titlePlaceholder: 'Ingresa el título del contenido',
+    descriptionLabel: 'Descripción',
+    descriptionPlaceholder: 'Ingresa la descripción del contenido',
+    contentTypeLabel: 'Tipo de contenido',
+    statusLabel: 'Estado',
+    collectionLabel: 'Colección',
+    noCollection: 'Sin colección',
+    markFavorite: 'Marcar como favorito',
+    tagsLabel: 'Etiquetas',
+    addTagPlaceholder: 'Añadir una etiqueta',
+    addTag: 'Añadir etiqueta',
+    cancel: 'Cancelar',
+    updateContent: 'Actualizar contenido',
+    createContentBtn: 'Crear contenido',
+    titleRequired: 'Ingresa un título',
+    sortCreated: 'Fecha de creación',
+    sortUpdated: 'Fecha de actualización',
+    sortTitle: 'Título',
+    sortViews: 'Vistas',
+    sortLikes: 'Me gusta',
+    contentTypes: {
+      text: 'Texto',
+      image: 'Imagen',
+      video: 'Video',
+      audio: 'Audio',
+      document: 'Documento',
+      template: 'Plantilla',
+    },
+    statuses: {
+      draft: 'Borrador',
+      published: 'Publicado',
+      archived: 'Archivado',
+    },
+  },
+}
+
+type Copy = (typeof copy)[keyof typeof copy]
 
 // Types
 interface ContentItem {
@@ -56,6 +212,8 @@ interface SearchFilters {
 
 // Main Component
 export default function ContentLibraryPage() {
+  const { language } = useLanguage()
+  const c = copy[language]
   // State Management
   const [contentItems, setContentItems] = useState<ContentItem[]>([])
   const [collections, setCollections] = useState<ContentCollection[]>([])
@@ -387,7 +545,7 @@ export default function ContentLibraryPage() {
   }
 
   const handleDeleteItem = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this content?')) return
+    if (!confirm(c.deleteConfirm)) return
 
     try {
       const response = await fetch(`/api/content-library/${id}`, {
@@ -531,10 +689,10 @@ export default function ContentLibraryPage() {
               </div>
               <div className="flex-1">
                 <h3 className="text-sm font-semibold text-yellow-800 dark:text-yellow-200 mb-1">
-                  Data Stored Locally in Your Browser
+                  {c.localStorageTitle}
                 </h3>
                 <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-3">
-                  <strong>Good news:</strong> All tools work instantly with local storage—no setup required! <strong>However:</strong> Your content is currently stored in your browser's local storage, which means your data is only on this device, won't sync across devices, and may be lost if you clear browser data. <strong>For full benefits and full functionality</strong> (cloud sync, cross-device access, data backup), set up a database connection. <strong>One database setup works for all tools</strong>—configure it once and enjoy cloud storage across your entire ToolMarket365 toolkit.
+                  {c.localStorageBody}
                 </p>
                 <div className="mt-3">
                   <a
@@ -543,7 +701,7 @@ export default function ContentLibraryPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-lg transition-colors"
                   >
-                    Set up Neon Database (Free)
+                    {c.setupNeon}
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
@@ -557,8 +715,8 @@ export default function ContentLibraryPage() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold">📚 Content Library</h1>
-            <p className="text-mono-600 dark:text-mono-400">Manage and organize your content</p>
+            <h1 className="text-3xl font-bold">{c.title}</h1>
+            <p className="text-mono-600 dark:text-mono-400">{c.subtitle}</p>
           </div>
           
           <div className="flex items-center space-x-4">
@@ -570,7 +728,7 @@ export default function ContentLibraryPage() {
               className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors flex items-center space-x-2"
             >
               <Plus className="w-4 h-4" />
-              <span>New Content</span>
+              <span>{c.newContent}</span>
             </button>
             
             <BulkActions
@@ -594,7 +752,7 @@ export default function ContentLibraryPage() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-4 h-4" />
         <input
           type="text"
-                  placeholder="Search content, tags, descriptions..."
+                  placeholder={c.searchPlaceholder}
                   value={searchFilters.query}
                   onChange={(e) => handleSearch(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
@@ -606,7 +764,7 @@ export default function ContentLibraryPage() {
                 className="px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors flex items-center space-x-2"
               >
                 <Filter className="w-4 h-4" />
-                <span>Filters</span>
+                <span>{c.filters}</span>
               </button>
 
               <div className="flex items-center space-x-2">
@@ -639,9 +797,9 @@ export default function ContentLibraryPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {/* Content Type Filter */}
                   <div>
-                    <label className="block text-sm font-medium mb-2">Content Type</label>
+                    <label className="block text-sm font-medium mb-2">{c.contentType}</label>
                     <div className="space-y-2">
-                      {['text', 'image', 'video', 'audio', 'document', 'template'].map(type => (
+                      {(['text', 'image', 'video', 'audio', 'document', 'template'] as const).map(type => (
                         <label key={type} className="flex items-center space-x-2 cursor-pointer">
                           <input
                             type="checkbox"
@@ -654,7 +812,7 @@ export default function ContentLibraryPage() {
                             }}
                             className="rounded"
                           />
-                          <span className="text-sm capitalize">{type}</span>
+                          <span className="text-sm">{c.contentTypes[type]}</span>
                         </label>
                       ))}
                     </div>
@@ -662,9 +820,9 @@ export default function ContentLibraryPage() {
 
                   {/* Status Filter */}
                   <div>
-                    <label className="block text-sm font-medium mb-2">Status</label>
+                    <label className="block text-sm font-medium mb-2">{c.status}</label>
                     <div className="space-y-2">
-                      {['draft', 'published', 'archived'].map(status => (
+                      {(['draft', 'published', 'archived'] as const).map(status => (
                         <label key={status} className="flex items-center space-x-2 cursor-pointer">
                           <input
                             type="checkbox"
@@ -677,7 +835,7 @@ export default function ContentLibraryPage() {
                             }}
                             className="rounded"
                           />
-                          <span className="text-sm capitalize">{status}</span>
+                          <span className="text-sm">{c.statuses[status]}</span>
                         </label>
                       ))}
                     </div>
@@ -685,13 +843,13 @@ export default function ContentLibraryPage() {
 
                   {/* Collection Filter */}
                   <div>
-                    <label className="block text-sm font-medium mb-2">Collection</label>
+                    <label className="block text-sm font-medium mb-2">{c.collection}</label>
         <select
                       value={searchFilters.collection_id}
                       onChange={(e) => handleFilterChange('collection_id', e.target.value)}
                       className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                     >
-                      <option value="">All Collections</option>
+                      <option value="">{c.allCollections}</option>
                       {collections.map(collection => (
                         <option key={collection.id} value={collection.id}>
                           {collection.name}
@@ -702,23 +860,23 @@ export default function ContentLibraryPage() {
 
                   {/* Sort Options */}
                   <div>
-                    <label className="block text-sm font-medium mb-2">Sort By</label>
+                    <label className="block text-sm font-medium mb-2">{c.sortBy}</label>
                     <select
                       value={searchFilters.sort_by}
                       onChange={(e) => handleFilterChange('sort_by', e.target.value)}
                       className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                     >
-                      <option value="created_at">Created Date</option>
-                      <option value="updated_at">Updated Date</option>
-                      <option value="title">Title</option>
-                      <option value="view_count">Views</option>
-                      <option value="like_count">Likes</option>
+                      <option value="created_at">{c.sortCreated}</option>
+                      <option value="updated_at">{c.sortUpdated}</option>
+                      <option value="title">{c.sortTitle}</option>
+                      <option value="view_count">{c.sortViews}</option>
+                      <option value="like_count">{c.sortLikes}</option>
                     </select>
                   </div>
 
                   {/* Other Filters */}
           <div>
-                    <label className="block text-sm font-medium mb-2">Other</label>
+                    <label className="block text-sm font-medium mb-2">{c.other}</label>
                     <label className="flex items-center space-x-2 cursor-pointer">
                       <input
                         type="checkbox"
@@ -726,7 +884,7 @@ export default function ContentLibraryPage() {
                         onChange={(e) => handleFilterChange('is_favorite', e.target.checked)}
                         className="rounded"
                       />
-                      <span className="text-sm">Favorites Only</span>
+                      <span className="text-sm">{c.favoritesOnly}</span>
                     </label>
                   </div>
                 </div>
@@ -751,7 +909,7 @@ export default function ContentLibraryPage() {
                     }}
                     className="px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
                   >
-                    Clear Filters
+                    {c.clearFilters}
         </button>
                 </div>
               </div>
@@ -767,7 +925,7 @@ export default function ContentLibraryPage() {
             <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
               <h3 className="font-semibold mb-4 flex items-center">
                 <Folder className="w-5 h-5 mr-2" />
-                Collections
+                {c.collections}
               </h3>
               <div className="space-y-2 max-h-[300px] overflow-y-auto">
         <button
@@ -779,7 +937,7 @@ export default function ContentLibraryPage() {
                   }`}
                 >
                   <div className="flex justify-between items-center">
-                    <span>All Content</span>
+                    <span>{c.allContent}</span>
                     <span className="text-xs bg-mono-200 dark:bg-mono-800 px-2 py-1 rounded">
                       {pagination.total}
                     </span>
@@ -809,26 +967,26 @@ export default function ContentLibraryPage() {
 
             {/* Quick Stats */}
             <div className="bg-white dark:bg-mono-900 rounded-lg p-4 border border-mono-200 dark:border-mono-700">
-              <h3 className="font-semibold mb-4">📊 Quick Stats</h3>
+              <h3 className="font-semibold mb-4">{c.quickStats}</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-mono-600 dark:text-mono-400">Total Items</span>
+                  <span className="text-sm text-mono-600 dark:text-mono-400">{c.totalItems}</span>
                   <span className="font-semibold">{pagination.total}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-mono-600 dark:text-mono-400">Published</span>
+                  <span className="text-sm text-mono-600 dark:text-mono-400">{c.published}</span>
                   <span className="font-semibold">
                     {contentItems.filter(item => item.status === 'published').length}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-mono-600 dark:text-mono-400">Favorites</span>
+                  <span className="text-sm text-mono-600 dark:text-mono-400">{c.favorites}</span>
                   <span className="font-semibold">
                     {contentItems.filter(item => item.is_favorite).length}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-mono-600 dark:text-mono-400">This Week</span>
+                  <span className="text-sm text-mono-600 dark:text-mono-400">{c.thisWeek}</span>
                   <span className="font-semibold">
                     {contentItems.filter(item => {
                       const itemDate = new Date(item.created_at)
@@ -847,7 +1005,7 @@ export default function ContentLibraryPage() {
             {/* View Mode Toggle */}
             <div className="flex justify-between items-center mb-4">
               <div className="text-sm text-mono-600 dark:text-mono-400">
-                Showing {contentItems.length} of {pagination.total} items
+                {c.showingItems(contentItems.length, pagination.total)}
               </div>
               
               <div className="flex items-center space-x-2">
@@ -859,7 +1017,7 @@ export default function ContentLibraryPage() {
                   disabled={pagination.offset === 0}
                   className="px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Previous
+                  {c.previous}
                 </button>
                 
                 <button
@@ -870,7 +1028,7 @@ export default function ContentLibraryPage() {
                   disabled={!pagination.has_more}
                   className="px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Next
+                  {c.next}
                 </button>
               </div>
             </div>
@@ -882,6 +1040,7 @@ export default function ContentLibraryPage() {
                   <ContentCard
                     key={item.id}
                     item={item}
+                    c={c}
                     isSelected={selectedItems.includes(item.id)}
                     onSelect={(id) => {
                       setSelectedItems(prev => 
@@ -911,6 +1070,7 @@ export default function ContentLibraryPage() {
                   <ContentListItem
                     key={item.id}
                     item={item}
+                    c={c}
                     isSelected={selectedItems.includes(item.id)}
                     onSelect={(id) => {
                       setSelectedItems(prev => 
@@ -940,15 +1100,15 @@ export default function ContentLibraryPage() {
                 <div className="text-mono-400 mb-4">
                   <FileText className="w-16 h-16 mx-auto" />
                 </div>
-                <h3 className="text-lg font-semibold text-mono-600 dark:text-mono-400 mb-2">No content found</h3>
+                <h3 className="text-lg font-semibold text-mono-600 dark:text-mono-400 mb-2">{c.noContentFound}</h3>
                 <p className="text-mono-500 mb-4">
                   {searchFilters.query || Object.values(searchFilters).some(v => 
                     Array.isArray(v) ? v.length > 0 : 
                     typeof v === 'boolean' ? v : 
                     typeof v === 'string' ? v !== '' : false
                   ) 
-                    ? "Try adjusting your search or filter criteria"
-                    : "Start by creating your first piece of content"
+                    ? c.adjustFilters
+                    : c.startCreating
                   }
                 </p>
                 <button
@@ -959,7 +1119,7 @@ export default function ContentLibraryPage() {
                   className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors flex items-center space-x-2 mx-auto"
                 >
                   <Plus className="w-4 h-4" />
-                  <span>Create Content</span>
+                  <span>{c.createContent}</span>
                 </button>
               </div>
             )}
@@ -971,6 +1131,7 @@ export default function ContentLibraryPage() {
           isOpen={showCreateModal}
           item={editingItem}
           collections={collections}
+          c={c}
           onClose={() => {
             setShowCreateModal(false)
             setEditingItem(null)
@@ -1006,6 +1167,7 @@ export default function ContentLibraryPage() {
 // Content Card Component
 function ContentCard({ 
   item, 
+  c,
   isSelected, 
   onSelect, 
   onEdit, 
@@ -1019,6 +1181,7 @@ function ContentCard({
   setShowDropdown
 }: { 
   item: ContentItem
+  c: Copy
   isSelected: boolean
   onSelect: (id: string) => void
   onEdit: () => void
@@ -1043,7 +1206,7 @@ function ContentCard({
             <IconComponent className="w-4 h-4" />
           </div>
           <span className={`px-2 py-1 rounded text-xs font-medium ${statusColor}`}>
-            {item.status}
+            {c.statuses[item.status]}
           </span>
         </div>
         
@@ -1071,7 +1234,7 @@ function ContentCard({
                   className="w-full text-left px-4 py-2 hover:bg-mono-100 dark:hover:bg-mono-800 flex items-center space-x-2"
                 >
                   <Eye className="w-4 h-4" />
-                  <span>View</span>
+                  <span>{c.view}</span>
           </button>
           <button
                   onClick={() => {
@@ -1081,7 +1244,7 @@ function ContentCard({
                   className="w-full text-left px-4 py-2 hover:bg-mono-100 dark:hover:bg-mono-800 flex items-center space-x-2"
                 >
                   <Edit className="w-4 h-4" />
-                  <span>Edit</span>
+                  <span>{c.edit}</span>
                 </button>
                 <button
                   onClick={() => {
@@ -1093,12 +1256,12 @@ function ContentCard({
                   {isSelected ? (
                     <>
                       <EyeOff className="w-4 h-4" />
-                      <span>Deselect</span>
+                      <span>{c.deselect}</span>
                     </>
                   ) : (
                     <>
                       <Eye className="w-4 h-4" />
-                      <span>Select</span>
+                      <span>{c.select}</span>
                     </>
                   )}
                 </button>
@@ -1110,7 +1273,7 @@ function ContentCard({
                   className="w-full text-left px-4 py-2 hover:bg-mono-100 dark:hover:bg-mono-800 text-red-600 flex items-center space-x-2"
                 >
                   <Trash2 className="w-4 h-4" />
-                  <span>Delete</span>
+                  <span>{c.delete}</span>
           </button>
               </div>
             )}
@@ -1196,6 +1359,7 @@ function ContentCard({
 // Content List Item Component
 function ContentListItem({ 
   item, 
+  c,
   isSelected, 
   onSelect, 
   onEdit, 
@@ -1207,6 +1371,7 @@ function ContentListItem({
   statusColors
 }: { 
   item: ContentItem
+  c: Copy
   isSelected: boolean
   onSelect: (id: string) => void
   onEdit: () => void
@@ -1243,7 +1408,7 @@ function ContentListItem({
             {item.title}
           </h3>
           <span className={`px-2 py-1 rounded text-xs font-medium ${statusColor}`}>
-            {item.status}
+            {c.statuses[item.status]}
           </span>
           {item.is_favorite && <Heart className="w-4 h-4 text-red-500 fill-current" />}
           {item.metadata?.tool && (
@@ -1322,12 +1487,14 @@ function CreateEditModal({
   onClose,
   item,
   collections,
+  c,
   onSave
 }: {
   isOpen: boolean
   onClose: () => void
   item: ContentItem | null
   collections: ContentCollection[]
+  c: Copy
   onSave: (data: any) => void
 }) {
   const [formData, setFormData] = useState({
@@ -1375,7 +1542,7 @@ function CreateEditModal({
   const handleSubmit = (e: React.FormEvent) => {
           e.preventDefault()
     if (!formData.title.trim()) {
-      alert('Please enter a title')
+      alert(c.titleRequired)
       return
     }
     onSave(formData)
@@ -1405,7 +1572,7 @@ function CreateEditModal({
       <div className="bg-white dark:bg-mono-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">{item ? 'Edit Content' : 'Create New Content'}</h2>
+            <h2 className="text-2xl font-bold">{item ? c.editContent : c.createNewContent}</h2>
           <button
               onClick={onClose}
               className="p-2 hover:bg-mono-100 dark:hover:bg-mono-800 rounded transition-colors"
@@ -1418,23 +1585,23 @@ function CreateEditModal({
             {/* Basic Info */}
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Title *</label>
+                <label className="block text-sm font-medium mb-2">{c.titleLabel}</label>
                 <input
                   type="text"
                   value={formData.title}
                   onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                  placeholder="Enter content title"
+                  placeholder={c.titlePlaceholder}
                   required
                   className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
                 />
       </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Description</label>
+                <label className="block text-sm font-medium mb-2">{c.descriptionLabel}</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                  placeholder="Enter content description"
+                  placeholder={c.descriptionPlaceholder}
                   rows={3}
                   className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-900 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
                 />
@@ -1442,44 +1609,41 @@ function CreateEditModal({
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Content Type</label>
+                  <label className="block text-sm font-medium mb-2">{c.contentTypeLabel}</label>
                   <select
                     value={formData.content_type}
                     onChange={(e) => setFormData(prev => ({ ...prev, content_type: e.target.value as ContentItem['content_type'] }))}
                     className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   >
-                    <option value="text">Text</option>
-                    <option value="image">Image</option>
-                    <option value="video">Video</option>
-                    <option value="audio">Audio</option>
-                    <option value="document">Document</option>
-                    <option value="template">Template</option>
+                    {(['text', 'image', 'video', 'audio', 'document', 'template'] as const).map((type) => (
+                      <option key={type} value={type}>{c.contentTypes[type]}</option>
+                    ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Status</label>
+                  <label className="block text-sm font-medium mb-2">{c.statusLabel}</label>
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as ContentItem['status'] }))}
                     className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   >
-                    <option value="draft">Draft</option>
-                    <option value="published">Published</option>
-                    <option value="archived">Archived</option>
+                    {(['draft', 'published', 'archived'] as const).map((status) => (
+                      <option key={status} value={status}>{c.statuses[status]}</option>
+                    ))}
                   </select>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Collection</label>
+                  <label className="block text-sm font-medium mb-2">{c.collectionLabel}</label>
                   <select
                     value={formData.collection_id}
                     onChange={(e) => setFormData(prev => ({ ...prev, collection_id: e.target.value }))}
                     className="w-full px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-900 text-mono-950 dark:text-mono-50"
                   >
-                    <option value="">No Collection</option>
+                    <option value="">{c.noCollection}</option>
                     {collections.map(collection => (
                       <option key={collection.id} value={collection.id}>
                         {collection.name}
@@ -1496,14 +1660,14 @@ function CreateEditModal({
                     onChange={(e) => setFormData(prev => ({ ...prev, is_favorite: e.target.checked }))}
                     className="rounded"
                   />
-                  <label htmlFor="is_favorite" className="text-sm">Mark as favorite</label>
+                  <label htmlFor="is_favorite" className="text-sm">{c.markFavorite}</label>
         </div>
               </div>
             </div>
 
             {/* Tags */}
             <div>
-              <label className="block text-sm font-medium mb-2">Tags</label>
+              <label className="block text-sm font-medium mb-2">{c.tagsLabel}</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {formData.tags.map(tag => (
                   <span key={tag} className="px-3 py-1 bg-mono-200 dark:bg-mono-800 rounded-lg flex items-center gap-2">
@@ -1523,7 +1687,7 @@ function CreateEditModal({
                   type="text"
                   value={newTag}
                   onChange={(e) => setNewTag(e.target.value)}
-                  placeholder="Add a tag"
+                  placeholder={c.addTagPlaceholder}
                   onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault()
@@ -1537,7 +1701,7 @@ function CreateEditModal({
                   onClick={addTag}
                   className="px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
                 >
-                  Add Tag
+                  {c.addTag}
                 </button>
           </div>
       </div>
@@ -1549,13 +1713,13 @@ function CreateEditModal({
                 onClick={onClose}
                 className="px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
               >
-                Cancel
+                {c.cancel}
               </button>
               <button
                 type="submit"
                 className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
               >
-                {item ? 'Update' : 'Create'} Content
+                {item ? c.updateContent : c.createContentBtn}
               </button>
             </div>
           </form>
