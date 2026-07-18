@@ -65,6 +65,14 @@ export const translations = {
     homeMailPipelineTagline:
       'Never lose a lead in your inbox again. Turn email threads into a simple follow-up pipeline.',
     homeMailPipelineCta: 'Open MailPipelineCRM',
+    homeCareConnectTitle: 'CareConnect 24/7',
+    homeCareConnectTagline:
+      'Your care, anytime. Care coordination tools for families and caregivers.',
+    homeCareConnectCta: 'Open CareConnect 24/7',
+    homeReadAiTitle: 'ReadAI365',
+    homeReadAiTagline:
+      'Every book. Every reader. Every story. Find any book and where you can read it.',
+    homeReadAiCta: 'Open ReadAI365',
     pricingTitle: 'Pricing',
     pricingSubtitle: 'One plan: $0.99/month. Browse tools free; features unlock with subscription.',
     pricingPlanDescription:
@@ -785,6 +793,14 @@ export const translations = {
     homeMailPipelineTagline:
       'No vuelvas a perder un lead en tu bandeja. Convierte hilos de correo en un pipeline simple de seguimiento.',
     homeMailPipelineCta: 'Abrir MailPipelineCRM',
+    homeCareConnectTitle: 'CareConnect 24/7',
+    homeCareConnectTagline:
+      'Tu cuidado, en cualquier momento. Herramientas de coordinación para familias y cuidadores.',
+    homeCareConnectCta: 'Abrir CareConnect 24/7',
+    homeReadAiTitle: 'ReadAI365',
+    homeReadAiTagline:
+      'Cada libro. Cada lector. Cada historia. Encuentra cualquier libro y dónde leerlo.',
+    homeReadAiCta: 'Abrir ReadAI365',
     pricingTitle: 'Precio',
     pricingSubtitle:
       'Un solo plan: $0.99/mes. Explora las herramientas gratis; las funciones se desbloquean con suscripción.',

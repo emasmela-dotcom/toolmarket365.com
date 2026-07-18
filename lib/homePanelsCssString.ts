@@ -419,6 +419,74 @@ body:has(main.tm-home) {
   color: #082f49;
 }
 
+.tm-home__featured--care {
+  margin: 0;
+  border-color: rgba(52, 211, 153, 0.5);
+  background:
+    radial-gradient(700px 220px at 0% 0%, rgba(52, 211, 153, 0.22), transparent 55%),
+    radial-gradient(600px 200px at 100% 100%, rgba(125, 211, 252, 0.12), transparent 50%),
+    linear-gradient(135deg, rgba(6, 30, 24, 0.95), rgba(15, 23, 42, 0.88));
+}
+
+.tm-home__featured--care .tm-home__featured-kicker {
+  border-color: rgba(52, 211, 153, 0.55);
+  background: rgba(52, 211, 153, 0.14);
+  color: #a7f3d0;
+}
+
+.tm-home__featured--care .tm-home__featured-title {
+  color: #ecfdf5;
+}
+
+.tm-home__featured--care .tm-home__featured-text {
+  color: #a7f3d0;
+}
+
+.tm-home__featured--care .tm-home__featured-cta {
+  border-color: #34d399;
+  background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+  color: #064e3b;
+  box-shadow: 0 12px 28px rgba(16, 185, 129, 0.3);
+}
+
+.tm-home__featured--care .tm-home__featured-cta:hover {
+  color: #064e3b;
+}
+
+.tm-home__featured--read {
+  margin: 0;
+  border-color: rgba(251, 146, 60, 0.5);
+  background:
+    radial-gradient(700px 220px at 0% 0%, rgba(251, 146, 60, 0.22), transparent 55%),
+    radial-gradient(600px 200px at 100% 100%, rgba(251, 191, 36, 0.12), transparent 50%),
+    linear-gradient(135deg, rgba(40, 20, 8, 0.95), rgba(15, 23, 42, 0.88));
+}
+
+.tm-home__featured--read .tm-home__featured-kicker {
+  border-color: rgba(251, 146, 60, 0.55);
+  background: rgba(251, 146, 60, 0.14);
+  color: #fed7aa;
+}
+
+.tm-home__featured--read .tm-home__featured-title {
+  color: #fff7ed;
+}
+
+.tm-home__featured--read .tm-home__featured-text {
+  color: #fed7aa;
+}
+
+.tm-home__featured--read .tm-home__featured-cta {
+  border-color: #fb923c;
+  background: linear-gradient(180deg, #fb923c 0%, #f97316 100%);
+  color: #7c2d12;
+  box-shadow: 0 12px 28px rgba(249, 115, 22, 0.3);
+}
+
+.tm-home__featured--read .tm-home__featured-cta:hover {
+  color: #7c2d12;
+}
+
 .tm-home__featured {
   margin: 0;
 }

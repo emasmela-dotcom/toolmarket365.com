@@ -89,3 +89,59 @@ export function formatMailPipelineDate(value: string) {
   if (Number.isNaN(d.getTime())) return value
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
+
+export function shiftMailPipelineDate(value: string, days: number) {
+  const base = value ? new Date(value) : new Date()
+  if (Number.isNaN(base.getTime())) {
+    const fallback = new Date()
+    fallback.setDate(fallback.getDate() + days)
+    return fallback.toISOString().slice(0, 10)
+  }
+  base.setDate(base.getDate() + days)
+  return base.toISOString().slice(0, 10)
+}
+
+export function getMailPipelineStats(deals: MailPipelineDeal[]) {
+  const open = deals.filter((d) => d.stage !== 'Won' && d.stage !== 'Lost')
+  return {
+    total: deals.length,
+    open: open.length,
+    dueToday: todaysMailPipelineFollowUps(deals).length,
+    won: deals.filter((d) => d.stage === 'Won').length,
+  }
+}
+
+/** Starter deals so the page isn’t blank on first visit. */
+export const mailPipelineSampleDeals: MailPipelineDeal[] = [
+  {
+    id: 'sample-acme',
+    title: 'Website redesign proposal — Acme Co',
+    contactEmail: 'jordan@acme.example',
+    stage: 'Proposal Sent',
+    amount: '$4,500',
+    lastContactAt: shiftMailPipelineDate('', -2),
+    nextFollowUpAt: shiftMailPipelineDate('', 0),
+    notes: 'Sent proposal Monday. Waiting on budget reply.',
+  },
+  {
+    id: 'sample-north',
+    title: 'Monthly retainer kickoff — North Studio',
+    contactEmail: 'sam@north.example',
+    stage: 'Talking',
+    amount: '$1,200/mo',
+    lastContactAt: shiftMailPipelineDate('', -1),
+    nextFollowUpAt: shiftMailPipelineDate('', 1),
+    notes: 'They liked the scope. Confirm start date.',
+  },
+  {
+    id: 'sample-won',
+    title: 'Logo package — Bright Leaf',
+    contactEmail: 'hello@brightleaf.example',
+    stage: 'Won',
+    amount: '$900',
+    lastContactAt: shiftMailPipelineDate('', -5),
+    nextFollowUpAt: shiftMailPipelineDate('', -3),
+    notes: 'Paid. Archive when files delivered.',
+  },
+]
+

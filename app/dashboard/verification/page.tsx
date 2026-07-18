@@ -3,32 +3,93 @@
 import { VerificationStatus } from '@/components/verification/VerificationStatus'
 import { Shield, CheckCircle, Clock } from 'lucide-react';
 import { ToolAccessGate } from '@/components/ToolAccessGate'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    title: 'Creator Verification',
+    subtitle:
+      'Get verified to display a verified badge, build trust with your audience, and access priority support',
+    benefitsTitle: 'Verification Benefits',
+    benefitsSubtitle: 'Unlock exclusive features and build credibility with verification',
+    benefitTrustTitle: 'Trust & Credibility',
+    benefitTrustDesc:
+      'Build trust with your audience and potential collaborators. Display a verified badge on your creator profile.',
+    benefitBadgeTitle: 'Verified Badge',
+    benefitBadgeDesc:
+      'Show a blue checkmark badge on your profile in Growth Suite, making you stand out to brands and collaborators',
+    benefitSupportTitle: 'Priority Support',
+    benefitSupportDesc:
+      'Get faster response times from our support team (24-48 hour response vs. standard 3-5 business days)',
+    requirementsTitle: 'Verification Requirements',
+    requirementsSubtitle: "To get verified, you'll need to meet these criteria",
+    reqProfile: 'Complete profile with profile picture and bio',
+    reqAccountAge: 'Active account for at least 30 days',
+    reqContent: 'Consistent content creation or platform usage',
+    reqPolicy: 'No policy violations or suspicious activity',
+    toolName: 'Creator Verification',
+    toolDescription:
+      'Get verified as a creator to display a verified badge, build trust with your audience, and access priority support. Verification is automatic for Professional+ plans. Note: Tool access is determined by your subscription plan, not verification status.',
+    howToUse:
+      "1. Click 'Request Verification' if you're on a Starter or Essential plan. 2. Professional+ plans are automatically verified. 3. Once verified, you'll see a blue checkmark badge on your profile. 4. Verification helps build credibility and provides priority support—your subscription plan determines which tools you can access.",
+  },
+  es: {
+    title: 'Verificación de creador',
+    subtitle:
+      'Obtén la verificación para mostrar una insignia verificada, generar confianza con tu audiencia y acceder a soporte prioritario',
+    benefitsTitle: 'Beneficios de la verificación',
+    benefitsSubtitle: 'Desbloquea funciones exclusivas y genera credibilidad con la verificación',
+    benefitTrustTitle: 'Confianza y credibilidad',
+    benefitTrustDesc:
+      'Genera confianza con tu audiencia y posibles colaboradores. Muestra una insignia verificada en tu perfil de creador.',
+    benefitBadgeTitle: 'Insignia verificada',
+    benefitBadgeDesc:
+      'Muestra una insignia de verificación azul en tu perfil en Growth Suite, destacándote ante marcas y colaboradores',
+    benefitSupportTitle: 'Soporte prioritario',
+    benefitSupportDesc:
+      'Obtén respuestas más rápidas de nuestro equipo de soporte (24-48 horas frente a 3-5 días hábiles estándar)',
+    requirementsTitle: 'Requisitos de verificación',
+    requirementsSubtitle: 'Para obtener la verificación, debes cumplir estos criterios',
+    reqProfile: 'Perfil completo con foto y biografía',
+    reqAccountAge: 'Cuenta activa durante al menos 30 días',
+    reqContent: 'Creación de contenido o uso constante de la plataforma',
+    reqPolicy: 'Sin violaciones de políticas ni actividad sospechosa',
+    toolName: 'Verificación de creador',
+    toolDescription:
+      'Obtén la verificación como creador para mostrar una insignia verificada, generar confianza con tu audiencia y acceder a soporte prioritario. La verificación es automática en planes Professional+. Nota: el acceso a herramientas lo determina tu plan de suscripción, no el estado de verificación.',
+    howToUse:
+      "1. Haz clic en 'Solicitar verificación' si tienes un plan Starter o Essential. 2. Los planes Professional+ se verifican automáticamente. 3. Una vez verificado, verás una insignia azul en tu perfil. 4. La verificación ayuda a generar credibilidad y proporciona soporte prioritario: tu plan de suscripción determina a qué herramientas puedes acceder.",
+  },
+}
 
 function VerificationPageContent() {
+  const { language } = useLanguage()
+  const c = copy[language]
+
   const benefits = [
     {
       icon: Shield,
-      title: 'Trust & Credibility',
-      description: 'Build trust with your audience and potential collaborators. Display a verified badge on your creator profile.'
+      title: c.benefitTrustTitle,
+      description: c.benefitTrustDesc,
     },
     {
       icon: CheckCircle,
-      title: 'Verified Badge',
-      description: 'Show a blue checkmark badge on your profile in Growth Suite, making you stand out to brands and collaborators'
+      title: c.benefitBadgeTitle,
+      description: c.benefitBadgeDesc,
     },
     {
       icon: Clock,
-      title: 'Priority Support',
-      description: 'Get faster response times from our support team (24-48 hour response vs. standard 3-5 business days)'
-    }
+      title: c.benefitSupportTitle,
+      description: c.benefitSupportDesc,
+    },
   ]
 
   return (
     <div className="container mx-auto py-8 px-4 max-w-4xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50">Creator Verification</h1>
+        <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50">{c.title}</h1>
         <p className="text-mono-600 dark:text-mono-400 mt-2">
-          Get verified to display a verified badge, build trust with your audience, and access priority support
+          {c.subtitle}
         </p>
       </div>
 
@@ -36,9 +97,9 @@ function VerificationPageContent() {
         <VerificationStatus />
 
         <div className="bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700 p-6">
-          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">Verification Benefits</h2>
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">{c.benefitsTitle}</h2>
           <p className="text-sm text-mono-600 dark:text-mono-400 mb-4">
-            Unlock exclusive features and build credibility with verification
+            {c.benefitsSubtitle}
           </p>
           <div className="grid gap-4">
             {benefits.map((benefit, index) => {
@@ -59,26 +120,26 @@ function VerificationPageContent() {
         </div>
 
         <div className="bg-white dark:bg-mono-900 rounded-lg border border-mono-200 dark:border-mono-700 p-6">
-          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">Verification Requirements</h2>
+          <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-2">{c.requirementsTitle}</h2>
           <p className="text-sm text-mono-600 dark:text-mono-400 mb-4">
-            To get verified, you'll need to meet these criteria
+            {c.requirementsSubtitle}
           </p>
           <ul className="space-y-2 text-sm text-mono-600 dark:text-mono-400">
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-accent-600 rounded-full"></span>
-              Complete profile with profile picture and bio
+              {c.reqProfile}
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-accent-600 rounded-full"></span>
-              Active account for at least 30 days
+              {c.reqAccountAge}
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-accent-600 rounded-full"></span>
-              Consistent content creation or platform usage
+              {c.reqContent}
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-accent-600 rounded-full"></span>
-              No policy violations or suspicious activity
+              {c.reqPolicy}
             </li>
           </ul>
         </div>
@@ -88,15 +149,15 @@ function VerificationPageContent() {
 }
 
 export default function VerificationPage() {
-  const toolDescription = "Get verified as a creator to display a verified badge, build trust with your audience, and access priority support. Verification is automatic for Professional+ plans. Note: Tool access is determined by your subscription plan, not verification status."
-  const howToUse = "1. Click 'Request Verification' if you're on a Starter or Essential plan. 2. Professional+ plans are automatically verified. 3. Once verified, you'll see a blue checkmark badge on your profile. 4. Verification helps build credibility and provides priority support—your subscription plan determines which tools you can access."
+  const { language } = useLanguage()
+  const c = copy[language]
 
   return (
     <ToolAccessGate
       toolSlug="creator-verification"
-      toolName="Creator Verification"
-      toolDescription={toolDescription}
-      howToUse={howToUse}
+      toolName={c.toolName}
+      toolDescription={c.toolDescription}
+      howToUse={c.howToUse}
     >
       <VerificationPageContent />
     </ToolAccessGate>

@@ -5,6 +5,111 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { User, Settings, Clock, Star, TrendingUp, BarChart3, Calendar, ArrowRight, Sparkles, FolderOpen, FileText, Image, Video, Hash, Eye, CheckCircle2, Globe } from 'lucide-react';
 import { getPreferences, toggleSaveToLibrary, isSaveToLibraryEnabled } from '@/lib/preferences'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    trialEndingSoon: (days: number) =>
+      `⚠️ Trial Ending Soon - ${days} Day${days !== 1 ? 's' : ''} Left`,
+    freeTrialActive: (days: number) =>
+      `🎉 Free Trial Active - ${days} Day${days !== 1 ? 's' : ''} Remaining`,
+    trialEndingBody:
+      "Subscribe now to keep all content created during your trial. If you don't subscribe, your account will be restored to its pre-trial state.",
+    trialActiveBody:
+      'Subscribe anytime during your trial to lock in your content. You can continue using ToolMarket365 or subscribe now to secure your work.',
+    subscribeNow: 'Subscribe Now',
+    subscribeEarly: 'Subscribe Early',
+    localStorageTitle: 'Data Stored Locally in Your Browser',
+    localStorageBody:
+      'Good news: All tools work instantly with local storage—no setup required! However: Your dashboard data (favorites, tool usage, activity) is currently stored in your browser\'s local storage, which means your data is only on this device, won\'t sync across devices, and may be lost if you clear browser data. For full benefits and full functionality (cloud sync, cross-device access, data backup), set up a database connection. One database setup works for all tools—configure it once and enjoy cloud storage across your entire ToolMarket365 toolkit.',
+    setupNeon: 'Set up Neon Database (Free)',
+    dashboard: 'Dashboard',
+    welcomeBack: (name: string) => `Welcome back${name ? `, ${name}` : ''}! Here's your activity overview.`,
+    toolsUsed: 'Tools Used',
+    totalToolsAccessed: 'Total tools accessed',
+    favorites: 'Favorites',
+    savedTools: 'Saved tools',
+    recentActivity: 'Recent Activity',
+    last30Days: 'Last 30 days',
+    accountType: 'Account Type',
+    currentPlan: 'Current plan',
+    favoriteTools: 'Favorite Tools',
+    browseAll: 'Browse All',
+    noFavorites: 'No favorite tools yet',
+    exploreTools: 'Explore Tools',
+    accountInfo: 'Account Info',
+    email: 'Email',
+    notSignedIn: 'Not signed in',
+    memberSince: 'Member Since',
+    today: 'Today',
+    plan: 'Plan',
+    accountSettings: 'Account Settings',
+    preferences: 'Preferences',
+    saveToLibraryTitle: 'Enable Save to Library Feature',
+    saveToLibraryDesc:
+      'When enabled, "Save to Library" buttons will appear on tool output pages',
+    activity: 'Activity',
+    view: 'View',
+    noRecentActivity: 'No recent activity',
+    noActivityHint: 'Start using tools to see your activity here',
+    browseAllTools: 'Browse All Tools',
+    contentLibrary: 'Content Library',
+    performanceDashboard: 'Performance Dashboard',
+    creatorVerification: 'Creator Verification',
+    instagramScheduler: 'Instagram Scheduler',
+  },
+  es: {
+    trialEndingSoon: (days: number) =>
+      `⚠️ La prueba termina pronto - ${days} día${days !== 1 ? 's' : ''} restante${days !== 1 ? 's' : ''}`,
+    freeTrialActive: (days: number) =>
+      `🎉 Prueba gratuita activa - ${days} día${days !== 1 ? 's' : ''} restante${days !== 1 ? 's' : ''}`,
+    trialEndingBody:
+      'Suscríbete ahora para conservar todo el contenido creado durante tu prueba. Si no te suscribes, tu cuenta volverá a su estado anterior a la prueba.',
+    trialActiveBody:
+      'Suscríbete en cualquier momento durante tu prueba para asegurar tu contenido. Puedes seguir usando ToolMarket365 o suscribirte ahora para proteger tu trabajo.',
+    subscribeNow: 'Suscribirse ahora',
+    subscribeEarly: 'Suscribirse antes',
+    localStorageTitle: 'Datos guardados localmente en tu navegador',
+    localStorageBody:
+      'Buenas noticias: ¡Todas las herramientas funcionan al instante con almacenamiento local, sin configuración! Sin embargo: los datos de tu panel (favoritos, uso de herramientas, actividad) se guardan en el almacenamiento local de tu navegador, lo que significa que tus datos están solo en este dispositivo, no se sincronizan entre dispositivos y pueden perderse si borras los datos del navegador. Para obtener todos los beneficios y la funcionalidad completa (sincronización en la nube, acceso entre dispositivos, copia de seguridad), configura una conexión a base de datos. Una sola configuración de base de datos funciona para todas las herramientas: configúrala una vez y disfruta del almacenamiento en la nube en todo tu kit de ToolMarket365.',
+    setupNeon: 'Configurar Neon Database (gratis)',
+    dashboard: 'Panel',
+    welcomeBack: (name: string) =>
+      `¡Bienvenido de nuevo${name ? `, ${name}` : ''}! Aquí tienes un resumen de tu actividad.`,
+    toolsUsed: 'Herramientas usadas',
+    totalToolsAccessed: 'Total de herramientas accedidas',
+    favorites: 'Favoritos',
+    savedTools: 'Herramientas guardadas',
+    recentActivity: 'Actividad reciente',
+    last30Days: 'Últimos 30 días',
+    accountType: 'Tipo de cuenta',
+    currentPlan: 'Plan actual',
+    favoriteTools: 'Herramientas favoritas',
+    browseAll: 'Ver todas',
+    noFavorites: 'Aún no hay herramientas favoritas',
+    exploreTools: 'Explorar herramientas',
+    accountInfo: 'Información de la cuenta',
+    email: 'Correo electrónico',
+    notSignedIn: 'No has iniciado sesión',
+    memberSince: 'Miembro desde',
+    today: 'Hoy',
+    plan: 'Plan',
+    accountSettings: 'Configuración de cuenta',
+    preferences: 'Preferencias',
+    saveToLibraryTitle: 'Activar función Guardar en biblioteca',
+    saveToLibraryDesc:
+      'Cuando está activada, los botones "Guardar en biblioteca" aparecerán en las páginas de resultados de las herramientas',
+    activity: 'Actividad',
+    view: 'Ver',
+    noRecentActivity: 'Sin actividad reciente',
+    noActivityHint: 'Empieza a usar herramientas para ver tu actividad aquí',
+    browseAllTools: 'Ver todas las herramientas',
+    contentLibrary: 'Biblioteca de contenido',
+    performanceDashboard: 'Panel de rendimiento',
+    creatorVerification: 'Verificación de creador',
+    instagramScheduler: 'Programador de Instagram',
+  },
+}
 
 interface DashboardStats {
   totalToolsUsed: number
@@ -51,6 +156,9 @@ const ACTIVITY_KEY = 'user_activity_log'
 
 export default function DashboardPage() {
   const router = useRouter()
+  const { language } = useLanguage()
+  const c = copy[language]
+  const locale = language === 'es' ? 'es' : 'en'
   const [user, setUser] = useState<{ id: string; email: string } | null>(null)
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -298,8 +406,8 @@ export default function DashboardPage() {
                       : 'text-blue-900 dark:text-blue-200'
                   }`}>
                     {trialStatus.daysRemaining <= 3
-                      ? `⚠️ Trial Ending Soon - ${trialStatus.daysRemaining} Day${trialStatus.daysRemaining !== 1 ? 's' : ''} Left`
-                      : `🎉 Free Trial Active - ${trialStatus.daysRemaining} Day${trialStatus.daysRemaining !== 1 ? 's' : ''} Remaining`
+                      ? c.trialEndingSoon(trialStatus.daysRemaining)
+                      : c.freeTrialActive(trialStatus.daysRemaining)
                     }
                   </h3>
                   <p className={`text-sm ${
@@ -308,8 +416,8 @@ export default function DashboardPage() {
                       : 'text-blue-800 dark:text-blue-300'
                   }`}>
                     {trialStatus.daysRemaining <= 3
-                      ? 'Subscribe now to keep all content created during your trial. If you don\'t subscribe, your account will be restored to its pre-trial state.'
-                      : 'Subscribe anytime during your trial to lock in your content. You can continue using ToolMarket365 or subscribe now to secure your work.'
+                      ? c.trialEndingBody
+                      : c.trialActiveBody
                     }
                   </p>
                 </div>
@@ -321,7 +429,7 @@ export default function DashboardPage() {
                       : 'bg-blue-600 text-white hover:bg-blue-700'
                   }`}
                 >
-                  {trialStatus.daysRemaining <= 3 ? 'Subscribe Now' : 'Subscribe Early'}
+                  {trialStatus.daysRemaining <= 3 ? c.subscribeNow : c.subscribeEarly}
                 </Link>
               </div>
             </div>
@@ -338,10 +446,10 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-sm font-semibold text-yellow-800 dark:text-yellow-200 mb-1">
-                    Data Stored Locally in Your Browser
+                    {c.localStorageTitle}
                   </h3>
                   <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-3">
-                    <strong>Good news:</strong> All tools work instantly with local storage—no setup required! <strong>However:</strong> Your dashboard data (favorites, tool usage, activity) is currently stored in your browser's local storage, which means your data is only on this device, won't sync across devices, and may be lost if you clear browser data. <strong>For full benefits and full functionality</strong> (cloud sync, cross-device access, data backup), set up a database connection. <strong>One database setup works for all tools</strong>—configure it once and enjoy cloud storage across your entire ToolMarket365 toolkit.
+                    {c.localStorageBody}
                   </p>
                   <div className="mt-3">
                     <a
@@ -350,7 +458,7 @@ export default function DashboardPage() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-lg transition-colors"
                     >
-                      Set up Neon Database (Free)
+                      {c.setupNeon}
                       <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
@@ -364,10 +472,10 @@ export default function DashboardPage() {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2">
-              Dashboard
+              {c.dashboard}
             </h1>
             <p className="text-mono-600 dark:text-mono-400">
-              Welcome back{user ? `, ${user.email.split('@')[0]}` : ''}! Here's your activity overview.
+              {c.welcomeBack(user ? user.email.split('@')[0] : '')}
             </p>
           </div>
 
@@ -375,46 +483,46 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-mono-600 dark:text-mono-400">Tools Used</h3>
+                <h3 className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.toolsUsed}</h3>
                 <BarChart3 className="w-5 h-5 text-accent-600" />
               </div>
               <p className="text-3xl font-bold text-mono-950 dark:text-mono-50">
                 {stats?.totalToolsUsed || 0}
               </p>
-              <p className="text-xs text-mono-500 mt-1">Total tools accessed</p>
+              <p className="text-xs text-mono-500 mt-1">{c.totalToolsAccessed}</p>
             </div>
 
             <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-mono-600 dark:text-mono-400">Favorites</h3>
+                <h3 className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.favorites}</h3>
                 <Star className="w-5 h-5 text-yellow-500" />
               </div>
               <p className="text-3xl font-bold text-mono-950 dark:text-mono-50">
                 {favorites.length || 0}
               </p>
-              <p className="text-xs text-mono-500 mt-1">Saved tools</p>
+              <p className="text-xs text-mono-500 mt-1">{c.savedTools}</p>
             </div>
 
             <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-mono-600 dark:text-mono-400">Recent Activity</h3>
+                <h3 className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.recentActivity}</h3>
                 <Clock className="w-5 h-5 text-blue-500" />
               </div>
               <p className="text-3xl font-bold text-mono-950 dark:text-mono-50">
                 {stats?.recentActivity?.length || 0}
               </p>
-              <p className="text-xs text-mono-500 mt-1">Last 30 days</p>
+              <p className="text-xs text-mono-500 mt-1">{c.last30Days}</p>
             </div>
 
             <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-mono-600 dark:text-mono-400">Account Type</h3>
+                <h3 className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.accountType}</h3>
                 <User className="w-5 h-5 text-purple-500" />
               </div>
               <p className="text-3xl font-bold text-mono-950 dark:text-mono-50">
                 {stats?.accountInfo?.accountType || 'Free'}
               </p>
-              <p className="text-xs text-mono-500 mt-1">Current plan</p>
+              <p className="text-xs text-mono-500 mt-1">{c.currentPlan}</p>
             </div>
           </div>
 
@@ -424,13 +532,13 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 flex items-center">
                   <Star className="w-5 h-5 mr-2 text-yellow-500" />
-                  Favorite Tools
+                  {c.favoriteTools}
                 </h2>
                 <Link
                   href="/home"
                   className="text-sm text-accent-600 hover:text-accent-700 dark:text-accent-400 font-medium flex items-center"
                 >
-                  Browse All
+                  {c.browseAll}
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Link>
               </div>
@@ -463,12 +571,12 @@ export default function DashboardPage() {
               ) : (
                 <div className="text-center py-8">
                   <Star className="w-12 h-12 text-mono-300 dark:text-mono-700 mx-auto mb-3" />
-                  <p className="text-mono-600 dark:text-mono-400 mb-4">No favorite tools yet</p>
+                  <p className="text-mono-600 dark:text-mono-400 mb-4">{c.noFavorites}</p>
                   <Link
                     href="/home"
                     className="inline-flex items-center px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors text-sm"
                   >
-                    Explore Tools
+                    {c.exploreTools}
                   </Link>
                 </div>
               )}
@@ -478,25 +586,25 @@ export default function DashboardPage() {
             <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
               <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-6 flex items-center">
                 <User className="w-5 h-5 mr-2 text-purple-500" />
-                Account Info
+                {c.accountInfo}
               </h2>
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">Email</p>
+                  <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">{c.email}</p>
                   <p className="text-sm font-medium text-mono-950 dark:text-mono-50">
-                    {user?.email || stats?.accountInfo?.email || 'Not signed in'}
+                    {user?.email || stats?.accountInfo?.email || c.notSignedIn}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">Member Since</p>
+                  <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">{c.memberSince}</p>
                   <p className="text-sm font-medium text-mono-950 dark:text-mono-50">
                     {stats?.accountInfo?.joinDate 
-                      ? new Date(stats.accountInfo.joinDate).toLocaleDateString()
-                      : 'Today'}
+                      ? new Date(stats.accountInfo.joinDate).toLocaleDateString(locale)
+                      : c.today}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">Plan</p>
+                  <p className="text-sm text-mono-600 dark:text-mono-400 mb-1">{c.plan}</p>
                   <p className="text-sm font-medium text-mono-950 dark:text-mono-50">
                     {stats?.accountInfo?.accountType || 'Free'}
                   </p>
@@ -506,7 +614,7 @@ export default function DashboardPage() {
                   className="inline-flex items-center w-full justify-center px-4 py-2 bg-mono-100 dark:bg-mono-800 text-mono-950 dark:text-mono-50 rounded-lg hover:bg-mono-200 dark:hover:bg-mono-700 transition-colors text-sm font-medium"
                 >
                   <Settings className="w-4 h-4 mr-2" />
-                  Account Settings
+                  {c.accountSettings}
                 </Link>
               </div>
             </div>
@@ -515,16 +623,16 @@ export default function DashboardPage() {
             <div className="bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
               <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-6 flex items-center">
                 <Settings className="w-5 h-5 mr-2 text-blue-500" />
-                Preferences
+                {c.preferences}
               </h2>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <h3 className="text-sm font-medium text-mono-950 dark:text-mono-50 mb-1">
-                      Enable Save to Library Feature
+                      {c.saveToLibraryTitle}
                     </h3>
                     <p className="text-xs text-mono-600 dark:text-mono-400">
-                      When enabled, "Save to Library" buttons will appear on tool output pages
+                      {c.saveToLibraryDesc}
                     </p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer ml-4">
@@ -545,7 +653,7 @@ export default function DashboardPage() {
           <div className="mt-6 bg-white dark:bg-mono-900 rounded-lg p-6 border border-mono-200 dark:border-mono-700">
             <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-6 flex items-center">
               <Clock className="w-5 h-5 mr-2 text-blue-500" />
-              Recent Activity
+              {c.recentActivity}
             </h2>
             {stats?.recentActivity && stats.recentActivity.length > 0 ? (
               <div className="space-y-3">
@@ -559,10 +667,10 @@ export default function DashboardPage() {
                       <Icon className="w-5 h-5 text-accent-600" />
                       <div className="flex-1">
                         <p className="text-sm font-medium text-mono-950 dark:text-mono-50">
-                          {activity.toolName || 'Activity'}
+                          {activity.toolName || c.activity}
                         </p>
                         <p className="text-xs text-mono-500">
-                          {new Date(activity.timestamp).toLocaleString()}
+                          {new Date(activity.timestamp).toLocaleString(locale)}
                         </p>
                       </div>
                       {activity.toolSlug && (
@@ -570,7 +678,7 @@ export default function DashboardPage() {
                           href={`/tools/${activity.toolSlug}`}
                           className="text-sm text-accent-600 hover:text-accent-700 dark:text-accent-400"
                         >
-                          View
+                          {c.view}
                         </Link>
                       )}
                     </div>
@@ -580,8 +688,8 @@ export default function DashboardPage() {
             ) : (
               <div className="text-center py-8">
                 <Clock className="w-12 h-12 text-mono-300 dark:text-mono-700 mx-auto mb-3" />
-                <p className="text-mono-600 dark:text-mono-400">No recent activity</p>
-                <p className="text-sm text-mono-500 mt-1">Start using tools to see your activity here</p>
+                <p className="text-mono-600 dark:text-mono-400">{c.noRecentActivity}</p>
+                <p className="text-sm text-mono-500 mt-1">{c.noActivityHint}</p>
               </div>
             )}
           </div>
@@ -594,7 +702,7 @@ export default function DashboardPage() {
             >
               <div className="flex items-center space-x-3">
                 <Sparkles className="w-5 h-5 text-accent-600" />
-                <span className="font-medium text-mono-950 dark:text-mono-50">Browse All Tools</span>
+                <span className="font-medium text-mono-950 dark:text-mono-50">{c.browseAllTools}</span>
               </div>
               <ArrowRight className="w-4 h-4 text-mono-400" />
             </Link>
@@ -604,7 +712,7 @@ export default function DashboardPage() {
             >
               <div className="flex items-center space-x-3">
                 <FolderOpen className="w-5 h-5 text-accent-600" />
-                <span className="font-medium text-mono-950 dark:text-mono-50">Content Library</span>
+                <span className="font-medium text-mono-950 dark:text-mono-50">{c.contentLibrary}</span>
               </div>
               <ArrowRight className="w-4 h-4 text-mono-400" />
             </Link>
@@ -614,7 +722,7 @@ export default function DashboardPage() {
             >
               <div className="flex items-center space-x-3">
                 <TrendingUp className="w-5 h-5 text-accent-600" />
-                <span className="font-medium text-mono-950 dark:text-mono-50">Performance Dashboard</span>
+                <span className="font-medium text-mono-950 dark:text-mono-50">{c.performanceDashboard}</span>
               </div>
               <ArrowRight className="w-4 h-4 text-mono-400" />
             </Link>
@@ -624,7 +732,7 @@ export default function DashboardPage() {
             >
               <div className="flex items-center space-x-3">
                 <CheckCircle2 className="w-5 h-5 text-accent-600" />
-                <span className="font-medium text-mono-950 dark:text-mono-50">Creator Verification</span>
+                <span className="font-medium text-mono-950 dark:text-mono-50">{c.creatorVerification}</span>
               </div>
               <ArrowRight className="w-4 h-4 text-mono-400" />
             </Link>
@@ -634,7 +742,7 @@ export default function DashboardPage() {
             >
               <div className="flex items-center space-x-3">
                 <Globe className="w-5 h-5 text-accent-600" />
-                <span className="font-medium text-mono-950 dark:text-mono-50">Instagram Scheduler</span>
+                <span className="font-medium text-mono-950 dark:text-mono-50">{c.instagramScheduler}</span>
               </div>
               <ArrowRight className="w-4 h-4 text-mono-400" />
             </Link>

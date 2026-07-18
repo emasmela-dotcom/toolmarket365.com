@@ -7,6 +7,69 @@ import { Check, AlertCircle, Lock, Loader2, ArrowLeft } from 'lucide-react';
 import { PlanConfirmation } from '@/components/PlanConfirmation'
 import { MARKETPLACE_PLAN_DB_NAME, MARKETPLACE_PLAN_PRICE_MONTHLY } from '@/lib/single-plan-marketplace'
 import { stripePlanIdForDbPlanName } from '@/lib/subscriptionTiers'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    subscribeTitle: 'Subscribe to ToolMarket365',
+    subscribePrice: '$0.99/month for full access to every tool.',
+    subscribe: 'Subscribe',
+    trialExpiredTitle: 'Trial Expired - Subscribe Now',
+    keepContentTitle: 'Subscribe to Keep Your Content',
+    trialExpiredDesc: 'Your trial has ended. Subscribe now to regain access and keep all your content.',
+    trialEndsIn: (days: number) =>
+      `Your trial ends in ${days} day${days !== 1 ? 's' : ''}. Subscribe now to lock in your content and continue using ToolMarket365.`,
+    subscribeKeepDesc: 'Subscribe now to keep all content created during your trial and continue using ToolMarket365.',
+    trialExpiredBanner: 'Trial Expired',
+    importantBanner: 'Important: Subscribe to Keep Your Content',
+    trialExpiredWarning:
+      'Your trial has ended. All content created during your trial will be lost if you do not subscribe. Subscribe now to regain access and keep your content.',
+    trialWarning:
+      'If you do not subscribe before your trial ends, all content created during the trial will be restored to your pre-trial state. Subscribe now to lock in your work and continue using ToolMarket365.',
+    planSuffix: 'Plan',
+    daysRemaining: (days: number) => `${days} day${days !== 1 ? 's' : ''} remaining in trial`,
+    subscribeContinue: 'Subscribe to continue',
+    keepHeading: "By Subscribing, You'll Keep:",
+    keepContent: 'All content created during your trial',
+    keepTools: 'Unlimited use of all tools in your plan',
+    keepCredits: '25 welcome credits during your first month',
+    keepLibrary: 'Full access to your content library',
+    subscribeNow: 'Subscribe Now - Lock In Your Content',
+    secureCheckout: 'Secure checkout • Cancel anytime',
+    backDashboard: 'Back to Dashboard',
+    perMonth: '/month',
+  },
+  es: {
+    subscribeTitle: 'Suscríbete a ToolMarket365',
+    subscribePrice: '$0.99/mes para acceso completo a todas las herramientas.',
+    subscribe: 'Suscribirse',
+    trialExpiredTitle: 'Prueba expirada — suscríbete ahora',
+    keepContentTitle: 'Suscríbete para conservar tu contenido',
+    trialExpiredDesc: 'Tu prueba ha terminado. Suscríbete ahora para recuperar el acceso y conservar todo tu contenido.',
+    trialEndsIn: (days: number) =>
+      `Tu prueba termina en ${days} día${days !== 1 ? 's' : ''}. Suscríbete ahora para asegurar tu contenido y seguir usando ToolMarket365.`,
+    subscribeKeepDesc:
+      'Suscríbete ahora para conservar todo el contenido creado durante tu prueba y seguir usando ToolMarket365.',
+    trialExpiredBanner: 'Prueba expirada',
+    importantBanner: 'Importante: suscríbete para conservar tu contenido',
+    trialExpiredWarning:
+      'Tu prueba ha terminado. Todo el contenido creado durante la prueba se perderá si no te suscribes. Suscríbete ahora para recuperar el acceso y conservar tu contenido.',
+    trialWarning:
+      'Si no te suscribes antes de que termine la prueba, todo el contenido creado durante la prueba volverá a su estado anterior. Suscríbete ahora para asegurar tu trabajo y seguir usando ToolMarket365.',
+    planSuffix: 'Plan',
+    daysRemaining: (days: number) => `${days} día${days !== 1 ? 's' : ''} restantes de prueba`,
+    subscribeContinue: 'Suscríbete para continuar',
+    keepHeading: 'Al suscribirte, conservarás:',
+    keepContent: 'Todo el contenido creado durante tu prueba',
+    keepTools: 'Uso ilimitado de todas las herramientas de tu plan',
+    keepCredits: '25 créditos de bienvenida durante tu primer mes',
+    keepLibrary: 'Acceso completo a tu biblioteca de contenido',
+    subscribeNow: 'Suscríbete ahora — asegura tu contenido',
+    secureCheckout: 'Pago seguro • Cancela cuando quieras',
+    backDashboard: 'Volver al panel',
+    perMonth: '/mes',
+  },
+}
 
 interface SubscriptionStatus {
   status: 'trial' | 'expired' | 'active' | 'none'
@@ -19,6 +82,8 @@ interface SubscriptionStatus {
 }
 
 export default function CheckoutPage() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const router = useRouter()
   const searchParams = useSearchParams()
   const [subscriptionStatus, setSubscriptionStatus] = useState<SubscriptionStatus | null>(null)
@@ -107,16 +172,16 @@ export default function CheckoutPage() {
           <div className="bg-white dark:bg-mono-900 rounded-lg border-2 border-mono-200 dark:border-mono-700 p-8 text-center">
             <AlertCircle className="h-12 w-12 text-mono-400 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-              Subscribe to ToolMarket365
+              {c.subscribeTitle}
             </h1>
             <p className="text-mono-600 dark:text-mono-400 mb-6">
-              $0.99/month for full access to every tool.
+              {c.subscribePrice}
             </p>
             <Link
               href="/select-plan"
               className="inline-flex items-center px-6 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors"
             >
-              Subscribe
+              {c.subscribe}
             </Link>
           </div>
         </div>
@@ -135,15 +200,15 @@ export default function CheckoutPage() {
           <div className="flex items-center justify-center space-x-3 mb-4">
             <Lock className="h-10 w-10 text-accent-600 dark:text-accent-400" />
             <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50">
-              {isTrialExpired ? 'Trial Expired - Subscribe Now' : 'Subscribe to Keep Your Content'}
+              {isTrialExpired ? c.trialExpiredTitle : c.keepContentTitle}
             </h1>
           </div>
           <p className="text-lg text-mono-600 dark:text-mono-400 max-w-2xl mx-auto">
             {isTrialExpired 
-              ? 'Your trial has ended. Subscribe now to regain access and keep all your content.'
+              ? c.trialExpiredDesc
               : daysRemaining !== null && daysRemaining > 0
-                ? `Your trial ends in ${daysRemaining} day${daysRemaining !== 1 ? 's' : ''}. Subscribe now to lock in your content and continue using ToolMarket365.`
-                : 'Subscribe now to keep all content created during your trial and continue using ToolMarket365.'
+                ? c.trialEndsIn(daysRemaining)
+                : c.subscribeKeepDesc
             }
           </p>
         </div>
@@ -166,17 +231,14 @@ export default function CheckoutPage() {
                   ? 'text-red-900 dark:text-red-200'
                   : 'text-yellow-900 dark:text-yellow-200'
               }`}>
-                {isTrialExpired ? 'Trial Expired' : 'Important: Subscribe to Keep Your Content'}
+                {isTrialExpired ? c.trialExpiredBanner : c.importantBanner}
               </h3>
               <p className={`text-sm ${
                 isTrialExpired
                   ? 'text-red-800 dark:text-red-300'
                   : 'text-yellow-800 dark:text-yellow-300'
               }`}>
-                {isTrialExpired
-                  ? 'Your trial has ended. All content created during your trial will be lost if you do not subscribe. Subscribe now to regain access and keep your content.'
-                  : 'If you do not subscribe before your trial ends, all content created during the trial will be restored to your pre-trial state. Subscribe now to lock in your work and continue using ToolMarket365.'
-                }
+                {isTrialExpired ? c.trialExpiredWarning : c.trialWarning}
               </p>
             </div>
           </div>
@@ -188,12 +250,12 @@ export default function CheckoutPage() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-2">
-                  {subscriptionStatus.planDisplayName || planName.charAt(0).toUpperCase() + planName.slice(1)} Plan
+                  {subscriptionStatus.planDisplayName || planName.charAt(0).toUpperCase() + planName.slice(1)} {c.planSuffix}
                 </h2>
                 <p className="text-mono-600 dark:text-mono-400">
                   {isInTrial && daysRemaining !== null && daysRemaining > 0
-                    ? `${daysRemaining} day${daysRemaining !== 1 ? 's' : ''} remaining in trial`
-                    : 'Subscribe to continue'
+                    ? c.daysRemaining(daysRemaining)
+                    : c.subscribeContinue
                   }
                 </p>
               </div>
@@ -202,7 +264,7 @@ export default function CheckoutPage() {
                   ${planPrice}
                 </div>
                 <div className="text-mono-600 dark:text-mono-400">
-                  /month
+                  {c.perMonth}
                 </div>
               </div>
             </div>
@@ -211,24 +273,24 @@ export default function CheckoutPage() {
             <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
               <h3 className="font-semibold text-green-900 dark:text-green-200 mb-3 flex items-center">
                 <Check className="h-5 w-5 mr-2 text-green-600 dark:text-green-400" />
-                By Subscribing, You'll Keep:
+                {c.keepHeading}
               </h3>
               <ul className="space-y-2 text-sm text-green-800 dark:text-green-300">
                 <li className="flex items-start">
                   <Check className="h-4 w-4 mr-2 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                  <span>All content created during your trial</span>
+                  <span>{c.keepContent}</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="h-4 w-4 mr-2 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                  <span>Unlimited use of all tools in your plan</span>
+                  <span>{c.keepTools}</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="h-4 w-4 mr-2 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                  <span>25 welcome credits during your first month</span>
+                  <span>{c.keepCredits}</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="h-4 w-4 mr-2 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                  <span>Full access to your content library</span>
+                  <span>{c.keepLibrary}</span>
                 </li>
               </ul>
             </div>
@@ -239,11 +301,11 @@ export default function CheckoutPage() {
               className="w-full py-4 px-6 bg-accent-600 text-white font-bold text-lg rounded-lg hover:bg-accent-700 transition-colors flex items-center justify-center space-x-2"
             >
               <Lock className="h-5 w-5" />
-              <span>Subscribe Now - Lock In Your Content</span>
+              <span>{c.subscribeNow}</span>
             </button>
 
             <p className="text-xs text-center text-mono-500 dark:text-mono-500 mt-4">
-              Secure checkout • Cancel anytime
+              {c.secureCheckout}
             </p>
           </div>
         )}
@@ -255,7 +317,7 @@ export default function CheckoutPage() {
             className="inline-flex items-center text-accent-600 dark:text-accent-400 hover:underline"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Dashboard
+            {c.backDashboard}
           </Link>
         </div>
       </div>

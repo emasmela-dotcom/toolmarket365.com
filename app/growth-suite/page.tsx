@@ -8,6 +8,110 @@ import { BrandSearch } from '@/components/growth-suite/BrandSearch'
 import { CreatorProfile } from '@/components/growth-suite/CreatorProfile'
 import { DealCard } from '@/components/growth-suite/DealCard'
 import { formatCurrency } from '@/lib/utils'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    loading: 'Loading your dashboard...',
+    welcomeTitle: 'Welcome to ToolMarket365 Growth Suite',
+    welcomeSubtitle:
+      'Connect creators with brands for authentic collaborations. Choose your path to get started.',
+    creatorTitle: "I'm a Creator",
+    creatorDescription:
+      'Showcase your work, connect with brands, and monetize your influence through authentic partnerships.',
+    creatorBullet1: 'Create your professional profile',
+    creatorBullet2: 'Showcase your portfolio and metrics',
+    creatorBullet3: 'Receive collaboration offers from brands',
+    creatorButton: 'Create Creator Profile',
+    brandTitle: "I'm a Brand",
+    brandDescription:
+      'Find the perfect creators to showcase your products and reach your target audience authentically.',
+    brandBullet1: 'Create your brand profile',
+    brandBullet2: 'Browse and discover creators',
+    brandBullet3: 'Manage collaborations and campaigns',
+    brandButton: 'Create Brand Profile',
+    brandDashboardTitle: 'Brand Dashboard',
+    creatorDashboardTitle: 'Creator Dashboard',
+    brandDashboardSubtitle: 'Manage your brand collaborations and discover new creators',
+    creatorDashboardSubtitle: 'Manage your collaborations and showcase your work',
+    totalDeals: 'Total Deals',
+    pending: 'Pending',
+    active: 'Active',
+    completed: 'Completed',
+    totalValue: 'Total Value',
+    yourProfile: 'Your Profile',
+    budgetRange: 'Budget Range:',
+    editProfile: 'Edit Profile',
+    tabDeals: 'Deals',
+    tabDiscover: 'Discover',
+    tabAnalytics: 'Analytics',
+    tabMessages: 'Messages',
+    yourDeals: 'Your Deals',
+    newDeal: 'New Deal',
+    noDealsYet: 'No deals yet',
+    emptyDealsBrand: 'Create your first deal to start collaborating with creators',
+    emptyDealsCreator: 'Complete your profile to start receiving collaboration offers',
+    createFirstDeal: 'Create Your First Deal',
+    completeProfile: 'Complete Your Profile',
+    discoverCreators: 'Discover Creators',
+    creatorDiscoverySoon: 'Creator discovery coming soon',
+    discoverBrands: 'Discover Brands',
+    analyticsComingSoon: 'Analytics Coming Soon',
+    analyticsDescription: 'Track your collaboration performance and ROI',
+    messagesComingSoon: 'Messages Coming Soon',
+    messagesDescription: 'Direct messaging with brands and creators',
+  },
+  es: {
+    loading: 'Cargando tu panel...',
+    welcomeTitle: 'Bienvenido a ToolMarket365 Growth Suite',
+    welcomeSubtitle:
+      'Conecta creadores con marcas para colaboraciones auténticas. Elige tu camino para comenzar.',
+    creatorTitle: 'Soy Creador',
+    creatorDescription:
+      'Muestra tu trabajo, conéctate con marcas y monetiza tu influencia a través de colaboraciones auténticas.',
+    creatorBullet1: 'Crea tu perfil profesional',
+    creatorBullet2: 'Muestra tu portafolio y métricas',
+    creatorBullet3: 'Recibe ofertas de colaboración de marcas',
+    creatorButton: 'Crear Perfil de Creador',
+    brandTitle: 'Soy Marca',
+    brandDescription:
+      'Encuentra los creadores perfectos para mostrar tus productos y llegar a tu audiencia de forma auténtica.',
+    brandBullet1: 'Crea tu perfil de marca',
+    brandBullet2: 'Explora y descubre creadores',
+    brandBullet3: 'Gestiona colaboraciones y campañas',
+    brandButton: 'Crear Perfil de Marca',
+    brandDashboardTitle: 'Panel de Marca',
+    creatorDashboardTitle: 'Panel de Creador',
+    brandDashboardSubtitle: 'Gestiona tus colaboraciones de marca y descubre nuevos creadores',
+    creatorDashboardSubtitle: 'Gestiona tus colaboraciones y muestra tu trabajo',
+    totalDeals: 'Total de Acuerdos',
+    pending: 'Pendientes',
+    active: 'Activos',
+    completed: 'Completados',
+    totalValue: 'Valor Total',
+    yourProfile: 'Tu Perfil',
+    budgetRange: 'Rango de Presupuesto:',
+    editProfile: 'Editar Perfil',
+    tabDeals: 'Acuerdos',
+    tabDiscover: 'Descubrir',
+    tabAnalytics: 'Analíticas',
+    tabMessages: 'Mensajes',
+    yourDeals: 'Tus Acuerdos',
+    newDeal: 'Nuevo Acuerdo',
+    noDealsYet: 'Aún no hay acuerdos',
+    emptyDealsBrand: 'Crea tu primer acuerdo para empezar a colaborar con creadores',
+    emptyDealsCreator: 'Completa tu perfil para empezar a recibir ofertas de colaboración',
+    createFirstDeal: 'Crea Tu Primer Acuerdo',
+    completeProfile: 'Completa Tu Perfil',
+    discoverCreators: 'Descubrir Creadores',
+    creatorDiscoverySoon: 'Descubrimiento de creadores próximamente',
+    discoverBrands: 'Descubrir Marcas',
+    analyticsComingSoon: 'Analíticas Próximamente',
+    analyticsDescription: 'Sigue el rendimiento de tus colaboraciones y el ROI',
+    messagesComingSoon: 'Mensajes Próximamente',
+    messagesDescription: 'Mensajería directa con marcas y creadores',
+  },
+}
 
 interface Brand {
   id: string
@@ -67,6 +171,8 @@ interface Deal {
 
 export default function GrowthSuitePage() {
   const router = useRouter()
+  const { language } = useLanguage()
+  const c = copy[language]
   const [userType, setUserType] = useState<'brand' | 'creator' | null>(null)
   const [userProfile, setUserProfile] = useState<Brand | CreatorProfileData | null>(null)
   const [deals, setDeals] = useState<Deal[]>([])
@@ -195,7 +301,7 @@ export default function GrowthSuitePage() {
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-600 mx-auto mb-4"></div>
-          <p className="text-mono-600 dark:text-mono-400">Loading your dashboard...</p>
+          <p className="text-mono-600 dark:text-mono-400">{c.loading}</p>
         </div>
       </div>
     )
@@ -207,10 +313,10 @@ export default function GrowthSuitePage() {
         <div className="max-w-4xl mx-auto px-4 py-12">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-              Welcome to ToolMarket365 Growth Suite
+              {c.welcomeTitle}
             </h1>
             <p className="text-xl text-mono-600 dark:text-mono-400 max-w-2xl mx-auto">
-              Connect creators with brands for authentic collaborations. Choose your path to get started.
+              {c.welcomeSubtitle}
             </p>
           </div>
 
@@ -224,26 +330,26 @@ export default function GrowthSuitePage() {
                 <div className="w-16 h-16 bg-accent-100 dark:bg-accent-900 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Users className="w-8 h-8 text-accent-600" />
                 </div>
-                <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">I'm a Creator</h2>
+                <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.creatorTitle}</h2>
                 <p className="text-mono-600 dark:text-mono-400 mb-6">
-                  Showcase your work, connect with brands, and monetize your influence through authentic partnerships.
+                  {c.creatorDescription}
                 </p>
                 <ul className="text-sm text-mono-600 dark:text-mono-400 space-y-2 mb-6 text-left">
                   <li className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-accent-600 rounded-full"></div>
-                    <span>Create your professional profile</span>
+                    <span>{c.creatorBullet1}</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-accent-600 rounded-full"></div>
-                    <span>Showcase your portfolio and metrics</span>
+                    <span>{c.creatorBullet2}</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-accent-600 rounded-full"></div>
-                    <span>Receive collaboration offers from brands</span>
+                    <span>{c.creatorBullet3}</span>
                   </li>
                 </ul>
                 <button className="w-full px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors">
-                  Create Creator Profile
+                  {c.creatorButton}
                 </button>
               </div>
             </div>
@@ -257,26 +363,26 @@ export default function GrowthSuitePage() {
                 <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Briefcase className="w-8 h-8 text-green-600" />
                 </div>
-                <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">I'm a Brand</h2>
+                <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.brandTitle}</h2>
                 <p className="text-mono-600 dark:text-mono-400 mb-6">
-                  Find the perfect creators to showcase your products and reach your target audience authentically.
+                  {c.brandDescription}
                 </p>
                 <ul className="text-sm text-mono-600 dark:text-mono-400 space-y-2 mb-6 text-left">
                   <li className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                    <span>Create your brand profile</span>
+                    <span>{c.brandBullet1}</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                    <span>Browse and discover creators</span>
+                    <span>{c.brandBullet2}</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                    <span>Manage collaborations and campaigns</span>
+                    <span>{c.brandBullet3}</span>
                   </li>
                 </ul>
                 <button className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                  Create Brand Profile
+                  {c.brandButton}
                 </button>
               </div>
             </div>
@@ -294,12 +400,12 @@ export default function GrowthSuitePage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50 mb-2">
-            {userType === 'brand' ? 'Brand Dashboard' : 'Creator Dashboard'}
+            {userType === 'brand' ? c.brandDashboardTitle : c.creatorDashboardTitle}
           </h1>
           <p className="text-mono-600 dark:text-mono-400">
             {userType === 'brand' 
-              ? 'Manage your brand collaborations and discover new creators'
-              : 'Manage your collaborations and showcase your work'
+              ? c.brandDashboardSubtitle
+              : c.creatorDashboardSubtitle
             }
           </p>
         </div>
@@ -309,7 +415,7 @@ export default function GrowthSuitePage() {
           <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-4 bg-mono-50 dark:bg-mono-900">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Total Deals</p>
+                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.totalDeals}</p>
                 <p className="text-2xl font-bold text-mono-950 dark:text-mono-50">{stats.total}</p>
               </div>
               <Briefcase className="w-8 h-8 text-accent-600" />
@@ -319,7 +425,7 @@ export default function GrowthSuitePage() {
           <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-4 bg-mono-50 dark:bg-mono-900">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Pending</p>
+                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.pending}</p>
                 <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
               </div>
               <Clock className="w-8 h-8 text-yellow-600" />
@@ -329,7 +435,7 @@ export default function GrowthSuitePage() {
           <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-4 bg-mono-50 dark:bg-mono-900">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Active</p>
+                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.active}</p>
                 <p className="text-2xl font-bold text-green-600">{stats.active}</p>
               </div>
               <TrendingUp className="w-8 h-8 text-green-600" />
@@ -339,7 +445,7 @@ export default function GrowthSuitePage() {
           <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-4 bg-mono-50 dark:bg-mono-900">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Completed</p>
+                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.completed}</p>
                 <p className="text-2xl font-bold text-mono-950 dark:text-mono-50">{stats.completed}</p>
               </div>
               <CheckCircle className="w-8 h-8 text-mono-600" />
@@ -349,7 +455,7 @@ export default function GrowthSuitePage() {
           <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-4 bg-mono-50 dark:bg-mono-900">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Total Value</p>
+                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.totalValue}</p>
                 <p className="text-2xl font-bold text-green-600">
                   {formatCurrency(stats.totalValue, 'USD')}
                 </p>
@@ -362,16 +468,16 @@ export default function GrowthSuitePage() {
         {/* Profile Overview */}
         <div className="mb-8">
           <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-6 bg-mono-50 dark:bg-mono-900">
-            <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">Your Profile</h2>
+            <h2 className="text-xl font-bold text-mono-950 dark:text-mono-50 mb-4">{c.yourProfile}</h2>
             {userType === 'brand' && userProfile && (
               <div className="text-mono-600 dark:text-mono-400">
                 <p className="font-semibold text-mono-950 dark:text-mono-50">{(userProfile as Brand).company_name}</p>
-                <p>Budget Range: {(userProfile as Brand).budget_range}</p>
+                <p>{c.budgetRange} {(userProfile as Brand).budget_range}</p>
                 <Link 
                   href="/growth-suite/brand-setup"
                   className="text-accent-600 hover:underline text-sm"
                 >
-                  Edit Profile
+                  {c.editProfile}
                 </Link>
               </div>
             )}
@@ -387,10 +493,10 @@ export default function GrowthSuitePage() {
           <div className="border-b border-mono-200 dark:border-mono-700">
             <nav className="flex space-x-8">
               {[
-                { id: 'deals', label: 'Deals' },
-                { id: 'discover', label: 'Discover' },
-                { id: 'analytics', label: 'Analytics' },
-                { id: 'messages', label: 'Messages' }
+                { id: 'deals', label: c.tabDeals },
+                { id: 'discover', label: c.tabDiscover },
+                { id: 'analytics', label: c.tabAnalytics },
+                { id: 'messages', label: c.tabMessages }
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -411,13 +517,13 @@ export default function GrowthSuitePage() {
           {activeTab === 'deals' && (
             <div className="space-y-6">
               <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50">Your Deals</h2>
+                <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50">{c.yourDeals}</h2>
                 <Link
                   href="/growth-suite/deals/new"
                   className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
                 >
                   <Plus className="w-4 h-4 inline mr-2" />
-                  New Deal
+                  {c.newDeal}
                 </Link>
               </div>
 
@@ -434,11 +540,11 @@ export default function GrowthSuitePage() {
                 ) : (
                   <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-12 text-center bg-mono-50 dark:bg-mono-900">
                     <Briefcase className="w-16 h-16 text-mono-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-mono-900 dark:text-mono-100 mb-2">No deals yet</h3>
+                    <h3 className="text-lg font-medium text-mono-900 dark:text-mono-100 mb-2">{c.noDealsYet}</h3>
                     <p className="text-mono-600 dark:text-mono-400 mb-6">
                       {userType === 'brand'
-                        ? 'Create your first deal to start collaborating with creators'
-                        : 'Complete your profile to start receiving collaboration offers'
+                        ? c.emptyDealsBrand
+                        : c.emptyDealsCreator
                       }
                     </p>
                     <Link
@@ -446,7 +552,7 @@ export default function GrowthSuitePage() {
                       className="inline-block px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
                     >
                       <Plus className="w-4 h-4 inline mr-2" />
-                      {userType === 'brand' ? 'Create Your First Deal' : 'Complete Your Profile'}
+                      {userType === 'brand' ? c.createFirstDeal : c.completeProfile}
                     </Link>
                   </div>
                 )}
@@ -458,12 +564,12 @@ export default function GrowthSuitePage() {
             <div className="space-y-6">
               {userType === 'brand' ? (
                 <div>
-                  <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">Discover Creators</h2>
-                  <p className="text-mono-600 dark:text-mono-400 mb-4">Creator discovery coming soon</p>
+                  <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">{c.discoverCreators}</h2>
+                  <p className="text-mono-600 dark:text-mono-400 mb-4">{c.creatorDiscoverySoon}</p>
                 </div>
               ) : (
                 <div>
-                  <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">Discover Brands</h2>
+                  <h2 className="text-2xl font-bold text-mono-950 dark:text-mono-50 mb-6">{c.discoverBrands}</h2>
                   <BrandSearch />
                 </div>
               )}
@@ -473,16 +579,16 @@ export default function GrowthSuitePage() {
           {activeTab === 'analytics' && (
             <div className="text-center py-12">
               <TrendingUp className="w-16 h-16 text-mono-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-mono-900 dark:text-mono-100 mb-2">Analytics Coming Soon</h3>
-              <p className="text-mono-600 dark:text-mono-400">Track your collaboration performance and ROI</p>
+              <h3 className="text-lg font-medium text-mono-900 dark:text-mono-100 mb-2">{c.analyticsComingSoon}</h3>
+              <p className="text-mono-600 dark:text-mono-400">{c.analyticsDescription}</p>
             </div>
           )}
 
           {activeTab === 'messages' && (
             <div className="text-center py-12">
               <Users className="w-16 h-16 text-mono-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-mono-900 dark:text-mono-100 mb-2">Messages Coming Soon</h3>
-              <p className="text-mono-600 dark:text-mono-400">Direct messaging with brands and creators</p>
+              <h3 className="text-lg font-medium text-mono-900 dark:text-mono-100 mb-2">{c.messagesComingSoon}</h3>
+              <p className="text-mono-600 dark:text-mono-400">{c.messagesDescription}</p>
             </div>
           )}
         </div>

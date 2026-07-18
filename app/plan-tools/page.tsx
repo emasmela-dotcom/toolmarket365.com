@@ -1,11 +1,10 @@
-import Link from 'next/link'
 import { sql } from '@/lib/db'
 import {
   FALLBACK_TOOL_SLUGS_BY_PLAN,
-  labelFromToolSlug,
   normalizePlanQueryParam,
   type PublicPlanDbName,
 } from '@/lib/plan-tools-data'
+import PlanToolsClient from './PlanToolsClient'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,11 +34,6 @@ async function getSlugsForPlan(plan: PublicPlanDbName): Promise<string[]> {
   return [...new Set([...FALLBACK_TOOL_SLUGS_BY_PLAN[plan]])]
 }
 
-function planHeading(plan: PublicPlanDbName): string {
-  if (plan === 'starter') return 'ToolMarket365'
-  return plan === 'essential' ? 'Creator' : 'Full Creator'
-}
-
 export default async function PlanToolsPage({
   searchParams,
 }: {
@@ -49,65 +43,10 @@ export default async function PlanToolsPage({
   const planKey = normalizePlanQueryParam(sp.plan)
 
   if (!planKey) {
-    return (
-      <div className="min-h-screen bg-mono-50 px-4 py-16 text-mono-900 dark:bg-mono-950 dark:text-mono-50">
-        <div className="mx-auto max-w-lg rounded-lg border border-mono-200 bg-white p-8 dark:border-mono-600 dark:bg-white dark:text-mono-950">
-          <h1 className="mb-2 text-xl font-bold text-mono-950 dark:text-mono-950">Plan not found</h1>
-          <p className="mb-6 text-sm text-mono-700 dark:text-mono-700">
-            Open this page from pricing, or use{' '}
-            <code className="rounded bg-mono-100 px-1 text-mono-900">?plan=starter</code> for ToolMarket365.
-          </p>
-          <Link
-            href="/pricing"
-            className="font-semibold text-accent-700 underline hover:text-accent-800 dark:text-accent-700"
-          >
-            ← Back to pricing
-          </Link>
-        </div>
-      </div>
-    )
+    return <PlanToolsClient planKey={null} slugs={[]} />
   }
 
   const slugs = await getSlugsForPlan(planKey)
-  const title = planHeading(planKey)
 
-  return (
-    <div className="min-h-screen bg-mono-50 px-4 py-12 text-mono-900 dark:bg-mono-950 dark:text-mono-50">
-      <div className="mx-auto max-w-2xl">
-        <p className="mb-2 text-sm text-mono-600 dark:text-mono-400">
-          <Link href="/pricing" className="font-medium text-accent-700 hover:underline dark:text-accent-400">
-            ← Pricing
-          </Link>
-        </p>
-        <h1 className="mb-2 text-3xl font-bold text-mono-950 dark:text-mono-50">
-          <span className="text-accent-600 dark:text-accent-400">{title}</span> — all tools
-        </h1>
-        <p className="mb-4 text-mono-700 dark:text-mono-300">
-          {planKey === 'starter'
-            ? 'Your subscription includes every tool on ToolMarket365 (120+). Browse the full catalog on the homepage or open any tool below.'
-            : `${slugs.length} tools listed for this plan.`}
-        </p>
-        {planKey === 'starter' && (
-          <p className="mb-8">
-            <Link href="/tools" className="font-semibold text-accent-700 hover:underline dark:text-accent-400">
-              View full tools catalog →
-            </Link>
-          </p>
-        )}
-        <ul className="divide-y divide-mono-200 rounded-lg border border-mono-200 bg-white dark:divide-mono-600 dark:border-mono-600 dark:bg-white">
-          {slugs.map((slug) => (
-            <li key={slug}>
-              <Link
-                href={`/tools/${slug}`}
-                className="flex items-center justify-between gap-3 px-4 py-3 text-mono-950 hover:bg-mono-50 dark:text-mono-950 dark:hover:bg-mono-100"
-              >
-                <span className="font-medium">{labelFromToolSlug(slug)}</span>
-                <span className="text-sm text-accent-700 dark:text-accent-700">Open →</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  )
+  return <PlanToolsClient planKey={planKey} slugs={slugs} />
 }

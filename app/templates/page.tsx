@@ -7,6 +7,90 @@ import { Search, Filter, Heart, Copy, Clock, TrendingUp, Users, FileText, Hash, 
 import { extractTemplateText, getDifficultyColor } from '@/lib/template-utils'
 import { getLocalStorageFavorites } from '@/lib/templates/favorites'
 import TemplatePreviewModal from '@/components/templates/TemplatePreviewModal'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    loadingLibrary: 'Loading template library...',
+    pageTitle: 'Content Template Library',
+    pageDescription:
+      'Discover professionally crafted templates for every platform, niche, and voice. Copy, customize, and create engaging content in minutes.',
+    searchPlaceholder: 'Search templates by name, description, or tags...',
+    filters: 'Filters',
+    niche: 'Niche',
+    platform: 'Platform',
+    voice: 'Voice',
+    type: 'Type',
+    sortBy: 'Sort By',
+    allNiches: 'All Niches',
+    allPlatforms: 'All Platforms',
+    allVoices: 'All Voices',
+    allTypes: 'All Types',
+    sortPopular: 'Most Popular',
+    sortNewest: 'Newest First',
+    sortMostUsed: 'Most Used',
+    sortMostLiked: 'Most Liked',
+    clearAllFilters: 'Clear All Filters',
+    showingResults: (shown: number, total: number) => `Showing ${shown} of ${total} templates`,
+    favorites: (count: number) => `Favorites (${count})`,
+    uses: (count: number) => `${count} uses`,
+    min: (count: number) => `${count} min`,
+    maxChars: (count: number) => `Max: ${count} chars`,
+    copy: 'Copy',
+    copied: 'Copied!',
+    noFavoritesYet: 'No favorites yet',
+    noTemplatesFound: 'No templates found',
+    noFavoritesHint:
+      'Start adding templates to your favorites by clicking the heart icon on any template.',
+    noTemplatesMatchSearch: (query: string) => `No templates match "${query}"`,
+    noTemplatesMatchFilters: 'No templates match your current filters',
+    browseAllTemplates: 'Browse All Templates',
+    clearFilters: 'Clear Filters',
+    loading: 'Loading...',
+    loadMore: 'Load More Templates',
+    copyFailed: 'Failed to copy template',
+  },
+  es: {
+    loadingLibrary: 'Cargando biblioteca de plantillas...',
+    pageTitle: 'Biblioteca de plantillas de contenido',
+    pageDescription:
+      'Descubre plantillas creadas por profesionales para cada plataforma, nicho y tono. Copia, personaliza y crea contenido atractivo en minutos.',
+    searchPlaceholder: 'Buscar plantillas por nombre, descripción o etiquetas...',
+    filters: 'Filtros',
+    niche: 'Nicho',
+    platform: 'Plataforma',
+    voice: 'Tono',
+    type: 'Tipo',
+    sortBy: 'Ordenar por',
+    allNiches: 'Todos los nichos',
+    allPlatforms: 'Todas las plataformas',
+    allVoices: 'Todos los tonos',
+    allTypes: 'Todos los tipos',
+    sortPopular: 'Más populares',
+    sortNewest: 'Más recientes primero',
+    sortMostUsed: 'Más usados',
+    sortMostLiked: 'Más gustados',
+    clearAllFilters: 'Borrar todos los filtros',
+    showingResults: (shown: number, total: number) => `Mostrando ${shown} de ${total} plantillas`,
+    favorites: (count: number) => `Favoritos (${count})`,
+    uses: (count: number) => `${count} usos`,
+    min: (count: number) => `${count} min`,
+    maxChars: (count: number) => `Máx.: ${count} caracteres`,
+    copy: 'Copiar',
+    copied: '¡Copiado!',
+    noFavoritesYet: 'Aún no hay favoritos',
+    noTemplatesFound: 'No se encontraron plantillas',
+    noFavoritesHint:
+      'Empieza a añadir plantillas a tus favoritos haciendo clic en el icono del corazón en cualquier plantilla.',
+    noTemplatesMatchSearch: (query: string) => `Ninguna plantilla coincide con "${query}"`,
+    noTemplatesMatchFilters: 'Ninguna plantilla coincide con tus filtros actuales',
+    browseAllTemplates: 'Ver todas las plantillas',
+    clearFilters: 'Borrar filtros',
+    loading: 'Cargando...',
+    loadMore: 'Cargar más plantillas',
+    copyFailed: 'No se pudo copiar la plantilla',
+  },
+}
 
 interface Template {
   id: string
@@ -44,6 +128,8 @@ interface FilterOptions {
 export default function TemplateLibraryPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { language } = useLanguage()
+  const c = copy[language]
   
   const [templates, setTemplates] = useState<Template[]>([])
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({
@@ -219,7 +305,7 @@ export default function TemplateLibraryPage() {
       
     } catch (error) {
       console.error('Error copying template:', error)
-      alert('Failed to copy template')
+      alert(c.copyFailed)
     }
   }
 
@@ -268,7 +354,7 @@ export default function TemplateLibraryPage() {
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-600 mx-auto mb-4"></div>
-          <p className="text-mono-600 dark:text-mono-400">Loading template library...</p>
+          <p className="text-mono-600 dark:text-mono-400">{c.loadingLibrary}</p>
         </div>
       </div>
     )
@@ -281,11 +367,10 @@ export default function TemplateLibraryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-mono-950 dark:text-mono-50 mb-4">
-              Content Template Library
+              {c.pageTitle}
             </h1>
             <p className="text-xl text-mono-600 dark:text-mono-400 max-w-3xl mx-auto">
-              Discover professionally crafted templates for every platform, niche, and voice. 
-              Copy, customize, and create engaging content in minutes.
+              {c.pageDescription}
             </p>
           </div>
         </div>
@@ -301,7 +386,7 @@ export default function TemplateLibraryPage() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mono-400 w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="Search templates by name, description, or tags..."
+                  placeholder={c.searchPlaceholder}
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   className="pl-10 pr-4 py-2 w-full border border-mono-300 dark:border-mono-700 rounded-lg bg-mono-50 dark:bg-mono-800 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
@@ -315,7 +400,7 @@ export default function TemplateLibraryPage() {
               className="lg:hidden px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-800 text-mono-700 dark:text-mono-300 hover:bg-mono-100 dark:hover:bg-mono-700 flex items-center justify-center"
             >
               <Filter className="w-4 h-4 mr-2" />
-              Filters
+              {c.filters}
             </button>
           </div>
 
@@ -323,13 +408,13 @@ export default function TemplateLibraryPage() {
           <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-4 ${showFilters ? 'block' : 'hidden lg:grid'}`}>
             {/* Niche Filter */}
             <div>
-              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">Niche</label>
+              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">{c.niche}</label>
               <select
                 value={filters.niche}
                 onChange={(e) => handleFilterChange('niche', e.target.value)}
                 className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-800 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
               >
-                <option value="all">All Niches</option>
+                <option value="all">{c.allNiches}</option>
                 {filterOptions.niches.map(niche => (
                   <option key={niche.name} value={niche.name}>
                     {niche.icon} {niche.display_name}
@@ -340,13 +425,13 @@ export default function TemplateLibraryPage() {
 
             {/* Platform Filter */}
             <div>
-              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">Platform</label>
+              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">{c.platform}</label>
               <select
                 value={filters.platform}
                 onChange={(e) => handleFilterChange('platform', e.target.value)}
                 className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-800 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
               >
-                <option value="all">All Platforms</option>
+                <option value="all">{c.allPlatforms}</option>
                 {filterOptions.platforms.map(platform => (
                   <option key={platform.name} value={platform.name}>
                     {platform.icon} {platform.display_name}
@@ -357,13 +442,13 @@ export default function TemplateLibraryPage() {
 
             {/* Voice Filter */}
             <div>
-              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">Voice</label>
+              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">{c.voice}</label>
               <select
                 value={filters.voice}
                 onChange={(e) => handleFilterChange('voice', e.target.value)}
                 className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-800 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
               >
-                <option value="all">All Voices</option>
+                <option value="all">{c.allVoices}</option>
                 {filterOptions.voices.map(voice => (
                   <option key={voice.name} value={voice.name}>
                     {voice.icon} {voice.display_name}
@@ -374,13 +459,13 @@ export default function TemplateLibraryPage() {
 
             {/* Template Type Filter */}
             <div>
-              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">Type</label>
+              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">{c.type}</label>
               <select
                 value={filters.template_type}
                 onChange={(e) => handleFilterChange('template_type', e.target.value)}
                 className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-800 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
               >
-                <option value="all">All Types</option>
+                <option value="all">{c.allTypes}</option>
                 {filterOptions.templateTypes.map(type => (
                   <option key={type.name} value={type.name}>
                     {type.icon} {type.display_name}
@@ -391,16 +476,16 @@ export default function TemplateLibraryPage() {
 
             {/* Sort By */}
             <div>
-              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">Sort By</label>
+              <label className="block text-sm font-medium text-mono-700 dark:text-mono-300 mb-2">{c.sortBy}</label>
               <select
                 value={filters.sort_by}
                 onChange={(e) => handleFilterChange('sort_by', e.target.value)}
                 className="w-full px-3 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-800 text-mono-950 dark:text-mono-50 focus:outline-none focus:ring-2 focus:ring-accent-500"
               >
-                <option value="popular">Most Popular</option>
-                <option value="newest">Newest First</option>
-                <option value="most_used">Most Used</option>
-                <option value="most_liked">Most Liked</option>
+                <option value="popular">{c.sortPopular}</option>
+                <option value="newest">{c.sortNewest}</option>
+                <option value="most_used">{c.sortMostUsed}</option>
+                <option value="most_liked">{c.sortMostLiked}</option>
               </select>
             </div>
           </div>
@@ -413,7 +498,7 @@ export default function TemplateLibraryPage() {
                 onClick={clearFilters}
                 className="text-sm text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300"
               >
-                Clear All Filters
+                {c.clearAllFilters}
               </button>
             </div>
           )}
@@ -423,7 +508,10 @@ export default function TemplateLibraryPage() {
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center space-x-4">
             <p className="text-mono-600 dark:text-mono-400">
-              Showing {showFavoritesOnly ? templates.filter(t => favorites.has(t.id)).length : templates.length} of {pagination.total} templates
+              {c.showingResults(
+                showFavoritesOnly ? templates.filter(t => favorites.has(t.id)).length : templates.length,
+                pagination.total
+              )}
             </p>
             {favorites.size > 0 && (
               <button
@@ -435,7 +523,7 @@ export default function TemplateLibraryPage() {
                 }`}
               >
                 <Heart className={`w-4 h-4 mr-1 ${showFavoritesOnly ? 'fill-current' : ''}`} />
-                Favorites ({favorites.size})
+                {c.favorites(favorites.size)}
               </button>
             )}
           </div>
@@ -492,15 +580,15 @@ export default function TemplateLibraryPage() {
                   <div className="flex items-center justify-between text-sm text-mono-500 dark:text-mono-500 mb-4">
                     <span className="flex items-center space-x-1">
                       <Users className="w-4 h-4" />
-                      <span>{template.usage_count} uses</span>
+                      <span>{c.uses(template.usage_count)}</span>
                     </span>
                     <span className="flex items-center space-x-1">
                       <Clock className="w-4 h-4" />
-                      <span>{template.estimated_time_minutes} min</span>
+                      <span>{c.min(template.estimated_time_minutes)}</span>
                     </span>
                     {template.platform_max_length && (
                       <span className="text-xs bg-mono-100 dark:bg-mono-800 px-2 py-1 rounded">
-                        Max: {template.platform_max_length} chars
+                        {c.maxChars(template.platform_max_length)}
                       </span>
                     )}
                   </div>
@@ -531,7 +619,7 @@ export default function TemplateLibraryPage() {
                       className="flex-1 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors flex items-center justify-center text-sm"
                     >
                       <Copy className="w-4 h-4 mr-1" />
-                      {copiedId === template.id ? 'Copied!' : 'Copy'}
+                      {copiedId === template.id ? c.copied : c.copy}
                     </button>
                     <button className="px-4 py-2 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 flex items-center justify-center text-sm text-mono-700 dark:text-mono-300">
                       <Heart className="w-4 h-4 mr-1" />
@@ -552,28 +640,28 @@ export default function TemplateLibraryPage() {
               )}
             </div>
             <h3 className="text-lg font-semibold text-mono-900 dark:text-mono-50 mb-2">
-              {showFavoritesOnly ? 'No favorites yet' : 'No templates found'}
+              {showFavoritesOnly ? c.noFavoritesYet : c.noTemplatesFound}
             </h3>
             <p className="text-mono-600 dark:text-mono-400 mb-4">
               {showFavoritesOnly 
-                ? 'Start adding templates to your favorites by clicking the heart icon on any template.'
+                ? c.noFavoritesHint
                 : searchQuery 
-                  ? `No templates match "${searchQuery}"` 
-                  : 'No templates match your current filters'}
+                  ? c.noTemplatesMatchSearch(searchQuery)
+                  : c.noTemplatesMatchFilters}
             </p>
             {showFavoritesOnly ? (
               <button
                 onClick={() => setShowFavoritesOnly(false)}
                 className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
               >
-                Browse All Templates
+                {c.browseAllTemplates}
               </button>
             ) : (
               <button
                 onClick={clearFilters}
                 className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
               >
-                Clear Filters
+                {c.clearFilters}
               </button>
             )}
           </div>
@@ -591,7 +679,7 @@ export default function TemplateLibraryPage() {
               disabled={loading}
               className="px-6 py-2 border border-mono-300 dark:border-mono-700 rounded-lg bg-white dark:bg-mono-800 text-mono-700 dark:text-mono-300 hover:bg-mono-100 dark:hover:bg-mono-700 transition-colors disabled:opacity-50"
             >
-              {loading ? 'Loading...' : 'Load More Templates'}
+              {loading ? c.loading : c.loadMore}
             </button>
           </div>
         )}

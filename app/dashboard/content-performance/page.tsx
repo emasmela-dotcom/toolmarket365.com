@@ -7,8 +7,50 @@ import { AccuracyTracker } from '@/components/dashboard/AccuracyTracker'
 import { ContentInsights } from '@/components/dashboard/ContentInsights'
 import { ABTestManager } from '@/components/dashboard/ABTestManager'
 import { ROITracker } from '@/components/dashboard/ROITracker'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
+const copy = {
+  en: {
+    title: '📊 Content Performance Dashboard',
+    subtitle: 'Track predictions vs actual results',
+    last7Days: 'Last 7 days',
+    last30Days: 'Last 30 days',
+    last90Days: 'Last 90 days',
+    lastYear: 'Last year',
+    allPlatforms: 'All Platforms',
+    predictionAccuracy: 'Prediction Accuracy',
+    totalContentAnalyzed: 'Total Content Analyzed',
+    viralContentRate: 'Viral Content Rate',
+    abTestsRunning: 'A/B Tests Running',
+    tabOverview: 'Performance Overview',
+    tabAccuracy: 'Accuracy Tracking',
+    tabInsights: 'Content Insights',
+    tabAbTests: 'A/B Testing',
+    tabRoi: 'ROI Analysis',
+  },
+  es: {
+    title: '📊 Panel de rendimiento de contenido',
+    subtitle: 'Compara predicciones con resultados reales',
+    last7Days: 'Últimos 7 días',
+    last30Days: 'Últimos 30 días',
+    last90Days: 'Últimos 90 días',
+    lastYear: 'Último año',
+    allPlatforms: 'Todas las plataformas',
+    predictionAccuracy: 'Precisión de predicciones',
+    totalContentAnalyzed: 'Contenido total analizado',
+    viralContentRate: 'Tasa de contenido viral',
+    abTestsRunning: 'Pruebas A/B en curso',
+    tabOverview: 'Resumen de rendimiento',
+    tabAccuracy: 'Seguimiento de precisión',
+    tabInsights: 'Información del contenido',
+    tabAbTests: 'Pruebas A/B',
+    tabRoi: 'Análisis de ROI',
+  },
+}
 
 export default function ContentPerformanceDashboard() {
+  const { language } = useLanguage()
+  const c = copy[language]
   const [timeRange, setTimeRange] = useState('30d')
   const [platform, setPlatform] = useState('all')
   const [activeTab, setActiveTab] = useState('overview')
@@ -50,6 +92,14 @@ export default function ContentPerformanceDashboard() {
     }
   }
 
+  const tabs = [
+    { id: 'overview', label: c.tabOverview },
+    { id: 'accuracy', label: c.tabAccuracy },
+    { id: 'insights', label: c.tabInsights },
+    { id: 'ab-tests', label: c.tabAbTests },
+    { id: 'roi', label: c.tabRoi },
+  ]
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 flex justify-center items-center">
@@ -64,8 +114,8 @@ export default function ContentPerformanceDashboard() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">📊 Content Performance Dashboard</h1>
-            <p className="text-gray-600 dark:text-gray-400">Track predictions vs actual results</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{c.title}</h1>
+            <p className="text-gray-600 dark:text-gray-400">{c.subtitle}</p>
           </div>
           
           <div className="flex gap-4">
@@ -74,10 +124,10 @@ export default function ContentPerformanceDashboard() {
               onChange={(e) => setTimeRange(e.target.value)}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
-              <option value="7d">Last 7 days</option>
-              <option value="30d">Last 30 days</option>
-              <option value="90d">Last 90 days</option>
-              <option value="1y">Last year</option>
+              <option value="7d">{c.last7Days}</option>
+              <option value="30d">{c.last30Days}</option>
+              <option value="90d">{c.last90Days}</option>
+              <option value="1y">{c.lastYear}</option>
             </select>
 
             <select
@@ -85,7 +135,7 @@ export default function ContentPerformanceDashboard() {
               onChange={(e) => setPlatform(e.target.value)}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
-              <option value="all">All Platforms</option>
+              <option value="all">{c.allPlatforms}</option>
               <option value="tiktok">TikTok</option>
               <option value="instagram">Instagram</option>
               <option value="youtube">YouTube</option>
@@ -97,25 +147,25 @@ export default function ContentPerformanceDashboard() {
         {/* Key Metrics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <MetricCard
-            title="Prediction Accuracy"
+            title={c.predictionAccuracy}
             value={`${accuracyData?.overallAccuracy || 0}%`}
             change={accuracyData?.accuracyTrend || 0}
             icon={<Target className="w-8 h-8 text-blue-500" />}
           />
           <MetricCard
-            title="Total Content Analyzed"
+            title={c.totalContentAnalyzed}
             value={performanceData?.totalContent || 0}
             change={performanceData?.contentGrowth || 0}
             icon={<BarChart3 className="w-8 h-8 text-green-500" />}
           />
           <MetricCard
-            title="Viral Content Rate"
+            title={c.viralContentRate}
             value={`${performanceData?.viralRate || 0}%`}
             change={0}
             icon={<Award className="w-8 h-8 text-purple-500" />}
           />
           <MetricCard
-            title="A/B Tests Running"
+            title={c.abTestsRunning}
             value={abTestData?.activeTestsCount ?? (Array.isArray(abTestData?.activeTests) ? abTestData.activeTests.length : 0)}
             change={0}
             icon={<GitCompare className="w-8 h-8 text-orange-500" />}
@@ -125,13 +175,7 @@ export default function ContentPerformanceDashboard() {
         {/* Main Dashboard Tabs */}
         <div className="border-b border-gray-200 dark:border-gray-700">
           <nav className="flex space-x-8">
-            {[
-              { id: 'overview', label: 'Performance Overview' },
-              { id: 'accuracy', label: 'Accuracy Tracking' },
-              { id: 'insights', label: 'Content Insights' },
-              { id: 'ab-tests', label: 'A/B Testing' },
-              { id: 'roi', label: 'ROI Analysis' }
-            ].map((tab) => (
+            {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}

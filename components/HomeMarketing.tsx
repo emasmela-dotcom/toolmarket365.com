@@ -76,6 +76,36 @@ export default function HomeMarketing() {
               {t('homeMailPipelineCta')}
             </a>
           </aside>
+          <aside className="tm-home__featured tm-home__featured--care" aria-label="CareConnect 24/7">
+            <div>
+              <p className="tm-home__featured-kicker">{t('homeFeaturedLabel')}</p>
+              <h2 className="tm-home__featured-title">{t('homeCareConnectTitle')}</h2>
+              <p className="tm-home__featured-text">{t('homeCareConnectTagline')}</p>
+            </div>
+            <a
+              href="https://www.careconnect-24-7.com"
+              className="tm-home__featured-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('homeCareConnectCta')}
+            </a>
+          </aside>
+          <aside className="tm-home__featured tm-home__featured--read" aria-label="ReadAI365">
+            <div>
+              <p className="tm-home__featured-kicker">{t('homeFeaturedLabel')}</p>
+              <h2 className="tm-home__featured-title">{t('homeReadAiTitle')}</h2>
+              <p className="tm-home__featured-text">{t('homeReadAiTagline')}</p>
+            </div>
+            <a
+              href="https://www.readai365.com"
+              className="tm-home__featured-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('homeReadAiCta')}
+            </a>
+          </aside>
         </div>
         <div className="tm-home__grid">
           <article className="tm-home__card">

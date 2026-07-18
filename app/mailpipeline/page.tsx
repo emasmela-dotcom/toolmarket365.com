@@ -8,7 +8,10 @@ import {
   createMailPipelineId,
   emptyMailPipelineDeal,
   formatMailPipelineDate,
+  getMailPipelineStats,
+  mailPipelineSampleDeals,
   normalizeMailPipelineDeals,
+  shiftMailPipelineDate,
   todaysMailPipelineFollowUps,
   type MailPipelineDeal,
   type MailPipelineStage,
@@ -22,13 +25,20 @@ const copy = {
     title: 'MailPipelineCRM',
     tagline:
       'Never lose a lead in your inbox again. Track threads, stages, and follow-ups in one place.',
+    statTotal: 'Total deals',
+    statOpen: 'Open',
+    statDueToday: 'Due today',
+    statWon: 'Won',
     today: "Today's follow-ups",
     nothingDue: 'Nothing due today.',
     allDeals: 'All deals',
     empty: 'No deals yet. Track your first thread below.',
+    loadSamples: 'Load sample deals',
     track: 'Track a thread',
+    editDeal: 'Edit deal',
     cancel: 'Cancel',
     save: 'Save deal',
+    update: 'Update deal',
     titleLabel: 'Thread / deal title',
     emailLabel: 'Contact email',
     stageLabel: 'Stage',
@@ -36,12 +46,16 @@ const copy = {
     lastLabel: 'Last contact',
     nextLabel: 'Next follow-up',
     notesLabel: 'Notes',
+    edit: 'Edit',
     delete: 'Delete',
+    snooze: 'Snooze +1 day',
+    markWon: 'Mark won',
     colTitle: 'Title',
     colContact: 'Contact',
     colStage: 'Stage',
     colLast: 'Last contact',
     colNext: 'Next follow-up',
+    colActions: 'Actions',
   },
   es: {
     back: 'Volver a ToolMarket365',
@@ -49,13 +63,20 @@ const copy = {
     title: 'MailPipelineCRM',
     tagline:
       'No vuelvas a perder un lead en tu bandeja. Rastrea hilos, etapas y seguimientos en un solo lugar.',
+    statTotal: 'Total de tratos',
+    statOpen: 'Abiertos',
+    statDueToday: 'Vencen hoy',
+    statWon: 'Ganados',
     today: 'Seguimientos de hoy',
     nothingDue: 'Nada pendiente hoy.',
     allDeals: 'Todos los tratos',
     empty: 'Aún no hay tratos. Rastrea tu primer hilo abajo.',
+    loadSamples: 'Cargar tratos de ejemplo',
     track: 'Rastrear un hilo',
+    editDeal: 'Editar trato',
     cancel: 'Cancelar',
     save: 'Guardar trato',
+    update: 'Actualizar trato',
     titleLabel: 'Título del hilo / trato',
     emailLabel: 'Correo de contacto',
     stageLabel: 'Etapa',
@@ -63,12 +84,16 @@ const copy = {
     lastLabel: 'Último contacto',
     nextLabel: 'Próximo seguimiento',
     notesLabel: 'Notas',
+    edit: 'Editar',
     delete: 'Eliminar',
+    snooze: 'Posponer +1 día',
+    markWon: 'Marcar ganado',
     colTitle: 'Título',
     colContact: 'Contacto',
     colStage: 'Etapa',
     colLast: 'Último contacto',
     colNext: 'Próximo seguimiento',
+    colActions: 'Acciones',
   },
 }
 
@@ -77,7 +102,9 @@ export default function MailPipelinePage() {
   const c = copy[language]
   const [deals, setDeals] = useState<MailPipelineDeal[]>([])
   const [loaded, setLoaded] = useState(false)
+  const [startedEmpty, setStartedEmpty] = useState(false)
   const [showForm, setShowForm] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
   const [form, setForm] = useState(emptyMailPipelineDeal())
 
   useEffect(() => {
@@ -85,9 +112,12 @@ export default function MailPipelinePage() {
       const raw = window.localStorage.getItem(MAIL_PIPELINE_STORAGE_KEY)
       if (raw) {
         setDeals(normalizeMailPipelineDeals(JSON.parse(raw)))
+      } else {
+        setStartedEmpty(true)
       }
     } catch {
       setDeals([])
+      setStartedEmpty(true)
     }
     setLoaded(true)
   }, [])
@@ -98,10 +128,32 @@ export default function MailPipelinePage() {
   }, [deals, loaded])
 
   const followUps = useMemo(() => todaysMailPipelineFollowUps(deals), [deals])
+  const stats = useMemo(() => getMailPipelineStats(deals), [deals])
 
   function resetForm() {
     setForm(emptyMailPipelineDeal())
+    setEditingId(null)
     setShowForm(false)
+  }
+
+  function openNewForm() {
+    setForm(emptyMailPipelineDeal())
+    setEditingId(null)
+    setShowForm(true)
+  }
+
+  function openEditForm(deal: MailPipelineDeal) {
+    setForm({
+      title: deal.title,
+      contactEmail: deal.contactEmail,
+      stage: deal.stage,
+      amount: deal.amount,
+      lastContactAt: deal.lastContactAt,
+      nextFollowUpAt: deal.nextFollowUpAt,
+      notes: deal.notes,
+    })
+    setEditingId(deal.id)
+    setShowForm(true)
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -109,20 +161,57 @@ export default function MailPipelinePage() {
     const title = form.title.trim()
     const contactEmail = form.contactEmail.trim()
     if (!title || !contactEmail) return
-    setDeals((current) => [
-      {
-        ...form,
-        id: createMailPipelineId(),
-        title,
-        contactEmail,
-      },
-      ...current,
-    ])
+
+    if (editingId) {
+      setDeals((current) =>
+        current.map((deal) =>
+          deal.id === editingId
+            ? { ...deal, ...form, id: editingId, title, contactEmail }
+            : deal,
+        ),
+      )
+    } else {
+      setDeals((current) => [
+        {
+          ...form,
+          id: createMailPipelineId(),
+          title,
+          contactEmail,
+        },
+        ...current,
+      ])
+    }
     resetForm()
   }
 
   function deleteDeal(id: string) {
     setDeals((current) => current.filter((deal) => deal.id !== id))
+    if (editingId === id) resetForm()
+  }
+
+  function updateDealStage(id: string, stage: MailPipelineStage) {
+    setDeals((current) =>
+      current.map((deal) => (deal.id === id ? { ...deal, stage } : deal)),
+    )
+  }
+
+  function snoozeDeal(id: string) {
+    setDeals((current) =>
+      current.map((deal) =>
+        deal.id === id
+          ? { ...deal, nextFollowUpAt: shiftMailPipelineDate(deal.nextFollowUpAt, 1) }
+          : deal,
+      ),
+    )
+  }
+
+  function markWon(id: string) {
+    updateDealStage(id, 'Won')
+  }
+
+  function loadSampleDeals() {
+    setDeals(mailPipelineSampleDeals)
+    setStartedEmpty(false)
   }
 
   if (!loaded) {
@@ -207,6 +296,43 @@ export default function MailPipelinePage() {
           color: #e0f2fe;
           border: 1px solid rgba(125,211,252,0.35);
         }
+        .mp-btn-sm {
+          padding: 0.35rem 0.65rem;
+          font-size: 0.75rem;
+          border-radius: 0.5rem;
+        }
+        .mp-stats {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.65rem;
+          margin-bottom: 1rem;
+        }
+        @media (min-width: 640px) {
+          .mp-stats { grid-template-columns: repeat(4, 1fr); }
+        }
+        .mp-stat {
+          border: 1px solid rgba(125,211,252,0.25);
+          border-radius: 0.85rem;
+          background: rgba(8,24,40,0.72);
+          padding: 0.85rem 0.9rem;
+          text-align: center;
+        }
+        .mp-stat-value {
+          display: block;
+          font-size: 1.5rem;
+          font-weight: 800;
+          color: #f0f9ff;
+          line-height: 1.1;
+        }
+        .mp-stat-label {
+          display: block;
+          margin-top: 0.25rem;
+          font-size: 0.72rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+          color: #7dd3fc;
+        }
         .mp-panel {
           border: 1px solid rgba(125,211,252,0.25);
           border-radius: 1rem;
@@ -251,6 +377,18 @@ export default function MailPipelinePage() {
           background: rgba(56,189,248,0.16);
           color: #e0f2fe;
         }
+        .mp-stage-select {
+          border-radius: 0.5rem;
+          border: 1px solid rgba(125,211,252,0.3);
+          background: rgba(15,23,42,0.8);
+          color: #f0f9ff;
+          padding: 0.35rem 0.45rem;
+          font: inherit;
+          font-size: 0.78rem;
+          font-weight: 700;
+          cursor: pointer;
+          min-width: 7.5rem;
+        }
         .mp-table-wrap { overflow-x: auto; }
         table.mp-table {
           width: 100%;
@@ -269,6 +407,12 @@ export default function MailPipelinePage() {
           border-bottom: 1px solid rgba(125,211,252,0.12);
           color: #e0f2fe;
           vertical-align: top;
+        }
+        .mp-row-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.35rem;
+          align-items: center;
         }
         .mp-form {
           display: grid;
@@ -306,6 +450,30 @@ export default function MailPipelinePage() {
           font-size: 0.75rem;
           font-weight: 700;
           cursor: pointer;
+          font-family: inherit;
+        }
+        .mp-action {
+          background: rgba(15,23,42,0.7);
+          border: 1px solid rgba(125,211,252,0.35);
+          color: #e0f2fe;
+          border-radius: 0.5rem;
+          padding: 0.35rem 0.55rem;
+          font-size: 0.75rem;
+          font-weight: 700;
+          cursor: pointer;
+          font-family: inherit;
+        }
+        .mp-action:hover { border-color: rgba(125,211,252,0.55); color: #f0f9ff; }
+        .mp-action-won {
+          border-color: rgba(52,211,153,0.45);
+          color: #a7f3d0;
+        }
+        .mp-empty-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.6rem;
+          align-items: center;
+          margin-top: 0.75rem;
         }
       `}</style>
 
@@ -319,18 +487,30 @@ export default function MailPipelinePage() {
           <h1 className="mp-title">{c.title}</h1>
           <p className="mp-tagline">{c.tagline}</p>
           <div className="mp-actions">
-            <button
-              type="button"
-              className="mp-btn mp-btn-primary"
-              onClick={() => {
-                setForm(emptyMailPipelineDeal())
-                setShowForm(true)
-              }}
-            >
+            <button type="button" className="mp-btn mp-btn-primary" onClick={openNewForm}>
               {c.track}
             </button>
           </div>
         </header>
+
+        <div className="mp-stats">
+          <div className="mp-stat">
+            <span className="mp-stat-value">{stats.total}</span>
+            <span className="mp-stat-label">{c.statTotal}</span>
+          </div>
+          <div className="mp-stat">
+            <span className="mp-stat-value">{stats.open}</span>
+            <span className="mp-stat-label">{c.statOpen}</span>
+          </div>
+          <div className="mp-stat">
+            <span className="mp-stat-value">{stats.dueToday}</span>
+            <span className="mp-stat-label">{c.statDueToday}</span>
+          </div>
+          <div className="mp-stat">
+            <span className="mp-stat-value">{stats.won}</span>
+            <span className="mp-stat-label">{c.statWon}</span>
+          </div>
+        </div>
 
         <section className="mp-panel">
           <h2>
@@ -358,7 +538,20 @@ export default function MailPipelinePage() {
         <section className="mp-panel">
           <h2>{c.allDeals}</h2>
           {deals.length === 0 ? (
-            <p className="mp-muted">{c.empty}</p>
+            <>
+              <p className="mp-muted">{c.empty}</p>
+              {startedEmpty ? (
+                <div className="mp-empty-actions">
+                  <button
+                    type="button"
+                    className="mp-btn mp-btn-secondary"
+                    onClick={loadSampleDeals}
+                  >
+                    {c.loadSamples}
+                  </button>
+                </div>
+              ) : null}
+            </>
           ) : (
             <div className="mp-table-wrap">
               <table className="mp-table">
@@ -369,7 +562,7 @@ export default function MailPipelinePage() {
                     <th>{c.colStage}</th>
                     <th>{c.colLast}</th>
                     <th>{c.colNext}</th>
-                    <th />
+                    <th>{c.colActions}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -378,18 +571,56 @@ export default function MailPipelinePage() {
                       <td>{deal.title}</td>
                       <td>{deal.contactEmail}</td>
                       <td>
-                        <span className="mp-stage">{deal.stage}</span>
+                        <select
+                          className="mp-stage-select"
+                          value={deal.stage}
+                          onChange={(e) =>
+                            updateDealStage(deal.id, e.target.value as MailPipelineStage)
+                          }
+                          aria-label={c.stageLabel}
+                        >
+                          {MAIL_PIPELINE_STAGES.map((stage) => (
+                            <option key={stage} value={stage}>
+                              {stage}
+                            </option>
+                          ))}
+                        </select>
                       </td>
                       <td>{formatMailPipelineDate(deal.lastContactAt)}</td>
                       <td>{formatMailPipelineDate(deal.nextFollowUpAt)}</td>
                       <td>
-                        <button
-                          type="button"
-                          className="mp-danger"
-                          onClick={() => deleteDeal(deal.id)}
-                        >
-                          {c.delete}
-                        </button>
+                        <div className="mp-row-actions">
+                          <button
+                            type="button"
+                            className="mp-action"
+                            onClick={() => openEditForm(deal)}
+                          >
+                            {c.edit}
+                          </button>
+                          <button
+                            type="button"
+                            className="mp-action"
+                            onClick={() => snoozeDeal(deal.id)}
+                          >
+                            {c.snooze}
+                          </button>
+                          {deal.stage !== 'Won' ? (
+                            <button
+                              type="button"
+                              className="mp-action mp-action-won"
+                              onClick={() => markWon(deal.id)}
+                            >
+                              {c.markWon}
+                            </button>
+                          ) : null}
+                          <button
+                            type="button"
+                            className="mp-danger"
+                            onClick={() => deleteDeal(deal.id)}
+                          >
+                            {c.delete}
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -402,7 +633,7 @@ export default function MailPipelinePage() {
         {showForm ? (
           <section className="mp-panel">
             <div className="mp-actions" style={{ marginTop: 0, marginBottom: '0.85rem' }}>
-              <h2 style={{ margin: 0, flex: 1 }}>{c.track}</h2>
+              <h2 style={{ margin: 0, flex: 1 }}>{editingId ? c.editDeal : c.track}</h2>
               <button type="button" className="mp-btn mp-btn-secondary" onClick={resetForm}>
                 {c.cancel}
               </button>
@@ -479,7 +710,7 @@ export default function MailPipelinePage() {
                 />
               </label>
               <button type="submit" className="mp-btn mp-btn-primary">
-                {c.save}
+                {editingId ? c.update : c.save}
               </button>
             </form>
           </section>

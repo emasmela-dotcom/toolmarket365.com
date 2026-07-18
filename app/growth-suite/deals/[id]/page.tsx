@@ -9,6 +9,7 @@ import { DealDeliverables } from '@/components/growth-suite/DealDeliverables'
 import { Calendar, DollarSign, Target, Clock, User, Building2, ArrowLeft, CheckCircle, XCircle, MessageSquare } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils'
 import { format } from 'date-fns'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 interface Deal {
   id: string
@@ -50,10 +51,89 @@ const STATUS_COLORS = {
   disputed: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
 }
 
+const copy = {
+  en: {
+    loading: 'Loading deal details...',
+    notFound: 'Deal not found',
+    backToDeals: 'Back to Deals',
+    back: 'Back',
+    due: 'Due',
+    flexible: 'Flexible',
+    budget: 'Budget',
+    platform: 'Platform',
+    deadline: 'Deadline',
+    type: 'Type',
+    brand: 'Brand',
+    creator: 'Creator',
+    verified: 'Verified',
+    tabDetails: 'Details',
+    tabMessages: 'Messages',
+    tabNegotiation: 'Negotiation',
+    tabDeliverables: 'Deliverables',
+    dealDescription: 'Deal Description',
+    requirements: 'Requirements',
+    noRequirements: 'No specific requirements provided.',
+    deliverables: 'Deliverables',
+    noDeliverables: 'No deliverables specified.',
+    rejectDeal: 'Reject Deal',
+    startNegotiation: 'Start Negotiation',
+    acceptDeal: 'Accept Deal',
+    statusLabels: {
+      pending: 'PENDING',
+      negotiating: 'NEGOTIATING',
+      accepted: 'ACCEPTED',
+      rejected: 'REJECTED',
+      in_progress: 'IN PROGRESS',
+      completed: 'COMPLETED',
+      cancelled: 'CANCELLED',
+      disputed: 'DISPUTED',
+    },
+  },
+  es: {
+    loading: 'Cargando detalles del acuerdo...',
+    notFound: 'Acuerdo no encontrado',
+    backToDeals: 'Volver a Acuerdos',
+    back: 'Volver',
+    due: 'Vence',
+    flexible: 'Flexible',
+    budget: 'Presupuesto',
+    platform: 'Plataforma',
+    deadline: 'Fecha límite',
+    type: 'Tipo',
+    brand: 'Marca',
+    creator: 'Creador',
+    verified: 'Verificado',
+    tabDetails: 'Detalles',
+    tabMessages: 'Mensajes',
+    tabNegotiation: 'Negociación',
+    tabDeliverables: 'Entregables',
+    dealDescription: 'Descripción del Acuerdo',
+    requirements: 'Requisitos',
+    noRequirements: 'No se proporcionaron requisitos específicos.',
+    deliverables: 'Entregables',
+    noDeliverables: 'No se especificaron entregables.',
+    rejectDeal: 'Rechazar Acuerdo',
+    startNegotiation: 'Iniciar Negociación',
+    acceptDeal: 'Aceptar Acuerdo',
+    statusLabels: {
+      pending: 'PENDIENTE',
+      negotiating: 'NEGOCIANDO',
+      accepted: 'ACEPTADO',
+      rejected: 'RECHAZADO',
+      in_progress: 'EN PROGRESO',
+      completed: 'COMPLETADO',
+      cancelled: 'CANCELADO',
+      disputed: 'EN DISPUTA',
+    },
+  },
+}
+
 export default function DealDetailPage() {
   const router = useRouter()
   const params = useParams()
   const dealId = params.id as string
+  const { language } = useLanguage()
+  const c = copy[language]
   const [deal, setDeal] = useState<Deal | null>(null)
   const [loading, setLoading] = useState(true)
   const [userRole, setUserRole] = useState<'brand' | 'creator' | 'unknown'>('unknown')
@@ -86,8 +166,6 @@ export default function DealDetailPage() {
     try {
       const response = await fetch('/api/me')
       if (response.ok) {
-        const userData = await response.json()
-        
         const brandResponse = await fetch('/api/growth-suite/brands')
         const creatorResponse = await fetch('/api/growth-suite/creator-profile')
         
@@ -123,12 +201,23 @@ export default function DealDetailPage() {
     }
   }
 
+  const getStatusLabel = (status: Deal['status']) => {
+    return c.statusLabels[status] || status.replace('_', ' ').toUpperCase()
+  }
+
+  const tabs = [
+    { id: 'details', label: c.tabDetails },
+    { id: 'messages', label: c.tabMessages },
+    { id: 'negotiation', label: c.tabNegotiation },
+    { id: 'deliverables', label: c.tabDeliverables },
+  ]
+
   if (loading) {
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-600 mx-auto mb-4"></div>
-          <p className="text-mono-600 dark:text-mono-400">Loading deal details...</p>
+          <p className="text-mono-600 dark:text-mono-400">{c.loading}</p>
         </div>
       </div>
     )
@@ -138,12 +227,12 @@ export default function DealDetailPage() {
     return (
       <div className="min-h-screen bg-mono-50 dark:bg-mono-950 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-mono-600 dark:text-mono-400 mb-4">Deal not found</p>
+          <p className="text-mono-600 dark:text-mono-400 mb-4">{c.notFound}</p>
           <Link
             href="/growth-suite"
             className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
           >
-            Back to Deals
+            {c.backToDeals}
           </Link>
         </div>
       </div>
@@ -153,7 +242,6 @@ export default function DealDetailPage() {
   return (
     <div className="min-h-screen bg-mono-50 dark:bg-mono-950">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
@@ -162,17 +250,17 @@ export default function DealDetailPage() {
                 className="px-3 py-1 border border-mono-300 dark:border-mono-700 rounded-lg hover:bg-mono-100 dark:hover:bg-mono-800 transition-colors"
               >
                 <ArrowLeft className="w-4 h-4 inline mr-2" />
-                Back
+                {c.back}
               </Link>
               <div>
                 <h1 className="text-3xl font-bold text-mono-950 dark:text-mono-50">{deal.title}</h1>
                 <div className="flex items-center space-x-4 mt-2">
                   <span className={`px-2 py-1 rounded text-xs ${STATUS_COLORS[deal.status] || STATUS_COLORS.pending}`}>
-                    {deal.status.replace('_', ' ').toUpperCase()}
+                    {getStatusLabel(deal.status)}
                   </span>
                   <span className="text-mono-600 dark:text-mono-400 flex items-center space-x-1 text-sm">
                     <Calendar className="w-4 h-4" />
-                    <span>Due {deal.deadline ? format(new Date(deal.deadline), 'MMM d, yyyy') : 'Flexible'}</span>
+                    <span>{c.due} {deal.deadline ? format(new Date(deal.deadline), 'MMM d, yyyy') : c.flexible}</span>
                   </span>
                   <span className="text-mono-600 dark:text-mono-400 flex items-center space-x-1 text-sm">
                     <DollarSign className="w-4 h-4" />
@@ -188,13 +276,12 @@ export default function DealDetailPage() {
           </div>
         </div>
 
-        {/* Deal Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-4 bg-mono-50 dark:bg-mono-900">
             <div className="flex items-center space-x-3">
               <DollarSign className="w-5 h-5 text-green-600" />
               <div>
-                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Budget</p>
+                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.budget}</p>
                 <p className="text-lg font-bold text-mono-950 dark:text-mono-50">{formatCurrency(deal.budget, deal.currency || 'USD')}</p>
               </div>
             </div>
@@ -204,7 +291,7 @@ export default function DealDetailPage() {
             <div className="flex items-center space-x-3">
               <Target className="w-5 h-5 text-blue-600" />
               <div>
-                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Platform</p>
+                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.platform}</p>
                 <p className="text-lg font-bold text-mono-950 dark:text-mono-50 capitalize">{deal.platform}</p>
               </div>
             </div>
@@ -214,9 +301,9 @@ export default function DealDetailPage() {
             <div className="flex items-center space-x-3">
               <Calendar className="w-5 h-5 text-purple-600" />
               <div>
-                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Deadline</p>
+                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.deadline}</p>
                 <p className="text-lg font-bold text-mono-950 dark:text-mono-50">
-                  {deal.deadline ? format(new Date(deal.deadline), 'MMM d') : 'Flexible'}
+                  {deal.deadline ? format(new Date(deal.deadline), 'MMM d') : c.flexible}
                 </p>
               </div>
             </div>
@@ -226,20 +313,19 @@ export default function DealDetailPage() {
             <div className="flex items-center space-x-3">
               <Clock className="w-5 h-5 text-orange-600" />
               <div>
-                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">Type</p>
+                <p className="text-sm font-medium text-mono-600 dark:text-mono-400">{c.type}</p>
                 <p className="text-lg font-bold text-mono-950 dark:text-mono-50 capitalize">{deal.deal_type?.replace('_', ' ')}</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Participant Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           {deal.brand && (
             <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-6 bg-mono-50 dark:bg-mono-900">
               <h3 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-4 flex items-center space-x-2">
                 <Building2 className="w-5 h-5" />
-                <span>Brand</span>
+                <span>{c.brand}</span>
               </h3>
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 rounded-full bg-accent-100 dark:bg-accent-900 flex items-center justify-center text-accent-600 font-bold">
@@ -251,7 +337,7 @@ export default function DealDetailPage() {
                   {deal.brand.is_verified && (
                     <span className="inline-block mt-1 px-2 py-0.5 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded">
                       <CheckCircle className="w-3 h-3 inline mr-1" />
-                      Verified
+                      {c.verified}
                     </span>
                   )}
                 </div>
@@ -263,7 +349,7 @@ export default function DealDetailPage() {
             <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-6 bg-mono-50 dark:bg-mono-900">
               <h3 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-4 flex items-center space-x-2">
                 <User className="w-5 h-5" />
-                <span>Creator</span>
+                <span>{c.creator}</span>
               </h3>
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 font-bold">
@@ -278,17 +364,10 @@ export default function DealDetailPage() {
           )}
         </div>
 
-        {/* Main Tabs */}
         <div className="space-y-6">
-          {/* Tab Navigation */}
           <div className="border-b border-mono-200 dark:border-mono-700">
             <nav className="flex space-x-8">
-              {[
-                { id: 'details', label: 'Details' },
-                { id: 'messages', label: 'Messages' },
-                { id: 'negotiation', label: 'Negotiation' },
-                { id: 'deliverables', label: 'Deliverables' }
-              ].map((tab) => (
+              {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
@@ -304,23 +383,22 @@ export default function DealDetailPage() {
             </nav>
           </div>
 
-          {/* Tab Content */}
           {activeTab === 'details' && (
             <div className="space-y-6">
               <div className="border border-mono-200 dark:border-mono-700 rounded-lg p-6 bg-mono-50 dark:bg-mono-900">
-                <h3 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-4">Deal Description</h3>
+                <h3 className="text-lg font-bold text-mono-950 dark:text-mono-50 mb-4">{c.dealDescription}</h3>
                 <p className="text-mono-700 dark:text-mono-300 mb-6">{deal.description}</p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-semibold text-mono-900 dark:text-mono-100 mb-3">Requirements</h4>
+                    <h4 className="font-semibold text-mono-900 dark:text-mono-100 mb-3">{c.requirements}</h4>
                     <div className="text-mono-700 dark:text-mono-300 whitespace-pre-line">
-                      {deal.requirements || 'No specific requirements provided.'}
+                      {deal.requirements || c.noRequirements}
                     </div>
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-mono-900 dark:text-mono-100 mb-3">Deliverables</h4>
+                    <h4 className="font-semibold text-mono-900 dark:text-mono-100 mb-3">{c.deliverables}</h4>
                     {deal.deliverables && deal.deliverables.length > 0 ? (
                       <ul className="space-y-2">
                         {deal.deliverables.map((deliverable, index) => (
@@ -331,13 +409,12 @@ export default function DealDetailPage() {
                         ))}
                       </ul>
                     ) : (
-                      <p className="text-mono-600 dark:text-mono-400">No deliverables specified.</p>
+                      <p className="text-mono-600 dark:text-mono-400">{c.noDeliverables}</p>
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
               {userRole !== 'unknown' && deal.status === 'pending' && (
                 <div className="flex justify-end space-x-4">
                   <button
@@ -345,14 +422,14 @@ export default function DealDetailPage() {
                     className="px-4 py-2 border border-red-300 dark:border-red-700 rounded-lg text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900 transition-colors"
                   >
                     <XCircle className="w-4 h-4 inline mr-2" />
-                    Reject Deal
+                    {c.rejectDeal}
                   </button>
                   <button
                     onClick={() => handleStatusUpdate('negotiating')}
                     className="px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors"
                   >
                     <MessageSquare className="w-4 h-4 inline mr-2" />
-                    Start Negotiation
+                    {c.startNegotiation}
                   </button>
                 </div>
               )}
@@ -364,14 +441,14 @@ export default function DealDetailPage() {
                     className="px-4 py-2 border border-red-300 dark:border-red-700 rounded-lg text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900 transition-colors"
                   >
                     <XCircle className="w-4 h-4 inline mr-2" />
-                    Reject Deal
+                    {c.rejectDeal}
                   </button>
                   <button
                     onClick={() => handleStatusUpdate('accepted')}
                     className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                   >
                     <CheckCircle className="w-4 h-4 inline mr-2" />
-                    Accept Deal
+                    {c.acceptDeal}
                   </button>
                 </div>
               )}
