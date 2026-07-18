@@ -61,6 +61,10 @@ export const translations = {
     homeFollowThruTagline:
       'Get the yes. Ship the work. Get paid. Agreement tracking for freelancers—without enterprise bloat.',
     homeFollowThruCta: 'Open Follow Thru CRM',
+    homeMailPipelineTitle: 'MailPipelineCRM',
+    homeMailPipelineTagline:
+      'Never lose a lead in your inbox again. Turn email threads into a simple follow-up pipeline.',
+    homeMailPipelineCta: 'Open MailPipelineCRM',
     pricingTitle: 'Pricing',
     pricingSubtitle: 'One plan: $0.99/month. Browse tools free; features unlock with subscription.',
     pricingPlanDescription:
@@ -777,6 +781,10 @@ export const translations = {
     homeFollowThruTagline:
       'Consigue el sí. Entrega el trabajo. Cobra. Seguimiento de acuerdos para freelancers—sin complejidad empresarial.',
     homeFollowThruCta: 'Abrir Follow Thru CRM',
+    homeMailPipelineTitle: 'MailPipelineCRM',
+    homeMailPipelineTagline:
+      'No vuelvas a perder un lead en tu bandeja. Convierte hilos de correo en un pipeline simple de seguimiento.',
+    homeMailPipelineCta: 'Abrir MailPipelineCRM',
     pricingTitle: 'Precio',
     pricingSubtitle:
       'Un solo plan: $0.99/mes. Explora las herramientas gratis; las funciones se desbloquean con suscripción.',
