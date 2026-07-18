@@ -3,6 +3,7 @@ export const HOME_PANELS_CSS = `
 body:has(main.tm-home) {
   background-color: #0b1220;
   color: #e8eef7;
+  overflow-x: clip;
 }
 
 .tm-home {
@@ -16,7 +17,9 @@ body:has(main.tm-home) {
   flex: 1;
   min-height: 100vh;
   min-height: 100dvh;
-  overflow-x: hidden;
+  /* clip avoids the CSS quirk where overflow-x:hidden + overflow-y:visible
+     becomes an inner scroll container (two scrollbars). */
+  overflow-x: clip;
   overflow-y: visible;
   background:
     radial-gradient(1200px 600px at 12% -10%, rgba(45, 212, 191, 0.22), transparent 55%),
@@ -61,8 +64,6 @@ body:has(main.tm-home) {
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  min-height: 100vh;
-  min-height: 100dvh;
   width: 100%;
   max-width: 88rem;
   flex-direction: column;
