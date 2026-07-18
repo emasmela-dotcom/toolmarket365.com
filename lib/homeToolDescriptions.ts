@@ -169,7 +169,7 @@ const CORE_HOME_TOOL_DESCRIPTIONS: Record<string, string> = {
   '/tools/url-shortener':
     'Create short links on this host with in-memory click counts — demo/sandbox, not durable storage.',
   '/tools/writing':
-    'Turn a topic and notes into a writing outline and starter draft.',
+    'Template writing studio (not live AI): blog, email, social, ads, landing, newsletter — headlines, outline, full draft pack.',
   '/tools/coding':
     'Turn a coding goal into a plan, checklist, and starter stub.',
   '/tools/research':
