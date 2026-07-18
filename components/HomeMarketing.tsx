@@ -47,6 +47,21 @@ export default function HomeMarketing() {
             </p>
           ) : null}
         </div>
+        <aside className="tm-home__featured" aria-label="Follow Thru CRM">
+          <div>
+            <p className="tm-home__featured-kicker">{t('homeFeaturedLabel')}</p>
+            <h2 className="tm-home__featured-title">{t('homeFollowThruTitle')}</h2>
+            <p className="tm-home__featured-text">{t('homeFollowThruTagline')}</p>
+          </div>
+          <a
+            href="https://www.followthrucrm.com/"
+            className="tm-home__featured-cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('homeFollowThruCta')}
+          </a>
+        </aside>
         <div className="tm-home__grid">
           <article className="tm-home__card">
             <div className="tm-home__card-head">

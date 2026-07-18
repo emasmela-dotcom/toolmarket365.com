@@ -56,6 +56,11 @@ export const translations = {
     homeForConnectingSystems: '(FOR CONNECTING SYSTEMS)',
     homeStackCategories: 'Stack Categories',
     homeForStackCoverage: '(ONE TOOL PER JOB TYPE)',
+    homeFeaturedLabel: 'Featured product',
+    homeFollowThruTitle: 'Follow Thru CRM',
+    homeFollowThruTagline:
+      'Get the yes. Ship the work. Get paid. Agreement tracking for freelancers—without enterprise bloat.',
+    homeFollowThruCta: 'Open Follow Thru CRM',
     pricingTitle: 'Pricing',
     pricingSubtitle: 'One plan: $0.99/month. Browse tools free; features unlock with subscription.',
     pricingPlanDescription:
@@ -767,6 +772,11 @@ export const translations = {
     homeForConnectingSystems: '(PARA CONECTAR SISTEMAS)',
     homeStackCategories: 'Categorías del stack',
     homeForStackCoverage: '(UNA HERRAMIENTA POR TIPO DE TRABAJO)',
+    homeFeaturedLabel: 'Producto destacado',
+    homeFollowThruTitle: 'Follow Thru CRM',
+    homeFollowThruTagline:
+      'Consigue el sí. Entrega el trabajo. Cobra. Seguimiento de acuerdos para freelancers—sin complejidad empresarial.',
+    homeFollowThruCta: 'Abrir Follow Thru CRM',
     pricingTitle: 'Precio',
     pricingSubtitle:
       'Un solo plan: $0.99/mes. Explora las herramientas gratis; las funciones se desbloquean con suscripción.',

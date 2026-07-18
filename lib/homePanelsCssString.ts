@@ -284,6 +284,94 @@ body:has(main.tm-home) {
   color: #99f6e4;
 }
 
+.tm-home__featured {
+  position: relative;
+  margin: 0 0 1.35rem;
+  display: grid;
+  gap: 1rem;
+  padding: 1.35rem 1.25rem 1.4rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  background:
+    radial-gradient(700px 220px at 0% 0%, rgba(251, 191, 36, 0.22), transparent 55%),
+    radial-gradient(600px 200px at 100% 100%, rgba(251, 113, 133, 0.16), transparent 50%),
+    linear-gradient(135deg, rgba(30, 20, 10, 0.92), rgba(15, 23, 42, 0.88));
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  animation: tm-home-rise 0.75s ease 0.05s both;
+}
+
+@media (min-width: 768px) {
+  .tm-home__featured {
+    grid-template-columns: 1.4fr auto;
+    align-items: center;
+    padding: 1.6rem 1.6rem;
+  }
+}
+
+.tm-home__featured-kicker {
+  margin: 0 0 0.55rem;
+  display: inline-flex;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(251, 191, 36, 0.55);
+  background: rgba(251, 191, 36, 0.14);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fde68a;
+}
+
+.tm-home__featured-title {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.55rem, 3.5vw, 2.15rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff7ed;
+}
+
+.tm-home__featured-text {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: #fde68a;
+}
+
+.tm-home__featured-cta {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid #fbbf24;
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1c1917;
+  padding: 0.72rem 1.2rem;
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.28);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.tm-home__featured-cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  text-decoration: none;
+  color: #1c1917;
+}
+
+@media (min-width: 768px) {
+  .tm-home__featured-cta {
+    justify-self: end;
+  }
+}
+
 .tm-home__grid {
   margin-top: 0.25rem;
   display: grid;
