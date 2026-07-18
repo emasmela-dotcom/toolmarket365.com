@@ -22,6 +22,7 @@ const STATIC_ROUTES = [
   '/integrations',
   '/login',
   '/marketing-kit',
+  '/mailpipeline',
   '/onboarding',
   '/plan-tools',
   '/pricing',

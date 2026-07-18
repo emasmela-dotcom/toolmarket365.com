@@ -70,10 +70,8 @@ export default function HomeMarketing() {
               <p className="tm-home__featured-text">{t('homeMailPipelineTagline')}</p>
             </div>
             <a
-              href="https://github.com/emasmela-dotcom/MailPipelineCRM"
+              href="/mailpipeline"
               className="tm-home__featured-cta"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               {t('homeMailPipelineCta')}
             </a>
