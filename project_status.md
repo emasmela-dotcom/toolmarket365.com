@@ -1,6 +1,6 @@
 # ToolMarket365 — Project Status
 
-**Last Updated:** July 16, 2026
+**Last Updated:** July 19, 2026
 
 ## Project overview
 
@@ -29,12 +29,14 @@ ToolMarket365 is a micro-SaaS marketplace (120+ tools) for creators and solo ope
 
 ### Build & deploy
 - Vercel project: `micro-saas-marketplace` (name ≠ product name — OK)
+- Git connected to: `emasmela-dotcom/toolmarket365.com` (old Micro-SaaS-marketplace link removed)
 - `NEXT_PUBLIC_SITE_URL` → https://www.toolmarket365.com (recommended)
+- `OPENAI_API_KEY` set in Vercel (Production + Preview) — needs a fresh deploy to load
 
 ## Deferred / optional
 
-- **`OPENAI_API_KEY` in Vercel** — skipped; env-backed routes (content-repurpose, trend-explainer, action-items) return 500 until added
-- **In-app AI burn checklist** (#1, #4–10) — not run; #2–3 done via `scripts/smoke-burn-checklist.mjs`
+- **In-app AI burn checklist** (#1, #4–10) — partial; re-run OpenAI routes after fresh deploy
+- Smoke template routes (#2–3): `scripts/smoke-burn-checklist.mjs` — local + production pass
 - **Gumroad** — fallback when Stripe unset; primary path is Stripe
 - Old multi-tier Stripe products ($9–$149) — ignore; archive in Stripe when convenient
 
