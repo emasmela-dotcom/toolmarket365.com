@@ -101,7 +101,7 @@ export default function PrivacyPage() {
               <li>{t('privacy5Item5')}</li>
             </ul>
             <p className="text-mono-700 dark:text-mono-300 mb-4">
-              {t('privacy5Body2')} <a href="mailto:support@creatorflow365.com" className="text-accent-600 dark:text-accent-400 hover:underline">support@creatorflow365.com</a>
+              {t('privacy5Body2')} <a href="mailto:apputilitybuilder@gmail.com" className="text-accent-600 dark:text-accent-400 hover:underline">apputilitybuilder@gmail.com</a>
             </p>
           </section>
 
@@ -148,7 +148,7 @@ export default function PrivacyPage() {
               {t('privacy9Intro')}
             </p>
             <p className="text-mono-700 dark:text-mono-300 mb-4">
-              <strong>{t('privacy9EmailLabel')}</strong> <a href="mailto:support@creatorflow365.com" className="text-accent-600 dark:text-accent-400 hover:underline">support@creatorflow365.com</a><br />
+              <strong>{t('privacy9EmailLabel')}</strong> <a href="mailto:apputilitybuilder@gmail.com" className="text-accent-600 dark:text-accent-400 hover:underline">apputilitybuilder@gmail.com</a><br />
               <strong>{t('privacy9WebsiteLabel')}</strong> <Link href="/contact" className="text-accent-600 dark:text-accent-400 hover:underline">{t('privacy9ContactPage')}</Link>
             </p>
           </section>

@@ -141,7 +141,7 @@
   - [x] Contact form (✅)
   - [ ] FAQ page
   - [ ] Help documentation
-  - [ ] Email support (support@creatorflow365.com ✅)
+  - [ ] Email support (apputilitybuilder@gmail.com ✅)
   - [ ] Live chat (optional - Intercom, Crisp)
 
 #### **Accessibility**

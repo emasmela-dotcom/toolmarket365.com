@@ -191,7 +191,7 @@ export default function TermsPage() {
               {t('terms13Intro')}
             </p>
             <p className="text-mono-700 dark:text-mono-300 mb-4">
-              <strong>{t('terms13EmailLabel')}</strong> <a href="mailto:support@creatorflow365.com" className="text-accent-600 dark:text-accent-400 hover:underline">support@creatorflow365.com</a><br />
+              <strong>{t('terms13EmailLabel')}</strong> <a href="mailto:apputilitybuilder@gmail.com" className="text-accent-600 dark:text-accent-400 hover:underline">apputilitybuilder@gmail.com</a><br />
               <strong>{t('terms13WebsiteLabel')}</strong> <Link href="/contact" className="text-accent-600 dark:text-accent-400 hover:underline">{t('terms13ContactPage')}</Link>
             </p>
           </section>

@@ -25,7 +25,7 @@
 - **Business** – Hybrid model (Option C): subscription + credits; platform = discovery only.
 - **Build** – Production build passing; Vercel deploys from `main`.
 - **Domain** – creatorflow365.com (www + apex); SSL.
-- **Support** – support@creatorflow365.com (ImprovMX → Gmail).
+- **Support** – apputilitybuilder@gmail.com (contact form + mailto).
 - **Payments** – Stripe integration wired (env + products needed); Gumroad fallback in place.
 
 ---

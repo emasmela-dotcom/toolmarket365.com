@@ -18,6 +18,7 @@ function ContactForm() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   useEffect(() => {
     if (isFeedback && !formData.subject) {
@@ -28,14 +29,27 @@ function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitError('')
 
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      const data = (await res.json().catch(() => ({}))) as { error?: string }
+      if (!res.ok) {
+        setSubmitError(data.error || 'Could not send your message.')
+        return
+      }
       setIsSubmitted(true)
-      setFormData({ name: '', email: '', subject: '', message: '' })
-      
+      setFormData({ name: '', email: '', subject: isFeedback ? 'feedback' : '', message: '' })
       setTimeout(() => setIsSubmitted(false), 5000)
-    }, 1000)
+    } catch {
+      setSubmitError('Could not send your message. Please email apputilitybuilder@gmail.com.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -85,8 +99,8 @@ function ContactForm() {
                 <Mail className="w-6 h-6 text-accent-600 mb-3" />
                 <h3 className="font-semibold text-mono-950 dark:text-mono-50 mb-2">{t('contactEmailUs')}</h3>
                 <p className="text-sm text-mono-600 dark:text-mono-400">
-                  <a href="mailto:support@creatorflow365.com" className="hover:text-accent-600 transition-colors">
-                    support@creatorflow365.com
+                  <a href="mailto:apputilitybuilder@gmail.com" className="hover:text-accent-600 transition-colors">
+                    apputilitybuilder@gmail.com
                   </a>
                 </p>
               </div>
@@ -208,6 +222,12 @@ function ContactForm() {
                         placeholder={t('contactMessagePlaceholder')}
                       />
                     </div>
+
+                    {submitError ? (
+                      <p className="text-sm text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 rounded-lg px-4 py-3">
+                        {submitError}
+                      </p>
+                    ) : null}
 
                     <button
                       type="submit"
